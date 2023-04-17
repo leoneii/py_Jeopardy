@@ -1,5 +1,6 @@
 # This Python file uses the following encoding: utf-8
 import sys
+#import PySide6
 from PySide6.QtWidgets import QApplication, QWidget
 import time
 from PySide6.QtCore import (QCoreApplication, QTimer, QEventLoop, QDate, QDateTime, QLocale, QMetaObject, QObject, QPoint, QRect, QSize, QTime, QUrl, Qt, QEvent)
@@ -13,8 +14,9 @@ from PySide6.QtWidgets import (QApplication, QLabel, QPushButton, QRadioButton,
 from knot import knoT
 from clilabel import ClickedLabel
 
-kolt=5
+kolt=3
 kolv=5
+otst=10
 
 continue_run = True
 
@@ -33,8 +35,9 @@ font = QFont()
 font.setFamilies([u"Serif"])
 #font.setPointSize(22)
 font.setBold(True)
+alignmentc=Qt.AlignmentFlag.AlignCenter
 css = "QLabel { background-color: rgba(0,0,180,255); color: rgba(255,255,255,255); text-align: bottom center; background-position: bottom center;}"
-cssbut = "QLabel { background-color: rgba(0,0,180,255); color: rgba(255,255,255,255); text-align: bottom center; background-position: bottom center;} QLabel::hover{background-color: lightgreen ;}"
+cssbut = "QLabel { background-color: rgba(0,0,180,255); color: rgba(255,255,255,255); text-align:center center; background-position: bottom center;} QLabel::hover{background-color: #0077ff ;}"
 bgpalbut = QPalette()
 bgpalbut.setColor(QPalette.Button, Qt.blue )
 
@@ -59,11 +62,11 @@ class wnd(QWidget):
         shp=wdh-wdh/4
         gp=wdh/4
         vp=10
-        wkn=(shp-(10+3*kolv))/kolv
-        hkn=(hgt-vp-(10+3*kolt))/kolt
+        wkn=(shp-(10+otst*kolv))/kolv
+        hkn=(hgt-vp-(10+otst*kolt))/kolt
         for i in range (kolt):
             lg=10
-            lv=vp+(hkn+3)*i
+            lv=vp+(hkn+otst)*i
             ltxt=ntem[i]
             #tem=Text(font=helv32, bg='#0000cc', fg="#ffffff", wrap=WORD)
             self.temb = QLabel(self)
@@ -81,9 +84,9 @@ class wnd(QWidget):
 
 
 
-            for j in range (kolt):
-                gij=gp+(wkn+3)*j
-                vij=vp+(hkn+3)*i
+            for j in range (kolv):
+                gij=gp+(wkn+otst)*j
+                vij=vp+(hkn+otst)*i
                # kn.append(knob(gij,vij,cnv[j]))
                 #pn+=1
                 ktxt=cnv[j]
@@ -92,6 +95,7 @@ class wnd(QWidget):
                 self.temb.setGeometry(QRect(gij, vij, wkn, hkn))
             #                self.temb.setWordWrap(True)
                 self.temb.setText(ktxt)
+                self.temb.setAlignment(alignmentc)
                 leghtext= len(ktxt)
                 font.setPointSize(hgt/(leghtext+18)+18)
                 self.temb.setFont(font)
@@ -100,6 +104,7 @@ class wnd(QWidget):
                 #self.temb.setBackgroundRole()
                 self.temb.setStyleSheet(cssbut)
                 self.temb.installEventFilter(self)
+                
                 
                 
                
