@@ -47,12 +47,6 @@ class wnd(QWidget):
         super().__init__(parent)
 #        self.continue_run =True       
         self.installEventFilter(self)
-#        wnd.attributes('-fullscreen',True)
-#         wnd
-#        wnd.configure(background='#000099')
-#        helv36 = tkFont.Font(family='Helvetica', size=36, weight=tkFont.BOLD)
-#        helv32 = tkFont.Font(family='Helvetica', size=32, weight=tkFont.BOLD)
-#        helv28 = tkFont.Font(family='Helvetica', size=28, weight=tkFont.BOLD)
         geometry = app.primaryScreen().availableGeometry()
         self.setGeometry(geometry)
         wdh=self.size().width()
@@ -68,7 +62,6 @@ class wnd(QWidget):
             lg=10
             lv=vp+(hkn+otst)*i
             ltxt=ntem[i]
-            #tem=Text(font=helv32, bg='#0000cc', fg="#ffffff", wrap=WORD)
             self.temb = QLabel(self)
             self.temb.setObjectName(u"label"+str(i))
             self.temb.setGeometry(QRect(lg, lv, shl, hkn))
@@ -87,8 +80,6 @@ class wnd(QWidget):
             for j in range (kolv):
                 gij=gp+(wkn+otst)*j
                 vij=vp+(hkn+otst)*i
-               # kn.append(knob(gij,vij,cnv[j]))
-                #pn+=1
                 ktxt=cnv[j]
                 self.temb = QLabel(self)
                 self.temb.setObjectName(u"kn_"+str(i)+"_"+str(j))
@@ -134,10 +125,6 @@ class wnd(QWidget):
         self.setPalette(bgpalette)
 
     def eventFilter(self, obj, event):
-        # Только фильтровать событие label1, переписать его поведение,
-        # другие события будут проигнорированы
-
-           # здесь отфильтруйте событие mouse и перепишите его поведение
           if obj != self:
                if event.type() == QEvent.MouseButtonPress:
                         mouseEvent = QMouseEvent(event)
@@ -162,28 +149,10 @@ class wnd(QWidget):
                   #sys.exit(self)
                   app.quit() 
                   app.exit(0)
-        #         ''' Преобразование размера изображения '''
        
 
           return QWidget.eventFilter(self, obj, event) 
     
-    # def eventFilter2(self, obj, event):
-    #     if event.type() == QEvent.KeyPress:
-    #          keyEvent = QKeyEvent(event)
-    #          if keyEvent == Qt.Key_Escape:
-    #               app.quit()            
-    #     #         ''' Преобразование размера изображения '''
-    #     #         transform = QTransform()
-    #     #         transform.scale(0.5, 0.5)
-    #     #         tmp = self.image1.transformed(transform)
-    #     #         self.label1.setPixmap(QPixmap.fromImage(tmp))
-
-    #     #     # здесь отфильтруйте событие выпуска мыши и перепишите его поведение
-    #     # if event.type() == QEvent.MouseButtonRelease:
-    #     #         self.labelState.setText("Отпустили кнопку мыши")
-    #     #         self.label1.setPixmap(QPixmap.fromImage(self.image1))
-
-    #     return QWidget.eventFilter(self, obj, event) 
 
 if __name__ == "__main__":
     app = QApplication([])
