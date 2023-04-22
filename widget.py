@@ -14,7 +14,7 @@ from PySide6.QtWidgets import (QApplication, QLabel, QPushButton, QRadioButton,
 from knot import knoT
 from clilabel import ClickedLabel
 
-kolt=3
+kolt=5
 kolv=5
 otst=10
 
