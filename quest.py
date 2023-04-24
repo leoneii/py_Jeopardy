@@ -6,7 +6,7 @@ from PySide6.QtGui import (QFont, QColor,QPixmap)
 
 phyn=1 # 0-без фото, 1- с фото
 testtext="Шёл мужик попу кивал. Чем мужик попу кивал? "
-ttq=30 #время на ответ сек.
+ttq=10 #время на ответ сек.
 ttq=ttq*10
 
 font = QFont()
@@ -37,7 +37,10 @@ class wing(QWidget):
             self.photo.setAlignment(alignmentc)
             self.photo.setGeometry(QRect(100, 20, wdt-200, hgt/2))
             pixmap=QPixmap("img/tree.jpeg")
-            pixmap.scaledToHeight(hgt/2)
+           # pixmap.scaledToHeight(hgt/2)
+            pixmap = pixmap.scaled(900, hgt/2, Qt.KeepAspectRatio) 
+          # pixmap.setDevicePixelRatio()
+            #self.photo.setScaledContents(True)
             self.photo.setPixmap(pixmap)
 #Конец фото
 
@@ -132,7 +135,7 @@ class wing(QWidget):
 
         
 
-ques=wing(phyn,testtext*2)
+ques=wing(phyn,testtext*7)
 ques.showFullScreen()
 
 
