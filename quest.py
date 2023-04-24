@@ -37,10 +37,7 @@ class wing(QWidget):
             self.photo.setAlignment(alignmentc)
             self.photo.setGeometry(QRect(100, 20, wdt-200, hgt/2))
             pixmap=QPixmap("img/tree.jpeg")
-           # pixmap.scaledToHeight(hgt/2)
             pixmap = pixmap.scaled(900, hgt/2, Qt.KeepAspectRatio) 
-          # pixmap.setDevicePixelRatio()
-            #self.photo.setScaledContents(True)
             self.photo.setPixmap(pixmap)
 #Конец фото
 

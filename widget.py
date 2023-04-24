@@ -11,12 +11,18 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QMouseEven
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QLabel, QPushButton, QRadioButton,
         QSizePolicy, QWidget, QFrame)
+from PySide6 import  QtSql, QtCore
 from knot import knoT
 from clilabel import ClickedLabel
+
+#база данных
+global sqlDB
 
 kolt=5
 kolv=5
 otst=10
+
+
 
 continue_run = True
 
@@ -158,6 +164,10 @@ class wnd(QWidget):
 
 if __name__ == "__main__":
     app = QApplication([])
+    QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
+    sqlDB = QtSql.QSqlDatabase.addDatabase('QSQLITE')
+    sqlDB.setDatabaseName(u'gcs.sqlite')
+    sqlDB.open()
     window = wnd()
     window.showFullScreen()    
     window.colorchange()
