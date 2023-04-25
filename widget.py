@@ -11,12 +11,21 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QMouseEven
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QLabel, QPushButton, QRadioButton,
         QSizePolicy, QWidget, QFrame)
-from PySide6 import  QtSql, QtCore
+from PySide6 import QtCore
+from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlRecord, QSqlTableModel
 from knot import knoT
 from clilabel import ClickedLabel
+import logging
 
 #база данных
 global sqlDB
+QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
+sqlDB = QSqlDatabase.addDatabase('QSQLITE')
+sqlDB.setDatabaseName('jep.sqlite')
+sqlDB.open()
+
+#переменные
+continue_run = True
 
 kolt=5
 kolv=5
@@ -24,7 +33,23 @@ otst=10
 
 
 
-continue_run = True
+#Чтение настроек из БД
+query = QSqlQuery()
+if not query.exec(
+        """
+        SELECT * from settings;
+        """
+):
+    logging.error("Failed to query database")
+
+query.nextResult()
+query.next()
+kolt = int(query.value(1))
+kolv = int(query.value(2))
+otst = int(query.value(4))
+
+
+
 
 #Проверка для запуска без консоли
 # try:
@@ -164,10 +189,6 @@ class wnd(QWidget):
 
 if __name__ == "__main__":
     app = QApplication([])
-    QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
-    sqlDB = QtSql.QSqlDatabase.addDatabase('QSQLITE')
-    sqlDB.setDatabaseName(u'gcs.sqlite')
-    sqlDB.open()
     window = wnd()
     window.showFullScreen()    
     window.colorchange()
