@@ -9,20 +9,18 @@ testtext="Шёл мужик попу кивал. Чем мужик попу ки
 ttq=10 #время на ответ сек.
 ttq=ttq*10
 
-font = QFont()
-font.setFamilies([u"Arial"])
-#font.setPointSize(50)
-font.setBold(True)
-alignmentc=Qt.AlignmentFlag.AlignCenter
 
+appq = QApplication([])
 
+class winq(QWidget):
 
-app = QApplication([])
-
-class wing(QWidget):
+    font = QFont()
+    font.setFamilies([u"Arial"])
+    font.setBold(True)
+    alignmentc=Qt.AlignmentFlag.AlignCenter
     def __init__(self,ynph,txt):
         super().__init__()
-        geometry = app.primaryScreen().availableGeometry()
+        geometry = appq.primaryScreen().availableGeometry()
         self.setGeometry(geometry)
         wdt=self.size().width()
         hgt=self.size().height()       
@@ -34,19 +32,19 @@ class wing(QWidget):
 #Фото
         if ynph==1:
             self.photo=QLabel(self)
-            self.photo.setAlignment(alignmentc)
-            self.photo.setGeometry(QRect(100, 20, wdt-200, hgt/2))
+            self.photo.setAlignment(self.alignmentc)
+            self.photo.setGeometry(QRect(100, 20, wdt-200, hgt*2/3))
             pixmap=QPixmap("img/tree.jpeg")
-            pixmap = pixmap.scaled(900, hgt/2, Qt.KeepAspectRatio) 
+            pixmap = pixmap.scaled(900, hgt*2/3, Qt.KeepAspectRatio) 
             self.photo.setPixmap(pixmap)
 #Конец фото
 
 #текст вопроса
         self.textv = QLabel(self)
         self.textv.setObjectName(u"txtvopr")
-        self.textv.setAlignment(alignmentc)
+        self.textv.setAlignment(self.alignmentc)
         if ynph==1:
-            self.textv.setGeometry(QRect(100, hgt/2+20, wdt-200, hgt/2-40))
+            self.textv.setGeometry(QRect(100, hgt*2/3+20, wdt-200, hgt/3-40))
         else:
             self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
         self.textv.setWordWrap(True)
@@ -68,7 +66,7 @@ class wing(QWidget):
             else:
                 fs=85            
         tfs="border:0px solid black;font-size:"+str(fs)+"px"
-        self.textv.setFont(font)
+        self.textv.setFont(self.font)
         self.textv.setFrameShape(QFrame.Box)
         self.textv.setAutoFillBackground(True)
         self.textv.setStyleSheet(tfs)
@@ -98,10 +96,10 @@ class wing(QWidget):
  
         self.ss_button = QPushButton('Start', self)             # 5
         self.ss_button.clicked.connect(self.start_stop_func)
-        self.reset_button = QPushButton('Reset', self)          # 6
-        self.reset_button.clicked.connect(self.reset_func)
+        self.nxt_button = QPushButton('Ответ', self)          # 6
+        self.nxt_button.clicked.connect(self.nxt_func)
         self.ss_button.setGeometry(10,hgt-65,100,30)
-        self.reset_button.setGeometry(115,hgt-65,100,30)
+        self.nxt_button.setGeometry(wdt-110,hgt-65,100,30)
 
     def start_stop_func(self):
         
@@ -121,19 +119,22 @@ class wing(QWidget):
                 self.timer.stop()
                 self.step = 0
  
-    def reset_func(self):
-            self.progressbar.reset()
-            self.ss_button.setText('Start')
-            self.timer.stop()
-            self.step = 0
+    def nxt_func(self):
+            # self.progressbar.reset()
+            # self.ss_button.setText('Start')
+            # self.timer.stop()
+            # self.step = 0
+            
+            appq.exit()
+            appq.instance().quit()
          
         
 #Конец прогрессбара таймера
 
         
 
-ques=wing(phyn,testtext*7)
+ques=winq(phyn,testtext*9)
 ques.showFullScreen()
 
 
-app.exec()
+appq.exec()
