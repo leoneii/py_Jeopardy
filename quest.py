@@ -10,7 +10,7 @@ ttq=10 #время на ответ сек.
 ttq=ttq*10
 
 
-appq = QApplication([])
+#appq = QApplication([])
 
 class winq(QWidget):
 
@@ -18,9 +18,9 @@ class winq(QWidget):
     font.setFamilies([u"Arial"])
     font.setBold(True)
     alignmentc=Qt.AlignmentFlag.AlignCenter
-    def __init__(self,ynph,txt):
+    def __init__(self,appl,ynph,txt):
         super().__init__()
-        geometry = appq.primaryScreen().availableGeometry()
+        geometry = appl.primaryScreen().availableGeometry()
         self.setGeometry(geometry)
         wdt=self.size().width()
         hgt=self.size().height()       
@@ -125,16 +125,17 @@ class winq(QWidget):
             # self.timer.stop()
             # self.step = 0
             
-            appq.exit()
-            appq.instance().quit()
+           # self.exit()
+            self.close()
+            self.instance().quit()
          
         
 #Конец прогрессбара таймера
 
         
 
-ques=winq(phyn,testtext*9)
-ques.showFullScreen()
+#ques=winq(phyn,testtext*9)
+#ques.showFullScreen()
 
 
-appq.exec()
+#appq.exec()

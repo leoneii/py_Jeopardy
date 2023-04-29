@@ -15,8 +15,9 @@ from PySide6 import QtCore
 from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlRecord, QSqlTableModel
 from knot import knoT
 from clilabel import ClickedLabel
+from quest import winq
 import logging
-#from quest import winq # окно вопроса
+
 
 #база данных
 global sqlDB
@@ -172,6 +173,9 @@ class wnd(QWidget):
                         if mouseEvent.buttons() == Qt.LeftButton:
                     #QMessageBox.about(self,"Нажматие!!!))","Нажали левую кнопку мыши")
                             obj.setVisible(False)
+                            #self.setVisible(False)
+                          #  newwind=winq(app,1,"ghffg")
+                            newwind.showFullScreen()
                # elif mouseEvent.buttons() == Qt.MidButton:
                #     QMessageBox.information(self,"Нажматие!!!))","Нажали среднюю кнопку мыши")
                         elif mouseEvent.buttons() == Qt.RightButton:
@@ -196,8 +200,10 @@ class wnd(QWidget):
     
 
 if __name__ == "__main__":
-    app = QApplication(sys)
+    app = QApplication([])
     window = wnd()
-    window.showFullScreen()    
+    window.showFullScreen()
+    newwind = winq(app, 1, "ghffg")
+  #  newwind.showFullScreen()
     window.colorchange()
     sys.exit(app.exec())
