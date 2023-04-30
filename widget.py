@@ -92,17 +92,28 @@ class wnd(QWidget):
         vp=10
         wkn=(shp-(10+otst*kolv))/kolv
         hkn=(hgt-vp-(10+otst*kolt))/kolt
+
+#       Создание запроса к БД
+        query = QSqlQuery()
+        if not query.exec(
+                """
+                SELECT * from ThemeAndQ;
+                """
+        ):
+            logging.error("Failed to query database")
+        query.next()
         for i in range (kolt):
             lg=10
             lv=vp+(hkn+otst)*i
-            ltxt=ntem[i]
+            ltxt=str(query.value(0))
+            #ltxt=ntem[i]
             self.temb = QLabel(self)
             self.temb.setObjectName(u"label"+str(i))
             self.temb.setGeometry(QRect(lg, lv, shl, hkn))
             self.temb.setWordWrap(True)
             self.temb.setText(ltxt)
             leghtext= len(ltxt)
-            font.setPointSize(hgt/(leghtext+18)+18)
+            font.setPointSize(hgt/(leghtext+18)+13)
             self.temb.setFont(font)
             self.temb.setFrameShape(QFrame.Box)
             self.temb.setAutoFillBackground(True)
@@ -112,7 +123,8 @@ class wnd(QWidget):
             for j in range (kolv):
                 gij=gp+(wkn+otst)*j
                 vij=vp+(hkn+otst)*i
-                ktxt=cnv[j]
+                #ktxt=cnv[j]
+                ktxt=str(query.value(2))
                 self.temb = QLabel(self)
                 self.temb.setObjectName(u"kn_"+str(i)+"_"+str(j))
                 self.temb.setGeometry(QRect(gij, vij, wkn, hkn))
@@ -120,13 +132,14 @@ class wnd(QWidget):
                 self.temb.setText(ktxt)
                 self.temb.setAlignment(alignmentc)
                 leghtext= len(ktxt)
-                font.setPointSize(hgt/(leghtext+18)+18)
+                font.setPointSize(hgt/(leghtext+18)+20)
                 self.temb.setFont(font)
                 self.temb.setFrameShape(QFrame.Box)
                 self.temb.setAutoFillBackground(True)
                 #self.temb.setBackgroundRole()
                 self.temb.setStyleSheet(cssbut)
                 self.temb.installEventFilter(self)
+                query.next()
 
 
 
