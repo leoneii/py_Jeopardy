@@ -176,6 +176,7 @@ class wnd(QWidget):
                         if mouseEvent.buttons() == Qt.LeftButton:
                     #QMessageBox.about(self,"Нажматие!!!))","Нажали левую кнопку мыши")
                             obj.setVisible(False)
+
                             newwind.showFullScreen()
                # elif mouseEvent.buttons() == Qt.MidButton:
                #     QMessageBox.information(self,"Нажматие!!!))","Нажали среднюю кнопку мыши")
@@ -203,7 +204,7 @@ class wnd(QWidget):
 if __name__ == "__main__":
     app = QApplication([])
     window = wnd()
-    newwind = winq(app,1,"jhgfjyf")
+    newwind = winq(app,1,"текст вопроса"*5,1,"текст ответа")
     window.showFullScreen()
     window.colorchange()
     sys.exit(app.exec())

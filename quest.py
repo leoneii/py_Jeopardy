@@ -9,6 +9,10 @@ testtext="Шёл мужик попу кивал. Чем мужик попу ки
 ttq=10 #время на ответ сек.
 ttq=ttq*10
 
+# переменные ответа
+ynpha=1
+txta="kjghkjhg kjhgjhg jhgfghgf ffgh f jhgfg hjjkjg"
+
 
 #appq = QApplication([])
 
@@ -18,7 +22,7 @@ class winq(QWidget):
     font.setFamilies([u"Arial"])
     font.setBold(True)
     alignmentc=Qt.AlignmentFlag.AlignCenter
-    def __init__(self,appl,ynph,txt):
+    def __init__(self,appl,ynph,txt,ynpha,txta):
         super().__init__()
         geometry = appl.primaryScreen().availableGeometry()
         self.setGeometry(geometry)
@@ -118,24 +122,48 @@ class winq(QWidget):
                 self.ss_button.setText('Start')
                 self.timer.stop()
                 self.step = 0
- 
+#окно ответа 
     def nxt_func(self):
-            # self.progressbar.reset()
-            # self.ss_button.setText('Start')
-            # self.timer.stop()
-            # self.step = 0
-            
-           # self.exit()
-            self.close()
-            self.instance().quit()
+        wdt=self.size().width()
+        hgt=self.size().height()  
+        if ynpha==1:
+            pixmap=QPixmap("img/space.jpg")
+            self.photo.setPixmap(pixmap)       
+
+        if ynpha==1:
+            self.textv.setGeometry(QRect(100, hgt*2/3+20, wdt-200, hgt/3-40))
+        else:
+            self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
+            self.textv.setText(txta)
+        
+        self.ss_button.setVisible(False)
+        self.progressbar.setVisible(False)
+        
+        self.nxt_button.setText('Далее')
+        self.nxt_button.clicked.connect(self.nxta_func)        
+        
+        
+ 
+    def nxta_func(self):
+        # wdt=self.size().width()
+        # hgt=self.size().height()  
+        # if self.ynph==1:
+        #     pixmap=QPixmap("img/tree.jpg")
+        #     self.photo.setPixmap(pixmap)       
+
+        # if self.ynph==1:
+        #     self.textv.setGeometry(QRect(100, hgt*2/3+20, wdt-200, hgt/3-40))
+        # else:
+        #     self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
+        #     self.textv.setText(self.txt)
+
+        self.ss_button.setVisible(True)
+        self.progressbar.setVisible(True)
+        self.close()
+#        self.destroy() 
+
          
-        
-#Конец прогрессбара таймера
-
-        
-
-#ques=winq(phyn,testtext*9)
-#ques.showFullScreen()
 
 
-#appq.exec()
+
+
