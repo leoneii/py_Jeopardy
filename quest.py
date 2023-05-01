@@ -1,5 +1,7 @@
+import logging
 import sys
 from PySide6.QtCore import (Qt,QRect,QTimer)
+from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import (QApplication, QLabel,QWidget,QVBoxLayout,QHBoxLayout,
         QFrame,QProgressBar,QPushButton)
 from PySide6.QtGui import (QFont, QColor,QPixmap)
@@ -17,10 +19,21 @@ txta="kjghkjhg kjhgjhg jhgfghgf ffgh f jhgfg hjjkjg"
 #appq = QApplication([])
 
 class winq(QWidget):
+    #Обращение к бд
+    query = QSqlQuery()
+    if not query.exec(
+            """
+            SELECT * from ThemeAndQ;
+            """
+    ):
+        logging.error("Quest to query database")
+    query.next()
+
 
     font = QFont()
     font.setFamilies([u"Arial"])
     font.setBold(True)
+    #font.setItalic(True)
     alignmentc=Qt.AlignmentFlag.AlignCenter
     def __init__(self,appl,ynph,txt,ynpha,txta):
         super().__init__()
