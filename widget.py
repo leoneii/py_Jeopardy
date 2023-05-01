@@ -1,21 +1,16 @@
 # This Python file uses the following encoding: utf-8
-import sys
-#import PySide6
-from PySide6.QtWidgets import QApplication, QWidget
-import time
-from PySide6.QtCore import (QCoreApplication, QTimer, QEventLoop, QDate, QDateTime, QLocale, QMetaObject, QObject, QPoint, QRect, QSize, QTime, QUrl, Qt, QEvent)
-from PySide6.QtWidgets import QApplication, QWidget, QMessageBox
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QMouseEvent ,QKeyEvent,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QLabel, QPushButton, QRadioButton,
-        QSizePolicy, QWidget, QFrame)
-from PySide6 import QtCore
-from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlRecord, QSqlTableModel
-from knot import knoT
-from clilabel import ClickedLabel
 import logging
+import sys
+
+import PySide6
+from PySide6 import QtCore
+# import PySide6
+from PySide6.QtCore import (QTimer, QEventLoop, QRect, Qt, QEvent)
+from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette)
+from PySide6.QtSql import QSqlDatabase, QSqlQuery
+from PySide6.QtWidgets import (QApplication, QLabel, QWidget, QFrame)
+from PySide6.QtWidgets import QMessageBox
+
 from quest import winq
 
 #база данных
@@ -172,15 +167,14 @@ class wnd(QWidget):
     def eventFilter(self, obj, event):
           if obj != self:
                if event.type() == QEvent.MouseButtonPress:
-                        mouseEvent = QMouseEvent(event)
-                        if mouseEvent.buttons() == Qt.LeftButton:
+                        mouse_event = QMouseEvent(event)
+                        if mouse_event.buttons() == Qt.LeftButton:
                     #QMessageBox.about(self,"Нажматие!!!))","Нажали левую кнопку мыши")
                             obj.setVisible(False)
-
                             newwind.showFullScreen()
-               # elif mouseEvent.buttons() == Qt.MidButton:
+               # elif mouse_event.buttons() == Qt.MidButton:
                #     QMessageBox.information(self,"Нажматие!!!))","Нажали среднюю кнопку мыши")
-                        elif mouseEvent.buttons() == Qt.RightButton:
+                        elif mouse_event.buttons() == Qt.RightButton:
                             QMessageBox.warning(self,"Нажматие!!!))","Нажали правую кнопку мыши "+str(obj.objectName()) )
           # elif obj == self:
           #        if event.type() == QEvent.Show:
