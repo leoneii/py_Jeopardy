@@ -33,7 +33,8 @@ class winq(QWidget):
         color: #ddFFaa;
         font-family: Arial;
         """)
-#Фото
+
+        #Фото
         if ynph==1:
             self.photo=QLabel(self)
             self.photo.setAlignment(self.alignmentc)
