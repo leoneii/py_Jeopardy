@@ -38,7 +38,9 @@ class winq(QWidget):
     font.setBold(True)
     #font.setItalic(True)
     alignmentc=Qt.AlignmentFlag.AlignCenter
-    def __init__(self,appl,ynph,txt,ynpha,txta):
+    global txta
+    global ynpha
+    def __init__(self,appl,ynph,txt,ynpha, txta):
         super().__init__()
         geometry = appl.primaryScreen().availableGeometry()
         self.setGeometry(geometry)
