@@ -97,6 +97,7 @@ class wnd(QWidget):
         ):
             logging.error("Failed to query database")
         query.next()
+        rowdb=0
         for i in range (kolt):
             lg=10
             lv=vp+(hkn+otst)*i
@@ -118,10 +119,11 @@ class wnd(QWidget):
             for j in range (kolv):
                 gij=gp+(wkn+otst)*j
                 vij=vp+(hkn+otst)*i
-                #ktxt=cnv[j]
                 ktxt=str(query.value(2))
                 self.temb = QLabel(self)
-                self.temb.setObjectName(u"kn_"+str(i)+"_"+str(j))
+               # self.temb.setObjectName(u"kn_"+str(i)+"_"+str(j))
+                self.temb.setObjectName(str(rowdb))
+                rowdb = rowdb+1
                 self.temb.setGeometry(QRect(gij, vij, wkn, hkn))
             #                self.temb.setWordWrap(True)
                 self.temb.setText(ktxt)
@@ -171,6 +173,18 @@ class wnd(QWidget):
                         if mouse_event.buttons() == Qt.LeftButton:
                     #QMessageBox.about(self,"Нажматие!!!))","Нажали левую кнопку мыши")
                             obj.setVisible(False)
+                            #запрос БД
+                            query = QSqlQuery()
+                            if not query.exec(
+                                     """
+                                      SELECT * from ThemeAndQ;
+                                      """
+                            ):
+                                 logging.error("Failed to query database")
+                            query.next()#первая строка БД
+                            #QMessageBox.information(self, "Нажматие!!!))", str(obj.objectName()))
+                            query.seek(int(obj.objectName())) #переходим к конкретной строке БД
+                            txtv = str(query.value(1))
                             global newwind
                             newwind = winq(app, 1, "текст вопроса" * 5, 1, "текст ответа")
                             newwind.showFullScreen()
