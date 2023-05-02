@@ -11,15 +11,14 @@ from PySide6.QtGui import (QFont, QColor,QPixmap)
 #import widget
 
 #from widget import sqlDB
-
 phyn=1 # 0-без фото, 1- с фото
 testtext="Шёл мужик попу кивал. Чем мужик попу кивал? "
 ttq=10 #время на ответ сек.
 ttq=ttq*10
 
 # переменные ответа (так не должно быть, но без этого не работает вообще :(  )
-ynpha=1
-txta="kjghkjhg kjhgjhg jhgfghgf ffgh f jhgfg hjjkjg"
+#ynpha=1
+#txta="kjghkjhg kjhgjhg jhgfghgf ffgh f jhgfg hjjkjg"
 
 #global sqlDB
 #appq = QApplication([])
@@ -38,9 +37,11 @@ class winq(QWidget):
     font.setBold(True)
     #font.setItalic(True)
     alignmentc=Qt.AlignmentFlag.AlignCenter
-    global txta
-    global ynpha
-    def __init__(self,appl,ynph,txt,ynpha, txta):
+    def __init__(self,appl,ynph,txt,ynpha_l, txta_l):
+        global txta
+        global ynpha
+        txta=txta_l
+        ynpha=ynpha_l
         super().__init__()
         geometry = appl.primaryScreen().availableGeometry()
         self.setGeometry(geometry)
@@ -116,7 +117,7 @@ class winq(QWidget):
         self.step = 0
         self.timer = QTimer(self)                               # 4
         self.timer.timeout.connect(self.update_func)
- 
+
         self.ss_button = QPushButton('Start', self)             # 5
         self.ss_button.clicked.connect(self.start_stop_func)
         self.nxt_button = QPushButton('Ответ', self)          # 6
@@ -141,34 +142,34 @@ class winq(QWidget):
                 self.ss_button.setText('Start')
                 self.timer.stop()
                 self.step = 0
-#окно ответа 
+#окно ответа
     def nxt_func(self):
-        wdt=self.size().width()
-        hgt=self.size().height()  
-        if ynpha==1:
-            pixmap=QPixmap("img/space.jpg")
-            self.photo.setPixmap(pixmap)       
+            wdt=self.size().width()
+            hgt=self.size().height()
+            if ynpha==1:
+                 pixmap=QPixmap("img/space.jpg")
+                 self.photo.setPixmap(pixmap)
+                 self.textv.setText(txta)
+            if ynpha==1:
+                 self.textv.setGeometry(QRect(100, hgt*2/3+20, wdt-200, hgt/3-40))
+            else:
+                 self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
+                 self.textv.setText(txta)
 
-        if ynpha==1:
-            self.textv.setGeometry(QRect(100, hgt*2/3+20, wdt-200, hgt/3-40))
-        else:
-            self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
-            self.textv.setText(txta)
-        
-        self.ss_button.setVisible(False)
-        self.progressbar.setVisible(False)
-        
-        self.nxt_button.setText('Далее')
-        self.nxt_button.clicked.connect(self.nxta_func)        
+            self.ss_button.setVisible(False)
+            self.progressbar.setVisible(False)
+
+            self.nxt_button.setText('Далее')
+            self.nxt_button.clicked.connect(self.nxta_func)
         
         
  
     def nxta_func(self):
         # wdt=self.size().width()
-        # hgt=self.size().height()  
+        # hgt=self.size().height()
         # if self.ynph==1:
         #     pixmap=QPixmap("img/tree.jpg")
-        #     self.photo.setPixmap(pixmap)       
+        #     self.photo.setPixmap(pixmap)
 
         # if self.ynph==1:
         #     self.textv.setGeometry(QRect(100, hgt*2/3+20, wdt-200, hgt/3-40))
@@ -179,9 +180,9 @@ class winq(QWidget):
         self.ss_button.setVisible(True)
         self.progressbar.setVisible(True)
         self.close()
-#        self.destroy() 
+#        self.destroy()
 
-         
+
 
 
 
