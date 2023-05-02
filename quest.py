@@ -1,10 +1,16 @@
 import logging
 import sys
+
+from PySide6 import QtCore
 from PySide6.QtCore import (Qt,QRect,QTimer)
-from PySide6.QtSql import QSqlQuery
+from PySide6.QtSql import QSqlQuery, QSqlDatabase
 from PySide6.QtWidgets import (QApplication, QLabel,QWidget,QVBoxLayout,QHBoxLayout,
         QFrame,QProgressBar,QPushButton)
 from PySide6.QtGui import (QFont, QColor,QPixmap)
+
+#import widget
+
+#from widget import sqlDB
 
 phyn=1 # 0-без фото, 1- с фото
 testtext="Шёл мужик попу кивал. Чем мужик попу кивал? "
@@ -15,21 +21,18 @@ ttq=ttq*10
 ynpha=1
 txta="kjghkjhg kjhgjhg jhgfghgf ffgh f jhgfg hjjkjg"
 
-
+#global sqlDB
 #appq = QApplication([])
+#widget.sqlDB.open()
+
+# global sqlDB
+# QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
+# sqlDB = QSqlDatabase.addDatabase('QSQLITE')
+# sqlDB.setDatabaseName('jep.sqlite')
+# sqlDB.open()
+
 
 class winq(QWidget):
-    #Обращение к бд
-    query = QSqlQuery()
-    if not query.exec(
-            """
-            SELECT * from ThemeAndQ;
-            """
-    ):
-        logging.error("Quest to query database")
-    query.next()
-
-
     font = QFont()
     font.setFamilies([u"Arial"])
     font.setBold(True)

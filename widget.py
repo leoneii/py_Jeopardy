@@ -14,7 +14,7 @@ from PySide6.QtWidgets import QMessageBox
 from quest import winq
 
 #база данных
-global sqlDB
+#global sqlDB
 QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
 sqlDB = QSqlDatabase.addDatabase('QSQLITE')
 sqlDB.setDatabaseName('jep.sqlite')
@@ -171,6 +171,8 @@ class wnd(QWidget):
                         if mouse_event.buttons() == Qt.LeftButton:
                     #QMessageBox.about(self,"Нажматие!!!))","Нажали левую кнопку мыши")
                             obj.setVisible(False)
+                            global newwind
+                            newwind = winq(app, 1, "текст вопроса" * 5, 1, "текст ответа")
                             newwind.showFullScreen()
                # elif mouse_event.buttons() == Qt.MidButton:
                #     QMessageBox.information(self,"Нажматие!!!))","Нажали среднюю кнопку мыши")
@@ -198,7 +200,10 @@ class wnd(QWidget):
 if __name__ == "__main__":
     app = QApplication([])
     window = wnd()
-    newwind = winq(app,1,"текст вопроса"*5,1,"текст ответа")
+   # newwind = winq(app,1,"текст вопроса"*5,1,"текст ответа")
     window.showFullScreen()
     window.colorchange()
     sys.exit(app.exec())
+    sqlDB.close()
+    sqlDB.removeDatabase('QSQLITE')
+    sqlDB.removeDatabase('jep.sqlite')
