@@ -185,7 +185,7 @@ class wnd(QWidget):
                             #QMessageBox.information(self, "Нажматие!!!))", str(obj.objectName()))
                             query.seek(int(obj.objectName())) #переходим к конкретной строке БД
                             global newwind
-                            newwind = winq(app, 1,str(query.value(1)) , 1, str(query.value(4)))
+                            newwind = winq(app, str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)))
                             newwind.showFullScreen()
                # elif mouse_event.buttons() == Qt.MidButton:
                #     QMessageBox.information(self,"Нажматие!!!))","Нажали среднюю кнопку мыши")

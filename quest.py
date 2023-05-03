@@ -54,11 +54,11 @@ class winq(QWidget):
         """)
 
         #Фото
-        if ynph==1:
+        if len(ynph) > 0:
             self.photo=QLabel(self)
             self.photo.setAlignment(self.alignmentc)
             self.photo.setGeometry(QRect(100, 20, wdt-200, hgt*2/3))
-            pixmap=QPixmap("img/tree.jpeg")
+            pixmap=QPixmap("img/"+ynph)
             pixmap = pixmap.scaled(900, hgt*2/3, Qt.KeepAspectRatio) 
             self.photo.setPixmap(pixmap)
 #Конец фото
@@ -67,7 +67,7 @@ class winq(QWidget):
         self.textv = QLabel(self)
         self.textv.setObjectName(u"txtvopr")
         self.textv.setAlignment(self.alignmentc)
-        if ynph==1:
+        if len(ynph) > 0:
             self.textv.setGeometry(QRect(100, hgt*2/3+20, wdt-200, hgt/3-40))
         else:
             self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
@@ -146,11 +146,11 @@ class winq(QWidget):
     def nxt_func(self):
             wdt=self.size().width()
             hgt=self.size().height()
-            if ynpha==1:
-                 pixmap=QPixmap("img/space.jpg")
+            if len(ynpha) > 0:
+                 pixmap=QPixmap("img/"+ynpha)
                  self.photo.setPixmap(pixmap)
                  self.textv.setText(txta)
-            if ynpha==1:
+            if len(ynpha) > 0:
                  self.textv.setGeometry(QRect(100, hgt*2/3+20, wdt-200, hgt/3-40))
             else:
                  self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
