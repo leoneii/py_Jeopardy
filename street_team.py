@@ -102,10 +102,8 @@ class Wint(QWidget):
         sndr = self.sender().objectName()
        # QMessageBox.warning(self, "Нажматие!!!))", " " + str(self.sender().objectName()))
         if sndr[:3] == "pls":
-    #        QMessageBox.warning(self, "Нажматие!!!))", " Плюс -" + sndr[3:] + "")
             tots[int(sndr[3:])]+=cenv
         else:
-    #        QMessageBox.warning(self, "Нажматие!!!))", " минус -" + sndr[3:] + "")
             tots[int(sndr[3:])] -= cenv
 #меняем значения на лейблах
         obj = QLabel()
