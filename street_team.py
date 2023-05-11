@@ -104,10 +104,13 @@ class Wint(QWidget):
         if sndr[:3] == "pls":
     #        QMessageBox.warning(self, "Нажматие!!!))", " Плюс -" + sndr[3:] + "")
             tots[int(sndr[3:])]+=cenv
-            self.result.setText(str(tots[int(sndr[3:])]))
         else:
     #        QMessageBox.warning(self, "Нажматие!!!))", " минус -" + sndr[3:] + "")
             tots[int(sndr[3:])] -= cenv
+#меняем значения на лейблах
+        obj = QLabel()
+        obj = self.findChild(QLabel, "rst" + sndr[3:])
+        obj.setText(str(tots[int(sndr[3:])]))
 
 apt=QApplication([])
 wnt=Wint(tkolt)
