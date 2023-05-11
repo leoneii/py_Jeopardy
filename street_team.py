@@ -60,6 +60,7 @@ class Wint(QWidget):
             self.tnm.show()
 
             self.result=QLabel(self)
+            self.result.setObjectName("rst" + str(i))
             self.result.setGeometry(i*(twdt+10)+10,hgt/4+hgt/3,twdt,hgt/5)
             self.result.setWordWrap(True)
             self.result.setText(str(tots[i]))
@@ -101,10 +102,12 @@ class Wint(QWidget):
         sndr = self.sender().objectName()
        # QMessageBox.warning(self, "Нажматие!!!))", " " + str(self.sender().objectName()))
         if sndr[:3] == "pls":
-            QMessageBox.warning(self, "Нажматие!!!))", " Плюс -" + sndr[3:] + "")
+    #        QMessageBox.warning(self, "Нажматие!!!))", " Плюс -" + sndr[3:] + "")
+            tots[int(sndr[3:])]+=cenv
+            self.result.setText(str(tots[int(sndr[3:])]))
         else:
-            QMessageBox.warning(self, "Нажматие!!!))", " минус -" + sndr[3:] + "")
-
+    #        QMessageBox.warning(self, "Нажматие!!!))", " минус -" + sndr[3:] + "")
+            tots[int(sndr[3:])] -= cenv
 
 apt=QApplication([])
 wnt=Wint(tkolt)
