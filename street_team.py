@@ -1,7 +1,7 @@
 import sys
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont, QPixmap
-from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton
+from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QMessageBox
 
 # забирать из базы данных
 tkolt=4
@@ -33,6 +33,10 @@ class Wint(QWidget):
                 color: #ddFFaa;
                 font-family: Arial;
                 """)
+
+
+
+          #               print(snd)
 
         for i in range(tkol):
             self.logo=QLabel(self)
@@ -66,24 +70,24 @@ class Wint(QWidget):
             self.result.setStyleSheet(stsh)
             self.result.show()
 
-            def sumf():
-                sndr = self.sender()
-                snd=sndr.objectName()
-#               print(snd)
+
 
             self.plusb=QPushButton(self)
             self.plusb.setObjectName("pls"+str(i))
+            #QMessageBox.warning(self, "Нажматие!!!))", "Название объекта " + str(self.plusb.objectName()))
             self.plusb.setGeometry(i*(twdt+10)+10,hgt/4+hgt/3+hgt/5+10,twdt/2-2,hgt/10)
             self.plusb.setText("+")
             self.plusb.setStyleSheet("font-size: "+str(fnts)+"px")
-            self.plusb.clicked.connect(sumf)
+            self.plusb.clicked.connect(self.sumf)
             self.plusb.show()
 
 
             self.minub=QPushButton(self)
+            self.minub.setObjectName("mns" + str(i))
             self.minub.setGeometry(i*(twdt+10)+12+twdt/2,hgt/4+hgt/3+hgt/5+10,twdt/2-2,hgt/10)
             self.minub.setText("-")
             self.minub.setStyleSheet("font-size: "+str(fnts)+"px")
+            self.minub.clicked.connect(self.sumf)
             self.minub.show()
 
         self.contin = QPushButton(self)
@@ -93,7 +97,13 @@ class Wint(QWidget):
         self.contin.setStyleSheet("font-size: " + str(fnts) + "px")
         self.contin.show()
 
-
+    def sumf(self):
+        sndr = self.sender().objectName()
+       # QMessageBox.warning(self, "Нажматие!!!))", " " + str(self.sender().objectName()))
+        if sndr[:3] == "pls":
+            QMessageBox.warning(self, "Нажматие!!!))", " Плюс -" + sndr[3:] + "")
+        else:
+            QMessageBox.warning(self, "Нажматие!!!))", " минус -" + sndr[3:] + "")
 
 
 apt=QApplication([])
