@@ -82,7 +82,7 @@ class Wint(QWidget):
             #QMessageBox.warning(self, "Нажматие!!!))", "Название объекта " + str(self.plusb.objectName()))
             self.plusb.setGeometry(i*(twdt+10)+10,hgt/4+hgt/3+hgt/5+10,twdt/2-2,hgt/10)
             self.plusb.setText("+")
-            self.plusb.setStyleSheet("font-size: "+str(fnts)+"px")
+            self.plusb.setStyleSheet("font-size: "+str(fnts1)+"px")
             self.plusb.clicked.connect(self.sumf)
             self.plusb.show()
 
@@ -91,7 +91,7 @@ class Wint(QWidget):
             self.minub.setObjectName("mns" + str(i))
             self.minub.setGeometry(i*(twdt+10)+12+twdt/2,hgt/4+hgt/3+hgt/5+10,twdt/2-2,hgt/10)
             self.minub.setText("-")
-            self.minub.setStyleSheet("font-size: "+str(fnts)+"px")
+            self.minub.setStyleSheet("font-size: "+str(fnts1)+"px")
             self.minub.clicked.connect(self.sumf)
             self.minub.show()
 
