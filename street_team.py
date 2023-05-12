@@ -34,9 +34,9 @@ class Wint(QWidget):
                 font-family: Arial;
                 """)
 
+        def cntn(self):
+            apt.quit()
 
-
-          #               print(snd)
 
         for i in range(tkol):
             if len(logo[i])>0:
@@ -58,7 +58,7 @@ class Wint(QWidget):
             self.tnm.setText(name[i])
             self.tnm.setAlignment(alignmentc)
             self.tnm.setFont(font)
-            fnts=56-tkolt*7
+            fnts=60-tkolt*6
             stsh="border:3px solid #bbaaff;font-size: "+str(fnts)+"px"
             self.tnm.setStyleSheet(stsh)
             self.tnm.show()
@@ -100,7 +100,9 @@ class Wint(QWidget):
                                hgt / 15)
         self.contin.setText("К вопросам")
         self.contin.setStyleSheet("font-size: " + str(fnts) + "px")
+        self.contin.clicked.connect(cntn)
         self.contin.show()
+
 
     def sumf(self):
         sndr = self.sender().objectName()
