@@ -8,7 +8,7 @@ tkolt=4
 cenv=30
 tots=[0,0,0,0,0,0]
 name=["Средняя общеобразовательная школа №1316","Средняя общеобразовательная школа №753","Центр образования №951","СОШ №531","Средняя общеобразовательная школа №764","Средняя общеобразовательная школа №786"]
-logo=["1316.jpg","753.jpg","951.jpg","531.jpg","",""]
+logo=["1316.jpg","","753.jpg","951.jpg","531.jpg","",""]
 #
 
 
@@ -39,22 +39,26 @@ class Wint(QWidget):
           #               print(snd)
 
         for i in range(tkol):
-            self.logo=QLabel(self)
-            self.logo.setGeometry(i*(twdt+10)+10,10,twdt,hgt/4-10)
-            self.logo.setAlignment(alignmentc)
-            pixmap = QPixmap("img/logo/" + logo[i])
-            pixmap = pixmap.scaled(twdt, hgt/4 -20, Qt.KeepAspectRatio)
-            self.logo.setPixmap(pixmap)
-            self.logo.setStyleSheet("border:3px solid #bbaaff;font-size: 48px")
-            self.logo.show()
+            if len(logo[i])>0:
+                self.logo=QLabel(self)
+                self.logo.setGeometry(i*(twdt+10)+10,10,twdt,hgt/4-10)
+                self.logo.setAlignment(alignmentc)
+                pixmap = QPixmap("img/logo/" + logo[i])
+                pixmap = pixmap.scaled(twdt, hgt/4 -20, Qt.KeepAspectRatio)
+                self.logo.setPixmap(pixmap)
+                self.logo.setStyleSheet("border:3px solid #bbaaff;font-size: 48px")
+                self.logo.show()
 
             self.tnm=QLabel(self)
-            self.tnm.setGeometry(i*(twdt+10)+10,10+hgt/4,twdt,hgt/3-20)
+            if len(logo[i]) > 0:
+                self.tnm.setGeometry(i*(twdt+10)+10,10+hgt/4,twdt,hgt/3-20)
+            else:
+                self.tnm.setGeometry(i * (twdt + 10) + 10, 10 , twdt, hgt / 3+hgt/4 - 20)
             self.tnm.setWordWrap(True)
             self.tnm.setText(name[i])
             self.tnm.setAlignment(alignmentc)
             self.tnm.setFont(font)
-            fnts=56-tkolt*5
+            fnts=56-tkolt*7
             stsh="border:3px solid #bbaaff;font-size: "+str(fnts)+"px"
             self.tnm.setStyleSheet(stsh)
             self.tnm.show()
