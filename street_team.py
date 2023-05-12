@@ -106,7 +106,6 @@ class Wint(QWidget):
         else:
             tots[int(sndr[3:])] -= cenv
 #меняем значения на лейблах
-        obj = QLabel()
         obj = self.findChild(QLabel, "rst" + sndr[3:])
         obj.setText(str(tots[int(sndr[3:])]))
 
