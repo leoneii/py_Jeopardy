@@ -111,7 +111,7 @@ class winq(QWidget):
                                color: black;
                                }
                            QProgressBar::chunk {
-                               background-color: rgba(ff,44,00,150);
+                               background-color: rgba(200,144,00,50);
                                }
                            """)
         self.step = 0
@@ -137,7 +137,9 @@ class winq(QWidget):
     def update_func(self):
             self.step += 1
             self.progressbar.setValue(self.step)
- 
+            alp=str(self.step*2)
+            self.progressbar.setStyleSheet("QProgressBar::chunk {background-color: rgba(250,100,00,"+alp+");}")
+
             if self.step >= ttq:
                 self.ss_button.setText('Start')
                 self.timer.stop()
