@@ -2,19 +2,18 @@ import logging
 import sys
 
 from PySide6 import QtCore
-from PySide6.QtCore import (Qt,QRect,QTimer)
+from PySide6.QtCore import (Qt, QRect, QTimer, QSize)
 from PySide6.QtSql import QSqlQuery, QSqlDatabase
 from PySide6.QtWidgets import (QApplication, QLabel,QWidget,QVBoxLayout,QHBoxLayout,
         QFrame,QProgressBar,QPushButton)
-from PySide6.QtGui import (QFont, QColor,QPixmap)
+from PySide6.QtGui import (QFont, QColor, QPixmap, QIcon)
 
 #import widget
 
 #from widget import sqlDB
 phyn=1 # 0-без фото, 1- с фото
 testtext="Шёл мужик попу кивал. Чем мужик попу кивал? "
-ttq=10 #время на ответ сек.
-ttq=ttq*10
+#ttq=10 #время на ответ сек.
 
 # переменные ответа (так не должно быть, но без этого не работает вообще :(  )
 #ynpha=1
@@ -35,11 +34,12 @@ class winq(QWidget):
     font = QFont()
     font.setFamilies([u"Arial"])
     font.setBold(True)
-    #font.setItalic(True)
     alignmentc=Qt.AlignmentFlag.AlignCenter
-    def __init__(self,appl,ynph,txt,ynpha_l, txta_l):
+    def __init__(self,appl,ynph,txt,ynpha_l, txta_l,ttq_l):
         global txta
         global ynpha
+        global ttq #время таймера
+        ttq=ttq_l*10
         txta=txta_l
         ynpha=ynpha_l
         super().__init__()
@@ -102,46 +102,56 @@ class winq(QWidget):
         self.progressbar.setMaximum(ttq)
         # self.progressbar.setRange(0, 100)
         self.progressbar.setGeometry(10,hgt-30,wdt-20,30)
+        self.progressbar.setTextVisible(False)
         self.progressbar.setStyleSheet("""
                            QProgressBar {
                                border: 2px solid rgba(33, 37, 43, 60);
                                border-radius: 12px;
-                               text-align: center;
                                background-color: rgba(00, 00, 200, 30);
                                color: black;
                                }
                            QProgressBar::chunk {
-                               background-color: rgba(200,144,00,50);
+                               background-color: rgba(100,100,00,50);
                                }
                            """)
         self.step = 0
         self.timer = QTimer(self)                               # 4
         self.timer.timeout.connect(self.update_func)
-
-        self.ss_button = QPushButton('Start', self)             # 5
+        icon = QIcon("img/icon/timerw.png")
+        self.ss_button = QPushButton(icon,"", self)             # 5
         self.ss_button.clicked.connect(self.start_stop_func)
         self.nxt_button = QPushButton('Ответ', self)          # 6
         self.nxt_button.clicked.connect(self.nxt_func)
-        self.ss_button.setGeometry(10,hgt-65,100,30)
-        self.nxt_button.setGeometry(wdt-110,hgt-65,100,30)
+
+        self.ss_button.setGeometry(15,hgt-165,140,120)
+        self.ss_button.setIconSize(QSize(96, 96))
+        cssbut = "QPushButton { background-color: rgba(0,0,200,255); color: rgba(100,150,250,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font-size: 68px;} QPushButton::hover{background-color: #0077ff ;}"
+        self.ss_button.setStyleSheet(cssbut)
+        cssbut1 = "QPushButton { background-color: rgba(0,0,200,255); color: rgba(100,150,250,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font-size: 38px;} QPushButton::hover{background-color: #0077ff ;}"
+        self.nxt_button.setGeometry(wdt-165,hgt-95,150,60)
+        self.nxt_button.setStyleSheet(cssbut1)
 
     def start_stop_func(self):
-        
-        if self.ss_button.text() == 'Start':
-            self.ss_button.setText('Stop')
+        self.ss_button.setIconSize(QSize(0,0))
+        if self.ss_button.text() == '':
+            self.ss_button.setText(' ')
             self.timer.start(100)
         else:
-            self.ss_button.setText('Start')
+            self.ss_button.setText('')
+            self.ss_button.setIconSize(QSize(96, 96))
             self.timer.stop()
  
     def update_func(self):
             self.step += 1
+            tob=int((ttq-self.step)/10+1)
+            self.ss_button.setText(str(tob))
             self.progressbar.setValue(self.step)
-            alp=str(self.step*2)
-            self.progressbar.setStyleSheet("QProgressBar::chunk {background-color: rgba(250,100,00,"+alp+");}")
-
+            alppb=str(30+220*self.step/ttq)
+            stsh="QProgressBar {border: 2px solid rgba(33, 37, 43, 60);border-radius: 12px;text-align: center;background-color: rgba(00, 00, 200, 30);color: black;}QProgressBar::chunk {background-color: rgba(80,200,255,"+alppb+");border-radius: 12px;}"
+            self.progressbar.setStyleSheet(stsh)
+ 
             if self.step >= ttq:
-                self.ss_button.setText('Start')
+                self.ss_button.setText('0')
                 self.timer.stop()
                 self.step = 0
 #окно ответа

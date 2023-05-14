@@ -42,6 +42,7 @@ query.nextResult()
 query.next()
 kolt = int(query.value(1))
 kolv = int(query.value(2))
+ttq = int(query.value(3))
 otst = int(query.value(4))
 
 
@@ -81,9 +82,9 @@ class wnd(QWidget):
         wdh=self.size().width()
         hgt=self.size().height()
 #        #Расчет размеров________________
-        shl=wdh/4-20
-        shp=wdh-wdh/4
-        gp=wdh/4
+        shl=wdh/5-20
+        shp=wdh-wdh/5
+        gp=wdh/5
         vp=10
         wkn=(shp-(10+otst*kolv))/kolv
         hkn=(hgt-vp-(10+otst*kolt))/kolt
@@ -109,7 +110,7 @@ class wnd(QWidget):
             self.temb.setWordWrap(True)
             self.temb.setText(ltxt)
             leghtext= len(ltxt)
-            font.setPointSize(hgt/(leghtext+18)+13)
+            font.setPointSize(hgt/(leghtext+18)+5)
             self.temb.setFont(font)
             self.temb.setFrameShape(QFrame.Box)
             self.temb.setAutoFillBackground(True)
@@ -124,6 +125,7 @@ class wnd(QWidget):
                # self.temb.setObjectName(u"kn_"+str(i)+"_"+str(j))
                 self.temb.setObjectName(str(rowdb))
                 rowdb = rowdb+1
+
                 self.temb.setGeometry(QRect(gij, vij, wkn, hkn))
             #                self.temb.setWordWrap(True)
                 self.temb.setText(ktxt)
@@ -172,7 +174,8 @@ class wnd(QWidget):
                         mouse_event = QMouseEvent(event)
                         if mouse_event.buttons() == Qt.LeftButton:
                     #QMessageBox.about(self,"Нажматие!!!))","Нажали левую кнопку мыши")
-                            obj.setVisible(False)
+                            #obj.setVisible(False)
+
                             #запрос БД
                             query = QSqlQuery()
                             if not query.exec(
@@ -185,8 +188,14 @@ class wnd(QWidget):
                             #QMessageBox.information(self, "Нажматие!!!))", str(obj.objectName()))
                             query.seek(int(obj.objectName())) #переходим к конкретной строке БД
                             global newwind
-                            newwind = winq(app, str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)))
+                            newwind = winq(app, str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq)
                             newwind.showFullScreen()
+
+                            obj1 = self.findChild(QLabel, obj.objectName())
+                            obj1.setText(str(query.value(4)))
+                            cssa = "QLabel { background-color: rgba(0,100,255,90); border: none;color: rgba(255,255,200,255); text-align: bottom center; background-position: bottom center; font-size: 36px}"
+                            obj1.setStyleSheet(cssa)
+                            obj1.setWordWrap(True)
                # elif mouse_event.buttons() == Qt.MidButton:
                #     QMessageBox.information(self,"Нажматие!!!))","Нажали среднюю кнопку мыши")
                         elif mouse_event.buttons() == Qt.RightButton:
