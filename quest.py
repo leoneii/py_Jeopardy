@@ -125,9 +125,9 @@ class winq(QWidget):
 
         self.ss_button.setGeometry(15,hgt-165,140,120)
         self.ss_button.setIconSize(QSize(96, 96))
-        cssbut = "QPushButton { background-color: rgba(0,0,200,255); color: rgba(100,150,250,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font-size: 68px;} QPushButton::hover{background-color: #0077ff ;}"
+        cssbut = "QPushButton { background-color: rgba(0,0,200,255); color: rgba(150,200,250,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font-size: 68px;} QPushButton::hover{background-color: #0077ff ;}"
         self.ss_button.setStyleSheet(cssbut)
-        cssbut1 = "QPushButton { background-color: rgba(0,0,200,255); color: rgba(100,150,250,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font-size: 38px;} QPushButton::hover{background-color: #0077ff ;}"
+        cssbut1 = "QPushButton { background-color: rgba(0,0,200,255); color: rgba(150,200,250,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font-size: 38px;} QPushButton::hover{background-color: #0077ff ;}"
         self.nxt_button.setGeometry(wdt-165,hgt-95,150,60)
         self.nxt_button.setStyleSheet(cssbut1)
 

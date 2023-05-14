@@ -138,6 +138,15 @@ class wnd(QWidget):
                 #self.temb.setBackgroundRole()
                 self.temb.setStyleSheet(cssbut)
                 self.temb.installEventFilter(self)
+                #цена подсказки
+                cpd=str(query.value(7))
+                if len(cpd)>0:
+                    lbpd=QLabel(parent=self.temb)
+                    lbpd.setText(cpd)
+                    lbpd.setGeometry(wkn*3/4-8,hkn*3/4-8,wkn/4+2,hkn/4+2)
+                    csspd = "QLabel { background-color: rgba(0,200,150,160); border: none; border-radius: 10px; color: rgba(155,255,155,255); text-align: center center; background-position: center center; font-size: 46px}"
+                    lbpd.setStyleSheet(csspd)
+                    lbpd.setAlignment(alignmentc)
                 query.next()
 
 
@@ -190,10 +199,18 @@ class wnd(QWidget):
                             global newwind
                             newwind = winq(app, str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq)
                             newwind.showFullScreen()
-
+                            # записываем текст ответа в ячейку цены вопроса
                             obj1 = self.findChild(QLabel, obj.objectName())
                             obj1.setText(str(query.value(4)))
-                            cssa = "QLabel { background-color: rgba(0,100,255,90); border: none;color: rgba(255,255,200,255); text-align: bottom center; background-position: bottom center; font-size: 36px}"
+                            ds=len(str(query.value(4)))
+                            if ds<60:
+                                cssa = "QLabel { background-color: rgba(0,100,255,90); border: none;color: rgba(255,255,200,255); text-align: bottom center; background-position: bottom center; font-size: 32px}"
+                            elif 60<=ds<=100:
+                                cssa = "QLabel { background-color: rgba(0,100,255,90); border: none;color: rgba(255,255,200,255); text-align: bottom center; background-position: bottom center; font-size: 24px}"
+                            elif ds>100:
+                                cssa = "QLabel { background-color: rgba(0,100,255,90); border: none;color: rgba(255,255,200,255); text-align: bottom center; background-position: bottom center; font-size: 20px}"
+
+
                             obj1.setStyleSheet(cssa)
                             obj1.setWordWrap(True)
                # elif mouse_event.buttons() == Qt.MidButton:
