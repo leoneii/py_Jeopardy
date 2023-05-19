@@ -12,7 +12,7 @@ from PySide6.QtGui import (QFont, QColor, QPixmap, QIcon)
 
 #from widget import sqlDB
 phyn=1 # 0-без фото, 1- с фото
-testtext="Шёл мужик попу кивал. Чем мужик попу кивал? "
+testtext=" "
 #ttq=10 #время на ответ сек.
 
 # переменные ответа (так не должно быть, но без этого не работает вообще :(  )
@@ -31,6 +31,7 @@ testtext="Шёл мужик попу кивал. Чем мужик попу ки
 
 
 class winq(QWidget):
+
     font = QFont()
     font.setFamilies([u"Arial"])
     font.setBold(True)
@@ -47,11 +48,11 @@ class winq(QWidget):
         self.setGeometry(geometry)
         wdt=self.size().width()
         hgt=self.size().height()       
-        self.setStyleSheet("""
-        background-color: #0000cc;
-        color: #ddFFaa;
-        font-family: Arial;
-        """)
+        # self.setStyleSheet("""
+        # background-color: rgba(0,0,60,10);
+        # color: #ddFFaa;
+        # font-family: Arial;
+        # """)
 
         #Фото
         if len(ynph) > 0:
@@ -89,7 +90,8 @@ class winq(QWidget):
                 fs=80
             else:
                 fs=85            
-        tfs="border:0px solid black;font-size:"+str(fs)+"px"
+        #tfs="border:0px solid black;font-size:"+str(fs)+"px"
+        tfs = "background-color: rgba(0,0,80,10); border:0px solid black;font-size:" + str(fs) + "px"
         self.textv.setFont(self.font)
         self.textv.setFrameShape(QFrame.Box)
         self.textv.setAutoFillBackground(True)
@@ -100,7 +102,6 @@ class winq(QWidget):
         self.progressbar = QProgressBar(self)                   # 1
         self.progressbar.setMinimum(0)                          # 2
         self.progressbar.setMaximum(ttq)
-        # self.progressbar.setRange(0, 100)
         self.progressbar.setGeometry(10,hgt-30,wdt-20,30)
         self.progressbar.setTextVisible(False)
         self.progressbar.setStyleSheet("""
@@ -114,6 +115,21 @@ class winq(QWidget):
                                background-color: rgba(100,100,00,50);
                                }
                            """)
+        #экран
+        def scrupd():
+            self.blc+=self.shag
+            if self.blc>=254 or self.blc<=60:
+                self.shag*= -1
+            #print(self.blc)
+            self.sth="background-color: rgba(0,0,255,"+str(self.blc)+"); color: #ddFFaa;"
+            self.setStyleSheet(self.sth)
+        self.blc = 80
+        self.shag=1
+        self.tmr = QTimer()  # 4
+        self.tmr.timeout.connect(scrupd)
+        self.tmr.start(40)
+        #экран
+
         self.step = 0
         self.timer = QTimer(self)                               # 4
         self.timer.timeout.connect(self.update_func)
@@ -188,7 +204,7 @@ class winq(QWidget):
         # else:
         #     self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
         #     self.textv.setText(self.txt)
-
+        self.tmr.stop()
         self.ss_button.setVisible(True)
         self.progressbar.setVisible(True)
         self.close()

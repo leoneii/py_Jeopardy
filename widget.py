@@ -142,11 +142,13 @@ class wnd(QWidget):
                 cpd=str(query.value(7))
                 if len(cpd)>0:
                     lbpd=QLabel(parent=self.temb)
+                    lbpd.setObjectName("pd"+str(rowdb))
                     lbpd.setText(cpd)
                     lbpd.setGeometry(wkn*3/4-8,hkn*3/4-8,wkn/4+2,hkn/4+2)
                     csspd = "QLabel { background-color: rgba(0,200,150,160); border: none; border-radius: 10px; color: rgba(155,255,155,255); text-align: center center; background-position: center center; font-size: 46px}"
                     lbpd.setStyleSheet(csspd)
                     lbpd.setAlignment(alignmentc)
+                    lbpd.setVisible(True)
                 query.next()
 
 
@@ -201,7 +203,9 @@ class wnd(QWidget):
                             newwind.showFullScreen()
                             # записываем текст ответа в ячейку цены вопроса
                             obj1 = self.findChild(QLabel, obj.objectName())
+                            ipd="pd"+obj.objectName()
                             obj1.setText(str(query.value(4)))
+
                             ds=len(str(query.value(4)))
                             if ds<60:
                                 cssa = "QLabel { background-color: rgba(0,100,255,90); border: none;color: rgba(255,255,200,255); text-align: bottom center; background-position: bottom center; font-size: 32px}"
@@ -209,10 +213,20 @@ class wnd(QWidget):
                                 cssa = "QLabel { background-color: rgba(0,100,255,90); border: none;color: rgba(255,255,200,255); text-align: bottom center; background-position: bottom center; font-size: 24px}"
                             elif ds>100:
                                 cssa = "QLabel { background-color: rgba(0,100,255,90); border: none;color: rgba(255,255,200,255); text-align: bottom center; background-position: bottom center; font-size: 20px}"
-
-
                             obj1.setStyleSheet(cssa)
                             obj1.setWordWrap(True)
+
+
+                            # удаляем цену подсказки
+                            lbpd=obj.findChild(QLabel)
+                            if lbpd != None:
+                                lbpd.setVisible(False)
+
+
+
+
+                            #obj2.setVisible(False)
+
                # elif mouse_event.buttons() == Qt.MidButton:
                #     QMessageBox.information(self,"Нажматие!!!))","Нажали среднюю кнопку мыши")
                         elif mouse_event.buttons() == Qt.RightButton:
