@@ -36,13 +36,37 @@ class winq(QWidget):
     font.setFamilies([u"Arial"])
     font.setBold(True)
     alignmentc=Qt.AlignmentFlag.AlignCenter
+    blc = 40
+    chk = 1
+
+    def updtime(self):
+        global blc, chk
+        blc += chk
+        if blc > 253:
+            chk = -1
+        elif blc < 40:
+            chk = 1
+        print(blc)
+        sss = "background-color: rgba(0,0," + str(blc) + "); color: #ddFFaa;"
+        winq.setStyleSheet(sss)
+
+    timer = QTimer()
+    timer.setInterval(100)  # msecs 100 = 1/10th sec
+    timer.timeout.connect(updtime)
+    timer.start()
+
     def __init__(self,appl,ynph,txt,ynpha_l, txta_l,ttq_l):
+
         global txta
         global ynpha
         global ttq #время таймера
         ttq=ttq_l*10
         txta=txta_l
         ynpha=ynpha_l
+
+
+
+
         super().__init__()
         geometry = appl.primaryScreen().availableGeometry()
         self.setGeometry(geometry)
