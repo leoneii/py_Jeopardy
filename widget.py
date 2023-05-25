@@ -26,7 +26,6 @@ kolt=5
 kolv=5
 otst=10
 
-
 #Чтение настроек из БД
 query = QSqlQuery()
 if not query.exec(
