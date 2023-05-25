@@ -27,7 +27,6 @@ kolv=5
 otst=10
 
 
-
 #Чтение настроек из БД
 query = QSqlQuery()
 if not query.exec(
@@ -43,8 +42,6 @@ kolt = int(query.value(1))
 kolv = int(query.value(2))
 ttq = int(query.value(3))
 otst = int(query.value(4))
-
-
 
 
 #Проверка для запуска без консоли
@@ -152,8 +149,6 @@ class wnd(QWidget):
 
 
 
-
-
         # def colorchange():
         #     #for z in range(250):
         #      z = 1
@@ -230,9 +225,6 @@ class wnd(QWidget):
                             lbpd=obj.findChild(QLabel)
                             if lbpd != None:
                                 lbpd.setVisible(False)
-
-
-
 
                             #obj2.setVisible(False)
 
