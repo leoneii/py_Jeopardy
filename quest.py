@@ -2,32 +2,17 @@ import logging
 import sys
 
 from PySide6 import QtCore
-from PySide6.QtCore import (Qt, QRect, QTimer, QSize)
+from PySide6.QtCore import (Qt, QRect, QTimer, QSize, QPoint)
 from PySide6.QtSql import QSqlQuery, QSqlDatabase
 from PySide6.QtWidgets import (QApplication, QLabel,QWidget,QVBoxLayout,QHBoxLayout,
         QFrame,QProgressBar,QPushButton)
-from PySide6.QtGui import (QFont, QColor, QPixmap, QIcon)
-
+from PySide6.QtGui import (QFont, QPixmap, QIcon,QPainter, QLinearGradient, QColor,QPen)
+from random import randint
 #import widget
 
 #from widget import sqlDB
 phyn=1 # 0-без фото, 1- с фото
 testtext=" "
-#ttq=10 #время на ответ сек.
-
-# переменные ответа (так не должно быть, но без этого не работает вообще :(  )
-#ynpha=1
-#txta="kjghkjhg kjhgjhg jhgfghgf ffgh f jhgfg hjjkjg"
-
-#global sqlDB
-#appq = QApplication([])
-#widget.sqlDB.open()
-
-# global sqlDB
-# QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
-# sqlDB = QSqlDatabase.addDatabase('QSQLITE')
-# sqlDB.setDatabaseName('jep.sqlite')
-# sqlDB.open()
 
 
 class winq(QWidget):
@@ -36,37 +21,45 @@ class winq(QWidget):
     font.setFamilies([u"Arial"])
     font.setBold(True)
     alignmentc=Qt.AlignmentFlag.AlignCenter
-    blc = 40
-    chk = 1
+# рисуем фон
 
-    def updtime(self):
-        global blc, chk
-        blc += chk
-        if blc > 253:
-            chk = -1
-        elif blc < 40:
-            chk = 1
-        print(blc)
-        sss = "background-color: rgba(0,0," + str(blc) + "); color: #ddFFaa;"
-        winq.setStyleSheet(sss)
+    # def paintEvent(self,ris):
+    #
+    #     painter = QPainter(self)
+    #     painter.begin(self)
+    #     for i in range(1, 25):
+    #         x = randint(0, 1500)
+    #         y = randint(0, 900)
+    #         wd = randint(100, 600)
+    #         hd = randint(100, 600)  # create QLinearGradient object
+    #         gradient = QLinearGradient(QPoint(x, y), QPoint(x + 200, y))
+    #
+    #         gradient.setColorAt(0.0, QColor(0, 0, 50, 50))
+    #         gradient.setColorAt(0.3, QColor(0, 155, 255, 50))
+    #         gradient.setColorAt(1.0, QColor(0, 0, 255, 30))
+    #         painter.setBrush(gradient)
+    #
+    #         pen = QPen()
+    #         pen.setWidth(1)
+    #         pen.setColor(QColor(0, 0, 50, 10))
+    #         painter.setPen(pen)
+    #         painter.drawRect(x, y, wd, hd)
+    #     painter.end()
 
-    timer = QTimer()
-    timer.setInterval(100)  # msecs 100 = 1/10th sec
-    timer.timeout.connect(updtime)
-    timer.start()
 
-    def __init__(self,appl,ynph,txt,ynpha_l, txta_l,ttq_l):
-
+# закончили с фоном
+    def __init__(self,appl,ynph,txt,ynpha_l, txta_l,ttq_l,txtp_l,cpd_l):
+        #txtp текст подсказки
+        #cpd цена подсказки
+        global txtp, cpd
         global txta
         global ynpha
         global ttq #время таймера
         ttq=ttq_l*10
         txta=txta_l
         ynpha=ynpha_l
-
-
-
-
+        txtp=txtp_l
+        cpd=cpd_l
         super().__init__()
         geometry = appl.primaryScreen().availableGeometry()
         self.setGeometry(geometry)
@@ -139,7 +132,7 @@ class winq(QWidget):
                                background-color: rgba(100,100,00,50);
                                }
                            """)
-        #экран
+        #экран плавно меняет фон
         def scrupd():
             self.blc+=self.shag
             if self.blc>=254 or self.blc<=60:
@@ -171,6 +164,22 @@ class winq(QWidget):
         self.nxt_button.setGeometry(wdt-165,hgt-95,150,60)
         self.nxt_button.setStyleSheet(cssbut1)
 
+        # кнопка подсказки
+        self.tl_button=QPushButton('Подсказка',self)
+        self.tl_button.setGeometry((wdt - 165)/2, hgt - 95, 180, 60)
+        self.tl_button.setStyleSheet(cssbut1)
+        self.tl_button.clicked.connect(self.tl_func)
+        if len(cpd)>0:
+            self.tl_button.setVisible(True)
+        else:
+            self.tl_button.setVisible(False)
+
+    def tl_func(self):
+        txtpd=self.textv.text()
+        txtpd+="\n\n"+txtp
+        self.textv.setText(txtpd)
+        self.tl_button.setVisible(False)
+
     def start_stop_func(self):
         self.ss_button.setIconSize(QSize(0,0))
         if self.ss_button.text() == '':
@@ -187,7 +196,7 @@ class winq(QWidget):
             self.ss_button.setText(str(tob))
             self.progressbar.setValue(self.step)
             alppb=str(30+220*self.step/ttq)
-            stsh="QProgressBar {border: 2px solid rgba(33, 37, 43, 60);border-radius: 12px;text-align: center;background-color: rgba(00, 00, 200, 30);color: black;}QProgressBar::chunk {background-color: rgba(80,200,255,"+alppb+");border-radius: 12px;}"
+            stsh= "QProgressBar {border: 2px solid rgba(33, 37, 43, 60);border-radius: 12px;text-align: center;background-color: rgba(00, 00, 200, 30);color: black;}QProgressBar::chunk {background-color: rgba(80,200,255,"+alppb+");border-radius: 12px;}"
             self.progressbar.setStyleSheet(stsh)
  
             if self.step >= ttq:
@@ -233,7 +242,6 @@ class winq(QWidget):
         self.progressbar.setVisible(True)
         self.close()
 #        self.destroy()
-
 
 
 

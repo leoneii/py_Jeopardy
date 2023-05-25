@@ -199,7 +199,7 @@ class wnd(QWidget):
                             #QMessageBox.information(self, "Нажматие!!!))", str(obj.objectName()))
                             query.seek(int(obj.objectName())) #переходим к конкретной строке БД
                             global newwind
-                            newwind = winq(app, str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq)
+                            newwind = winq(app, str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq,str(query.value(6)),str(query.value(7)))
                             newwind.showFullScreen()
                             # записываем текст ответа в ячейку цены вопроса
                             obj1 = self.findChild(QLabel, obj.objectName())
