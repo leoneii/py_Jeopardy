@@ -13,38 +13,42 @@ from random import randint
 #from widget import sqlDB
 phyn=1 # 0-без фото, 1- с фото
 testtext=" "
-
+smx=3
+gx=200
 
 class winq(QWidget):
-
     font = QFont()
     font.setFamilies([u"Arial"])
     font.setBold(True)
     alignmentc=Qt.AlignmentFlag.AlignCenter
-# рисуем фон
 
-    # def paintEvent(self,ris):
-    #
-    #     painter = QPainter(self)
-    #     painter.begin(self)
-    #     for i in range(1, 25):
-    #         x = randint(0, 1500)
-    #         y = randint(0, 900)
-    #         wd = randint(100, 600)
-    #         hd = randint(100, 600)  # create QLinearGradient object
-    #         gradient = QLinearGradient(QPoint(x, y), QPoint(x + 200, y))
-    #
-    #         gradient.setColorAt(0.0, QColor(0, 0, 50, 50))
-    #         gradient.setColorAt(0.3, QColor(0, 155, 255, 50))
-    #         gradient.setColorAt(1.0, QColor(0, 0, 255, 30))
-    #         painter.setBrush(gradient)
-    #
-    #         pen = QPen()
-    #         pen.setWidth(1)
-    #         pen.setColor(QColor(0, 0, 50, 10))
-    #         painter.setPen(pen)
-    #         painter.drawRect(x, y, wd, hd)
-    #     painter.end()
+
+
+# рисуем анимацию фона
+
+    def paintEvent(self,event):
+        global smx
+        global gx
+        painter = QPainter(self)
+        painter.begin(self)
+        x = 0
+        y = 0
+        wd=self.size().width()
+        hd=self.size().height()
+        gx+= smx
+        if gx>wd*1.5 or gx<150:
+            smx*=-1
+        gradient = QLinearGradient(QPoint(x, y), QPoint(gx, y+300+wd*300/gx))
+        gradient.setColorAt(0.0, QColor(0, 0, 50, 100))
+        gradient.setColorAt(0.3, QColor(0, 100, 255, 180))
+        gradient.setColorAt(1.0, QColor(0, 0, 255, 30))
+        painter.setBrush(gradient)
+
+        pen = QPen()
+        pen.setWidth(1)
+        pen.setColor(QColor(0, 0, 50, 10))
+        painter.setPen(pen)
+        painter.drawRect(x, y, wd, hd)
 
 
 # закончили с фоном
@@ -75,9 +79,10 @@ class winq(QWidget):
         if len(ynph) > 0:
             self.photo=QLabel(self)
             self.photo.setAlignment(self.alignmentc)
-            self.photo.setGeometry(QRect(100, 20, wdt-200, hgt*2/3))
+            self.photo.setGeometry(QRect(100, 20, wdt-200, hgt*2/3-40))
+            self.photo.setStyleSheet("background-color: rgba(0,0,80,5)")
             pixmap=QPixmap("img/"+ynph)
-            pixmap = pixmap.scaled(900, hgt*2/3, Qt.KeepAspectRatio) 
+            pixmap = pixmap.scaled(900, hgt*2/3-40, Qt.KeepAspectRatio)
             self.photo.setPixmap(pixmap)
 #Конец фото
 
@@ -86,7 +91,7 @@ class winq(QWidget):
         self.textv.setObjectName(u"txtvopr")
         self.textv.setAlignment(self.alignmentc)
         if len(ynph) > 0:
-            self.textv.setGeometry(QRect(100, hgt*2/3+20, wdt-200, hgt/3-40))
+            self.textv.setGeometry(QRect(100, hgt*2/3, wdt-200, hgt/3-40))
         else:
             self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
         self.textv.setWordWrap(True)
@@ -108,7 +113,7 @@ class winq(QWidget):
             else:
                 fs=85            
         #tfs="border:0px solid black;font-size:"+str(fs)+"px"
-        tfs = "background-color: rgba(0,0,80,10); border:0px solid black;font-size:" + str(fs) + "px"
+        tfs = "background-color: rgba(0,0,80,0); color: rgba(225,255,255,255); border:0px solid black;font-size:" + str(fs) + "px"
         self.textv.setFont(self.font)
         self.textv.setFrameShape(QFrame.Box)
         self.textv.setAutoFillBackground(True)
@@ -137,12 +142,11 @@ class winq(QWidget):
             self.blc+=self.shag
             if self.blc>=254 or self.blc<=60:
                 self.shag*= -1
-            #print(self.blc)
             self.sth="background-color: rgba(0,0,255,"+str(self.blc)+"); color: #ddFFaa;"
             self.setStyleSheet(self.sth)
         self.blc = 80
         self.shag=1
-        self.tmr = QTimer()  # 4
+        self.tmr = QTimer()
         self.tmr.timeout.connect(scrupd)
         self.tmr.start(40)
         #экран
@@ -158,15 +162,15 @@ class winq(QWidget):
 
         self.ss_button.setGeometry(15,hgt-165,140,120)
         self.ss_button.setIconSize(QSize(96, 96))
-        cssbut = "QPushButton { background-color: rgba(0,0,200,255); color: rgba(150,200,250,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font-size: 68px;} QPushButton::hover{background-color: #0077ff ;}"
+        cssbut = "QPushButton { background-color: rgba(0,0,200,25); color: rgba(150,200,250,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font-size: 38px;} QPushButton::hover{background-color: #0077ff ;}"
         self.ss_button.setStyleSheet(cssbut)
-        cssbut1 = "QPushButton { background-color: rgba(0,0,200,255); color: rgba(150,200,250,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font-size: 38px;} QPushButton::hover{background-color: #0077ff ;}"
-        self.nxt_button.setGeometry(wdt-165,hgt-95,150,60)
+        cssbut1 = "QPushButton { background-color: rgba(0,0,200,25); color: rgba(150,200,250,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font-size: 38px;} QPushButton::hover{background-color: #0077ff ;}"
+        self.nxt_button.setGeometry(wdt-210,hgt-100,200,60)
         self.nxt_button.setStyleSheet(cssbut1)
 
         # кнопка подсказки
         self.tl_button=QPushButton('Подсказка',self)
-        self.tl_button.setGeometry((wdt - 165)/2, hgt - 95, 180, 60)
+        self.tl_button.setGeometry((wdt - 200)/2, hgt - 100, 200, 60)
         self.tl_button.setStyleSheet(cssbut1)
         self.tl_button.clicked.connect(self.tl_func)
         if len(cpd)>0:
@@ -219,6 +223,7 @@ class winq(QWidget):
 
             self.ss_button.setVisible(False)
             self.progressbar.setVisible(False)
+            self.tl_button.setVisible(False)
 
             self.nxt_button.setText('Далее')
             self.nxt_button.clicked.connect(self.nxta_func)
