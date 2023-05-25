@@ -1,7 +1,6 @@
 # This Python file uses the following encoding: utf-8
 import logging
 import sys
-
 import PySide6
 from PySide6 import QtCore
 # import PySide6
@@ -155,29 +154,39 @@ class wnd(QWidget):
 
 
 
-    def colorchange(self):
-            #for z in range(250):
-        z = 1
-        revers = False
-        while continue_run:
-            self.bgcolor(QColor(0,0,z+50))
-        # self.setStyleSheet('background: rgb('+str(z+1)+',40,40);')
-            q = QEventLoop(self)
-            QTimer.singleShot(40, q.quit)
-            q.exec()
-            if revers:
-                z=z-1
-            else:
-                z=z+1
-            if z==205:
-                revers=True
-            if z==1:
-                revers=False
-
-    def bgcolor(self,color=Qt.red):
-        bgpalette = QPalette()
-        bgpalette.setColor(QPalette.Window, color)
-        self.setPalette(bgpalette)
+        # def colorchange():
+        #     #for z in range(250):
+        #      z = 1
+        #      revers = False
+        #      while continue_run:
+        #          self.bgcolor(QColor(0,0,z+50))
+        #          q = QEventLoop(self)
+        #          QTimer.singleShot(40, q.quit)
+        #          q.exec()
+        #          if revers:
+        #              z=z-1
+        #          else:
+        #              z=z+1
+        #          if z==205:
+        #              revers=True
+        #          if z==1:
+        #              revers=False
+        def scrupd():
+            self.blc+=self.shag
+            if self.blc>=254 or self.blc<=60:
+                self.shag*= -1
+            #print(self.blc)
+            self.sth="background-color: rgba(0,0,255,"+str(self.blc)+"); color: #ddFFaa;"
+            self.setStyleSheet(self.sth)
+        self.blc = 80
+        self.shag=1
+        self.tmr = QTimer()  # 4
+        self.tmr.timeout.connect(scrupd)
+        self.tmr.start(40)
+    # def bgcolor(self,color=Qt.red):
+    #     bgpalette = QPalette()
+    #     bgpalette.setColor(QPalette.Window, color)
+    #     self.setPalette(bgpalette)
 
     def eventFilter(self, obj, event):
           if obj != self:
@@ -255,7 +264,7 @@ if __name__ == "__main__":
     window = wnd()
    # newwind = winq(app,1,"текст вопроса"*5,1,"текст ответа")
     window.showFullScreen()
-    window.colorchange()
+   # window.colorchange()
     sys.exit(app.exec())
     sqlDB.close()
     sqlDB.removeDatabase('QSQLITE')
