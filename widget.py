@@ -4,8 +4,8 @@ import sys
 import PySide6
 from PySide6 import QtCore
 # import PySide6
-from PySide6.QtCore import (QTimer, QEventLoop, QRect, Qt, QEvent)
-from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette)
+from PySide6.QtCore import (QTimer, QEventLoop, QRect, Qt, QEvent, QPoint)
+from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient)
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import (QApplication, QLabel, QWidget, QFrame)
 from PySide6.QtWidgets import QMessageBox
@@ -42,6 +42,9 @@ kolv = int(query.value(2))
 ttq = int(query.value(3))
 otst = int(query.value(4))
 
+#переменные красот экрана
+smx=3
+gx=200
 
 #Проверка для запуска без консоли
 # try:
@@ -68,6 +71,35 @@ bgpalbut.setColor(QPalette.Button, Qt.blue )
 
 
 class wnd(QWidget):
+
+    # рисуем анимацию фона
+
+    def paintEvent(self, event):
+        global smx
+        global gx
+        painter = QPainter(self)
+      #  painter.begin(self)
+        x = 0
+        y = 0
+        wd = self.size().width()
+        hd = self.size().height()
+        gx += smx
+        if gx > wd * 1.5 or gx < 150:
+            smx *= -1
+        gradient = QLinearGradient(QPoint(x, y), QPoint(gx, y + 300 + wd * 300 / gx))
+        gradient.setColorAt(0.0, QColor(0, 0, 50, 100))
+        gradient.setColorAt(0.3, QColor(0, 100, 255, 180))
+        gradient.setColorAt(1.0, QColor(0, 0, 255, 30))
+        painter.setBrush(gradient)
+
+        pen = QPen()
+        pen.setWidth(1)
+        pen.setColor(QColor(0, 0, 50, 10))
+        painter.setPen(pen)
+        painter.drawRect(x, y, wd, hd)
+
+    # закончили с фоном
+
     def __init__(self, parent=None):
         super().__init__(parent)
 #        self.continue_run =True

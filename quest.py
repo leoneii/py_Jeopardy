@@ -30,7 +30,7 @@ class winq(QWidget):
         global smx
         global gx
         painter = QPainter(self)
-        painter.begin(self)
+#        painter.begin(self)
         x = 0
         y = 0
         wd=self.size().width()
