@@ -165,6 +165,8 @@ class wnd(QWidget):
                 #self.temb.setBackgroundRole()
                 self.temb.setStyleSheet(cssbut)
                 self.temb.installEventFilter(self)
+                self.temb.setWordWrap(False)
+
                 #цена подсказки
                 cpd=str(query.value(7))
                 if len(cpd)>0:
@@ -215,7 +217,8 @@ class wnd(QWidget):
     #     self.setPalette(bgpalette)
 
     def eventFilter(self, obj, event):
-          if obj != self:
+          obj1 = self.findChild(QLabel, obj.objectName())
+          if obj != self and obj1.wordWrap()==False:
                if event.type() == QEvent.MouseButtonPress:
                         mouse_event = QMouseEvent(event)
                         if mouse_event.buttons() == Qt.LeftButton:
@@ -237,7 +240,7 @@ class wnd(QWidget):
                             newwind = winq(app, str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq,str(query.value(6)),str(query.value(7)))
                             newwind.showFullScreen()
                             # записываем текст ответа в ячейку цены вопроса
-                            obj1 = self.findChild(QLabel, obj.objectName())
+
                             ipd="pd"+obj.objectName()
                             obj1.setText(str(query.value(4)))
 
@@ -249,7 +252,7 @@ class wnd(QWidget):
                             elif ds>100:
                                 cssa = "QLabel { background-color: rgba(0,100,255,90); border: none;color: rgba(255,255,200,255); text-align: bottom center; background-position: bottom center; font-size: 20px}"
                             obj1.setStyleSheet(cssa)
-                            obj1.setWordWrap(True)
+                            obj1.setWordWrap(True)# флаг "невидимости и неактивности"
 
 
                             # удаляем цену подсказки
@@ -272,8 +275,8 @@ class wnd(QWidget):
               # QMessageBox.warning(self,"Нажматие!!!))","Нажали правую кнопку мыши "+str(keyEvent)+" ___ "+str(event.key()) )
                if event.key() == Qt.Key_Escape:
                  # QMessageBox.warning(self,"Нажматие!!!))","Нажали правую кнопку мыши ")
-                  global continue_run
-                  continue_run = False
+                 #  global continue_run
+                 #  continue_run = False
                   #sys.exit(self)
                   app.quit()
                   app.exit(0)
