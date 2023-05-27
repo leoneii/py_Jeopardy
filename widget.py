@@ -264,8 +264,8 @@ class wnd(QWidget):
 
                # elif mouse_event.buttons() == Qt.MidButton:
                #     QMessageBox.information(self,"Нажматие!!!))","Нажали среднюю кнопку мыши")
-                        elif mouse_event.buttons() == Qt.RightButton:
-                            QMessageBox.warning(self,"Нажматие!!!))","Нажали правую кнопку мыши "+str(obj.objectName()) )
+                        #elif mouse_event.buttons() == Qt.RightButton:
+                            #QMessageBox.warning(self,"Нажматие!!!))","Нажали правую кнопку мыши "+str(obj.objectName()) )
           # elif obj == self:
           #        if event.type() == QEvent.Show:
           #          self.colorchange()
