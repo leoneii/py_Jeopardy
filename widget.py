@@ -181,7 +181,6 @@ class wnd(QWidget):
                 query.next()
 
 
-
         # def colorchange():
         #     #for z in range(250):
         #      z = 1
