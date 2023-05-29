@@ -2,7 +2,7 @@ import sys
 import PySide6
 from PySide6 import QtCore
 # import PySide6
-from PySide6.QtCore import (QTimer, QEventLoop, QRect, Qt, QEvent, QPoint)
+from PySide6.QtCore import (QTimer, QEventLoop, QRect, Qt, QEvent, QPoint, QMetaObject)
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient)
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import (QApplication, QLabel, QWidget, QFrame, QPushButton)
@@ -20,7 +20,7 @@ class Category(QWidget):
 
     def __init__(self):
         super().__init__()
-
+        QMetaObject.connectSlotsByName(self)
     # def __init__(self, ckols, parent=None):
     #     super(Category, self).__init__(parent)
         geometry = apc.primaryScreen().availableGeometry()
@@ -52,19 +52,22 @@ class Category(QWidget):
         hpos=((hd-50)-(hdb+5)*ckols)/2
 
         shst="QPushButton { background-color: rgba(0,0,200,100); color: rgba(220,220,255,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font: Bold 38px} QPushButton::hover{background-color: #0077ff ;}"
-        def catchois():
+
+        #for i in range(ckols):
+        i=1
+        self.cbut=QPushButton(catname[i],self)
+        self.cbut.setGeometry(wdb,hpos+(hdb+5)*i+35,wdb,hdb)
+        self.cbut.setObjectName("cat"+str(i))
+        self.cbut.setStyleSheet(shst)
+        self.cbut.clicked.connect(self.catchois(self.cbut))
+        self.cbut.show()
+    def catchois(self,but):
             # snd = self.sender()
-            # print(snd)
-            self.destroy()
+        QMessageBox.about(self, "Нажматие!!!))", but.objectName())
+        self.destroy()
 
-        for i in range(ckols):
 
-            cbut=QPushButton(catname[i],self)
-            cbut.setGeometry(wdb,hpos+(hdb+5)*i+35,wdb,hdb)
-            cbut.setObjectName("cat"+str(i))
-            cbut.setStyleSheet(shst)
-            cbut.clicked.connect(catchois)
-            cbut.show()
+
 
         
  
