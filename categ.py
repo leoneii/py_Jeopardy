@@ -59,11 +59,12 @@ class Category(QWidget):
         self.cbut.setGeometry(wdb,hpos+(hdb+5)*i+35,wdb,hdb)
         self.cbut.setObjectName("cat"+str(i))
         self.cbut.setStyleSheet(shst)
-        self.cbut.clicked.connect(self.catchois(self.cbut))
+        self.cbut.clicked.connect(self.catchois)
         self.cbut.show()
-    def catchois(self,but):
+    def catchois(self):
             # snd = self.sender()
-        QMessageBox.about(self, "Нажматие!!!))", but.objectName())
+        #but = self.findChild(QPushButton,)
+        QMessageBox.about(self, "Нажматие!!!))", "sdkjf")
         self.destroy()
 
 
