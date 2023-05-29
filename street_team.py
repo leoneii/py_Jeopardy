@@ -4,7 +4,7 @@ from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen,
 from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QMessageBox
 
 # забирать из базы данных
-tkolt = 2
+tkolt = 4
 cenv = 30
 tots = [0, 0, 0, 0, 0, 0]
 name = ["Средняя общеобразовательная школа №1316", "Средняя общеобразовательная школа №753", "Центр образования №951",
@@ -95,7 +95,7 @@ class Wint(QWidget):
                 self.logo.show()
 
             self.tnm = QLabel(self)
-            fnts = 60 - tkolt * 5
+            fnts = 66 - tkolt * 7
             stsh = "border:3px solid #bbaaff;font-size: " + str(fnts) + "px"
             self.tnm.setStyleSheet(stsh)
             if len(logo[i]) > 0:
