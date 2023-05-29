@@ -21,8 +21,6 @@ class Category(QWidget):
     def __init__(self):
         super().__init__()
         QMetaObject.connectSlotsByName(self)
-    # def __init__(self, ckols, parent=None):
-    #     super(Category, self).__init__(parent)
         geometry = apc.primaryScreen().availableGeometry()
         self.setGeometry(geometry)
 
@@ -53,19 +51,18 @@ class Category(QWidget):
 
         shst="QPushButton { background-color: rgba(0,0,200,100); color: rgba(220,220,255,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font: Bold 38px} QPushButton::hover{background-color: #0077ff ;}"
 
-        #for i in range(ckols):
-        i=1
-        self.cbut=QPushButton(catname[i],self)
-        self.cbut.setGeometry(wdb,hpos+(hdb+5)*i+35,wdb,hdb)
-        self.cbut.setObjectName("cat"+str(i))
-        self.cbut.setStyleSheet(shst)
-        self.cbut.clicked.connect(self.catchois)
-        self.cbut.show()
+        for i in range(ckols):
+            self.cbut=QPushButton(catname[i],self)
+            self.cbut.setGeometry(wdb,hpos+(hdb+5)*i+35,wdb,hdb)
+            self.cbut.setObjectName(str(i))
+            self.cbut.setStyleSheet(shst)
+            self.cbut.clicked.connect(self.catchois)
+            self.cbut.show()
     def catchois(self):
-            # snd = self.sender()
-        #but = self.findChild(QPushButton,)
-        QMessageBox.about(self, "Нажматие!!!))", "sdkjf")
-        self.destroy()
+        snd = self.sender()
+        catn=snd.objectName()              
+        #QMessageBox.about(self, "Нажматие!!!))",catn )
+        self.hide()
 
 
 
