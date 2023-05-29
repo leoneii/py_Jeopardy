@@ -17,6 +17,33 @@ gx=200
 
 #конец блока переменных
 class Category(QWidget):
+    # рисуем анимацию фона
+
+    def paintEvent(self, event):
+        global smx
+        global gx
+        painter = QPainter(self)
+      #  painter.begin(self)
+        x = 0
+        y = 0
+        wd = self.size().width()
+        hd = self.size().height()
+        gx += smx
+        if gx > wd * 1.5 or gx < 150:
+            smx *= -1
+        gradient = QLinearGradient(QPoint(x, y), QPoint(gx, y + 300 + wd * 300 / gx))
+        gradient.setColorAt(0.0, QColor(0, 0, 50, 100))
+        gradient.setColorAt(0.3, QColor(0, 100, 255, 180))
+        gradient.setColorAt(1.0, QColor(0, 0, 255, 30))
+        painter.setBrush(gradient)
+
+        pen = QPen()
+        pen.setWidth(1)
+        pen.setColor(QColor(0, 0, 50, 10))
+        painter.setPen(pen)
+        painter.drawRect(x, y, wd, hd)
+
+    # закончили с фоном
 
     def __init__(self):
         super().__init__()
@@ -36,11 +63,7 @@ class Category(QWidget):
         self.tmr = QTimer()  # 4
         self.tmr.timeout.connect(scrupd)
         self.tmr.start(40)        
-#конец анимации фона        
-        
-
-            
-
+#конец анимации фона
         wd = self.size().width()-20
         hd = self.size().height()-20
         wdb=wd/3
