@@ -10,7 +10,7 @@ tots = [0, 0, 0, 0, 0, 0]
 name = ["Средняя общеобразовательная школа №1316", "Средняя общеобразовательная школа №753", "Центр образования №951",
         "СОШ №531", "Средняя общеобразовательная школа №764", "Средняя общеобразовательная школа №786"]
 logo = ["1316.jpg", "", "753.jpg", "951.jpg", "531.jpg", "", ""]
-blc=80
+blc=120
 shag=2
 smx=5
 gx=200
@@ -34,9 +34,9 @@ class Wint(QWidget):
         if gx > wd * 1.5 or gx < 150:
             smx *= -1
         gradient = QLinearGradient(QPoint(x, y), QPoint(gx, y + 300 + wd * 300 / gx))
-        gradient.setColorAt(0.0, QColor(0, 0, 50, 100))
-        gradient.setColorAt(0.3, QColor(0, 100, 255, 180))
-        gradient.setColorAt(1.0, QColor(0, 0, 255, 30))
+        gradient.setColorAt(0.0, QColor(0, 0, 80, 180))
+        gradient.setColorAt(0.3, QColor(0, 120, 255, 225))
+        gradient.setColorAt(1.0, QColor(0, 80, 255, 80))
         painter.setBrush(gradient)
 
         pen = QPen()
@@ -62,26 +62,32 @@ class Wint(QWidget):
         twdt = (wdt - 20) / tkol - 10
         hgt = self.size().height()
         self.setAutoFillBackground(True)
-        self.setStyleSheet("""
-                background-color: #0000cc;
-                color: #ddFFaa;
-                font-family: Arial;
-                """)
-#Анимация фона        
+        # self.setStyleSheet("""
+        #         background-color: #0000cc;
+        #         color: #ddFFaa;
+        #         font-family: Arial;
+        #         """)
+#Насыщенность фона        
         def scrupd():
             global blc, shag
             blc+=shag
-            if blc>=254 or blc<=80:
+            if blc>=254 or blc<=90:
                 shag*= -1
-            self.sth="background-color: rgba(0,0,"+str(blc)+",135); color: #ddFFaa;"
+            self.sth="background-color: rgba(0,0,"+str(blc)+",75); color: #ddFFaa;"
             self.setStyleSheet(self.sth)
 
         self.tmr = QTimer()  # 4
         self.tmr.timeout.connect(scrupd)
         self.tmr.start(40)        
-#конец анимации фона
+#конец насыщенности фона
         def cntn(self):
             apt.quit()
+
+        def chcat(self):
+            
+            apt.quit()
+            
+            
 
         for i in range(tkol):
             if len(logo[i]) > 0:
@@ -120,6 +126,7 @@ class Wint(QWidget):
             self.result.setFont(font)
             fnts1 = 96 - tkolt * 4
             stsh = "border:3px solid #bbaaff;border-bottom-left-radius: 22px; border-bottom-right-radius: 22px;font-size: " + str(fnts1) + "px"
+            botb = "font-size: " + str(fnts1) + "px; border: 1px solid rgba(200,200,255,180)"
             self.result.setStyleSheet(stsh)
             self.result.show()
 
@@ -128,7 +135,7 @@ class Wint(QWidget):
             # QMessageBox.warning(self, "Нажматие!!!))", "Название объекта " + str(self.plusb.objectName()))
             self.plusb.setGeometry(i * (twdt + 10) + 10, hgt / 4 + hgt / 3 + hgt / 5 + 10, twdt / 2 - 2, hgt / 10)
             self.plusb.setText("+")
-            self.plusb.setStyleSheet("font-size: " + str(fnts1) + "px; border: 1px")
+            self.plusb.setStyleSheet(botb)
             self.plusb.clicked.connect(self.sumf)
             self.plusb.show()
 
@@ -137,15 +144,25 @@ class Wint(QWidget):
             self.minub.setGeometry(i * (twdt + 10) + 12 + twdt / 2, hgt / 4 + hgt / 3 + hgt / 5 + 10, twdt / 2 - 2,
                                    hgt / 10)
             self.minub.setText("-")
-            self.minub.setStyleSheet("font-size: " + str(fnts1) + "px")
+            self.minub.setStyleSheet(botb)
             self.minub.clicked.connect(self.sumf)
             self.minub.show()
 
+
+        self.catch = QPushButton(self)
+        self.catch.setGeometry(10, hgt - hgt / 15 - 10, (wdt - 25)/2,
+                                hgt / 15)
+        self.catch.setText("Выбор категории")
+        self.catch.setStyleSheet("font: bold 34px; border: 1px solid rgba(200,200,255,180); border-top-right-radius: 120px 60px; border-bottom-left-radius: 180px "+str(int(hgt / 15))+"px")
+        self.catch.clicked.connect(chcat)
+        self.catch.show()
+
+
         self.contin = QPushButton(self)
-        self.contin.setGeometry(10, hgt - hgt / 15 - 10, wdt - 20,
+        self.contin.setGeometry((wdt - 20)/2, hgt - hgt / 15 - 10, (wdt - 25)/2,
                                 hgt / 15)
         self.contin.setText(">>>")
-        self.contin.setStyleSheet("font-size: 60px; border-top-right-radius: 120px 60px; border-bottom-left-radius: 120px 60px")
+        self.contin.setStyleSheet("font: bold 60px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: 180px "+str(int(hgt / 15))+"px; border-bottom-left-radius: 120px 60px")
         self.contin.clicked.connect(cntn)
         self.contin.show()
 
