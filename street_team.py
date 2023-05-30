@@ -1,7 +1,25 @@
 import sys
+import PySide6
+from PySide6 import QtCore
+
 from PySide6.QtCore import Qt, QPoint, QTimer 
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient, QPixmap)
 from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QMessageBox
+from PySide6.QtSql import QSqlDatabase, QSqlQuery
+
+from categ import Category
+from widget import wnd
+from quest import winq
+#база данных
+#global sqlDB
+QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
+sqlDB = QSqlDatabase.addDatabase('QSQLITE')
+sqlDB.setDatabaseName('jep.sqlite')
+sqlDB.open()
+
+
+
+
 
 # забирать из базы данных
 tkolt = 4
@@ -81,12 +99,13 @@ class Wint(QWidget):
         self.tmr.start(40)        
 #конец насыщенности фона
         def cntn(self):
-            apt.quit()
+            cwnd=wnd(apt)
+            cwnd.showFullScreen()
+            #apt.quit()
 
         def chcat(self):
-            
-            apt.quit()
-            
+            vcat=Category(apt)
+            vcat.showFullScreen()
             
 
         for i in range(tkol):
@@ -178,9 +197,20 @@ class Wint(QWidget):
         obj.setText(str(tots[int(sndr[3:])]))
 
 
-apt = QApplication([])
-wnt = Wint(tkolt)
-#    wnt.setStyleSheet('background: black')
-wnt.showFullScreen()
-apt.exec()
-#sys.exit(apt.exec())
+# apt = QApplication([])
+# wnt = Wint(tkolt)
+# wnt.showFullScreen()
+# apt.exec()
+
+if __name__ == "__main__":
+    apt = QApplication([])
+    wnt = Wint(tkolt)
+    wnt.showFullScreen()
+    sys.exit(apt.exec())
+    sqlDB.close()
+    sqlDB.removeDatabase('QSQLITE')
+    sqlDB.removeDatabase('jep.sqlite')
+
+
+
+

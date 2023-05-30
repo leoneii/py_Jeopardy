@@ -45,10 +45,12 @@ class Category(QWidget):
 
     # закончили с фоном
 
-    def __init__(self):
+    def __init__(self,appt):
         super().__init__()
         QMetaObject.connectSlotsByName(self)
-        geometry = apc.primaryScreen().availableGeometry()
+#        geometry = apc.primaryScreen().availableGeometry()
+        geometry = appt.primaryScreen().availableGeometry()
+
         self.setGeometry(geometry)
 
 #Анимация фона        
@@ -93,7 +95,7 @@ class Category(QWidget):
         
  
 
-apc=QApplication([])
-wnc=Category()
-wnc.showFullScreen()
-sys.exit(apc.exec())
+# apc=QApplication([])
+# wnc=Category()
+# wnc.showFullScreen()
+# sys.exit(apc.exec())
