@@ -22,7 +22,7 @@ sqlDB.open()
 
 
 # забирать из базы данных
-tkolt = 4
+tkolt = 3
 cenv = 30
 tots = [0, 0, 0, 0, 0, 0]
 name = ["Средняя общеобразовательная школа №1316", "Средняя общеобразовательная школа №753", "Центр образования №951",
@@ -116,18 +116,18 @@ class Wint(QWidget):
                 pixmap = QPixmap("img/logo/" + logo[i])
                 pixmap = pixmap.scaled(twdt, hgt / 4 - 20, Qt.KeepAspectRatio)
                 self.logo.setPixmap(pixmap)
-                self.logo.setStyleSheet("border:3px solid #bbaaff;border-top-left-radius: 22px; border-top-right-radius: 22px; font-size: 48px")
+                self.logo.setStyleSheet("border:3px solid #99aaff;border-top-left-radius: 22px; border-top-right-radius: 22px; font-size: 48px")
                 self.logo.show()
 
             self.tnm = QLabel(self)
             fnts = 66 - tkolt * 7
-            stsh = "border:3px solid #bbaaff;font-size: " + str(fnts) + "px"
+            stsh = "border:3px solid #99aaff;font-size: " + str(fnts) + "px"
             self.tnm.setStyleSheet(stsh)
             if len(logo[i]) > 0:
                 self.tnm.setGeometry(i * (twdt + 10) + 10, 10 + hgt / 4, twdt, hgt / 3 - 20)
             else:
                 self.tnm.setGeometry(i * (twdt + 10) + 10, 10, twdt, hgt / 3 + hgt / 4 - 20)
-                self.tnm.setStyleSheet("border:3px solid #bbaaff;border-top-left-radius: 22px; border-top-right-radius: 22px;  font-size: "+str(fnts)+"px")
+                self.tnm.setStyleSheet("border:3px solid #9999ff;border-top-left-radius: 22px; border-top-right-radius: 22px;  font-size: "+str(fnts)+"px")
                 
             self.tnm.setWordWrap(True)
             self.tnm.setText(name[i])
@@ -144,8 +144,8 @@ class Wint(QWidget):
             self.result.setAlignment(alignmentc)
             self.result.setFont(font)
             fnts1 = 96 - tkolt * 4
-            stsh = "border:3px solid #bbaaff;border-bottom-left-radius: 22px; border-bottom-right-radius: 22px;font-size: " + str(fnts1) + "px"
-            botb = "font-size: " + str(fnts1) + "px; border: 1px solid rgba(200,200,255,180)"
+            stsh = "border:3px solid #99aaff;border-bottom-left-radius: 22px; border-bottom-right-radius: 22px;font-size: " + str(fnts1) + "px"
+            botb = "QPushButton{font-size: " + str(fnts1) + "px; border: 1px solid rgba(200,200,255,180)} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
             self.result.setStyleSheet(stsh)
             self.result.show()
 
@@ -167,12 +167,13 @@ class Wint(QWidget):
             self.minub.clicked.connect(self.sumf)
             self.minub.show()
 
-
+        shst="QPushButton { font: bold 34px; border: 1px solid rgba(200,200,255,180); border-top-right-radius: 120px 60px; border-bottom-left-radius: 180px "+str(int(hgt / 15))+"px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
         self.catch = QPushButton(self)
         self.catch.setGeometry(10, hgt - hgt / 15 - 10, (wdt - 25)/2,
                                 hgt / 15)
         self.catch.setText("Выбор категории")
-        self.catch.setStyleSheet("font: bold 34px; border: 1px solid rgba(200,200,255,180); border-top-right-radius: 120px 60px; border-bottom-left-radius: 180px "+str(int(hgt / 15))+"px")
+#        self.catch.setStyleSheet("font: bold 34px; border: 1px solid rgba(200,200,255,180); border-top-right-radius: 120px 60px; border-bottom-left-radius: 180px "+str(int(hgt / 15))+"px")
+        self.catch.setStyleSheet(shst)
         self.catch.clicked.connect(chcat)
         self.catch.show()
 
@@ -181,7 +182,7 @@ class Wint(QWidget):
         self.contin.setGeometry((wdt - 20)/2, hgt - hgt / 15 - 10, (wdt - 25)/2,
                                 hgt / 15)
         self.contin.setText(">>>")
-        self.contin.setStyleSheet("font: bold 60px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: 180px "+str(int(hgt / 15))+"px; border-bottom-left-radius: 120px 60px")
+        self.contin.setStyleSheet("QPushButton {font: bold 60px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: 180px "+str(int(hgt / 15))+"px; border-bottom-left-radius: 120px 60px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }")
         self.contin.clicked.connect(cntn)
         self.contin.show()
 
