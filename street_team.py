@@ -2,9 +2,9 @@ import sys
 import PySide6
 from PySide6 import QtCore
 
-from PySide6.QtCore import Qt, QPoint, QTimer 
+from PySide6.QtCore import Qt, QPoint, QTimer, QEvent
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient, QPixmap)
-from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QMessageBox
+from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QMessageBox, QMainWindow
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 
 from categ import Category
@@ -12,16 +12,17 @@ from widget import wnd
 from quest import winq
 
 
-# #база данных
-# #global sqlDB
-# QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
-# sqlDB = QSqlDatabase.addDatabase('QSQLITE')
-# sqlDB.setDatabaseName('jep.sqlite')
-# sqlDB.open()
+
+#база данных
+#global sqlDB
+QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
+sqlDB = QSqlDatabase.addDatabase('QSQLITE')
+sqlDB.setDatabaseName('jep.sqlite')
+sqlDB.open()
 
 
 # забирать из базы данных
-tkolt = 3
+tkolt = 4
 cenv = 30
 tots = [0, 0, 0, 0, 0, 0]
 name = ["Средняя общеобразовательная школа №1316", "Средняя общеобразовательная школа №753", "Центр образования №951",
@@ -35,7 +36,7 @@ gx=200
 #
 
 
-class Wint(QWidget):
+class Wint(QMainWindow):
     # рисуем анимацию фона
 
     def paintEvent(self, event):
@@ -196,11 +197,12 @@ class Wint(QWidget):
         obj = self.findChild(QLabel, "rst" + sndr[3:])
         obj.setText(str(tots[int(sndr[3:])]))
 
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Escape:
+            self.close()
 
-# apt = QApplication([])
-# wnt = Wint(tkolt)
-# wnt.showFullScreen()
-# apt.exec()
+
+
 
 if __name__ == "__main__":
     apt = QApplication([])

@@ -7,6 +7,8 @@ from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen,
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import (QApplication, QLabel, QWidget, QFrame, QPushButton)
 from PySide6.QtWidgets import QMessageBox
+from widget import wnd
+
 # забирать из базы данных
 ckols=5
 catname=["Московские бульвары","Проспекты","Набережные","Московский метрополитен","Музеи Москвы","Кино","Транспорт","Парки"]
@@ -87,6 +89,8 @@ class Category(QWidget):
         snd = self.sender()
         catn=snd.objectName()              
         #QMessageBox.about(self, "Нажматие!!!))",catn )
+        cwnd = wnd(self)
+        cwnd.showFullScreen()
         self.hide()
 
 

@@ -100,11 +100,12 @@ class wnd(QWidget):
 
     # закончили с фоном
 
-    def __init__(self, parent=None):
-        super().__init__(parent)
-#        self.continue_run =True
+    # def __init__(self, parent=None):
+    #     super().__init__(parent)
+    def __init__(self, appt):
+        super().__init__()
         self.installEventFilter(self)
-        geometry = app.primaryScreen().availableGeometry()
+        geometry = appt.primaryScreen().availableGeometry()
         self.setGeometry(geometry)
         wdh=self.size().width()
         hgt=self.size().height()
@@ -236,7 +237,9 @@ class wnd(QWidget):
                             #QMessageBox.information(self, "Нажматие!!!))", str(obj.objectName()))
                             query.seek(int(obj.objectName())) #переходим к конкретной строке БД
                             global newwind
-                            newwind = winq(app, str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq,str(query.value(6)),str(query.value(7)))
+
+#                            newwind = winq(app, str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq,str(query.value(6)),str(query.value(7)))
+                            newwind = winq(self, str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq,str(query.value(6)),str(query.value(7)))
                             newwind.showFullScreen()
                             # записываем текст ответа в ячейку цены вопроса
 
@@ -265,32 +268,27 @@ class wnd(QWidget):
                #     QMessageBox.information(self,"Нажматие!!!))","Нажали среднюю кнопку мыши")
                         #elif mouse_event.buttons() == Qt.RightButton:
                             #QMessageBox.warning(self,"Нажматие!!!))","Нажали правую кнопку мыши "+str(obj.objectName()) )
-          # elif obj == self:
-          #        if event.type() == QEvent.Show:
-          #          self.colorchange()
+
 
           if event.type() == QEvent.KeyPress:
               # keyEvent = QKeyEvent(event)
               # QMessageBox.warning(self,"Нажматие!!!))","Нажали правую кнопку мыши "+str(keyEvent)+" ___ "+str(event.key()) )
                if event.key() == Qt.Key_Escape:
-                 # QMessageBox.warning(self,"Нажматие!!!))","Нажали правую кнопку мыши ")
-                 #  global continue_run
-                 #  continue_run = False
-                  #sys.exit(self)
-                  app.quit()
-                  app.exit(0)
+
+                  # app.quit()
+                  # app.exit(0)
+                   self.quit()
+                   self.exit(0)
 
 
           return QWidget.eventFilter(self, obj, event)
 
 
-if __name__ == "__main__":
-    app = QApplication([])
-    window = wnd()
-   # newwind = winq(app,1,"текст вопроса"*5,1,"текст ответа")
-    window.showFullScreen()
-   # window.colorchange()
-    sys.exit(app.exec())
-    sqlDB.close()
-    sqlDB.removeDatabase('QSQLITE')
-    sqlDB.removeDatabase('jep.sqlite')
+# if __name__ == "__main__":
+#     app = QApplication([])
+#     window = wnd()
+#     window.showFullScreen()
+#     sys.exit(app.exec())
+#     sqlDB.close()
+#     sqlDB.removeDatabase('QSQLITE')
+#     sqlDB.removeDatabase('jep.sqlite')
