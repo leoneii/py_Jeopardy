@@ -10,15 +10,14 @@ from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from categ import Category
 from widget import wnd
 from quest import winq
-#база данных
-#global sqlDB
-QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
-sqlDB = QSqlDatabase.addDatabase('QSQLITE')
-sqlDB.setDatabaseName('jep.sqlite')
-sqlDB.open()
 
 
-
+# #база данных
+# #global sqlDB
+# QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
+# sqlDB = QSqlDatabase.addDatabase('QSQLITE')
+# sqlDB.setDatabaseName('jep.sqlite')
+# sqlDB.open()
 
 
 # забирать из базы данных
@@ -209,9 +208,6 @@ if __name__ == "__main__":
     wnt.showFullScreen()
     sys.exit(apt.exec())
     sqlDB.close()
-    sqlDB.removeDatabase('QSQLITE')
-    sqlDB.removeDatabase('jep.sqlite')
-
-
-
+    # sqlDB.removeDatabase('QSQLITE')
+    # sqlDB.removeDatabase('jep.sqlite')
 
