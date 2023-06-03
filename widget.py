@@ -271,14 +271,9 @@ class wnd(QWidget):
 
 
           if event.type() == QEvent.KeyPress:
-              # keyEvent = QKeyEvent(event)
-              # QMessageBox.warning(self,"Нажматие!!!))","Нажали правую кнопку мыши "+str(keyEvent)+" ___ "+str(event.key()) )
                if event.key() == Qt.Key_Escape:
-
-                  # app.quit()
-                  # app.exit(0)
+                   self.close()
                    self.quit()
-                   self.exit(0)
 
 
           return QWidget.eventFilter(self, obj, event)
