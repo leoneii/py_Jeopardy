@@ -7,8 +7,7 @@ from PySide6.QtSql import QSqlQuery, QSqlDatabase
 from PySide6.QtWidgets import (QApplication, QLabel,QWidget,QVBoxLayout,QHBoxLayout,
         QFrame,QProgressBar,QPushButton)
 from PySide6.QtGui import (QFont, QPixmap, QIcon,QPainter, QLinearGradient, QColor,QPen)
-from random import randint
-#import widget
+
 
 #from widget import sqlDB
 phyn=1 # 0-без фото, 1- с фото
@@ -52,7 +51,7 @@ class winq(QWidget):
 
 
 # закончили с фоном
-    def __init__(self,appl,ynph,txt,ynpha_l, txta_l,ttq_l,txtp_l,cpd_l):
+    def __init__(self,apt,ynph,txt,ynpha_l, txta_l,ttq_l,txtp_l,cpd_l):
         #txtp текст подсказки
         #cpd цена подсказки
         global txtp, cpd
@@ -65,10 +64,10 @@ class winq(QWidget):
         txtp=txtp_l
         cpd=cpd_l
         super().__init__()
-        geometry = appl.primaryScreen().availableGeometry()
+        geometry = apt.primaryScreen().availableGeometry()
         self.setGeometry(geometry)
         wdt=self.size().width()
-        hgt=self.size().height()       
+        hgt=self.size().height()
         # self.setStyleSheet("""
         # background-color: rgba(0,0,60,10);
         # color: #ddFFaa;

@@ -9,10 +9,9 @@ from PySide6.QtSql import QSqlDatabase, QSqlQuery
 
 from categ import Category
 from widget import wnd
-from quest import winq
 
 
-
+global apt
 #база данных
 #global sqlDB
 QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
@@ -33,6 +32,7 @@ shag=2
 smx=5
 gx=200
 
+global geometry
 #
 
 
@@ -98,6 +98,8 @@ class Wint(QMainWindow):
         self.tmr.timeout.connect(scrupd)
         self.tmr.start(40)        
 #конец насыщенности фона
+
+        #ПРОДОЛЖИТЬ
         def cntn(self):
             cwnd=wnd(apt)
             cwnd.showFullScreen()

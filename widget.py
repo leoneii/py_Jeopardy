@@ -12,6 +12,8 @@ from PySide6.QtWidgets import QMessageBox
 
 from quest import winq
 
+#global apt
+
 #база данных
 #global sqlDB
 QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
@@ -102,10 +104,13 @@ class wnd(QWidget):
 
     # def __init__(self, parent=None):
     #     super().__init__(parent)
-    def __init__(self, appt):
+    def __init__(self, apt):
+        #вот тут делаем apt глобальной переменной
+        global appt
+        appt=apt
         super().__init__()
         self.installEventFilter(self)
-        geometry = appt.primaryScreen().availableGeometry()
+        geometry = apt.primaryScreen().availableGeometry()
         self.setGeometry(geometry)
         wdh=self.size().width()
         hgt=self.size().height()
@@ -237,9 +242,8 @@ class wnd(QWidget):
                             #QMessageBox.information(self, "Нажматие!!!))", str(obj.objectName()))
                             query.seek(int(obj.objectName())) #переходим к конкретной строке БД
                             global newwind
-
 #                            newwind = winq(app, str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq,str(query.value(6)),str(query.value(7)))
-                            newwind = winq(self, str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq,str(query.value(6)),str(query.value(7)))
+                            newwind = winq(appt,str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq,str(query.value(6)),str(query.value(7)))
                             newwind.showFullScreen()
                             # записываем текст ответа в ячейку цены вопроса
 
@@ -273,7 +277,6 @@ class wnd(QWidget):
           if event.type() == QEvent.KeyPress:
                if event.key() == Qt.Key_Escape:
                    self.close()
-                   self.quit()
 
 
           return QWidget.eventFilter(self, obj, event)

@@ -1,13 +1,12 @@
-import sys
-import PySide6
-from PySide6 import QtCore
-# import PySide6
 from PySide6.QtCore import (QTimer, QEventLoop, QRect, Qt, QEvent, QPoint, QMetaObject)
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient)
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import (QApplication, QLabel, QWidget, QFrame, QPushButton)
 from PySide6.QtWidgets import QMessageBox
+
+#from street_team import apt
 from widget import wnd
+
 
 # забирать из базы данных
 ckols=5
@@ -47,11 +46,14 @@ class Category(QWidget):
 
     # закончили с фоном
 
-    def __init__(self,appt):
+    def __init__(self,apt):
+        #опять глобальная apt
+        global appt
+        appt=apt
         super().__init__()
         QMetaObject.connectSlotsByName(self)
 #        geometry = apc.primaryScreen().availableGeometry()
-        geometry = appt.primaryScreen().availableGeometry()
+        geometry = apt.primaryScreen().availableGeometry()
 
         self.setGeometry(geometry)
 
@@ -89,7 +91,8 @@ class Category(QWidget):
         snd = self.sender()
         catn=snd.objectName()              
         #QMessageBox.about(self, "Нажматие!!!))",catn )
-        cwnd = wnd(self)
+        #вернуть
+        cwnd = wnd(appt)
         cwnd.showFullScreen()
         self.hide()
 
