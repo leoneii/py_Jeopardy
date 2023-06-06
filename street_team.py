@@ -1,3 +1,9 @@
+import logging
+
+import guli
+import multiprocessing
+
+
 import sys
 import PySide6
 from PySide6 import QtCore
@@ -8,7 +14,8 @@ from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QMessa
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 
 from categ import Category
-from widget import wnd
+from widget import wnd, cenv
+
 
 
 global apt
@@ -20,9 +27,12 @@ sqlDB.setDatabaseName('jep.sqlite')
 sqlDB.open()
 
 
+
+
 # забирать из базы данных
 tkolt = 4
-cenv = 30
+
+
 tots = [0, 0, 0, 0, 0, 0]
 name = ["Средняя общеобразовательная школа №1316", "Средняя общеобразовательная школа №753", "Центр образования №951",
         "СОШ №531", "Средняя общеобразовательная школа №764", "Средняя общеобразовательная школа №786"]
@@ -33,12 +43,13 @@ smx=5
 gx=200
 
 global geometry
-#
+
+cenv=0
 
 
 class Wint(QMainWindow):
     # рисуем анимацию фона
-
+    global cenv
     def paintEvent(self, event):
         global smx
         global gx
@@ -68,6 +79,7 @@ class Wint(QMainWindow):
 
     def __init__(self, tkol, parent=None):
         super(Wint, self).__init__(parent)
+
         font = QFont()
         font.setFamilies([u"Arial"])
         font.setBold(True)
@@ -188,7 +200,22 @@ class Wint(QMainWindow):
         self.contin.clicked.connect(cntn)
         self.contin.show()
 
+
+
+
     def sumf(self):
+        # считываем цену вопроса из tmpDat settings
+        quec = QSqlQuery()
+        if not quec.exec(
+                """
+                 SELECT * from settings;
+                 """
+        ):
+            logging.error("Failed to query database")
+        quec.next()
+        cenv = quec.value(5)
+        #cenp=quec.value(6)
+
         sndr = self.sender().objectName()
         # QMessageBox.warning(self, "Нажматие!!!))", " " + str(self.sender().objectName()))
         if sndr[:3] == "pls":

@@ -9,6 +9,7 @@ from PySide6.QtWidgets import (QApplication, QLabel,QWidget,QVBoxLayout,QHBoxLay
 from PySide6.QtGui import (QFont, QPixmap, QIcon,QPainter, QLinearGradient, QColor,QPen)
 
 
+
 #from widget import sqlDB
 phyn=1 # 0-без фото, 1- с фото
 testtext=" "
@@ -178,6 +179,20 @@ class winq(QWidget):
             self.tl_button.setVisible(False)
 
     def tl_func(self):
+        # query = QSqlQuery()
+        # if not query.exec(
+        #         """
+        #          SELECT * from ThemeAndQ;
+        #          """
+        # ):
+        #     logging.error("Failed to query database")
+        # query.next()
+        # cenp = query.value(7)
+        # print(cenp)
+        # query2 = QSqlQuery()
+        # quetext = 'UPDATE settings set tmpDat1=' + str(cenp)
+        # query2.exec(quetext)
+
         txtpd=self.textv.text()
         txtpd+="\n\n"+txtp
         self.textv.setText(txtpd)
@@ -245,7 +260,9 @@ class winq(QWidget):
         self.ss_button.setVisible(True)
         self.progressbar.setVisible(True)
         self.close()
-#        self.destroy()
+
+
+
 
 
 

@@ -11,7 +11,8 @@ from PySide6.QtWidgets import (QApplication, QLabel, QWidget, QFrame)
 from PySide6.QtWidgets import QMessageBox
 
 from quest import winq
-
+global cenv
+cenv=0
 #global apt
 
 #база данных
@@ -187,23 +188,7 @@ class wnd(QWidget):
                 query.next()
 
 
-        # def colorchange():
-        #     #for z in range(250):
-        #      z = 1
-        #      revers = False
-        #      while continue_run:
-        #          self.bgcolor(QColor(0,0,z+50))
-        #          q = QEventLoop(self)
-        #          QTimer.singleShot(40, q.quit)
-        #          q.exec()
-        #          if revers:
-        #              z=z-1
-        #          else:
-        #              z=z+1
-        #          if z==205:
-        #              revers=True
-        #          if z==1:
-        #              revers=False
+
         def scrupd():
             self.blc+=self.shag
             if self.blc>=254 or self.blc<=60:
@@ -216,10 +201,7 @@ class wnd(QWidget):
         self.tmr = QTimer()  # 4
         self.tmr.timeout.connect(scrupd)
         self.tmr.start(40)
-    # def bgcolor(self,color=Qt.red):
-    #     bgpalette = QPalette()
-    #     bgpalette.setColor(QPalette.Window, color)
-    #     self.setPalette(bgpalette)
+
 
     def eventFilter(self, obj, event):
           obj1 = self.findChild(QLabel, obj.objectName())
@@ -245,6 +227,17 @@ class wnd(QWidget):
 #                            newwind = winq(app, str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq,str(query.value(6)),str(query.value(7)))
                             newwind = winq(appt,str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq,str(query.value(6)),str(query.value(7)))
                             newwind.showFullScreen()
+                            cnv=query.value(2)
+                            query1=QSqlQuery()
+                            qtxt="UPDATE settings set tmpDat="+str(cnv)
+                            if not query1.exec(qtxt):
+                                logging.error("Failed to query database")
+
+
+
+
+                            self.hide()
+
                             # записываем текст ответа в ячейку цены вопроса
 
                             ipd="pd"+obj.objectName()
@@ -276,17 +269,7 @@ class wnd(QWidget):
 
           if event.type() == QEvent.KeyPress:
                if event.key() == Qt.Key_Escape:
-                   self.close()
+                   self.hide()
 
 
           return QWidget.eventFilter(self, obj, event)
-
-
-# if __name__ == "__main__":
-#     app = QApplication([])
-#     window = wnd()
-#     window.showFullScreen()
-#     sys.exit(app.exec())
-#     sqlDB.close()
-#     sqlDB.removeDatabase('QSQLITE')
-#     sqlDB.removeDatabase('jep.sqlite')
