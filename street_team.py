@@ -18,9 +18,9 @@ global apt
 #база данных
 #global sqlDB
 QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
-sqlDB = QSqlDatabase.addDatabase('QSQLITE')
-sqlDB.setDatabaseName('jep.sqlite')
-sqlDB.open()
+# sqlDB = QSqlDatabase.addDatabase('QSQLITE')
+# sqlDB.setDatabaseName('jep.sqlite')
+# sqlDB.open()
 
 
 # забирать из базы данных
@@ -40,6 +40,10 @@ global geometry
 cenv=0
 
 class Wint(QMainWindow):
+
+
+
+
     # рисуем анимацию фона
     global cenv
     def paintEvent(self, event):
@@ -68,6 +72,9 @@ class Wint(QMainWindow):
     # закончили с фоном
 
     def __init__(self, tkol, parent=None):
+        sqlDB = QSqlDatabase.addDatabase('QSQLITE')
+        sqlDB.setDatabaseName('jep.sqlite')
+        sqlDB.open()
         super(Wint, self).__init__(parent)
 
         font = QFont()
@@ -204,7 +211,7 @@ class Wint(QMainWindow):
             logging.error("Failed to query database")
         quec.next()
         cenv = quec.value(5)
-        #cenp=quec.value(6)
+
 
         sndr = self.sender().objectName()
         # QMessageBox.warning(self, "Нажматие!!!))", " " + str(self.sender().objectName()))

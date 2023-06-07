@@ -227,7 +227,7 @@ class wnd(QWidget):
                             newwind = winq(appt,str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq,str(query.value(6)),str(query.value(7)))
                             newwind.showFullScreen()
                             cnv=query.value(2)
-
+                            cnp=query.value(7)
                             query1=QSqlQuery()
                             qtxt="UPDATE settings set tmpDat="+str(cnv)
                             if not query1.exec(qtxt):

@@ -16,6 +16,9 @@ testtext=" "
 smx=3
 gx=200
 
+
+
+
 class winq(QWidget):
     font = QFont()
     font.setFamilies([u"Arial"])
@@ -179,20 +182,19 @@ class winq(QWidget):
             self.tl_button.setVisible(False)
 
     def tl_func(self):
-        # query = QSqlQuery()
-        # if not query.exec(
-        #         """
-        #          SELECT * from ThemeAndQ;
-        #          """
-        # ):
-        #     logging.error("Failed to query database")
-        # query.next()
-        # cenp = query.value(7)
-        # print(cenp)
-        # query2 = QSqlQuery()
-        # quetext = 'UPDATE settings set tmpDat1=' + str(cenp)
-        # query2.exec(quetext)
-
+        con = QSqlDatabase.addDatabase('QSQLITE')
+        con.setDatabaseName('jep.sqlite')
+        con.open()
+        query3 = QSqlQuery()
+        if not query3.exec("select * from ThemeAndQ"):
+            logging.error("Failed to query database")
+        query3.first()
+        cenp = query3.value("ToolCost")
+        print(cenp)
+        query2 = QSqlQuery()
+        quetext = "UPDATE settings set tmpDat1 =" + str(cenp)
+        query2.exec(quetext)
+        #con.close()
         txtpd=self.textv.text()
         txtpd+="\n\n"+txtp
         self.textv.setText(txtpd)
