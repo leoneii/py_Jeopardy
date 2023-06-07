@@ -172,7 +172,7 @@ class wnd(QWidget):
                 #self.temb.setBackgroundRole()
                 self.temb.setStyleSheet(cssbut)
                 self.temb.installEventFilter(self)
-                self.temb.setWordWrap(False)
+                self.temb.setWordWrap(False) #флаг кликабельности
 
                 #цена подсказки
                 cpd=str(query.value(7))
@@ -186,7 +186,6 @@ class wnd(QWidget):
                     lbpd.setAlignment(alignmentc)
                     lbpd.setVisible(True)
                 query.next()
-
 
 
         def scrupd():
@@ -228,21 +227,17 @@ class wnd(QWidget):
                             newwind = winq(appt,str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq,str(query.value(6)),str(query.value(7)))
                             newwind.showFullScreen()
                             cnv=query.value(2)
+
                             query1=QSqlQuery()
                             qtxt="UPDATE settings set tmpDat="+str(cnv)
                             if not query1.exec(qtxt):
                                 logging.error("Failed to query database")
 
-
-
-
                             self.hide()
-
                             # записываем текст ответа в ячейку цены вопроса
 
                             ipd="pd"+obj.objectName()
                             obj1.setText(str(query.value(4)))
-
                             ds=len(str(query.value(4)))
                             if ds<60:
                                 cssa = "QLabel { background-color: rgba(0,100,255,90); border: none;color: rgba(255,255,200,255); text-align: bottom center; background-position: bottom center; font-size: 32px}"

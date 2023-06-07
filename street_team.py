@@ -1,13 +1,11 @@
 import logging
 
-import guli
-import multiprocessing
-
+#import guli
+#import multiprocessing
 
 import sys
 import PySide6
 from PySide6 import QtCore
-
 from PySide6.QtCore import Qt, QPoint, QTimer, QEvent
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient, QPixmap)
 from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QMessageBox, QMainWindow
@@ -15,8 +13,6 @@ from PySide6.QtSql import QSqlDatabase, QSqlQuery
 
 from categ import Category
 from widget import wnd, cenv
-
-
 
 global apt
 #база данных
@@ -27,11 +23,8 @@ sqlDB.setDatabaseName('jep.sqlite')
 sqlDB.open()
 
 
-
-
 # забирать из базы данных
 tkolt = 4
-
 
 tots = [0, 0, 0, 0, 0, 0]
 name = ["Средняя общеобразовательная школа №1316", "Средняя общеобразовательная школа №753", "Центр образования №951",
@@ -45,7 +38,6 @@ gx=200
 global geometry
 
 cenv=0
-
 
 class Wint(QMainWindow):
     # рисуем анимацию фона
@@ -74,8 +66,6 @@ class Wint(QMainWindow):
         painter.setPen(pen)
         painter.drawRect(x, y, wd, hd)
     # закончили с фоном
-
-
 
     def __init__(self, tkol, parent=None):
         super(Wint, self).__init__(parent)
@@ -111,16 +101,19 @@ class Wint(QMainWindow):
         self.tmr.start(40)        
 #конец насыщенности фона
 
+        #создаем виджет - один навсегда))
+        cwnd = wnd(apt)
+        cwnd.setVisible(False)
+ # конец init
+
         #ПРОДОЛЖИТЬ
         def cntn(self):
-            cwnd=wnd(apt)
+            cwnd.setVisible(True)
             cwnd.showFullScreen()
-            #apt.quit()
 
         def chcat(self):
             vcat=Category(apt)
             vcat.showFullScreen()
-            
 
         for i in range(tkol):
             if len(logo[i]) > 0:
@@ -200,9 +193,6 @@ class Wint(QMainWindow):
         self.contin.clicked.connect(cntn)
         self.contin.show()
 
-
-
-
     def sumf(self):
         # считываем цену вопроса из tmpDat settings
         quec = QSqlQuery()
@@ -229,8 +219,6 @@ class Wint(QMainWindow):
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
             self.close()
-
-
 
 
 if __name__ == "__main__":
