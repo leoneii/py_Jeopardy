@@ -211,12 +211,12 @@ class Wint(QMainWindow):
             logging.error("Failed to query database")
         quec.next()
         cenv = quec.value(5)
-
+        cenp = quec.value(6)
 
         sndr = self.sender().objectName()
         # QMessageBox.warning(self, "Нажматие!!!))", " " + str(self.sender().objectName()))
         if sndr[:3] == "pls":
-            tots[int(sndr[3:])] += cenv
+            tots[int(sndr[3:])] += cenp
         else:
             tots[int(sndr[3:])] -= cenv
         # меняем значения на лейблах
@@ -234,6 +234,6 @@ if __name__ == "__main__":
     wnt.showFullScreen()
     sys.exit(apt.exec())
     sqlDB.close()
-    # sqlDB.removeDatabase('QSQLITE')
-    # sqlDB.removeDatabase('jep.sqlite')
+    sqlDB.removeDatabase('QSQLITE')
+    sqlDB.removeDatabase('jep.sqlite')
 

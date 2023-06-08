@@ -55,10 +55,10 @@ class winq(QWidget):
 
 
 # закончили с фоном
-    def __init__(self,apt,ynph,txt,ynpha_l, txta_l,ttq_l,txtp_l,cpd_l):
+    def __init__(self,apt,ynph,txt,ynpha_l, txta_l,ttq_l,txtp_l,cpd_l,cost_l):
         #txtp текст подсказки
         #cpd цена подсказки
-        global txtp, cpd
+        global txtp, cpd, cost
         global txta
         global ynpha
         global ttq #время таймера
@@ -67,6 +67,7 @@ class winq(QWidget):
         ynpha=ynpha_l
         txtp=txtp_l
         cpd=cpd_l
+        cost = cost_l
         super().__init__()
         geometry = apt.primaryScreen().availableGeometry()
         self.setGeometry(geometry)
@@ -182,18 +183,14 @@ class winq(QWidget):
             self.tl_button.setVisible(False)
 
     def tl_func(self):
-        con = QSqlDatabase.addDatabase('QSQLITE')
-        con.setDatabaseName('jep.sqlite')
-        con.open()
-        query3 = QSqlQuery()
-        if not query3.exec("select * from ThemeAndQ"):
-            logging.error("Failed to query database")
-        query3.first()
-        cenp = query3.value("ToolCost")
-        print(cenp)
+        # con = QSqlDatabase.addDatabase('QSQLITE')
+        # con.setDatabaseName('jep.sqlite')
+        # con.open()
+        print (cost+ "   "+cpd)
         query2 = QSqlQuery()
-        quetext = "UPDATE settings set tmpDat1 =" + str(cenp)
-        query2.exec(quetext)
+        quetext = "UPDATE settings set tmpDat1 =" + str(int(cost) - int(cpd)) + ";"
+        if not query2.exec(quetext):
+            logging.error("Failed to query database")
         #con.close()
         txtpd=self.textv.text()
         txtpd+="\n\n"+txtp
