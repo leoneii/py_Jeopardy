@@ -69,6 +69,8 @@ font.setBold(True)
 alignmentc=Qt.AlignmentFlag.AlignCenter
 css = "QLabel { background-color: rgba(0,0,180,255); color: rgba(255,255,255,255); text-align: bottom center; background-position: bottom center;}"
 cssbut = "QLabel { background-color: rgba(0,0,180,255); color: rgba(255,255,255,255); text-align:center center; background-position: bottom center;} QLabel::hover{background-color: #0077ff ;}"
+cssbut1 = "QLabel { background-color: rgba(250,0,250,80); color: rgba(255,255,255,255); text-align:center center; background-position: bottom center;} QLabel::hover{background-color: #0077ff ;}"
+
 bgpalbut = QPalette()
 bgpalbut.setColor(QPalette.Button, Qt.blue )
 
@@ -156,7 +158,6 @@ class wnd(QWidget):
                 vij=vp+(hkn+otst)*i
                 ktxt=str(query.value(2))
                 self.temb = QLabel(self)
-               # self.temb.setObjectName(u"kn_"+str(i)+"_"+str(j))
                 self.temb.setObjectName(str(rowdb))
                 rowdb = rowdb+1
 
@@ -171,6 +172,9 @@ class wnd(QWidget):
                 self.temb.setAutoFillBackground(True)
                 #self.temb.setBackgroundRole()
                 self.temb.setStyleSheet(cssbut)
+                scbon=str(query.value(8))
+                if scbon=="1":
+                    self.temb.setStyleSheet(cssbut1)
                 self.temb.installEventFilter(self)
                 self.temb.setWordWrap(False) #флаг кликабельности
 
@@ -185,6 +189,8 @@ class wnd(QWidget):
                     lbpd.setStyleSheet(csspd)
                     lbpd.setAlignment(alignmentc)
                     lbpd.setVisible(True)
+
+
                 query.next()
 
 

@@ -226,23 +226,10 @@ class Wint(QMainWindow):
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
-            # Это работает, но рюшичек маловато
-            # reply = QMessageBox()
-            # reply.setWindowTitle("Завершаем игру")
-            # reply.setText("Подтверждаете выход?")
-            # reply.setIcon(QMessageBox.Question)
-            # sth = "background-color: rgba(0,0,190,255); color: #ddFFaa; font-size: 22px;"
-            # reply.setStyleSheet(sth)
-            # reply.setStandardButtons(QMessageBox.StandardButton.Yes |
-            #                          QMessageBox.StandardButton.No)
-            # x = reply.exec()
-            # if x == QMessageBox.StandardButton.Yes:
-            #     self.close()
-            # вЕРНУТЬ ЭТОТ вариант, если что
+            # диалоговое окно выхода из программы
             def check_button(id_name):
                 if button_group.id(id_name) == 1:
                     reply.close()
-                    #event.accept()
                     self.close()
                 elif button_group.id(id_name) == 2:
                     reply.close()
