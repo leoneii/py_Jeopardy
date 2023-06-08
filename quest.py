@@ -59,7 +59,7 @@ class winq(QWidget):
         #txtp текст подсказки
         #cpd цена подсказки
         global txtp, cpd, cost
-        global txta
+        global txta, wdt, hgt
         global ynpha
         global ttq #время таймера
         ttq=ttq_l*10
@@ -116,7 +116,7 @@ class winq(QWidget):
                 fs=80
             else:
                 fs=85            
-        #tfs="border:0px solid black;font-size:"+str(fs)+"px"
+
         tfs = "background-color: rgba(0,0,80,0); color: rgba(225,255,255,255); border:0px solid black;font-size:" + str(fs) + "px"
         self.textv.setFont(self.font)
         self.textv.setFrameShape(QFrame.Box)
@@ -141,7 +141,7 @@ class winq(QWidget):
                                background-color: rgba(100,100,00,50);
                                }
                            """)
-        #экран плавно меняет фон
+#экран плавно меняет фон
         def scrupd():
             self.blc+=self.shag
             if self.blc>=254 or self.blc<=60:
@@ -181,7 +181,7 @@ class winq(QWidget):
             self.tl_button.setVisible(True)
         else:
             self.tl_button.setVisible(False)
-
+# Использование подсказки
     def tl_func(self):
         query2 = QSqlQuery()
         quetext = "UPDATE settings set tmpDat1 =" + str(int(cost) - int(cpd)) + ";"
@@ -190,8 +190,30 @@ class winq(QWidget):
         txtpd=self.textv.text()
         txtpd+="\n\n"+txtp
         self.textv.setText(txtpd)
-        self.tl_button.setVisible(False)
 
+        self.tl_button.setVisible(False)
+        if len(ynpha) > 0:
+            self.textv.setGeometry(QRect(100, hgt/2, wdt-200, hgt/2-40))
+            self.photo.setGeometry(QRect(100, 20, wdt - 200, hgt / 2 - 40))
+            leghtext = len(txtpd)
+            if leghtext > 250:
+                if phyn == 1:
+                    fs = 40
+                else:
+                    fs = 48
+            elif leghtext in range(100, 250):
+                if phyn == 1:
+                    fs = 56
+                else:
+                    fs = 60
+            elif leghtext in range(1, 99):
+                if phyn == 1:
+                    fs = 60
+                else:
+                    fs = 68
+            tfs = "background-color: rgba(0,0,80,0); color: rgba(225,255,255,255); border:0px solid black;font-size:" + str(
+                fs) + "px"
+            self.textv.setStyleSheet(tfs)
     def start_stop_func(self):
         self.ss_button.setIconSize(QSize(0,0))
         if self.ss_button.text() == '':
@@ -235,9 +257,6 @@ class winq(QWidget):
 
             self.nxt_button.setText('Далее')
             self.nxt_button.clicked.connect(self.nxta_func)
-        
-        
- 
     def nxta_func(self):
         # wdt=self.size().width()
         # hgt=self.size().height()
