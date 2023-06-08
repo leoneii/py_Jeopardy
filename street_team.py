@@ -8,7 +8,8 @@ import PySide6
 from PySide6 import QtCore
 from PySide6.QtCore import Qt, QPoint, QTimer, QEvent
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient, QPixmap)
-from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QMessageBox, QMainWindow, QDialog
+from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QMessageBox, QMainWindow, QDialog, \
+    QVBoxLayout, QButtonGroup, QHBoxLayout
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 
 from categ import Category
@@ -225,17 +226,55 @@ class Wint(QMainWindow):
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
-            reply = QMessageBox()
-            reply.setWindowTitle("Завершаем игру")
-            reply.setText("Подтверждаете выход?")
-            reply.setIcon(QMessageBox.Question)
-            sth = "background-color: rgba(0,0,190,255); color: #ddFFaa; font-size: 22px"
+            # Это работает, но рюшичек маловато
+            # reply = QMessageBox()
+            # reply.setWindowTitle("Завершаем игру")
+            # reply.setText("Подтверждаете выход?")
+            # reply.setIcon(QMessageBox.Question)
+            # sth = "background-color: rgba(0,0,190,255); color: #ddFFaa; font-size: 22px;"
+            # reply.setStyleSheet(sth)
+            # reply.setStandardButtons(QMessageBox.StandardButton.Yes |
+            #                          QMessageBox.StandardButton.No)
+            # x = reply.exec()
+            # if x == QMessageBox.StandardButton.Yes:
+            #     self.close()
+            # вЕРНУТЬ ЭТОТ вариант, если что
+            def check_button(id_name):
+                if button_group.id(id_name) == 1:
+                    reply.close()
+                    #event.accept()
+                    self.close()
+                elif button_group.id(id_name) == 2:
+                    reply.close()
+                    event.ignore()
+
+            reply = QDialog()
+            reply.setWindowFlag(Qt.FramelessWindowHint)
+            sth = "background-color: rgba(0,0,255,90); color: #ddFFaa; font-size: 22px;  border: 6px;"
             reply.setStyleSheet(sth)
-            reply.setStandardButtons(QMessageBox.StandardButton.Yes |
-                                     QMessageBox.StandardButton.No)
-            x = reply.exec()
-            if x == QMessageBox.StandardButton.Yes:
-                self.close()
+            vbox = QVBoxLayout()
+            label_dialog = QLabel()
+            label_dialog.setStyleSheet("background-color: rgba(0,0,255,240);border-top-left-radius: 80px 20px; border-bottom-right-radius: 80px 20px;")
+            label_dialog.setText('Вы действительно хотите закончить игру?')
+            button_yes = QPushButton(reply)
+            button_yes.setText("Да")
+            shst = "QPushButton { background-color: rgba(0,0,200,100); color: rgba(220,220,255,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 6px; font: Bold 22px} QPushButton::hover{background-color: #0077ff ;}"
+            button_yes.setStyleSheet(shst)
+            button_no = QPushButton(reply)
+            button_no.setText('Нет')
+            button_no.setStyleSheet(shst)
+            button_group = QButtonGroup()
+            button_group.addButton(button_yes, 1)
+            button_group.addButton(button_no, 2)
+            button_group.buttonClicked.connect(check_button)
+            layout = QHBoxLayout()
+            layout.addWidget(button_yes)
+            layout.addWidget(button_no)
+            vbox.addWidget(label_dialog)
+            vbox.addSpacing(20)
+            vbox.addLayout(layout)
+            reply.setLayout(vbox)
+            reply.exec()
 
 if __name__ == "__main__":
     apt = QApplication([])
