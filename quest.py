@@ -183,15 +183,10 @@ class winq(QWidget):
             self.tl_button.setVisible(False)
 
     def tl_func(self):
-        # con = QSqlDatabase.addDatabase('QSQLITE')
-        # con.setDatabaseName('jep.sqlite')
-        # con.open()
-        print (cost+ "   "+cpd)
         query2 = QSqlQuery()
         quetext = "UPDATE settings set tmpDat1 =" + str(int(cost) - int(cpd)) + ";"
         if not query2.exec(quetext):
             logging.error("Failed to query database")
-        #con.close()
         txtpd=self.textv.text()
         txtpd+="\n\n"+txtp
         self.textv.setText(txtpd)

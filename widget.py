@@ -227,7 +227,6 @@ class wnd(QWidget):
                             newwind = winq(appt,str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)), ttq, str(query.value(6)), str(query.value(7)), str(query.value(2)))
                             newwind.showFullScreen()
                             cnv=query.value(2)
-                            cnp=query.value(7)
                             query1=QSqlQuery()
                             if not query1.exec("UPDATE settings set tmpDat =" + str(cnv) + ", tmpDat1 =" + str(cnv) + ";"):
                                 logging.error("Failed to query database")
