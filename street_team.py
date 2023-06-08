@@ -8,7 +8,7 @@ import PySide6
 from PySide6 import QtCore
 from PySide6.QtCore import Qt, QPoint, QTimer, QEvent
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient, QPixmap)
-from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QMessageBox, QMainWindow
+from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QMessageBox, QMainWindow, QDialog
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 
 from categ import Category
@@ -225,8 +225,17 @@ class Wint(QMainWindow):
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
-            self.close()
-
+            reply = QMessageBox()
+            reply.setWindowTitle("Завершаем игру")
+            reply.setText("Подтверждаете выход?")
+            reply.setIcon(QMessageBox.Question)
+            sth = "background-color: rgba(0,0,190,255); color: #ddFFaa; font-size: 22px"
+            reply.setStyleSheet(sth)
+            reply.setStandardButtons(QMessageBox.StandardButton.Yes |
+                                     QMessageBox.StandardButton.No)
+            x = reply.exec()
+            if x == QMessageBox.StandardButton.Yes:
+                self.close()
 
 if __name__ == "__main__":
     apt = QApplication([])
