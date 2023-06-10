@@ -63,9 +63,6 @@ cenv=0
 
 class Wint(QWidget):
 
-
-
-
     # рисуем анимацию фона
     global cenv
     def paintEvent(self, event):
@@ -143,9 +140,9 @@ class Wint(QWidget):
         for i in range(int(query.value(0))):
             #global mascat
             # создаем виджет - один навсегда))
-            cwnd = wnd(apt,self)
-            cwnd.hide()
-            #cwnd.setVisible(False)
+            cwnd = wnd(apt, self)
+           # cwnd.hide()
+            cwnd.setVisible(False)
             cwnd.setObjectName("widget_"+str(i))
            # mascat += self.cwnd
            # print(self.cwnd.objectName())
@@ -162,9 +159,11 @@ class Wint(QWidget):
         def cntn():
             cwn = self.findChild(QWidget, "widget_2")
             self.lower()
-            cwn.setVisible(True)
-            self.setWindowOpacity(0)
             cwn.raise_()
+            #cwn.setVisible(True)
+            cwn.showFullScreen()
+            #self.setWindowOpacity(0)
+
 
         def chcat(self):
             vcat=Category(apt)

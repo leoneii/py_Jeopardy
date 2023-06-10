@@ -56,7 +56,6 @@ gx=200
 # except EOFError:
 #     print("Exception handled")
 
-
 # темы___________________________
 ntem=["Анекдоты","Нам песня строить и жить помогает","Улицы в лицах","Живопись и музыка","Меценаты","Исторические анекдоты","Покорители"]
 # цена вопроса
@@ -113,8 +112,8 @@ class wnd(QWidget):
         #вот тут делаем apt глобальной переменной
         global appt
         appt=apt
-        #super(wnd, self).__init__(parent)
-        QWidget.__init__(self,parent)
+        super(wnd, self).__init__(parent)
+        #QWidget.__init__(self,parent)
 
         #super(wnd, self).__init__(parent, apt)
         self.installEventFilter(self)
@@ -199,8 +198,7 @@ class wnd(QWidget):
                 query.next()
 
         # crhsdftv hjlbntkz
-        parent.hide()
-
+#        parent.hide()
 
         def scrupd():
             self.blc+=self.shag
