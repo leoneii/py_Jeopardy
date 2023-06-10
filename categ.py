@@ -1,3 +1,5 @@
+import logging
+
 from PySide6.QtCore import (QTimer, QEventLoop, QRect, Qt, QEvent, QPoint, QMetaObject)
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient)
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
@@ -7,10 +9,35 @@ from PySide6.QtWidgets import QMessageBox
 #from street_team import apt
 from widget import wnd
 
+catname=["","","","","","","","","",""]
+query = QSqlQuery()
+if not query.exec(
+        """
+            SELECT COUNT(*) FROM Category;
+        """
+):
+        logging.error("Failed to query database")
+query.next()
+ckols=int(query.value(0))
 
+query = QSqlQuery()
+if not query.exec(
+        """
+            SELECT * FROM Category;
+        """
+):
+        logging.error("Failed to query database")
+query.first()
+for i in range(ckols):
+    catname[i]=str(query.value(1))
+    print(catname)
+    query.next()
 # забирать из базы данных
-ckols=5
-catname=["Московские бульвары","Проспекты","Набережные","Московский метрополитен","Музеи Москвы","Кино","Транспорт","Парки"]
+#ckols=5
+#catname=["Московские бульвары","Проспекты","Набережные","Московский метрополитен","Музеи Москвы","Кино","Транспорт","Парки"]
+
+
+
 blc=80
 shag=1
 smx=5
