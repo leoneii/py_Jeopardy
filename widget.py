@@ -76,6 +76,7 @@ bgpalbut.setColor(QPalette.Button, Qt.blue )
 
 class wnd(QWidget):
 
+
     # рисуем анимацию фона
 
     def paintEvent(self, event):

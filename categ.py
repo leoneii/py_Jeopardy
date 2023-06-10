@@ -109,9 +109,22 @@ class Category(QWidget):
             self.cbut.show()
     def catchois(self):
         snd = self.sender()
-        catn=snd.objectName()              
-        #QMessageBox.about(self, "Нажматие!!!))",catn )
-        #вернуть
+        catn=snd.objectName()
+        query = QSqlQuery()
+        if not query.exec("SELECT * FROM Category WHERE catcode="+str(int(catn)+1)+";"):
+            logging.error("Failed to query database")
+        query.first()
+        tnm=str(query.value(1))
+        tnn=str(query.value(0))
+        query = QSqlQuery()
+        quetext = "UPDATE settings set curCatCode =" + tnn+", curCatName ='"+tnm+"';"
+        if not query.exec(quetext):
+            logging.error("Failed to query database")
+        # query.exec("select * from settings")
+        # query.first()
+        # print(query.value(8))
+
+
         cwnd = wnd(appt)
         cwnd.showFullScreen()
         self.hide()
