@@ -138,12 +138,15 @@ class Wint(QWidget):
         query.next()
        # print(query.value(0))
         for i in range(int(query.value(0))):
-            #global mascat
+            global mascat
+
             # создаем виджет - один навсегда))
-            cwnd = wnd(apt, self)
-           # cwnd.hide()
+            cwnd = wnd(apt)
             cwnd.setVisible(False)
             cwnd.setObjectName("widget_"+str(i))
+            mascat.append(cwnd)
+           # cwnd.hide()
+
            # mascat += self.cwnd
            # print(self.cwnd.objectName())
 
@@ -157,13 +160,14 @@ class Wint(QWidget):
         #ПРОДОЛЖИТЬ
 
         def cntn():
-            cwn = self.findChild(QWidget, "widget_2")
-            self.lower()
-            cwn.raise_()
-            #cwn.setVisible(True)
-            cwn.showFullScreen()
-            #self.setWindowOpacity(0)
-
+            # cwn = self.findChild(QWidget, "widget_2")
+            #
+            # self.lower()
+            # cwn.raise_()
+            # #cwn.setVisible(True)
+            # cwn.showFullScreen()
+            # #self.setWindowOpacity(0)
+            mascat[0].showFullScreen()
 
         def chcat(self):
             vcat=Category(apt)
