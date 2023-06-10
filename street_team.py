@@ -110,7 +110,7 @@ class Wint(QMainWindow):
         self.tmr.start(40)        
 #конец насыщенности фона
 
-
+#создаем экраны вопросов категорий
         query = QSqlQuery()
         if not query.exec(
                 """
