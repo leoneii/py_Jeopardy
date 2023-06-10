@@ -23,15 +23,35 @@ QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
 # sqlDB = QSqlDatabase.addDatabase('QSQLITE')
 # sqlDB.setDatabaseName('jep.sqlite')
 # sqlDB.open()
+name=["","","","","","","",""]
+logo=["","","","","","","",""]
+query = QSqlQuery()
+if not query.exec(
+        """
+            SELECT COUNT(*) FROM Teams;
+        """
+):
+        logging.error("Failed to query database")
+query.next()
+tkolt=int(query.value(0)) # количество команд
+
+query = QSqlQuery()
+if not query.exec(
+        """
+            SELECT * FROM Teams;
+        """
+):
+        logging.error("Failed to query database")
+query.first()
+for i in range(tkolt):
+    logo[i]=str(query.value(1))
+    name[i]=str(query.value(2))
+    query.next()
 
 
-# забирать из базы данных
-tkolt = 4
 mascat = []
 tots = [0, 0, 0, 0, 0, 0]
-name = ["Средняя общеобразовательная школа №1316", "Средняя общеобразовательная школа №753", "Центр образования №951",
-        "СОШ №531", "Средняя общеобразовательная школа №764", "Средняя общеобразовательная школа №786"]
-logo = ["1316.jpg", "", "753.jpg", "951.jpg", "531.jpg", "", ""]
+
 blc=120
 shag=2
 smx=5
@@ -110,7 +130,7 @@ class Wint(QWidget):
         self.tmr.start(40)        
 #конец насыщенности фона
 
-
+#создаем экраны вопросов категорий
         query = QSqlQuery()
         if not query.exec(
                 """
