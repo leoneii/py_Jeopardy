@@ -123,7 +123,7 @@ class Wint(QMainWindow):
         for i in range(int(query.value(0))):
             #global mascat
             # создаем виджет - один навсегда))
-            self.cwnd = wnd(apt)
+            self.cwnd = wnd(apt,self)
             self.cwnd.setVisible(False)
             self.cwnd.setObjectName("widget_"+str(i))
            # mascat += self.cwnd
@@ -139,10 +139,11 @@ class Wint(QMainWindow):
         #ПРОДОЛЖИТЬ
         def cntn():
             # print(cwnd)
-            #cwn = self.findChild(QWidget, "widget_2")
+            #self.setVisible(False)
+            cwn = self.findChild(QWidget, "widget_2")
             #cwn = mascat[1]
             print (self.cwnd.parent())
-            cwn = self.cwnd
+            #cwn = self.cwnd
             cwn.setVisible(True)
             cwn.showFullScreen()
 

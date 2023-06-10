@@ -107,11 +107,11 @@ class wnd(QWidget):
 
     # def __init__(self, parent=None):
     #     super().__init__(parent)
-    def __init__(self, apt):
+    def __init__(self, apt, parent= None):
         #вот тут делаем apt глобальной переменной
         global appt
         appt=apt
-        super().__init__()
+        super(wnd, self).__init__(parent)
         #super(wnd, self).__init__(parent, apt)
         self.installEventFilter(self)
         geometry = apt.primaryScreen().availableGeometry()
