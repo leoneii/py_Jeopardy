@@ -27,7 +27,7 @@ QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
 
 # забирать из базы данных
 tkolt = 4
-
+mascat = []
 tots = [0, 0, 0, 0, 0, 0]
 name = ["Средняя общеобразовательная школа №1316", "Средняя общеобразовательная школа №753", "Центр образования №951",
         "СОШ №531", "Средняя общеобразовательная школа №764", "Средняя общеобразовательная школа №786"]
@@ -121,10 +121,12 @@ class Wint(QMainWindow):
         query.next()
        # print(query.value(0))
         for i in range(int(query.value(0))):
+            #global mascat
             # создаем виджет - один навсегда))
             self.cwnd = wnd(apt)
             self.cwnd.setVisible(False)
             self.cwnd.setObjectName("widget_"+str(i))
+           # mascat += self.cwnd
            # print(self.cwnd.objectName())
 
 
@@ -137,7 +139,9 @@ class Wint(QMainWindow):
         #ПРОДОЛЖИТЬ
         def cntn():
             # print(cwnd)
-            cwn = self.findChild(QWidget, "widget_2")
+            #cwn = self.findChild(QWidget, "widget_2")
+            #cwn = mascat[1]
+            print (self.cwnd.parent())
             cwn = self.cwnd
             cwn.setVisible(True)
             cwn.showFullScreen()
