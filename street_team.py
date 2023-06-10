@@ -41,7 +41,7 @@ global geometry
 
 cenv=0
 
-class Wint(QMainWindow):
+class Wint(QWidget):
 
 
 
@@ -77,8 +77,8 @@ class Wint(QMainWindow):
         sqlDB = QSqlDatabase.addDatabase('QSQLITE')
         sqlDB.setDatabaseName('jep.sqlite')
         sqlDB.open()
-        #super(Wint, self).__init__(parent)
-        super().__init__()
+        super(Wint, self).__init__(parent)
+        #super().__init__()
         font = QFont()
         font.setFamilies([u"Arial"])
         font.setBold(True)
@@ -123,9 +123,10 @@ class Wint(QMainWindow):
         for i in range(int(query.value(0))):
             #global mascat
             # создаем виджет - один навсегда))
-            self.cwnd = wnd(apt,self)
-            self.cwnd.setVisible(False)
-            self.cwnd.setObjectName("widget_"+str(i))
+            cwnd = wnd(apt,self)
+            cwnd.hide()
+            #cwnd.setVisible(False)
+            cwnd.setObjectName("widget_"+str(i))
            # mascat += self.cwnd
            # print(self.cwnd.objectName())
 
@@ -137,15 +138,13 @@ class Wint(QMainWindow):
  # конец init
 
         #ПРОДОЛЖИТЬ
+
         def cntn():
-            # print(cwnd)
-            #self.setVisible(False)
             cwn = self.findChild(QWidget, "widget_2")
-            #cwn = mascat[1]
-            print (self.cwnd.parent())
-            #cwn = self.cwnd
+            self.lower()
             cwn.setVisible(True)
-            cwn.showFullScreen()
+            self.setWindowOpacity(0)
+            cwn.raise_()
 
         def chcat(self):
             vcat=Category(apt)
@@ -229,6 +228,8 @@ class Wint(QMainWindow):
         self.contin.setStyleSheet("QPushButton {font: bold 60px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: 180px "+str(int(hgt / 15))+"px; border-bottom-left-radius: 120px 60px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }")
         self.contin.clicked.connect(cntn)
         self.contin.show()
+
+
 
 
     def sumf(self):
