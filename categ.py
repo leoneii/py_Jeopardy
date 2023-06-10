@@ -54,7 +54,6 @@ class Category(QWidget):
         QMetaObject.connectSlotsByName(self)
 #        geometry = apc.primaryScreen().availableGeometry()
         geometry = apt.primaryScreen().availableGeometry()
-
         self.setGeometry(geometry)
 
 #Анимация фона        

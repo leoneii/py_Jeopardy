@@ -112,6 +112,7 @@ class wnd(QWidget):
         global appt
         appt=apt
         super().__init__()
+        #super(wnd, self).__init__(parent, apt)
         self.installEventFilter(self)
         geometry = apt.primaryScreen().availableGeometry()
         self.setGeometry(geometry)

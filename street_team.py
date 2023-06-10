@@ -12,6 +12,7 @@ from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QMessa
     QVBoxLayout, QButtonGroup, QHBoxLayout
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 
+import widget
 from categ import Category
 from widget import wnd, cenv
 
@@ -76,8 +77,8 @@ class Wint(QMainWindow):
         sqlDB = QSqlDatabase.addDatabase('QSQLITE')
         sqlDB.setDatabaseName('jep.sqlite')
         sqlDB.open()
-        super(Wint, self).__init__(parent)
-
+        #super(Wint, self).__init__(parent)
+        super().__init__()
         font = QFont()
         font.setFamilies([u"Arial"])
         font.setBold(True)
@@ -109,19 +110,42 @@ class Wint(QMainWindow):
         self.tmr.start(40)        
 #конец насыщенности фона
 
-        #создаем виджет - один навсегда))
-        cwnd = wnd(apt)
-        cwnd.setVisible(False)
+
+        query = QSqlQuery()
+        if not query.exec(
+                """
+                 SELECT COUNT(*) FROM Category;
+                 """
+        ):
+            logging.error("Failed to query database")
+        query.next()
+       # print(query.value(0))
+        for i in range(int(query.value(0))):
+            # создаем виджет - один навсегда))
+            self.cwnd = wnd(apt)
+            self.cwnd.setVisible(False)
+            self.cwnd.setObjectName("widget_"+str(i))
+           # print(self.cwnd.objectName())
+
+
+        # #создаем виджет - один навсегда))
+        # cwnd = wnd(apt)
+        # cwnd.setVisible(False)
+
  # конец init
 
         #ПРОДОЛЖИТЬ
-        def cntn(self):
-            cwnd.setVisible(True)
-            cwnd.showFullScreen()
+        def cntn():
+            # print(cwnd)
+            cwn = self.findChild(QWidget, "widget_2")
+            cwn = self.cwnd
+            cwn.setVisible(True)
+            cwn.showFullScreen()
 
         def chcat(self):
             vcat=Category(apt)
             vcat.showFullScreen()
+
 
         for i in range(tkol):
             if len(logo[i]) > 0:
@@ -200,6 +224,7 @@ class Wint(QMainWindow):
         self.contin.setStyleSheet("QPushButton {font: bold 60px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: 180px "+str(int(hgt / 15))+"px; border-bottom-left-radius: 120px 60px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }")
         self.contin.clicked.connect(cntn)
         self.contin.show()
+
 
     def sumf(self):
         # считываем цену вопроса из tmpDat settings
