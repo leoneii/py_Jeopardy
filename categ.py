@@ -30,13 +30,7 @@ if not query.exec(
 query.first()
 for i in range(ckols):
     catname[i]=str(query.value(1))
-    print(catname)
     query.next()
-# забирать из базы данных
-#ckols=5
-#catname=["Московские бульвары","Проспекты","Набережные","Московский метрополитен","Музеи Москвы","Кино","Транспорт","Парки"]
-
-
 
 blc=80
 shag=1
