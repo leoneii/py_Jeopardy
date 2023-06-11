@@ -175,6 +175,7 @@ class Wint(QWidget):
         #ПРОДОЛЖИТЬ
 
         def cntn():
+            global cntcode
             # cwn = self.findChild(QWidget, "widget_2")
             #
             # self.lower()
@@ -182,11 +183,23 @@ class Wint(QWidget):
             # #cwn.setVisible(True)
             # cwn.showFullScreen()
             # #self.setWindowOpacity(0)
+            # забираем название категории из settings
+            query = QSqlQuery()
+            if not query.exec(
+                    """
+                        SELECT * FROM settings;
+                    """
+            ):
+                logging.error("Failed to query database")
+            query.first()
+            cntcode = int(query.value(7)) - 1
             mascat[cntcode].showFullScreen()
 
         def chcat(self):
             global cnttxt, cntcode
-            # забираем название категории из settings
+
+            vcat=Category(apt)
+            vcat.showFullScreen()
             query = QSqlQuery()
             if not query.exec(
                     """
@@ -197,10 +210,7 @@ class Wint(QWidget):
             query.first()
             cnttxt = query.value(8) + "  >>>"
             cntcode = int(query.value(7)) - 1
-            print(cntcode, cnttxt)
-            #self.contin.setText(cnttxt)
-            vcat=Category(apt)
-            vcat.showFullScreen()
+
 
 
         for i in range(tkol):
