@@ -64,6 +64,7 @@ cenv=0
 class Wint(QWidget):
     # забираем название категории из settings
     global cnttxt
+
     query = QSqlQuery()
     if not query.exec(
             """
@@ -79,6 +80,7 @@ class Wint(QWidget):
     def paintEvent(self, event):
         global smx
         global gx
+
         painter = QPainter(self)
       #  painter.begin(self)
         x = 0
@@ -86,6 +88,7 @@ class Wint(QWidget):
         wd = self.size().width()
         hd = self.size().height()
         gx += smx
+
         if gx > wd * 1.5 or gx < 150:
             smx *= -1
         gradient = QLinearGradient(QPoint(x, y), QPoint(gx, y + 300 + wd * 300 / gx))

@@ -60,8 +60,9 @@ class winq(QWidget):
         #cpd цена подсказки
         global txtp, cpd, cost
         global txta, wdt, hgt
-        global ynpha
+        global ynpha, ynp
         global ttq #время таймера
+        ynp=ynph
         ttq=ttq_l*10
         txta=txta_l
         ynpha=ynpha_l
@@ -103,19 +104,19 @@ class winq(QWidget):
         leghtext= len(txt)
         if leghtext>250:
             if phyn==1:
-                fs=48
+                fs=50
             else:
-                fs=52
+                fs=58
         elif leghtext in range(100,250):
             if phyn==1:
-                fs=60
+                fs=58
             else:
-                fs=65            
+                fs=66
         elif leghtext in range(1,99):
             if phyn==1:
-                fs=80
+                fs=66
             else:
-                fs=85            
+                fs=74
 
         tfs = "background-color: rgba(0,0,80,0); color: rgba(225,255,255,255); border:0px solid black;font-size:" + str(fs) + "px"
         self.textv.setFont(self.font)
@@ -239,24 +240,28 @@ class winq(QWidget):
                 self.step = 0
 #окно ответа
     def nxt_func(self):
-            wdt=self.size().width()
-            hgt=self.size().height()
-            if len(ynpha) > 0:
-                 pixmap=QPixmap("img/"+ynpha)
-                 self.photo.setPixmap(pixmap)
-                 self.textv.setText(txta)
-            if len(ynpha) > 0:
-                 self.textv.setGeometry(QRect(100, hgt*2/3+20, wdt-200, hgt/3-40))
-            else:
-                 self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
-                 self.textv.setText(txta)
 
-            self.ss_button.setVisible(False)
-            self.progressbar.setVisible(False)
-            self.tl_button.setVisible(False)
+        wdt=self.size().width()
+        hgt=self.size().height()
 
-            self.nxt_button.setText('Далее')
-            self.nxt_button.clicked.connect(self.nxta_func)
+        if len(ynpha) > 0:
+            pixmap=QPixmap("img/"+ynpha)
+            self.photo.setPixmap(pixmap)
+            self.textv.setText(txta)
+            self.textv.setGeometry(QRect(100, hgt*2/3+20, wdt-200, hgt/3-40))
+            # else:
+            #      self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
+            #      self.textv.setText(txta)
+        elif len(ynp)==0:
+            self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
+        self.textv.setText(txta)
+
+        self.ss_button.setVisible(False)
+        self.progressbar.setVisible(False)
+        self.tl_button.setVisible(False)
+
+        self.nxt_button.setText('Далее')
+        self.nxt_button.clicked.connect(self.nxta_func)
     def nxta_func(self):
         # wdt=self.size().width()
         # hgt=self.size().height()

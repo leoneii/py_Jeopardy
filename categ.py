@@ -6,8 +6,7 @@ from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import (QApplication, QLabel, QWidget, QFrame, QPushButton)
 from PySide6.QtWidgets import QMessageBox
 
-#from street_team import apt
-from widget import wnd
+from widget import wnd, sqlDB
 
 catname=["","","","","","","","","",""]
 query = QSqlQuery()
@@ -36,6 +35,8 @@ blc=80
 shag=1
 smx=5
 gx=200
+
+global tnm
 
 #конец блока переменных
 class Category(QWidget):
@@ -108,6 +109,7 @@ class Category(QWidget):
             self.cbut.clicked.connect(self.catchois)
             self.cbut.show()
     def catchois(self):
+        global tnm
         snd = self.sender()
         catn=snd.objectName()
         query = QSqlQuery()
@@ -120,10 +122,11 @@ class Category(QWidget):
         quetext = "UPDATE settings set curCatCode =" + tnn+", curCatName ='"+tnm+"';"
         if not query.exec(quetext):
             logging.error("Failed to query database")
-        # query.exec("select * from settings")
-        # query.first()
-        # print(query.value(8))
-
+        query.exec("select * from settings")
+        query.first()
+        #print(query.value(8))
+        sqlDB.close()
+        #sqlDB.open()
 
         cwnd = wnd(appt)
         cwnd.showFullScreen()
