@@ -56,7 +56,7 @@ blc=120
 shag=2
 smx=5
 gx=200
-
+cnttxt=""
 global geometry
 
 cenv=0

@@ -6,7 +6,8 @@ from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import (QApplication, QLabel, QWidget, QFrame, QPushButton)
 from PySide6.QtWidgets import QMessageBox
 
-from widget import wnd, sqlDB
+from widget import wnd
+
 
 catname=["","","","","","","","","",""]
 query = QSqlQuery()
@@ -124,12 +125,11 @@ class Category(QWidget):
             logging.error("Failed to query database")
         query.exec("select * from settings")
         query.first()
-        #print(query.value(8))
-        sqlDB.close()
-        #sqlDB.open()
 
-        cwnd = wnd(appt)
-        cwnd.showFullScreen()
+
+
+        # cwnd = wnd(appt)
+        # cwnd.showFullScreen()
         self.hide()
 
 
