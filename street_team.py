@@ -66,15 +66,15 @@ class Wint(QWidget):
     # забираем название категории из settings
 
 
-    query = QSqlQuery()
-    if not query.exec(
-            """
-                SELECT * FROM settings;
-            """
-    ):
-        logging.error("Failed to query database")
-    query.first()
-    cnttxt = query.value(8) + "  >>>"
+    # query = QSqlQuery()
+    # if not query.exec(
+    #         """
+    #             SELECT * FROM settings;
+    #         """
+    # ):
+    #     logging.error("Failed to query database")
+    # query.first()
+    # cnttxt = query.value(8) + "  >>>"
 
     # рисуем анимацию фона
     global cenv
@@ -104,6 +104,16 @@ class Wint(QWidget):
         painter.setPen(pen)
         painter.drawRect(x, y, wd, hd)
     # закончили с фоном
+        query = QSqlQuery()
+        if not query.exec(
+                """
+                    SELECT * FROM settings;
+                """
+        ):
+            logging.error("Failed to query database")
+        query.first()
+        cnttxt = query.value(8) + "  >>>"
+        self.contin.setText(cnttxt)
 
     def __init__(self, tkol, parent=None):
         sqlDB = QSqlDatabase.addDatabase('QSQLITE')
