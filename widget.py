@@ -198,9 +198,6 @@ class wnd(QWidget):
 
                 query.next()
 
-        # crhsdftv hjlbntkz
-#        parent.hide()
-
         def scrupd():
             self.blc+=self.shag
             if self.blc>=254 or self.blc<=60:
@@ -267,7 +264,7 @@ class wnd(QWidget):
 
                             #obj2.setVisible(False)
 
-               # elif mouse_event.buttons() == Qt.MidButton:
+               # elif mouse_event.buttons() == Qt.MidButton: #средняя кнопка
                #     QMessageBox.information(self,"Нажматие!!!))","Нажали среднюю кнопку мыши")
                         #elif mouse_event.buttons() == Qt.RightButton:
                             #QMessageBox.warning(self,"Нажматие!!!))","Нажали правую кнопку мыши "+str(obj.objectName()) )

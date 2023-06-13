@@ -4,7 +4,6 @@ from PySide6.QtCore import (QTimer, QEventLoop, QRect, Qt, QEvent, QPoint, QMeta
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient)
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import (QApplication, QLabel, QWidget, QFrame, QPushButton)
-from PySide6.QtWidgets import QMessageBox
 
 from widget import wnd
 
@@ -126,19 +125,5 @@ class Category(QWidget):
         query.exec("select * from settings")
         query.first()
 
-
-
-        # cwnd = wnd(appt)
-        # cwnd.showFullScreen()
         self.hide()
 
-
-
-
-        
- 
-
-# apc=QApplication([])
-# wnc=Category()
-# wnc.showFullScreen()
-# sys.exit(apc.exec())

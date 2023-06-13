@@ -170,15 +170,6 @@ class Wint(QWidget):
             cwnd.setVisible(False)
             cwnd.setObjectName("widget_"+str(i))
             mascat.append(cwnd)
-           # cwnd.hide()
-
-           # mascat += self.cwnd
-           # print(self.cwnd.objectName())
-
-
-        # #создаем виджет - один навсегда))
-        # cwnd = wnd(apt)
-        # cwnd.setVisible(False)
 
  # конец init
 
@@ -186,13 +177,6 @@ class Wint(QWidget):
 
         def cntn():
             global cntcode
-            # cwn = self.findChild(QWidget, "widget_2")
-            #
-            # self.lower()
-            # cwn.raise_()
-            # #cwn.setVisible(True)
-            # cwn.showFullScreen()
-            # #self.setWindowOpacity(0)
             # забираем название категории из settings
             query = QSqlQuery()
             if not query.exec(
@@ -220,8 +204,6 @@ class Wint(QWidget):
             query.first()
             cnttxt = query.value(8) + "  >>>"
             cntcode = int(query.value(7)) - 1
-
-
 
         for i in range(tkol):
             if len(logo[i]) > 0:
