@@ -126,3 +126,7 @@ class Category(QWidget):
 
         self.hide()
 
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Escape:
+            self.hide()
+
