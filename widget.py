@@ -147,9 +147,7 @@ class wnd(QWidget):
         hkn=(hgt-vp-(10+otst*kolt))/kolt
 
 
-
-
-#       Создание запроса к БД
+#       Создание запроса к БД, создаем таблицу
         query = QSqlQuery()
         if not query.exec( "SELECT * from ThemeAndQ WHERE Catkod = "+str(codkat)+" ;" ):
             logging.error("Failed to query database")
