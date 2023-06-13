@@ -278,7 +278,7 @@ class Wint(QWidget):
         self.contin = QPushButton(self)
         self.contin.setGeometry((wdt - 20)/2, hgt - hgt / 15 - 10, (wdt - 25)/2, hgt / 15)
         self.contin.setText(cnttxt)
-        self.contin.setStyleSheet("QPushButton {font: bold 60px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: 180px "+str(int(hgt / 15))+"px; border-bottom-left-radius: 120px 60px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }")
+        self.contin.setStyleSheet("QPushButton {font: bold 50px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: 180px "+str(int(hgt / 15))+"px; border-bottom-left-radius: 120px 60px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }")
         self.contin.clicked.connect(cntn)
         self.contin.show()
 
