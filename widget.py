@@ -130,13 +130,20 @@ class wnd(QWidget):
         wkn=(shp-(10+otst*kolv))/kolv
         hkn=(hgt-vp-(10+otst*kolt))/kolt
 
-#       Создание запроса к БД
-        query = QSqlQuery()
-        if not query.exec(
+#       запрос на текущущую категорию
+        query2 = QSqlQuery()
+        if not query2.exec(
                 """
-                SELECT * from ThemeAndQ;
+                    SELECT * FROM settings;
                 """
         ):
+            logging.error("Failed to query database")
+        query2.first()
+        cntcodestr = str(query2.value(7))
+
+#       Создание запроса к БД
+        query = QSqlQuery()
+        if not query.exec( "SELECT * from ThemeAndQ WHERE Catkod = "+cntcodestr+" ;" ):
             logging.error("Failed to query database")
         query.next()
         rowdb=0

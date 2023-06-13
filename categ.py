@@ -119,8 +119,7 @@ class Category(QWidget):
         tnm=str(query.value(1))
         tnn=str(query.value(0))
         query = QSqlQuery()
-        quetext = "UPDATE settings set curCatCode =" + tnn+", curCatName ='"+tnm+"';"
-        if not query.exec(quetext):
+        if not query.exec("UPDATE settings set curCatCode =" + tnn+", curCatName ='"+tnm+"';"):
             logging.error("Failed to query database")
         query.exec("select * from settings")
         query.first()
