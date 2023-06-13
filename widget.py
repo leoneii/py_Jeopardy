@@ -108,8 +108,6 @@ class wnd(QWidget):
     # def __init__(self, parent=None):
     #     super().__init__(parent)
     def __init__(self, codkat, apt, parent= None):
-
-
         #вот тут делаем apt глобальной переменной
         global appt
         appt=apt
@@ -180,7 +178,6 @@ class wnd(QWidget):
                 rowdb = rowdb+1
 
                 self.temb.setGeometry(QRect(gij, vij, wkn, hkn))
-            #                self.temb.setWordWrap(True)
                 self.temb.setText(ktxt)
                 self.temb.setAlignment(alignmentc)
                 leghtext= len(ktxt)
@@ -233,15 +230,15 @@ class wnd(QWidget):
                         if mouse_event.buttons() == Qt.LeftButton:
                     #QMessageBox.about(self,"Нажматие!!!))","Нажали левую кнопку мыши")
                             #obj.setVisible(False)
-
+                            quecat=QSqlQuery()
+                            if not quecat.exec("SELECT * from settings ;"):
+                                logging.error("Failed to query database")
+                            quecat.first()
+                            codc=quecat.value(7)
                             #запрос БД
                             query = QSqlQuery()
-                            if not query.exec(
-                                     """
-                                      SELECT * from ThemeAndQ;
-                                      """
-                            ):
-                                 logging.error("Failed to query database")
+                            if not query.exec("SELECT * from ThemeAndQ  WHERE Catkod = "+str(codc)+" ORDER BY Theme, Cost ;"):
+                                logging.error("Failed to query database")
                             query.next()#первая строка БД
                             #QMessageBox.information(self, "Нажматие!!!))", str(obj.objectName()))
                             query.seek(int(obj.objectName())) #переходим к конкретной строке БД
