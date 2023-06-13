@@ -166,7 +166,7 @@ class Wint(QWidget):
             global mascat
 
             # создаем виджет - один навсегда))
-            cwnd = wnd(apt)
+            cwnd = wnd(i+1,apt)
             cwnd.setVisible(False)
             cwnd.setObjectName("widget_"+str(i))
             mascat.append(cwnd)

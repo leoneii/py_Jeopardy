@@ -107,7 +107,7 @@ class wnd(QWidget):
 
     # def __init__(self, parent=None):
     #     super().__init__(parent)
-    def __init__(self, apt, parent= None):
+    def __init__(self, codkat, apt, parent= None):
 
 
         #вот тут делаем apt глобальной переменной
@@ -143,7 +143,7 @@ class wnd(QWidget):
 
 #       Создание запроса к БД
         query = QSqlQuery()
-        if not query.exec( "SELECT * from ThemeAndQ WHERE Catkod = "+cntcodestr+" ;" ):
+        if not query.exec( "SELECT * from ThemeAndQ WHERE Catkod = "+str(codkat)+" ;" ):
             logging.error("Failed to query database")
         query.next()
         rowdb=0
