@@ -149,7 +149,7 @@ class wnd(QWidget):
 
 #       Создание запроса к БД, создаем таблицу
         query = QSqlQuery()
-        if not query.exec( "SELECT * from ThemeAndQ WHERE Catkod = "+str(codkat)+" ;" ):
+        if not query.exec( "SELECT * from ThemeAndQ  WHERE Catkod = "+str(codkat)+" ORDER BY Theme, Cost ;" ):
             logging.error("Failed to query database")
         query.next()
         rowdb=0
