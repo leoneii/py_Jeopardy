@@ -40,8 +40,8 @@ if not query.exec(
 
 query.nextResult()
 query.next()
-kolt = int(query.value(1))
-kolv = int(query.value(2))
+#kolt = int(query.value(1))
+#kolv = int(query.value(2))
 ttq = int(query.value(3))
 otst = int(query.value(4))
 
@@ -117,6 +117,22 @@ class wnd(QWidget):
         #QWidget.__init__(self,parent)
 
         #super(wnd, self).__init__(parent, apt)
+
+#       Высчитываем количество тем и вопросов
+        query2 = QSqlQuery()
+        if not query2.exec("SELECT COUNT(DISTINCT Theme) FROM ThemeAndQ WHERE Catkod = " + str(codkat) + " ;"):
+            logging.error("Failed to query database")
+        query2.first()
+        kolt = int(query2.value(0))
+
+        query2 = QSqlQuery()
+        if not query2.exec("SELECT Theme, COUNT(*) value_count FROM ThemeAndQ WHERE Catkod = " + str(
+                codkat) + " GROUP BY Theme HAVING value_count > 1  ;"):
+            logging.error("Failed to query database")
+        query2.first()
+        kolv = int(query2.value(1))
+
+
         self.installEventFilter(self)
         geometry = apt.primaryScreen().availableGeometry()
         self.setGeometry(geometry)
@@ -130,16 +146,8 @@ class wnd(QWidget):
         wkn=(shp-(10+otst*kolv))/kolv
         hkn=(hgt-vp-(10+otst*kolt))/kolt
 
-#       запрос на текущущую категорию
-        query2 = QSqlQuery()
-        if not query2.exec(
-                """
-                    SELECT * FROM settings;
-                """
-        ):
-            logging.error("Failed to query database")
-        query2.first()
-        cntcodestr = str(query2.value(7))
+
+
 
 #       Создание запроса к БД
         query = QSqlQuery()
