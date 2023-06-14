@@ -1,10 +1,9 @@
 import logging
 import sys
 
-from PySide6 import QtCore
 from PySide6.QtCore import (Qt, QRect, QTimer, QSize, QPoint)
 from PySide6.QtSql import QSqlQuery, QSqlDatabase
-from PySide6.QtWidgets import (QApplication, QLabel,QWidget,QVBoxLayout,QHBoxLayout,
+from PySide6.QtWidgets import (QApplication, QLabel,QWidget,
         QFrame,QProgressBar,QPushButton)
 from PySide6.QtGui import (QFont, QPixmap, QIcon,QPainter, QLinearGradient, QColor,QPen)
 

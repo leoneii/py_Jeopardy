@@ -1,14 +1,11 @@
 # This Python file uses the following encoding: utf-8
 import logging
-import sys
-import PySide6
 from PySide6 import QtCore
 # import PySide6
 from PySide6.QtCore import (QTimer, QEventLoop, QRect, Qt, QEvent, QPoint)
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient)
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import (QApplication, QLabel, QWidget, QFrame)
-from PySide6.QtWidgets import QMessageBox
 
 from quest import winq
 global cenv

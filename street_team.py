@@ -1,14 +1,10 @@
 import logging
-
-#import guli
-#import multiprocessing
-
 import sys
-import PySide6
+#import PySide6
 from PySide6 import QtCore
 from PySide6.QtCore import Qt, QPoint, QTimer, QEvent
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient, QPixmap)
-from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QMessageBox, QMainWindow, QDialog, \
+from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QDialog, \
     QVBoxLayout, QButtonGroup, QHBoxLayout
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 

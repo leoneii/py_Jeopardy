@@ -1,9 +1,9 @@
 import logging
 
-from PySide6.QtCore import (QTimer, QEventLoop, QRect, Qt, QEvent, QPoint, QMetaObject)
+from PySide6.QtCore import (QTimer, Qt, QPoint, QMetaObject)
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient)
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
-from PySide6.QtWidgets import (QApplication, QLabel, QWidget, QFrame, QPushButton)
+from PySide6.QtWidgets import ( QWidget, QPushButton)
 
 from widget import wnd
 
