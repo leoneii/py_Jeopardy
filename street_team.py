@@ -21,6 +21,7 @@ QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
 # sqlDB.open()
 name=["","","","","","","",""]
 logo=["","","","","","","",""]
+lcnnxt=30
 query = QSqlQuery()
 if not query.exec(
         """
@@ -39,10 +40,16 @@ if not query.exec(
 ):
         logging.error("Failed to query database")
 query.first()
+
+s=""
 for i in range(tkolt):
     logo[i]=str(query.value(1))
     name[i]=str(query.value(2))
+    s+=name[i]+" "
     query.next()
+#вычисляем кол-во букв в самом длинном слове в названиях команд
+maxlenw= max(s.split(), key=len)
+lmaxlw=len(maxlenw)
 
 
 mascat = []
@@ -112,6 +119,7 @@ class Wint(QWidget):
         self.contin.setText(cnttxt)
 
     def __init__(self, tkol, parent=None):
+        global lmaxlw
         sqlDB = QSqlDatabase.addDatabase('QSQLITE')
         sqlDB.setDatabaseName('jep.sqlite')
         sqlDB.open()
@@ -127,6 +135,7 @@ class Wint(QWidget):
         self.setGeometry(geometry)
         wdt = self.size().width()
         twdt = (wdt - 20) / tkol - 10
+        fw=int(twdt/lmaxlw)
         hgt = self.size().height()
         self.setAutoFillBackground(True)
         # self.setStyleSheet("""
@@ -186,7 +195,7 @@ class Wint(QWidget):
             mascat[cntcode].showFullScreen()
 
         def chcat(self):
-            global cnttxt, cntcode
+            global cnttxt, cntcode, lcnnxt
 
             vcat=Category(apt)
             vcat.showFullScreen()
@@ -199,6 +208,7 @@ class Wint(QWidget):
                 logging.error("Failed to query database")
             query.first()
             cnttxt = query.value(8) + "  >>>"
+            lcnnxt=len(cnttxt)
             cntcode = int(query.value(7)) - 1
 
         for i in range(tkol):
@@ -213,7 +223,8 @@ class Wint(QWidget):
                 self.logo.show()
 
             self.tnm = QLabel(self)
-            fnts = 66 - tkolt * 7
+            #fnts = 66 - tkolt * 7
+            fnts=int(fw*1.5)
             stsh = "border:3px solid #99aaff;font-size: " + str(fnts) + "px"
             self.tnm.setStyleSheet(stsh)
             if len(logo[i]) > 0:
@@ -274,7 +285,9 @@ class Wint(QWidget):
         self.contin = QPushButton(self)
         self.contin.setGeometry((wdt - 20)/2, hgt - hgt / 15 - 10, (wdt - 25)/2, hgt / 15)
         self.contin.setText(cnttxt)
-        self.contin.setStyleSheet("QPushButton {font: bold 50px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: 180px "+str(int(hgt / 15))+"px; border-bottom-left-radius: 120px 60px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }")
+
+        fs=int(1.5*(((wdt - 25)/2)/lcnnxt))
+        self.contin.setStyleSheet("QPushButton {font: bold "+str(fs)+"px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: 180px "+str(int(hgt / 15))+"px; border-bottom-left-radius: 120px 60px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }")
         self.contin.clicked.connect(cntn)
         self.contin.show()
 
