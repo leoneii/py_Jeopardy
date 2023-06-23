@@ -28,7 +28,18 @@ if not query.exec(
         logging.error("Failed to query database")
 query.first()
 for i in range(ckols):
+
     catname[i]=str(query.value(1))
+    if len(catname[i])>19:
+        txt=catname[i]
+        n=txt[19:].find(" ")
+        if n>0:
+            txt=txt[0:19+n]+"\n"+txt[19+n+1:]
+            catname[i]=txt
+
+
+
+
     query.next()
 
 blc=80
@@ -93,7 +104,7 @@ class Category(QWidget):
 #конец анимации фона
         wd = self.size().width()-20
         hd = self.size().height()-20
-        wdb=wd/3
+        wdb=wd/4
         hdb=(hd-50)/6
         if ckols>6:
             hdb=(hd-50)/ckols
@@ -102,8 +113,9 @@ class Category(QWidget):
         shst="QPushButton { background-color: rgba(0,0,200,100); color: rgba(220,220,255,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font: Bold 38px} QPushButton::hover{background-color: #0077ff ;}"
 
         for i in range(ckols):
-            self.cbut=QPushButton(catname[i],self)
-            self.cbut.setGeometry(wdb,hpos+(hdb+5)*i+35,wdb,hdb)
+            self.cbut=QPushButton(self)
+            self.cbut.setText(catname[i])
+            self.cbut.setGeometry(wdb,hpos+(hdb+5)*i+35,wdb*2,hdb)
             self.cbut.setObjectName(str(i))
             self.cbut.setStyleSheet(shst)
             self.cbut.clicked.connect(self.catchois)
