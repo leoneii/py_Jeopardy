@@ -61,11 +61,12 @@ smx=5
 gx=200
 cnttxt=""
 global geometry
+ccat=1
 
 cenv=0
 
 class Wint(QWidget):
-    global cnttxt, cntcode
+    global cnttxt, cntcode, ccat
     # забираем название категории из settings
 
 
@@ -119,7 +120,7 @@ class Wint(QWidget):
         self.contin.setText(cnttxt)
 
     def __init__(self, tkol, parent=None):
-        global lmaxlw
+        global lmaxlw, ccat
         sqlDB = QSqlDatabase.addDatabase('QSQLITE')
         sqlDB.setDatabaseName('jep.sqlite')
         sqlDB.open()
@@ -166,10 +167,9 @@ class Wint(QWidget):
         ):
             logging.error("Failed to query database")
         query.next()
-
-        for i in range(int(query.value(0))):
+        ccat=int(query.value(0))
+        for i in range(ccat):
             global mascat
-
             # создаем виджет - один навсегда))
             cwnd = wnd(i+1,apt)
             cwnd.setVisible(False)
@@ -281,7 +281,10 @@ class Wint(QWidget):
         shst="QPushButton { font: bold "+str(fs)+"px; border: 1px solid rgba(200,200,255,180); border-top-right-radius: 120px 60px; border-bottom-left-radius: 180px "+str(int(hgt / 15))+"px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
         self.catch.setStyleSheet(shst)
         self.catch.clicked.connect(chcat)
-        self.catch.show()
+        if ccat>1:
+            self.catch.show()
+        else:
+            self.catch.setVisible(False)
 
 
         self.contin = QPushButton(self)
