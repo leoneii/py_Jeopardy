@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sys
 
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
@@ -23,7 +24,8 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
     QSplitter, QStatusBar, QTableView, QTextEdit,
     QToolBox, QToolButton, QVBoxLayout, QWidget)
 
-class Ui_MainWindow(object):
+#class Ui_MainWindow(object):
+class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
@@ -515,4 +517,8 @@ class Ui_MainWindow(object):
         self.menu.setTitle(QCoreApplication.translate("MainWindow", u"\u0418\u0433\u0440\u0430", None))
         self.menu_2.setTitle(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u043c\u043e\u0449\u044c", None))
     # retranslateUi
-
+if __name__ == "__main__":
+    backapp = QApplication([])
+    bwnt = Ui_MainWindow()
+    bwnt.showFullScreen()
+    sys.exit(backapp.exec())
