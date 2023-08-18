@@ -49,40 +49,40 @@ class Ui_MainWindow(object):
         self.groupBox_6.setMinimumSize(QSize(400, 0))
         self.verticalLayout = QVBoxLayout(self.groupBox_6)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.groupBox = QGroupBox(self.groupBox_6)
-        self.groupBox.setObjectName(u"groupBox")
-        self.groupBox.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
-        self.groupBox.setFlat(False)
-        self.groupBox.setCheckable(True)
-        self.gridLayout_2 = QGridLayout(self.groupBox)
+        self.groupBox_Cat = QGroupBox(self.groupBox_6)
+        self.groupBox_Cat.setObjectName(u"groupBox_Cat")
+        self.groupBox_Cat.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.groupBox_Cat.setFlat(False)
+        self.groupBox_Cat.setCheckable(True)
+        self.gridLayout_2 = QGridLayout(self.groupBox_Cat)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.pushButton = QPushButton(self.groupBox)
-        self.pushButton.setObjectName(u"pushButton")
+        self.pushButton_addCat = QPushButton(self.groupBox_Cat)
+        self.pushButton_addCat.setObjectName(u"pushButton_addCat")
         sizePolicy = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
-        self.pushButton.setSizePolicy(sizePolicy)
-        self.pushButton.setMinimumSize(QSize(0, 0))
+        sizePolicy.setHeightForWidth(self.pushButton_addCat.sizePolicy().hasHeightForWidth())
+        self.pushButton_addCat.setSizePolicy(sizePolicy)
+        self.pushButton_addCat.setMinimumSize(QSize(0, 0))
 
-        self.gridLayout_2.addWidget(self.pushButton, 1, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.pushButton_addCat, 1, 0, 1, 1)
 
-        self.pushButton_2 = QPushButton(self.groupBox)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        sizePolicy.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
-        self.pushButton_2.setSizePolicy(sizePolicy)
+        self.pushButton__delCat = QPushButton(self.groupBox_Cat)
+        self.pushButton__delCat.setObjectName(u"pushButton__delCat")
+        sizePolicy.setHeightForWidth(self.pushButton__delCat.sizePolicy().hasHeightForWidth())
+        self.pushButton__delCat.setSizePolicy(sizePolicy)
 
-        self.gridLayout_2.addWidget(self.pushButton_2, 1, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.pushButton__delCat, 1, 1, 1, 1)
 
-        self.comboBox = QComboBox(self.groupBox)
-        self.comboBox.addItem("")
-        self.comboBox.setObjectName(u"comboBox")
-        self.comboBox.setEditable(True)
+        self.comboBox_Cat = QComboBox(self.groupBox_Cat)
+        self.comboBox_Cat.addItem("")
+        self.comboBox_Cat.setObjectName(u"comboBox_Cat")
+        self.comboBox_Cat.setEditable(True)
 
-        self.gridLayout_2.addWidget(self.comboBox, 0, 0, 1, 2)
+        self.gridLayout_2.addWidget(self.comboBox_Cat, 0, 0, 1, 2)
 
 
-        self.verticalLayout.addWidget(self.groupBox)
+        self.verticalLayout.addWidget(self.groupBox_Cat)
 
         self.groupBox_3 = QGroupBox(self.groupBox_6)
         self.groupBox_3.setObjectName(u"groupBox_3")
@@ -107,21 +107,21 @@ class Ui_MainWindow(object):
 
         self.gridLayout_6.addItem(self.horizontalSpacer_6, 0, 1, 3, 1)
 
-        self.spinBox_3 = QSpinBox(self.groupBox_3)
-        self.spinBox_3.setObjectName(u"spinBox_3")
-        self.spinBox_3.setMinimum(1)
-        self.spinBox_3.setMaximum(7)
-        self.spinBox_3.setValue(4)
+        self.spinBox_themes = QSpinBox(self.groupBox_3)
+        self.spinBox_themes.setObjectName(u"spinBox_themes")
+        self.spinBox_themes.setMinimum(1)
+        self.spinBox_themes.setMaximum(7)
+        self.spinBox_themes.setValue(4)
 
-        self.gridLayout_6.addWidget(self.spinBox_3, 3, 0, 1, 1)
+        self.gridLayout_6.addWidget(self.spinBox_themes, 3, 0, 1, 1)
 
-        self.spinBox_4 = QSpinBox(self.groupBox_3)
-        self.spinBox_4.setObjectName(u"spinBox_4")
-        self.spinBox_4.setMinimum(1)
-        self.spinBox_4.setMaximum(10)
-        self.spinBox_4.setValue(5)
+        self.spinBox_questions = QSpinBox(self.groupBox_3)
+        self.spinBox_questions.setObjectName(u"spinBox_questions")
+        self.spinBox_questions.setMinimum(1)
+        self.spinBox_questions.setMaximum(10)
+        self.spinBox_questions.setValue(5)
 
-        self.gridLayout_6.addWidget(self.spinBox_4, 3, 2, 1, 1)
+        self.gridLayout_6.addWidget(self.spinBox_questions, 3, 2, 1, 1)
 
 
         self.verticalLayout.addWidget(self.groupBox_3)
@@ -132,11 +132,11 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.label_10)
 
-        self.tableView = QTableView(self.groupBox_6)
-        self.tableView.setObjectName(u"tableView")
-        self.tableView.setMaximumSize(QSize(16777215, 200))
+        self.tableView_themeTable = QTableView(self.groupBox_6)
+        self.tableView_themeTable.setObjectName(u"tableView_themeTable")
+        self.tableView_themeTable.setMaximumSize(QSize(16777215, 200))
 
-        self.verticalLayout.addWidget(self.tableView)
+        self.verticalLayout.addWidget(self.tableView_themeTable)
 
         self.label_11 = QLabel(self.groupBox_6)
         self.label_11.setObjectName(u"label_11")
@@ -144,10 +144,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.label_11)
 
-        self.tableView_2 = QTableView(self.groupBox_6)
-        self.tableView_2.setObjectName(u"tableView_2")
+        self.tableView_questTable = QTableView(self.groupBox_6)
+        self.tableView_questTable.setObjectName(u"tableView_questTable")
 
-        self.verticalLayout.addWidget(self.tableView_2)
+        self.verticalLayout.addWidget(self.tableView_questTable)
 
 
         self.horizontalLayout_3.addWidget(self.groupBox_6)
@@ -157,23 +157,23 @@ class Ui_MainWindow(object):
         self.groupBox_4.setMaximumSize(QSize(500, 16777215))
         self.verticalLayout_2 = QVBoxLayout(self.groupBox_4)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.textEdit = QTextEdit(self.groupBox_4)
-        self.textEdit.setObjectName(u"textEdit")
-        self.textEdit.setMinimumSize(QSize(0, 80))
+        self.textEdit_questText = QTextEdit(self.groupBox_4)
+        self.textEdit_questText.setObjectName(u"textEdit_questText")
+        self.textEdit_questText.setMinimumSize(QSize(0, 80))
 
-        self.verticalLayout_2.addWidget(self.textEdit)
+        self.verticalLayout_2.addWidget(self.textEdit_questText)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.label_9 = QLabel(self.groupBox_4)
-        self.label_9.setObjectName(u"label_9")
-        self.label_9.setMinimumSize(QSize(0, 100))
-        self.label_9.setMaximumSize(QSize(16777215, 380))
-        self.label_9.setPixmap(QPixmap(u"../testpy8/img/dog.jpg"))
-        self.label_9.setScaledContents(True)
-        self.label_9.setWordWrap(False)
+        self.label_questImage = QLabel(self.groupBox_4)
+        self.label_questImage.setObjectName(u"label_questImage")
+        self.label_questImage.setMinimumSize(QSize(0, 100))
+        self.label_questImage.setMaximumSize(QSize(16777215, 380))
+        self.label_questImage.setPixmap(QPixmap(u"../testpy8/img/dog.jpg"))
+        self.label_questImage.setScaledContents(True)
+        self.label_questImage.setWordWrap(False)
 
-        self.horizontalLayout.addWidget(self.label_9)
+        self.horizontalLayout.addWidget(self.label_questImage)
 
         self.toolButton_2 = QToolButton(self.groupBox_4)
         self.toolButton_2.setObjectName(u"toolButton_2")
@@ -188,22 +188,22 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addLayout(self.horizontalLayout)
 
-        self.textEdit_2 = QTextEdit(self.groupBox_4)
-        self.textEdit_2.setObjectName(u"textEdit_2")
-        self.textEdit_2.setMinimumSize(QSize(0, 80))
+        self.textEdit_answerText = QTextEdit(self.groupBox_4)
+        self.textEdit_answerText.setObjectName(u"textEdit_answerText")
+        self.textEdit_answerText.setMinimumSize(QSize(0, 80))
 
-        self.verticalLayout_2.addWidget(self.textEdit_2)
+        self.verticalLayout_2.addWidget(self.textEdit_answerText)
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.label_12 = QLabel(self.groupBox_4)
-        self.label_12.setObjectName(u"label_12")
-        self.label_12.setMinimumSize(QSize(0, 100))
-        self.label_12.setMaximumSize(QSize(16777215, 380))
-        self.label_12.setPixmap(QPixmap(u"../testpy8/img/gepard.webp"))
-        self.label_12.setScaledContents(True)
+        self.label_answerImage = QLabel(self.groupBox_4)
+        self.label_answerImage.setObjectName(u"label_answerImage")
+        self.label_answerImage.setMinimumSize(QSize(0, 100))
+        self.label_answerImage.setMaximumSize(QSize(16777215, 380))
+        self.label_answerImage.setPixmap(QPixmap(u"../testpy8/img/gepard.webp"))
+        self.label_answerImage.setScaledContents(True)
 
-        self.horizontalLayout_2.addWidget(self.label_12)
+        self.horizontalLayout_2.addWidget(self.label_answerImage)
 
         self.toolButton_3 = QToolButton(self.groupBox_4)
         self.toolButton_3.setObjectName(u"toolButton_3")
@@ -221,25 +221,25 @@ class Ui_MainWindow(object):
         self.label_13 = QLabel(self.splitter)
         self.label_13.setObjectName(u"label_13")
         self.splitter.addWidget(self.label_13)
-        self.spinBox_5 = QSpinBox(self.splitter)
-        self.spinBox_5.setObjectName(u"spinBox_5")
-        self.spinBox_5.setValue(30)
-        self.splitter.addWidget(self.spinBox_5)
+        self.spinBox_costQuest = QSpinBox(self.splitter)
+        self.spinBox_costQuest.setObjectName(u"spinBox_costQuest")
+        self.spinBox_costQuest.setValue(30)
+        self.splitter.addWidget(self.spinBox_costQuest)
 
         self.verticalLayout_2.addWidget(self.splitter)
 
-        self.groupBox_5 = QGroupBox(self.groupBox_4)
-        self.groupBox_5.setObjectName(u"groupBox_5")
-        self.groupBox_5.setAlignment(Qt.AlignCenter)
-        self.groupBox_5.setCheckable(True)
-        self.gridLayout_7 = QGridLayout(self.groupBox_5)
+        self.groupBox_tooltip = QGroupBox(self.groupBox_4)
+        self.groupBox_tooltip.setObjectName(u"groupBox_tooltip")
+        self.groupBox_tooltip.setAlignment(Qt.AlignCenter)
+        self.groupBox_tooltip.setCheckable(True)
+        self.gridLayout_7 = QGridLayout(self.groupBox_tooltip)
         self.gridLayout_7.setObjectName(u"gridLayout_7")
-        self.textEdit_3 = QTextEdit(self.groupBox_5)
-        self.textEdit_3.setObjectName(u"textEdit_3")
+        self.textEdit_tooltipText = QTextEdit(self.groupBox_tooltip)
+        self.textEdit_tooltipText.setObjectName(u"textEdit_tooltipText")
 
-        self.gridLayout_7.addWidget(self.textEdit_3, 0, 0, 1, 3)
+        self.gridLayout_7.addWidget(self.textEdit_tooltipText, 0, 0, 1, 3)
 
-        self.label_14 = QLabel(self.groupBox_5)
+        self.label_14 = QLabel(self.groupBox_tooltip)
         self.label_14.setObjectName(u"label_14")
 
         self.gridLayout_7.addWidget(self.label_14, 1, 0, 1, 1)
@@ -248,14 +248,14 @@ class Ui_MainWindow(object):
 
         self.gridLayout_7.addItem(self.horizontalSpacer_9, 1, 1, 1, 1)
 
-        self.spinBox_6 = QSpinBox(self.groupBox_5)
-        self.spinBox_6.setObjectName(u"spinBox_6")
-        self.spinBox_6.setValue(30)
+        self.spinBox_costTooltip = QSpinBox(self.groupBox_tooltip)
+        self.spinBox_costTooltip.setObjectName(u"spinBox_costTooltip")
+        self.spinBox_costTooltip.setValue(30)
 
-        self.gridLayout_7.addWidget(self.spinBox_6, 1, 2, 1, 1)
+        self.gridLayout_7.addWidget(self.spinBox_costTooltip, 1, 2, 1, 1)
 
 
-        self.verticalLayout_2.addWidget(self.groupBox_5)
+        self.verticalLayout_2.addWidget(self.groupBox_tooltip)
 
 
         self.horizontalLayout_3.addWidget(self.groupBox_4)
@@ -265,7 +265,7 @@ class Ui_MainWindow(object):
         self.toolBox.setFrameShape(QFrame.NoFrame)
         self.page = QWidget()
         self.page.setObjectName(u"page")
-        self.page.setGeometry(QRect(0, 0, 326, 691))
+        self.page.setGeometry(QRect(0, 0, 414, 685))
         self.gridLayout_4 = QGridLayout(self.page)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.groupBox_2 = QGroupBox(self.page)
@@ -276,26 +276,26 @@ class Ui_MainWindow(object):
         self.groupBox_2.setCheckable(False)
         self.gridLayout_3 = QGridLayout(self.groupBox_2)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.pushButton_3 = QPushButton(self.groupBox_2)
-        self.pushButton_3.setObjectName(u"pushButton_3")
-        sizePolicy.setHeightForWidth(self.pushButton_3.sizePolicy().hasHeightForWidth())
-        self.pushButton_3.setSizePolicy(sizePolicy)
-        self.pushButton_3.setMinimumSize(QSize(0, 0))
+        self.pushButton_addTeam = QPushButton(self.groupBox_2)
+        self.pushButton_addTeam.setObjectName(u"pushButton_addTeam")
+        sizePolicy.setHeightForWidth(self.pushButton_addTeam.sizePolicy().hasHeightForWidth())
+        self.pushButton_addTeam.setSizePolicy(sizePolicy)
+        self.pushButton_addTeam.setMinimumSize(QSize(0, 0))
 
-        self.gridLayout_3.addWidget(self.pushButton_3, 1, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.pushButton_addTeam, 1, 0, 1, 1)
 
-        self.pushButton_4 = QPushButton(self.groupBox_2)
-        self.pushButton_4.setObjectName(u"pushButton_4")
-        sizePolicy.setHeightForWidth(self.pushButton_4.sizePolicy().hasHeightForWidth())
-        self.pushButton_4.setSizePolicy(sizePolicy)
+        self.pushButton_delTeam = QPushButton(self.groupBox_2)
+        self.pushButton_delTeam.setObjectName(u"pushButton_delTeam")
+        sizePolicy.setHeightForWidth(self.pushButton_delTeam.sizePolicy().hasHeightForWidth())
+        self.pushButton_delTeam.setSizePolicy(sizePolicy)
 
-        self.gridLayout_3.addWidget(self.pushButton_4, 1, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.pushButton_delTeam, 1, 1, 1, 1)
 
-        self.comboBox_2 = QComboBox(self.groupBox_2)
-        self.comboBox_2.setObjectName(u"comboBox_2")
-        self.comboBox_2.setEditable(True)
+        self.comboBox_teams = QComboBox(self.groupBox_2)
+        self.comboBox_teams.setObjectName(u"comboBox_teams")
+        self.comboBox_teams.setEditable(True)
 
-        self.gridLayout_3.addWidget(self.comboBox_2, 0, 0, 1, 2)
+        self.gridLayout_3.addWidget(self.comboBox_teams, 0, 0, 1, 2)
 
 
         self.gridLayout_4.addWidget(self.groupBox_2, 0, 0, 1, 2)
@@ -321,6 +321,7 @@ class Ui_MainWindow(object):
         self.toolBox.addItem(self.page, u"\u041a\u043e\u043c\u0430\u043d\u0434\u044b")
         self.page_3 = QWidget()
         self.page_3.setObjectName(u"page_3")
+        self.page_3.setGeometry(QRect(0, 0, 414, 685))
         self.gridLayout_5 = QGridLayout(self.page_3)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.label_2 = QLabel(self.page_3)
@@ -341,13 +342,13 @@ class Ui_MainWindow(object):
 
         self.gridLayout_5.addItem(self.horizontalSpacer, 0, 1, 1, 1)
 
-        self.spinBox_2 = QSpinBox(self.page_3)
-        self.spinBox_2.setObjectName(u"spinBox_2")
-        self.spinBox_2.setMinimum(1)
-        self.spinBox_2.setMaximum(15)
-        self.spinBox_2.setValue(5)
+        self.spinBox_pad = QSpinBox(self.page_3)
+        self.spinBox_pad.setObjectName(u"spinBox_pad")
+        self.spinBox_pad.setMinimum(1)
+        self.spinBox_pad.setMaximum(15)
+        self.spinBox_pad.setValue(5)
 
-        self.gridLayout_5.addWidget(self.spinBox_2, 2, 2, 1, 1)
+        self.gridLayout_5.addWidget(self.spinBox_pad, 2, 2, 1, 1)
 
         self.label_4 = QLabel(self.page_3)
         self.label_4.setObjectName(u"label_4")
@@ -358,11 +359,11 @@ class Ui_MainWindow(object):
 
         self.gridLayout_5.addItem(self.horizontalSpacer_5, 6, 1, 1, 1)
 
-        self.spinBox = QSpinBox(self.page_3)
-        self.spinBox.setObjectName(u"spinBox")
-        self.spinBox.setValue(30)
+        self.spinBox_timer = QSpinBox(self.page_3)
+        self.spinBox_timer.setObjectName(u"spinBox_timer")
+        self.spinBox_timer.setValue(30)
 
-        self.gridLayout_5.addWidget(self.spinBox, 0, 2, 1, 1)
+        self.gridLayout_5.addWidget(self.spinBox_timer, 0, 2, 1, 1)
 
         self.label_6 = QLabel(self.page_3)
         self.label_6.setObjectName(u"label_6")
@@ -374,10 +375,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_5.addWidget(self.lineEdit_3, 4, 2, 1, 1)
 
-        self.pushButton_7 = QPushButton(self.page_3)
-        self.pushButton_7.setObjectName(u"pushButton_7")
+        self.pushButton_cancelSet = QPushButton(self.page_3)
+        self.pushButton_cancelSet.setObjectName(u"pushButton_cancelSet")
 
-        self.gridLayout_5.addWidget(self.pushButton_7, 8, 2, 1, 1)
+        self.gridLayout_5.addWidget(self.pushButton_cancelSet, 8, 2, 1, 1)
 
         self.horizontalSpacer_3 = QSpacerItem(77, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -393,10 +394,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_5.addWidget(self.lineEdit_4, 5, 2, 1, 1)
 
-        self.pushButton_6 = QPushButton(self.page_3)
-        self.pushButton_6.setObjectName(u"pushButton_6")
+        self.pushButton_saveSet = QPushButton(self.page_3)
+        self.pushButton_saveSet.setObjectName(u"pushButton_saveSet")
 
-        self.gridLayout_5.addWidget(self.pushButton_6, 8, 1, 1, 1)
+        self.gridLayout_5.addWidget(self.pushButton_saveSet, 8, 1, 1, 1)
 
         self.label_5 = QLabel(self.page_3)
         self.label_5.setObjectName(u"label_5")
@@ -415,7 +416,7 @@ class Ui_MainWindow(object):
         self.toolBox.addItem(self.page_3, u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430")
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
-        self.page_2.setGeometry(QRect(0, 0, 326, 691))
+        self.page_2.setGeometry(QRect(0, 0, 414, 685))
         self.toolBox.addItem(self.page_2, u"\u042d\u043a\u0441\u043f\u043e\u0440\u0442")
 
         self.horizontalLayout_3.addWidget(self.toolBox)
@@ -423,7 +424,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1278, 22))
+        self.menubar.setGeometry(QRect(0, 0, 1278, 30))
         self.menu = QMenu(self.menubar)
         self.menu.setObjectName(u"menu")
         self.menu_2 = QMenu(self.menubar)
@@ -461,10 +462,10 @@ class Ui_MainWindow(object):
         self.action_5.setText(QCoreApplication.translate("MainWindow", u"\u041e \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0435", None))
         self.action_8.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0445\u043e\u0434", None))
         self.groupBox_6.setTitle("")
-        self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u041a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u0438", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
-        self.comboBox.setItemText(0, QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0432\u0430\u044f \u043a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u044f", None))
+        self.groupBox_Cat.setTitle(QCoreApplication.translate("MainWindow", u"\u041a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u0438", None))
+        self.pushButton_addCat.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
+        self.pushButton__delCat.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
+        self.comboBox_Cat.setItemText(0, QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0432\u0430\u044f \u043a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u044f", None))
 
         self.groupBox_3.setTitle("")
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0432\u043e\u043f\u0440\u043e\u0441\u043e\u0432", None))
@@ -472,34 +473,28 @@ class Ui_MainWindow(object):
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"\u0422\u0435\u043c\u044b", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"\u0412\u043e\u043f\u0440\u043e\u0441\u044b", None))
         self.groupBox_4.setTitle("")
-        self.textEdit.setDocumentTitle(QCoreApplication.translate("MainWindow", u"\u0412\u043e\u043f\u0440\u043e\u0441", None))
-        self.textEdit.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><title>\u0412\u043e\u043f\u0440\u043e\u0441</title><style type=\"text/css\">\n"
+        self.textEdit_questText.setDocumentTitle(QCoreApplication.translate("MainWindow", u"\u0412\u043e\u043f\u0440\u043e\u0441", None))
+        self.textEdit_questText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><title>\u0412\u043e\u043f\u0440\u043e\u0441</title><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"hr { height: 1px; border-width: 0; }\n"
-"li.unchecked::marker { content: \"\\2610\"; }\n"
-"li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">\u0428\u0442\u043e \u0437\u0430 \u0441\u043e\u0431\u0430\u043a\u0430</p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
-        self.label_9.setText("")
+"</style></head><body style=\" font-family:'Noto Sans'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sans Serif'; font-size:9pt;\">\u0428\u0442\u043e \u0437\u0430 \u0441\u043e\u0431\u0430\u043a\u0430</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;\"><br /></p></body></html>", None))
+        self.label_questImage.setText("")
         self.toolButton_2.setText(QCoreApplication.translate("MainWindow", u"...", None))
-        self.textEdit_2.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+        self.textEdit_answerText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"hr { height: 1px; border-width: 0; }\n"
-"li.unchecked::marker { content: \"\\2610\"; }\n"
-"li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">\u0421\u043e\u0431\u0430\u043a\u0430 \u043b\u0435\u0436\u0430\u043a\u0430</p></body></html>", None))
-        self.label_12.setText("")
+"</style></head><body style=\" font-family:'Noto Sans'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sans Serif'; font-size:9pt;\">\u0421\u043e\u0431\u0430\u043a\u0430 \u043b\u0435\u0436\u0430\u043a\u0430</span></p></body></html>", None))
+        self.label_answerImage.setText("")
         self.toolButton_3.setText(QCoreApplication.translate("MainWindow", u"...", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"    \u0426\u0435\u043d\u0430 \u0432\u043e\u043f\u0440\u043e\u0441\u0430", None))
-        self.groupBox_5.setTitle(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0434\u0441\u043a\u0430\u0437\u043a\u0430", None))
+        self.groupBox_tooltip.setTitle(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0434\u0441\u043a\u0430\u0437\u043a\u0430", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"\u0426\u0435\u043d\u0430 \u043f\u043e\u0434\u0441\u043a\u0430\u0437\u043a\u0438", None))
         self.groupBox_2.setTitle("")
-        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
-        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
+        self.pushButton_addTeam.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
+        self.pushButton_delTeam.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.label.setText("")
         self.toolButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
         self.toolBox.setItemText(self.toolBox.indexOf(self.page), QCoreApplication.translate("MainWindow", u"\u041a\u043e\u043c\u0430\u043d\u0434\u044b", None))
@@ -507,8 +502,8 @@ class Ui_MainWindow(object):
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u0441\u0442\u0443\u043f\u044b ", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.pushButton_7.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u043c\u0435\u043d\u0438\u0442\u044c", None))
-        self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
+        self.pushButton_cancelSet.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u043c\u0435\u043d\u0438\u0442\u044c", None))
+        self.pushButton_saveSet.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.toolBox.setItemText(self.toolBox.indexOf(self.page_3), QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430", None))
         self.toolBox.setItemText(self.toolBox.indexOf(self.page_2), QCoreApplication.translate("MainWindow", u"\u042d\u043a\u0441\u043f\u043e\u0440\u0442", None))
