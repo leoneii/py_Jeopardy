@@ -4,7 +4,7 @@ import os
 import sys
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 
-from PySide6.QtWidgets import QApplication, QInputDialog, QMainWindow
+from PySide6.QtWidgets import QApplication, QInputDialog, QMainWindow, QMessageBox
 
 # Important:
 # You need to run the following command to generate the ui_form.py file
@@ -21,6 +21,7 @@ class MainWindow(QMainWindow):
         sqlDB.open()
         self.ui.setupUi(self)
         self.ui.pushButton_addCat.clicked.connect(self.addCat)
+        self.ui.pushButton__delCat.clicked.connect(self.delCat)
         self.ui.comboBox_Cat.currentIndexChanged.connect(self.catChange)
         self.updateform()
         print ()
@@ -47,6 +48,7 @@ class MainWindow(QMainWindow):
         query3.first()
         self.ui.spinBox_questions.setValue(int(query3.value(1)))
 
+
         # query = QSqlQuery()
         # if not query.exec("SELECT * FROM ThemeAndQ;"):
         #     logging.error("Failed to query database")  
@@ -66,6 +68,18 @@ class MainWindow(QMainWindow):
             if not query2.exec("INSERT INTO category  VALUES ("+str(int(query.value(0))+1)+", '"+texcat[0]+"');"):
                  logging.error("Failed to query database")
         self.updateform()
+
+    def delCat(self):
+        cbcat=self.ui.comboBox_Cat.currentText()
+        ret = QMessageBox.question(self, 'Внимание!', "Уверены в удалении категории "+cbcat+" ?",
+                                   QMessageBox.Yes | QMessageBox.No)
+
+        if ret == QMessageBox.Yes:
+            query = QSqlQuery()
+            query.exec("DELETE from category where catname = "+self.ui.comboBox_Cat.currentText())
+            QSqlDatabase.commit(None)
+            self.updateform()
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
