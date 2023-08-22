@@ -1,5 +1,6 @@
 # This Python file uses the following encoding: utf-8
 import logging
+import os
 import sys
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 
@@ -16,12 +17,13 @@ class MainWindow(QMainWindow):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
         sqlDB = QSqlDatabase.addDatabase('QSQLITE')
-        sqlDB.setDatabaseName('/home/leone/build/testpy8/backend/jep.sqlite')
+        sqlDB.setDatabaseName(os.path.dirname(os.path.abspath(__file__))+"/../jep.sqlite")
         sqlDB.open()
         self.ui.setupUi(self)
         self.ui.pushButton_addCat.clicked.connect(self.addCat)
         self.ui.comboBox_Cat.currentIndexChanged.connect(self.catChange)
         self.updateform()
+        print ()
         
     def updateform(self):
         self.ui.comboBox_Cat.clear()
@@ -39,17 +41,17 @@ class MainWindow(QMainWindow):
         query2.first()
         self.ui.spinBox_themes.setValue(int(query2.value(0)))
 
-        query2 = QSqlQuery()
-        if not query2.exec("SELECT Theme, COUNT(*) value_count FROM ThemeAndQ WHERE Catkod = " + str(self.ui.comboBox_Cat.currentIndex()+1) + " GROUP BY Theme HAVING value_count > 1  ;"):
+        query3 = QSqlQuery()
+        if not query3.exec("SELECT Theme, COUNT(*) value_count FROM ThemeAndQ WHERE Catkod = " + str(self.ui.comboBox_Cat.currentIndex()+1) + " GROUP BY Theme HAVING value_count > 1  ;"):
             logging.error("Failed to query database")
-        query2.first()
-        self.ui.spinBox_questions.setValue(int(query2.value(1)))
+        query3.first()
+        self.ui.spinBox_questions.setValue(int(query3.value(1)))
 
-        query = QSqlQuery()
-        if not query.exec("SELECT * FROM ThemeAndQ;"):
-            logging.error("Failed to query database")  
-        while(query.next()):
-            print("vchjd")
+        # query = QSqlQuery()
+        # if not query.exec("SELECT * FROM ThemeAndQ;"):
+        #     logging.error("Failed to query database")  
+        # while(query.next()):
+        #     print("vchjd")
         
     
     def addCat(self):
