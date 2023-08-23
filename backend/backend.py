@@ -76,12 +76,7 @@ class MainWindow(QMainWindow):
 
         if ret == QMessageBox.Yes:
             query = QSqlQuery()
-<<<<<<< HEAD
             query.exec("DELETE from category where catname = '"+cbcat+"'")
-=======
-            query.exec("DELETE FROM category WHERE catname = "+self.ui.comboBox_Cat.currentText())
-            #QSqlDatabase.commit()
->>>>>>> f4d58936f8958debd7146987a2bb66a2579933e8
             self.updateform()
 
 
