@@ -9,7 +9,7 @@ from PySide6.QtWidgets import QApplication, QInputDialog, QMainWindow, QMessageB
 # Important:
 # You need to run the following command to generate the ui_form.py file
 #     pyside6-uic form.ui -o ui_form.py, or
-#     pyside2-uic form.ui -o ui_form.py
+#     pyside2-uic form.ui -o ui_form.p+*-/y
 from mainwindow import Ui_MainWindow
 
 class MainWindow(QMainWindow):
@@ -76,7 +76,12 @@ class MainWindow(QMainWindow):
 
         if ret == QMessageBox.Yes:
             query = QSqlQuery()
+<<<<<<< HEAD
             query.exec("DELETE from category where catname = '"+cbcat+"'")
+=======
+            query.exec("DELETE FROM category WHERE catname = "+self.ui.comboBox_Cat.currentText())
+            #QSqlDatabase.commit()
+>>>>>>> f4d58936f8958debd7146987a2bb66a2579933e8
             self.updateform()
 
 
