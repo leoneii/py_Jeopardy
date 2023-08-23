@@ -84,48 +84,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.groupBox_Cat)
 
-        self.groupBox_3 = QGroupBox(self.groupBox_6)
-        self.groupBox_3.setObjectName(u"groupBox_3")
-        self.groupBox_3.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
-        self.gridLayout_6 = QGridLayout(self.groupBox_3)
-        self.gridLayout_6.setObjectName(u"gridLayout_6")
-        self.label_8 = QLabel(self.groupBox_3)
-        self.label_8.setObjectName(u"label_8")
-
-        self.gridLayout_6.addWidget(self.label_8, 0, 2, 1, 1)
-
-        self.label_7 = QLabel(self.groupBox_3)
-        self.label_7.setObjectName(u"label_7")
-
-        self.gridLayout_6.addWidget(self.label_7, 0, 0, 1, 1)
-
-        self.horizontalSpacer_7 = QSpacerItem(102, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_6.addItem(self.horizontalSpacer_7, 3, 1, 1, 1)
-
-        self.horizontalSpacer_6 = QSpacerItem(102, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_6.addItem(self.horizontalSpacer_6, 0, 1, 3, 1)
-
-        self.spinBox_themes = QSpinBox(self.groupBox_3)
-        self.spinBox_themes.setObjectName(u"spinBox_themes")
-        self.spinBox_themes.setMinimum(1)
-        self.spinBox_themes.setMaximum(7)
-        self.spinBox_themes.setValue(4)
-
-        self.gridLayout_6.addWidget(self.spinBox_themes, 3, 0, 1, 1)
-
-        self.spinBox_questions = QSpinBox(self.groupBox_3)
-        self.spinBox_questions.setObjectName(u"spinBox_questions")
-        self.spinBox_questions.setMinimum(1)
-        self.spinBox_questions.setMaximum(10)
-        self.spinBox_questions.setValue(5)
-
-        self.gridLayout_6.addWidget(self.spinBox_questions, 3, 2, 1, 1)
-
-
-        self.verticalLayout.addWidget(self.groupBox_3)
-
         self.label_10 = QLabel(self.groupBox_6)
         self.label_10.setObjectName(u"label_10")
         self.label_10.setAlignment(Qt.AlignCenter)
@@ -138,6 +96,23 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.tableView_themeTable)
 
+        self.groupBox_5 = QGroupBox(self.groupBox_6)
+        self.groupBox_5.setObjectName(u"groupBox_5")
+        self.horizontalLayout_5 = QHBoxLayout(self.groupBox_5)
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.pushButton_addTheme = QPushButton(self.groupBox_5)
+        self.pushButton_addTheme.setObjectName(u"pushButton_addTheme")
+
+        self.horizontalLayout_5.addWidget(self.pushButton_addTheme)
+
+        self.pushButton_delTheme = QPushButton(self.groupBox_5)
+        self.pushButton_delTheme.setObjectName(u"pushButton_delTheme")
+
+        self.horizontalLayout_5.addWidget(self.pushButton_delTheme)
+
+
+        self.verticalLayout.addWidget(self.groupBox_5)
+
         self.label_11 = QLabel(self.groupBox_6)
         self.label_11.setObjectName(u"label_11")
         self.label_11.setAlignment(Qt.AlignCenter)
@@ -148,6 +123,23 @@ class Ui_MainWindow(object):
         self.tableView_questTable.setObjectName(u"tableView_questTable")
 
         self.verticalLayout.addWidget(self.tableView_questTable)
+
+        self.groupBox = QGroupBox(self.groupBox_6)
+        self.groupBox.setObjectName(u"groupBox")
+        self.horizontalLayout_4 = QHBoxLayout(self.groupBox)
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.pushButton_addQ = QPushButton(self.groupBox)
+        self.pushButton_addQ.setObjectName(u"pushButton_addQ")
+
+        self.horizontalLayout_4.addWidget(self.pushButton_addQ)
+
+        self.pushButton_delQ = QPushButton(self.groupBox)
+        self.pushButton_delQ.setObjectName(u"pushButton_delQ")
+
+        self.horizontalLayout_4.addWidget(self.pushButton_delQ)
+
+
+        self.verticalLayout.addWidget(self.groupBox)
 
 
         self.horizontalLayout_3.addWidget(self.groupBox_6)
@@ -416,7 +408,7 @@ class Ui_MainWindow(object):
         self.toolBox.addItem(self.page_3, u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430")
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
-        self.page_2.setGeometry(QRect(0, 0, 414, 685))
+        self.page_2.setGeometry(QRect(0, 0, 418, 685))
         self.toolBox.addItem(self.page_2, u"\u042d\u043a\u0441\u043f\u043e\u0440\u0442")
 
         self.horizontalLayout_3.addWidget(self.toolBox)
@@ -447,7 +439,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.toolBox.setCurrentIndex(0)
+        self.toolBox.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -467,11 +459,14 @@ class Ui_MainWindow(object):
         self.pushButton__delCat.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.comboBox_Cat.setItemText(0, QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0432\u0430\u044f \u043a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u044f", None))
 
-        self.groupBox_3.setTitle("")
-        self.label_8.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0432\u043e\u043f\u0440\u043e\u0441\u043e\u0432", None))
-        self.label_7.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0442\u0435\u043c           ", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"\u0422\u0435\u043c\u044b", None))
+        self.groupBox_5.setTitle("")
+        self.pushButton_addTheme.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
+        self.pushButton_delTheme.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"\u0412\u043e\u043f\u0440\u043e\u0441\u044b", None))
+        self.groupBox.setTitle("")
+        self.pushButton_addQ.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
+        self.pushButton_delQ.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.groupBox_4.setTitle("")
         self.textEdit_questText.setDocumentTitle(QCoreApplication.translate("MainWindow", u"\u0412\u043e\u043f\u0440\u043e\u0441", None))
         self.textEdit_questText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
