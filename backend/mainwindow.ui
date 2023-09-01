@@ -41,7 +41,7 @@
          <property name="checkable">
           <bool>true</bool>
          </property>
-         <layout class="QGridLayout" name="gridLayout_2">
+         <layout class="QGridLayout" name="gridLayout">
           <item row="1" column="0">
            <widget class="QPushButton" name="pushButton_addCat">
             <property name="sizePolicy">
@@ -62,6 +62,13 @@
            </widget>
           </item>
           <item row="1" column="1">
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>Редактировать</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
            <widget class="QPushButton" name="pushButton__delCat">
             <property name="sizePolicy">
              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
@@ -74,10 +81,10 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="0" colspan="2">
+          <item row="0" column="0" colspan="3">
            <widget class="QComboBox" name="comboBox_Cat">
             <property name="editable">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
             <item>
              <property name="text">
@@ -386,7 +393,7 @@ p, li { white-space: pre-wrap; }
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>414</width>
+         <width>418</width>
          <height>685</height>
         </rect>
        </property>
@@ -493,7 +500,7 @@ p, li { white-space: pre-wrap; }
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>414</width>
+         <width>418</width>
          <height>685</height>
         </rect>
        </property>

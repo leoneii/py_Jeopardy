@@ -54,8 +54,8 @@ class Ui_MainWindow(object):
         self.groupBox_Cat.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.groupBox_Cat.setFlat(False)
         self.groupBox_Cat.setCheckable(True)
-        self.gridLayout_2 = QGridLayout(self.groupBox_Cat)
-        self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.gridLayout = QGridLayout(self.groupBox_Cat)
+        self.gridLayout.setObjectName(u"gridLayout")
         self.pushButton_addCat = QPushButton(self.groupBox_Cat)
         self.pushButton_addCat.setObjectName(u"pushButton_addCat")
         sizePolicy = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
@@ -65,21 +65,26 @@ class Ui_MainWindow(object):
         self.pushButton_addCat.setSizePolicy(sizePolicy)
         self.pushButton_addCat.setMinimumSize(QSize(0, 0))
 
-        self.gridLayout_2.addWidget(self.pushButton_addCat, 1, 0, 1, 1)
+        self.gridLayout.addWidget(self.pushButton_addCat, 1, 0, 1, 1)
+
+        self.pushButton = QPushButton(self.groupBox_Cat)
+        self.pushButton.setObjectName(u"pushButton")
+
+        self.gridLayout.addWidget(self.pushButton, 1, 1, 1, 1)
 
         self.pushButton__delCat = QPushButton(self.groupBox_Cat)
         self.pushButton__delCat.setObjectName(u"pushButton__delCat")
         sizePolicy.setHeightForWidth(self.pushButton__delCat.sizePolicy().hasHeightForWidth())
         self.pushButton__delCat.setSizePolicy(sizePolicy)
 
-        self.gridLayout_2.addWidget(self.pushButton__delCat, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.pushButton__delCat, 1, 2, 1, 1)
 
         self.comboBox_Cat = QComboBox(self.groupBox_Cat)
         self.comboBox_Cat.addItem("")
         self.comboBox_Cat.setObjectName(u"comboBox_Cat")
-        self.comboBox_Cat.setEditable(True)
+        self.comboBox_Cat.setEditable(False)
 
-        self.gridLayout_2.addWidget(self.comboBox_Cat, 0, 0, 1, 2)
+        self.gridLayout.addWidget(self.comboBox_Cat, 0, 0, 1, 3)
 
 
         self.verticalLayout.addWidget(self.groupBox_Cat)
@@ -257,7 +262,7 @@ class Ui_MainWindow(object):
         self.toolBox.setFrameShape(QFrame.NoFrame)
         self.page = QWidget()
         self.page.setObjectName(u"page")
-        self.page.setGeometry(QRect(0, 0, 414, 685))
+        self.page.setGeometry(QRect(0, 0, 418, 685))
         self.gridLayout_4 = QGridLayout(self.page)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.groupBox_2 = QGroupBox(self.page)
@@ -313,7 +318,7 @@ class Ui_MainWindow(object):
         self.toolBox.addItem(self.page, u"\u041a\u043e\u043c\u0430\u043d\u0434\u044b")
         self.page_3 = QWidget()
         self.page_3.setObjectName(u"page_3")
-        self.page_3.setGeometry(QRect(0, 0, 414, 685))
+        self.page_3.setGeometry(QRect(0, 0, 418, 685))
         self.gridLayout_5 = QGridLayout(self.page_3)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.label_2 = QLabel(self.page_3)
@@ -456,6 +461,7 @@ class Ui_MainWindow(object):
         self.groupBox_6.setTitle("")
         self.groupBox_Cat.setTitle(QCoreApplication.translate("MainWindow", u"\u041a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u0438", None))
         self.pushButton_addCat.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c", None))
         self.pushButton__delCat.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.comboBox_Cat.setItemText(0, QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0432\u0430\u044f \u043a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u044f", None))
 
