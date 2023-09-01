@@ -67,10 +67,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.pushButton_addCat, 1, 0, 1, 1)
 
-        self.pushButton = QPushButton(self.groupBox_Cat)
-        self.pushButton.setObjectName(u"pushButton")
+        self.pushButton_EditCat = QPushButton(self.groupBox_Cat)
+        self.pushButton_EditCat.setObjectName(u"pushButton_EditCat")
 
-        self.gridLayout.addWidget(self.pushButton, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.pushButton_EditCat, 1, 1, 1, 1)
 
         self.pushButton__delCat = QPushButton(self.groupBox_Cat)
         self.pushButton__delCat.setObjectName(u"pushButton__delCat")
@@ -461,7 +461,7 @@ class Ui_MainWindow(object):
         self.groupBox_6.setTitle("")
         self.groupBox_Cat.setTitle(QCoreApplication.translate("MainWindow", u"\u041a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u0438", None))
         self.pushButton_addCat.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c", None))
+        self.pushButton_EditCat.setText(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c", None))
         self.pushButton__delCat.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.comboBox_Cat.setItemText(0, QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0432\u0430\u044f \u043a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u044f", None))
 
