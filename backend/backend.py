@@ -21,10 +21,10 @@ class MainWindow(QMainWindow):
         sqlDB.open()
         self.ui.setupUi(self)
         self.ui.pushButton_addCat.clicked.connect(self.addCat)
+        self.ui.pushButton_EditCat.clicked.connect(self.editCat)
         self.ui.pushButton__delCat.clicked.connect(self.delCat)
         self.ui.comboBox_Cat.currentIndexChanged.connect(self.catChange)
         self.updateform()
-        print ()
         
     def updateform(self):
         self.ui.comboBox_Cat.clear()
@@ -68,6 +68,9 @@ class MainWindow(QMainWindow):
             if not query2.exec("INSERT INTO category  VALUES ("+str(int(query.value(0))+1)+", '"+texcat[0]+"');"):
                  logging.error("Failed to query database")
         self.updateform()
+
+    def editCat(self):
+        query = QSqlQuery()
 
     def delCat(self):
         cbcat=self.ui.comboBox_Cat.currentText()
