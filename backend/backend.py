@@ -70,7 +70,23 @@ class MainWindow(QMainWindow):
         self.updateform()
 
     def editCat(self):
-        query = QSqlQuery()
+        curcat=self.ui.comboBox_Cat.currentText()
+        dialog = QInputDialog()
+        dialog.setWindowTitle("Внимание!")
+        dialog.setOkButtonText("Сохранить")
+        dialog.setLabelText("Изменяем название категории: "+curcat)
+        dialog.setTextValue(curcat)
+        dialog.setInputMode(QInputDialog.TextInput)
+        ok = dialog.exec()
+        newval = dialog.textValue()
+        if ok:
+            # print(newval + " was saved")
+            query = QSqlQuery()
+            query.exec("UPDATE category  SET catname = " + newval + " WHERE catname  = " + curcat + ";")
+        else:
+            print(newval + " was not saved")
+
+
 
     def delCat(self):
         cbcat=self.ui.comboBox_Cat.currentText()
