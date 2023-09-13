@@ -35,7 +35,7 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>100</width>
+         <width>400</width>
          <height>0</height>
         </size>
        </property>
@@ -231,6 +231,12 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>400</width>
+         <height>0</height>
+        </size>
        </property>
        <property name="maximumSize">
         <size>
@@ -437,6 +443,12 @@ p, li { white-space: pre-wrap; }
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>300</width>
+         <height>0</height>
+        </size>
        </property>
        <property name="maximumSize">
         <size>
