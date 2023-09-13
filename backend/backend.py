@@ -71,6 +71,7 @@ class MainWindow(QMainWindow):
 
     def editCat(self):
         curcat=self.ui.comboBox_Cat.currentText()
+        curin=self.ui.comboBox_Cat.currentIndex()
         dialog = QInputDialog()
         dialog.setWindowTitle("Внимание!")
         dialog.setOkButtonText("Сохранить")
@@ -80,12 +81,15 @@ class MainWindow(QMainWindow):
         ok = dialog.exec()
         newval = dialog.textValue()
         if ok:
-            # print(newval + " was saved")
+            #print(newval + " was saved")
             query = QSqlQuery()
-            query.exec("UPDATE category  SET catname = " + newval + " WHERE catname  = " + curcat + ";")
+            que = "UPDATE category  SET catname = '" + newval + "' WHERE catname  = '" + curcat + "';"
+            #print(que)
+            query.exec(que)
         else:
-            print(newval + " was not saved")
-
+            logging.error("Failed to save category")
+        self.updateform()
+        self.ui.comboBox_Cat.setCurrentIndex(curin)
 
 
     def delCat(self):

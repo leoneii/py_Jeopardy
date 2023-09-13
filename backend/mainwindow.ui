@@ -10,6 +10,12 @@
     <height>846</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -29,6 +35,12 @@
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QGroupBox" name="groupBox_Cat">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="title">
           <string>Категории</string>
          </property>
@@ -63,6 +75,12 @@
           </item>
           <item row="1" column="1">
            <widget class="QPushButton" name="pushButton_EditCat">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
              <string>Редактировать</string>
             </property>
@@ -130,6 +148,13 @@
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="pushButton_editTheme">
+            <property name="text">
+             <string>Редактировать</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="pushButton_delTheme">
             <property name="text">
              <string>Удалить</string>
@@ -162,6 +187,13 @@
            <widget class="QPushButton" name="pushButton_addQ">
             <property name="text">
              <string>Добавить</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_editQ">
+            <property name="text">
+             <string>Редактировать</string>
             </property>
            </widget>
           </item>

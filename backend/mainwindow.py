@@ -28,6 +28,11 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1278, 846)
+        sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
+        MainWindow.setSizePolicy(sizePolicy)
         self.action = QAction(MainWindow)
         self.action.setObjectName(u"action")
         self.action_2 = QAction(MainWindow)
@@ -51,6 +56,11 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.groupBox_Cat = QGroupBox(self.groupBox_6)
         self.groupBox_Cat.setObjectName(u"groupBox_Cat")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.groupBox_Cat.sizePolicy().hasHeightForWidth())
+        self.groupBox_Cat.setSizePolicy(sizePolicy1)
         self.groupBox_Cat.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.groupBox_Cat.setFlat(False)
         self.groupBox_Cat.setCheckable(True)
@@ -58,24 +68,29 @@ class Ui_MainWindow(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.pushButton_addCat = QPushButton(self.groupBox_Cat)
         self.pushButton_addCat.setObjectName(u"pushButton_addCat")
-        sizePolicy = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_addCat.sizePolicy().hasHeightForWidth())
-        self.pushButton_addCat.setSizePolicy(sizePolicy)
+        sizePolicy2 = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.pushButton_addCat.sizePolicy().hasHeightForWidth())
+        self.pushButton_addCat.setSizePolicy(sizePolicy2)
         self.pushButton_addCat.setMinimumSize(QSize(0, 0))
 
         self.gridLayout.addWidget(self.pushButton_addCat, 1, 0, 1, 1)
 
         self.pushButton_EditCat = QPushButton(self.groupBox_Cat)
         self.pushButton_EditCat.setObjectName(u"pushButton_EditCat")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.pushButton_EditCat.sizePolicy().hasHeightForWidth())
+        self.pushButton_EditCat.setSizePolicy(sizePolicy3)
 
         self.gridLayout.addWidget(self.pushButton_EditCat, 1, 1, 1, 1)
 
         self.pushButton__delCat = QPushButton(self.groupBox_Cat)
         self.pushButton__delCat.setObjectName(u"pushButton__delCat")
-        sizePolicy.setHeightForWidth(self.pushButton__delCat.sizePolicy().hasHeightForWidth())
-        self.pushButton__delCat.setSizePolicy(sizePolicy)
+        sizePolicy2.setHeightForWidth(self.pushButton__delCat.sizePolicy().hasHeightForWidth())
+        self.pushButton__delCat.setSizePolicy(sizePolicy2)
 
         self.gridLayout.addWidget(self.pushButton__delCat, 1, 2, 1, 1)
 
@@ -110,6 +125,11 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_5.addWidget(self.pushButton_addTheme)
 
+        self.pushButton_editTheme = QPushButton(self.groupBox_5)
+        self.pushButton_editTheme.setObjectName(u"pushButton_editTheme")
+
+        self.horizontalLayout_5.addWidget(self.pushButton_editTheme)
+
         self.pushButton_delTheme = QPushButton(self.groupBox_5)
         self.pushButton_delTheme.setObjectName(u"pushButton_delTheme")
 
@@ -137,6 +157,11 @@ class Ui_MainWindow(object):
         self.pushButton_addQ.setObjectName(u"pushButton_addQ")
 
         self.horizontalLayout_4.addWidget(self.pushButton_addQ)
+
+        self.pushButton_editQ = QPushButton(self.groupBox)
+        self.pushButton_editQ.setObjectName(u"pushButton_editQ")
+
+        self.horizontalLayout_4.addWidget(self.pushButton_editQ)
 
         self.pushButton_delQ = QPushButton(self.groupBox)
         self.pushButton_delQ.setObjectName(u"pushButton_delQ")
@@ -174,11 +199,11 @@ class Ui_MainWindow(object):
 
         self.toolButton_2 = QToolButton(self.groupBox_4)
         self.toolButton_2.setObjectName(u"toolButton_2")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.toolButton_2.sizePolicy().hasHeightForWidth())
-        self.toolButton_2.setSizePolicy(sizePolicy1)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.toolButton_2.sizePolicy().hasHeightForWidth())
+        self.toolButton_2.setSizePolicy(sizePolicy4)
 
         self.horizontalLayout.addWidget(self.toolButton_2)
 
@@ -204,8 +229,8 @@ class Ui_MainWindow(object):
 
         self.toolButton_3 = QToolButton(self.groupBox_4)
         self.toolButton_3.setObjectName(u"toolButton_3")
-        sizePolicy1.setHeightForWidth(self.toolButton_3.sizePolicy().hasHeightForWidth())
-        self.toolButton_3.setSizePolicy(sizePolicy1)
+        sizePolicy4.setHeightForWidth(self.toolButton_3.sizePolicy().hasHeightForWidth())
+        self.toolButton_3.setSizePolicy(sizePolicy4)
 
         self.horizontalLayout_2.addWidget(self.toolButton_3)
 
@@ -275,16 +300,16 @@ class Ui_MainWindow(object):
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.pushButton_addTeam = QPushButton(self.groupBox_2)
         self.pushButton_addTeam.setObjectName(u"pushButton_addTeam")
-        sizePolicy.setHeightForWidth(self.pushButton_addTeam.sizePolicy().hasHeightForWidth())
-        self.pushButton_addTeam.setSizePolicy(sizePolicy)
+        sizePolicy2.setHeightForWidth(self.pushButton_addTeam.sizePolicy().hasHeightForWidth())
+        self.pushButton_addTeam.setSizePolicy(sizePolicy2)
         self.pushButton_addTeam.setMinimumSize(QSize(0, 0))
 
         self.gridLayout_3.addWidget(self.pushButton_addTeam, 1, 0, 1, 1)
 
         self.pushButton_delTeam = QPushButton(self.groupBox_2)
         self.pushButton_delTeam.setObjectName(u"pushButton_delTeam")
-        sizePolicy.setHeightForWidth(self.pushButton_delTeam.sizePolicy().hasHeightForWidth())
-        self.pushButton_delTeam.setSizePolicy(sizePolicy)
+        sizePolicy2.setHeightForWidth(self.pushButton_delTeam.sizePolicy().hasHeightForWidth())
+        self.pushButton_delTeam.setSizePolicy(sizePolicy2)
 
         self.gridLayout_3.addWidget(self.pushButton_delTeam, 1, 1, 1, 1)
 
@@ -299,19 +324,19 @@ class Ui_MainWindow(object):
 
         self.label = QLabel(self.page)
         self.label.setObjectName(u"label")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
-        self.label.setSizePolicy(sizePolicy2)
+        sizePolicy5 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy5)
         self.label.setScaledContents(True)
 
         self.gridLayout_4.addWidget(self.label, 1, 0, 1, 1)
 
         self.toolButton = QToolButton(self.page)
         self.toolButton.setObjectName(u"toolButton")
-        sizePolicy1.setHeightForWidth(self.toolButton.sizePolicy().hasHeightForWidth())
-        self.toolButton.setSizePolicy(sizePolicy1)
+        sizePolicy4.setHeightForWidth(self.toolButton.sizePolicy().hasHeightForWidth())
+        self.toolButton.setSizePolicy(sizePolicy4)
 
         self.gridLayout_4.addWidget(self.toolButton, 1, 1, 1, 1)
 
@@ -468,10 +493,12 @@ class Ui_MainWindow(object):
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"\u0422\u0435\u043c\u044b", None))
         self.groupBox_5.setTitle("")
         self.pushButton_addTheme.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
+        self.pushButton_editTheme.setText(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c", None))
         self.pushButton_delTheme.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"\u0412\u043e\u043f\u0440\u043e\u0441\u044b", None))
         self.groupBox.setTitle("")
         self.pushButton_addQ.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
+        self.pushButton_editQ.setText(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c", None))
         self.pushButton_delQ.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.groupBox_4.setTitle("")
         self.textEdit_questText.setDocumentTitle(QCoreApplication.translate("MainWindow", u"\u0412\u043e\u043f\u0440\u043e\u0441", None))
