@@ -40,8 +40,8 @@ class MainWindow(QMainWindow):
         ccode=query.value(0)
         print(ccode)
         model = QSqlQueryModel()
-        txtquery = "SELECT DISTINCT Theme FROM ThemeAndQ"
-        # txtquery = "SELECT DISTINCT Theme FROM ThemeAndQ WHERE Katcod ='"+str(ccode)+"';"
+        #txtquery = "SELECT DISTINCT Theme FROM ThemeAndQ"
+        txtquery = "SELECT DISTINCT Theme FROM ThemeAndQ WHERE Catcod ='"+str(ccode)+"';"
         model.setQuery(txtquery)
         self.ui.tableView_themeTable.setModel(model)
         
