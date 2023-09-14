@@ -2,7 +2,7 @@
 import logging
 import os
 import sys
-from PySide6.QtSql import QSqlDatabase, QSqlQuery
+from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlQueryModel
 
 from PySide6.QtWidgets import QApplication, QInputDialog, QMainWindow, QMessageBox
 
@@ -33,6 +33,17 @@ class MainWindow(QMainWindow):
             logging.error("Failed to query database")  
         while(query.next()):
             self.ui.comboBox_Cat.addItem(query.value(1))
+
+        curcat = self.ui.comboBox_Cat.currentText()
+        query.exec("SELECT * FROM Category WHERE catname ='"+curcat+"';")
+        query.first()
+        ccode=query.value(0)
+        print(ccode)
+        model = QSqlQueryModel()
+        txtquery = "SELECT DISTINCT Theme FROM ThemeAndQ"
+        # txtquery = "SELECT DISTINCT Theme FROM ThemeAndQ WHERE Katcod ='"+str(ccode)+"';"
+        model.setQuery(txtquery)
+        self.ui.tableView_themeTable.setModel(model)
         
     def catChange(self):
         #       Высчитываем количество тем и вопросов
