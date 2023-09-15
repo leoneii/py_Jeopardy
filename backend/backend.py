@@ -41,6 +41,20 @@ class MainWindow(QMainWindow):
         txtquery = "SELECT DISTINCT Theme FROM ThemeAndQ WHERE Catname ='"+self.ui.comboBox_Cat.currentText()+"';"
         model.setQuery(txtquery)
         self.ui.tableView_themeTable.setModel(model)
+        # widttab=self.ui.tableView_themeTable.width()
+        # print(widttab)
+        self.ui.tableView_themeTable.setColumnWidth(0,650)
+
+        self.updateQuest()
+
+    def updateQuest(self):
+
+
+        modelq = QSqlQueryModel()
+        txtqueryq="SELECT Question From ThemeAndQ"
+        modelq.setQuery(txtqueryq)
+        self.ui.tableView_questTable.setModel(modelq)
+        self.ui.tableView_questTable.setColumnWidth(0, 650)
         
     def catChange(self):
         #       Высчитываем количество тем и вопросов
