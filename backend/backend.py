@@ -33,15 +33,12 @@ class MainWindow(QMainWindow):
             logging.error("Failed to query database")  
         while(query.next()):
             self.ui.comboBox_Cat.addItem(query.value(1))
-
-        curcat = self.ui.comboBox_Cat.currentText()
-        query.exec("SELECT * FROM Category WHERE catname ='"+curcat+"';")
-        query.first()
-        ccode=query.value(0)
-        print(ccode)
+        #self.updateform()
+        
+    def updateTheme(self):    
         model = QSqlQueryModel()
         #txtquery = "SELECT DISTINCT Theme FROM ThemeAndQ"
-        txtquery = "SELECT DISTINCT Theme FROM ThemeAndQ WHERE Catcod ='"+str(ccode)+"';"
+        txtquery = "SELECT DISTINCT Theme FROM ThemeAndQ WHERE Catname ='"+self.ui.comboBox_Cat.currentText()+"';"
         model.setQuery(txtquery)
         self.ui.tableView_themeTable.setModel(model)
         
@@ -64,7 +61,8 @@ class MainWindow(QMainWindow):
         # if not query.exec("SELECT * FROM ThemeAndQ;"):
         #     logging.error("Failed to query database")  
         # while(query.next()):
-             print("vchjd")
+        #     print("vchjd")
+        self.updateTheme()
         #self.updateform()
     
     def addCat(self):
