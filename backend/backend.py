@@ -37,21 +37,21 @@ class MainWindow(QMainWindow):
         
     def updateTheme(self):    
         model = QSqlQueryModel()
-        #txtquery = "SELECT DISTINCT Theme FROM ThemeAndQ"
         txtquery = "SELECT DISTINCT Theme FROM ThemeAndQ WHERE Catname ='"+self.ui.comboBox_Cat.currentText()+"';"
         model.setQuery(txtquery)
         self.ui.tableView_themeTable.setModel(model)
-        # widttab=self.ui.tableView_themeTable.width()
-        # print(widttab)
         self.ui.tableView_themeTable.setColumnWidth(0,650)
-
+        selectionModel = self.ui.tableView_themeTable.selectionModel()
+        selectionModel.selectionChanged.connect(self.updateQuest)
         self.updateQuest()
 
     def updateQuest(self):
-
-
+        idx=self.ui.tableView_themeTable.currentIndex()
+        ridx=idx.row()
+        cindex=self.ui.tableView_themeTable.model().index(ridx,0)
+        curtheme=self.ui.tableView_themeTable.model().data(cindex)
         modelq = QSqlQueryModel()
-        txtqueryq="SELECT Question From ThemeAndQ"
+        txtqueryq="SELECT Question From ThemeAndQ WHERE Theme = '"+str(curtheme)+"';"
         modelq.setQuery(txtqueryq)
         self.ui.tableView_questTable.setModel(modelq)
         self.ui.tableView_questTable.setColumnWidth(0, 650)
