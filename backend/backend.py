@@ -46,8 +46,7 @@ class MainWindow(QMainWindow):
         self.updateQuest()
 
     def updateQuest(self):
-        idx=self.ui.tableView_themeTable.currentIndex()
-        ridx=idx.row()
+        ridx=self.ui.tableView_themeTable.currentIndex().row()
         cindex=self.ui.tableView_themeTable.model().index(ridx,0)
         curtheme=self.ui.tableView_themeTable.model().data(cindex)
         modelq = QSqlQueryModel()
@@ -55,7 +54,16 @@ class MainWindow(QMainWindow):
         modelq.setQuery(txtqueryq)
         self.ui.tableView_questTable.setModel(modelq)
         self.ui.tableView_questTable.setColumnWidth(0, 650)
-        
+        selectionModel = self.ui.tableView_questTable.selectionModel()
+        selectionModel.selectionChanged.connect(self.updQuestText)
+
+
+
+    def updQuestText(self):
+        ridx = self.ui.tableView_questTable.currentIndex().row()
+
+        self.ui.textEdit_questText.setText(str(ridx))
+
     def catChange(self):
         #       Высчитываем количество тем и вопросов
         # query2 = QSqlQuery()
