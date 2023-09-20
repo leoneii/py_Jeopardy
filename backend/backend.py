@@ -56,13 +56,30 @@ class MainWindow(QMainWindow):
         self.ui.tableView_questTable.setColumnWidth(0, 650)
         selectionModel = self.ui.tableView_questTable.selectionModel()
         selectionModel.selectionChanged.connect(self.updQuestText)
+        self.updQuestText()
 
 
 
     def updQuestText(self):
-        ridx = self.ui.tableView_questTable.currentIndex().row()
+        ridx = self.ui.tableView_questTable.currentIndex()
+        quetext=self.ui.tableView_questTable.model().data(ridx)
+        self.ui.textEdit_questText.setText(quetext)
+        query = QSqlQuery()
+        qtxt="SELECT * FROM ThemeAndQ WHERE Question='"+str(quetext)+"';"
+        query.exec(qtxt)
+        query.first()
+        txtansw=query.value(4)
+        self.ui.textEdit_answerText.setText(txtansw)
+        txttot=query.value(6)
+        self.ui.textEdit_tooltipText.setText(txttot)
+        if query.value(2)!=None:
+            self.ui.spinBox_costQuest.setValue(int(query.value(2)))
 
-        self.ui.textEdit_questText.setText(str(ridx))
+        if query.value(7):
+            self.ui.spinBox_costTooltip.setValue(int(query.value(7)))
+        else:
+            self.ui.spinBox_costTooltip.setValue(0)
+
 
     def catChange(self):
         #       Высчитываем количество тем и вопросов
