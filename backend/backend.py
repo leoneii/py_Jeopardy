@@ -64,6 +64,8 @@ class MainWindow(QMainWindow):
         ridx = self.ui.tableView_questTable.currentIndex()
         quetext=self.ui.tableView_questTable.model().data(ridx)
         self.ui.textEdit_questText.setText(quetext)
+
+
         query = QSqlQuery()
         qtxt="SELECT * FROM ThemeAndQ WHERE Question='"+str(quetext)+"';"
         query.exec(qtxt)
@@ -74,7 +76,6 @@ class MainWindow(QMainWindow):
         self.ui.textEdit_tooltipText.setText(txttot)
         if query.value(2)!=None:
             self.ui.spinBox_costQuest.setValue(int(query.value(2)))
-
         if query.value(7):
             self.ui.spinBox_costTooltip.setValue(int(query.value(7)))
         else:
@@ -110,8 +111,7 @@ class MainWindow(QMainWindow):
         query2 = QSqlQuery()
         if not query.exec("SELECT MAX(catcode) FROM category;"):
                 logging.error("Failed to query database") 
-        query.first()  
-        print(query.value(0))         
+        query.first()
         if texcat[1] == True:
             if not query2.exec("INSERT INTO category  VALUES ("+str(int(query.value(0))+1)+", '"+texcat[0]+"');"):
                  logging.error("Failed to query database")
