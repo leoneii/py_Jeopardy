@@ -1,4 +1,5 @@
 import logging
+import os
 import sys
 
 from PySide6.QtCore import (Qt, QRect, QTimer, QSize, QPoint)
@@ -85,7 +86,7 @@ class winq(QWidget):
             self.photo.setAlignment(self.alignmentc)
             self.photo.setGeometry(QRect(100, 20, wdt-200, hgt*2/3-40))
             self.photo.setStyleSheet("background-color: rgba(0,0,80,5)")
-            pixmap=QPixmap("img/"+ynph)
+            pixmap=QPixmap(os.path.dirname(os.path.abspath(__file__))+"/./img/"+ynph)
             pixmap = pixmap.scaled(900, hgt*2/3-40, Qt.KeepAspectRatio)
             self.photo.setPixmap(pixmap)
 #Конец фото
@@ -186,7 +187,7 @@ class winq(QWidget):
         query2 = QSqlQuery()
         quetext = "UPDATE settings set tmpDat1 =" + str(int(cost) - int(cpd)) + ";"
         if not query2.exec(quetext):
-            logging.error("Failed to query database")
+            logging.error("Failed to query database9")
         txtpd=self.textv.text()
         txtpd+="\n\n"+txtp
         self.textv.setText(txtpd)
@@ -244,7 +245,7 @@ class winq(QWidget):
         hgt=self.size().height()
 
         if len(ynpha) > 0:
-            pixmap=QPixmap("img/"+ynpha)
+            pixmap=QPixmap(os.path.dirname(os.path.abspath(__file__))+"/./img/"+ynpha)
             self.photo.setPixmap(pixmap)
             self.textv.setText(txta)
             self.textv.setGeometry(QRect(100, hgt*2/3+20, wdt-200, hgt/3-40))

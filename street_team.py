@@ -1,4 +1,5 @@
 import logging
+import os
 import sys
 #import PySide6
 from PySide6 import QtCore
@@ -28,7 +29,7 @@ if not query.exec(
             SELECT COUNT(*) FROM Teams;
         """
 ):
-        logging.error("Failed to query database")
+        logging.error("Failed to query database16")
 query.next()
 tkolt=int(query.value(0)) # количество команд
 
@@ -38,7 +39,7 @@ if not query.exec(
             SELECT * FROM Teams;
         """
 ):
-        logging.error("Failed to query database")
+        logging.error("Failed to query database17")
 query.first()
 
 s=""
@@ -114,7 +115,7 @@ class Wint(QWidget):
                     SELECT * FROM settings;
                 """
         ):
-            logging.error("Failed to query database")
+            logging.error("Failed to query database14")
         query.first()
         cnttxt = query.value(8) + "  >>>"
         self.contin.setText(cnttxt)
@@ -122,7 +123,7 @@ class Wint(QWidget):
     def __init__(self, tkol, parent=None):
         global lmaxlw, ccat
         sqlDB = QSqlDatabase.addDatabase('QSQLITE')
-        sqlDB.setDatabaseName('jep.sqlite')
+        sqlDB.setDatabaseName(os.path.dirname(os.path.abspath(__file__))+"/./jep.sqlite")
         sqlDB.open()
         super(Wint, self).__init__(parent)
         #super().__init__()
@@ -157,66 +158,72 @@ class Wint(QWidget):
         self.tmr.timeout.connect(scrupd)
         self.tmr.start(40)        
 #конец насыщенности фона
+        
+        queryccat = QSqlQuery()
+        if not queryccat.exec("SELECT COUNT(*) FROM category;"):
+            logging.error("Failed to query database15")  
+        queryccat.first()
+        ccat= queryccat.value(0)    
+
+
 
 #создаем экраны вопросов категорий
         query = QSqlQuery()
-        if not query.exec(
-                """
-                 SELECT COUNT(*) FROM Category;
-                 """
-        ):
-            logging.error("Failed to query database")
-        query.next()
-        ccat=int(query.value(0))
-        for i in range(ccat):
-            global mascat
-            # создаем виджет - один навсегда))
-            cwnd = wnd(i+1,apt)
+        if not query.exec("SELECT catname FROM category;"):
+            logging.error("Failed to query database1")  
+        global mascat    
+        while(query.next()):
+            cwnd = wnd(query.value(0),apt)
+            #print(query.value(0))
             cwnd.setVisible(False)
-            cwnd.setObjectName("widget_"+str(i))
+            #cwnd.setObjectName("widget_"+str(i))
             mascat.append(cwnd)
+        
+            # создаем виджет - один навсегда))
+
 
  # конец init
 
         #ПРОДОЛЖИТЬ
 
         def cntn():
-            global cntcode
+            global cntname
             # забираем название категории из settings
             query = QSqlQuery()
-            if not query.exec(
-                    """
-                        SELECT * FROM settings;
-                    """
-            ):
-                logging.error("Failed to query database")
+            if not query.exec("SELECT * FROM settings ;"):
+                logging.error("Failed to query database22")
             query.first()
-            cntcode = int(query.value(7)) - 1
-            mascat[cntcode].showFullScreen()
+            cntname = str(query.value(8))
+            
+            querycatn = QSqlQuery()
+            if not querycatn.exec("SELECT ROW_NUMBER() OVER() as row_number,catname FROM Category ;"):
+                logging.error("Failed to query database21")
+            #querycatn.first()
+            while (querycatn.next()):
+                if (querycatn.value(1) == cntname):
+                    mascat[int(querycatn.value(0))-1].showFullScreen()
+
+            
 
         def chcat(self):
-            global cnttxt, cntcode, lcnnxt
+            global cnttxt, cntname, lcnnxt
 
             vcat=Category(apt)
             vcat.showFullScreen()
             query = QSqlQuery()
-            if not query.exec(
-                    """
-                        SELECT * FROM settings;
-                    """
-            ):
-                logging.error("Failed to query database")
+            if not query.exec("SELECT * FROM settings ;"):
+                logging.error("Failed to query database6")
             query.first()
             cnttxt = query.value(8) + "  >>>"
             lcnnxt=len(cnttxt)
-            cntcode = int(query.value(7)) - 1
+            cntname = str(query.value(8))
 
         for i in range(tkol):
             if len(logo[i]) > 0:
                 self.logo = QLabel(self)
                 self.logo.setGeometry(i * (twdt + 10) + 10, 10, twdt, hgt / 4 - 10)
                 self.logo.setAlignment(alignmentc)
-                pixmap = QPixmap("img/logo/" + logo[i])
+                pixmap = QPixmap(os.path.dirname(os.path.abspath(__file__))+"/./img/logo/" + logo[i])
                 pixmap = pixmap.scaled(twdt, hgt / 4 - 20, Qt.KeepAspectRatio)
                 self.logo.setPixmap(pixmap)
                 self.logo.setStyleSheet("border:3px solid #99aaff;border-top-left-radius: 22px; border-top-right-radius: 22px; font-size: 48px")
@@ -307,7 +314,7 @@ class Wint(QWidget):
                  SELECT * from settings;
                  """
         ):
-            logging.error("Failed to query database")
+            logging.error("Failed to query database7")
         quec.next()
         cenv = quec.value(5)
         cenp = quec.value(6)

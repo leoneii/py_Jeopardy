@@ -1,5 +1,6 @@
 # This Python file uses the following encoding: utf-8
 import logging
+import os
 from PySide6 import QtCore
 # import PySide6
 from PySide6.QtCore import (QTimer, QEventLoop, QRect, Qt, QEvent, QPoint)
@@ -16,7 +17,7 @@ cenv=0
 #global sqlDB
 QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
 sqlDB = QSqlDatabase.addDatabase('QSQLITE')
-sqlDB.setDatabaseName('jep.sqlite')
+sqlDB.setDatabaseName(os.path.dirname(os.path.abspath(__file__))+"/./jep.sqlite")
 sqlDB.open()
 
 #переменные
@@ -33,7 +34,7 @@ if not query.exec(
         SELECT * from settings;
         """
 ):
-    logging.error("Failed to query database")
+    logging.error("Failed to query database5")
 
 query.nextResult()
 query.next()
@@ -104,7 +105,7 @@ class wnd(QWidget):
 
     # def __init__(self, parent=None):
     #     super().__init__(parent)
-    def __init__(self, codkat, apt, parent= None):
+    def __init__(self, catname, apt, parent= None):
         #вот тут делаем apt глобальной переменной
         global appt
         appt=apt
@@ -112,18 +113,21 @@ class wnd(QWidget):
         #QWidget.__init__(self,parent)
 
         #super(wnd, self).__init__(parent, apt)
-
+        #print(pcatname)
+        #catname= catname.str.strip()
+        #catn = "hjgfjhgfgh"
+        #catname = str(pcatname).
+        #catname=""
 #       Высчитываем количество тем и вопросов
         query2 = QSqlQuery()
-        if not query2.exec("SELECT COUNT(DISTINCT Theme) FROM ThemeAndQ WHERE Catkod = " + str(codkat) + " ;"):
-            logging.error("Failed to query database")
+        if not query2.exec("SELECT COUNT(DISTINCT Theme) FROM ThemeAndQ WHERE catname = '"+ catname +"' ;"):
+            logging.error("Failed to query database3")
         query2.first()
         kolt = int(query2.value(0))
 
         query2 = QSqlQuery()
-        if not query2.exec("SELECT Theme, COUNT(*) value_count FROM ThemeAndQ WHERE Catkod = " + str(
-                codkat) + " GROUP BY Theme HAVING value_count > 1  ;"):
-            logging.error("Failed to query database")
+        if not query2.exec("SELECT Theme, COUNT(*) value_count FROM ThemeAndQ WHERE catname = '"+ catname +"' GROUP BY Theme HAVING value_count > 1  ;"):
+            logging.error("Failed to query database4")
         query2.first()
         kolv = int(query2.value(1))
 
@@ -144,8 +148,8 @@ class wnd(QWidget):
 
 #       Создание запроса к БД, создаем таблицу
         query = QSqlQuery()
-        if not query.exec( "SELECT * from ThemeAndQ  WHERE Catkod = "+str(codkat)+" ORDER BY Theme, Cost ;" ):
-            logging.error("Failed to query database")
+        if not query.exec( "SELECT * from ThemeAndQ  WHERE Catname= '"+catname+"' ORDER BY Theme, Cost ;" ):
+            logging.error("Failed to query database8")
         query.next()
         rowdb=0
         for i in range (kolt):
@@ -229,13 +233,13 @@ class wnd(QWidget):
                             #obj.setVisible(False)
                             quecat=QSqlQuery()
                             if not quecat.exec("SELECT * from settings ;"):
-                                logging.error("Failed to query database")
+                                logging.error("Failed to query database11")
                             quecat.first()
-                            codc=quecat.value(7)
+                            catname=quecat.value(8)
                             #запрос БД
                             query = QSqlQuery()
-                            if not query.exec("SELECT * from ThemeAndQ  WHERE Catkod = "+str(codc)+" ORDER BY Theme, Cost ;"):
-                                logging.error("Failed to query database")
+                            if not query.exec("SELECT * from ThemeAndQ  WHERE catname = '"+catname+"' ORDER BY Theme, Cost ;"):
+                                logging.error("Failed to query database12")
                             query.next()#первая строка БД
                             #QMessageBox.information(self, "Нажматие!!!))", str(obj.objectName()))
                             query.seek(int(obj.objectName())) #переходим к конкретной строке БД
@@ -246,7 +250,7 @@ class wnd(QWidget):
                             cnv=query.value(2)
                             query1=QSqlQuery()
                             if not query1.exec("UPDATE settings set tmpDat =" + str(cnv) + ", tmpDat1 =" + str(cnv) + ";"):
-                                logging.error("Failed to query database")
+                                logging.error("Failed to query database13")
 
                             self.hide()
                             # записываем текст ответа в ячейку цены вопроса

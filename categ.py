@@ -15,7 +15,7 @@ if not query.exec(
             SELECT COUNT(*) FROM Category;
         """
 ):
-        logging.error("Failed to query database")
+        logging.error("Failed to query database18")
 query.next()
 ckols=int(query.value(0))
 
@@ -25,7 +25,7 @@ if not query.exec(
             SELECT * FROM Category;
         """
 ):
-        logging.error("Failed to query database")
+        logging.error("Failed to query database19")
 query.first()
 for i in range(ckols):
 
@@ -36,9 +36,6 @@ for i in range(ckols):
         if n>0:
             txt=txt[0:19+n]+"\n"+txt[19+n+1:]
             catname[i]=txt
-
-
-
 
     query.next()
 
@@ -116,7 +113,7 @@ class Category(QWidget):
             self.cbut=QPushButton(self)
             self.cbut.setText(catname[i])
             self.cbut.setGeometry(wdb,hpos+(hdb+5)*i+35,wdb*2,hdb)
-            self.cbut.setObjectName(str(i))
+            self.cbut.setObjectName(catname[i])
             self.cbut.setStyleSheet(shst)
             self.cbut.clicked.connect(self.catchois)
             self.cbut.show()
@@ -125,17 +122,16 @@ class Category(QWidget):
         snd = self.sender()
         catn=snd.objectName()
         query = QSqlQuery()
-        if not query.exec("SELECT * FROM Category WHERE catcode="+str(int(catn)+1)+";"):
-            logging.error("Failed to query database")
+        if not query.exec("SELECT * FROM Category WHERE catname='"+ catn +"';"):
+            logging.error("Failed to query database20")
         query.first()
         tnm=str(query.value(1))
-        tnn=str(query.value(0))
+        #tnn=str(query.value(0))
         query = QSqlQuery()
-        if not query.exec("UPDATE settings set curCatCode =" + tnn+", curCatName ='"+tnm+"';"):
-            logging.error("Failed to query database")
+        if not query.exec("UPDATE settings set curCatName ='"+tnm+"';"):
+            logging.error("Failed to query database21")
         query.exec("select * from settings")
         query.first()
-
         self.hide()
 
     def keyPressEvent(self, event):
