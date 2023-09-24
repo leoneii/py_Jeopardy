@@ -84,7 +84,7 @@ class winq(QWidget):
         if len(ynph) > 0:
             self.photo=QLabel(self)
             self.photo.setAlignment(self.alignmentc)
-            self.photo.setGeometry(QRect(100, 20, wdt-200, hgt*2/3-40))
+            self.photo.setGeometry(QRect(100, 20, wdt-200, hgt*2/3-80))
             self.photo.setStyleSheet("background-color: rgba(0,0,80,5)")
             pixmap=QPixmap(os.path.dirname(os.path.abspath(__file__))+"/./img/"+ynph)
             pixmap = pixmap.scaled(900, hgt*2/3-40, Qt.KeepAspectRatio)
@@ -96,15 +96,15 @@ class winq(QWidget):
         self.textv.setObjectName(u"txtvopr")
         self.textv.setAlignment(self.alignmentc)
         if len(ynph) > 0:
-            self.textv.setGeometry(QRect(100, hgt*2/3, wdt-200, hgt/3-40))
+            self.textv.setGeometry(QRect(130, hgt*2/3-40, wdt-260, hgt/3-40))
         else:
-            self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
+            self.textv.setGeometry(QRect(130, 20, wdt-260, hgt-40))
         self.textv.setWordWrap(True)
         self.textv.setText(txt)
         leghtext= len(txt)
         if leghtext>250:
             if phyn==1:
-                fs=50
+                fs=46
             else:
                 fs=58
         elif leghtext in range(100,250):
@@ -165,8 +165,8 @@ class winq(QWidget):
         self.nxt_button = QPushButton('Ответ', self)          # 6
         self.nxt_button.clicked.connect(self.nxt_func)
 
-        self.ss_button.setGeometry(15,hgt-165,140,120)
-        self.ss_button.setIconSize(QSize(96, 96))
+        self.ss_button.setGeometry(15,hgt-140,120,100)
+        self.ss_button.setIconSize(QSize(90, 90))
         cssbut = "QPushButton { background-color: rgba(0,0,200,25); color: rgba(150,200,250,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font-size: 38px;} QPushButton::hover{background-color: #0077ff ;}"
         self.ss_button.setStyleSheet(cssbut)
         cssbut1 = "QPushButton { background-color: rgba(0,0,200,25); color: rgba(150,200,250,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font-size: 38px;} QPushButton::hover{background-color: #0077ff ;}"
@@ -188,30 +188,31 @@ class winq(QWidget):
         quetext = "UPDATE settings set tmpDat1 =" + str(int(cost) - int(cpd)) + ";"
         if not query2.exec(quetext):
             logging.error("Failed to query database9")
-        txtpd=self.textv.text()
-        txtpd+="\n\n"+txtp
+        # txtpd=self.textv.text()
+        # txtpd+="\n\n"+txtp
+        txtpd=txtp
         self.textv.setText(txtpd)
 
         self.tl_button.setVisible(False)
         if len(ynpha) > 0:
-            self.textv.setGeometry(QRect(100, hgt/2, wdt-200, hgt/2-40))
-            self.photo.setGeometry(QRect(100, 20, wdt - 200, hgt / 2 - 40))
+            self.textv.setGeometry(QRect(110, hgt/2, wdt-220, hgt/2-40))
+            self.photo.setGeometry(QRect(110, 20, wdt - 220, hgt / 2 - 40))
             leghtext = len(txtpd)
             if leghtext > 250:
                 if phyn == 1:
-                    fs = 40
+                    fs = 38
                 else:
-                    fs = 48
+                    fs = 46
             elif leghtext in range(100, 250):
                 if phyn == 1:
-                    fs = 56
-                else:
-                    fs = 60
-            elif leghtext in range(1, 99):
-                if phyn == 1:
-                    fs = 60
+                    fs = 52
                 else:
                     fs = 68
+            elif leghtext in range(1, 99):
+                if phyn == 1:
+                    fs = 58
+                else:
+                    fs = 66
             tfs = "background-color: rgba(0,0,80,0); color: rgba(225,255,255,255); border:0px solid black;font-size:" + str(
                 fs) + "px"
             self.textv.setStyleSheet(tfs)
@@ -222,7 +223,7 @@ class winq(QWidget):
             self.timer.start(100)
         else:
             self.ss_button.setText('')
-            self.ss_button.setIconSize(QSize(96, 96))
+            self.ss_button.setIconSize(QSize(90, 90))
             self.timer.stop()
  
     def update_func(self):
@@ -248,12 +249,12 @@ class winq(QWidget):
             pixmap=QPixmap(os.path.dirname(os.path.abspath(__file__))+"/./img/"+ynpha)
             self.photo.setPixmap(pixmap)
             self.textv.setText(txta)
-            self.textv.setGeometry(QRect(100, hgt*2/3+20, wdt-200, hgt/3-40))
+            self.textv.setGeometry(QRect(110, hgt*2/3+20, wdt-220, hgt/3-40))
             # else:
             #      self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
             #      self.textv.setText(txta)
         elif len(ynp)==0:
-            self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
+            self.textv.setGeometry(QRect(110, 20, wdt-220, hgt-40))
         self.textv.setText(txta)
 
         self.ss_button.setVisible(False)
