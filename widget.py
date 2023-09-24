@@ -124,7 +124,7 @@ class wnd(QWidget):
             logging.error("Failed to query database3")
         query2.first()
         kolt = int(query2.value(0))
-
+        print(kolt)
         query2 = QSqlQuery()
         if not query2.exec("SELECT Theme, COUNT(*) value_count FROM ThemeAndQ WHERE catname = '"+ catname +"' GROUP BY Theme HAVING value_count > 1  ;"):
             logging.error("Failed to query database4")
@@ -191,6 +191,11 @@ class wnd(QWidget):
                 scbon=str(query.value(8))
                 if scbon=="1":
                     self.temb.setStyleSheet(cssbut1)
+                    lbbon=QLabel(parent=self.temb)
+                    lbbon.setText("Бонусный вопрос")
+                    lbbon.setGeometry(wkn*2/4-8,hkn*3/4-8,wkn/2+2,hkn/4+2)
+                    lbbon.setAlignment(alignmentc)
+                    lbbon.setVisible(True)
                 self.temb.installEventFilter(self)
                 self.temb.setWordWrap(False) #флаг кликабельности
 
