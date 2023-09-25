@@ -24,6 +24,7 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_EditCat.clicked.connect(self.editCat)
         self.ui.pushButton__delCat.clicked.connect(self.delCat)
         self.ui.comboBox_Cat.currentIndexChanged.connect(self.catChange)
+        self.ui.pushButton_editTeam.clicked.connect(self.changeTeamListRow)
         self.updateform()
         
     def updateform(self):
@@ -33,7 +34,16 @@ class MainWindow(QMainWindow):
             logging.error("Failed to query database")  
         while(query.next()):
             self.ui.comboBox_Cat.addItem(query.value(1))
-        #self.updateform()
+        modelt=QSqlQueryModel()
+        modelt.setQuery("SELECT Name FROM Teams")
+        self.ui.listView_teams.setModel(modelt)
+
+    def changeTeamListRow(self):
+        modelt=self.ui.listView_teams.model()
+
+
+
+
         
     def updateTheme(self):    
         model = QSqlQueryModel()
