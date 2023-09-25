@@ -324,7 +324,7 @@ class Wint(QWidget):
         if sndr[:3] == "pls":
             tots[int(sndr[3:])] += cenp
         else:
-            tots[int(sndr[3:])] -= cenv
+            tots[int(sndr[3:])] -= cenp
         # меняем значения на лейблах
         obj = self.findChild(QLabel, "rst" + sndr[3:])
         obj.setText(str(tots[int(sndr[3:])]))

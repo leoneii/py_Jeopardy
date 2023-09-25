@@ -250,11 +250,13 @@ class winq(QWidget):
             self.photo.setPixmap(pixmap)
             self.textv.setText(txta)
             self.textv.setGeometry(QRect(110, hgt*2/3+20, wdt-220, hgt/3-40))
-            # else:
-            #      self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
-            #      self.textv.setText(txta)
-        elif len(ynp)==0:
+        else:
+            self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
+            self.textv.setText(txta)
+        if (len(ynp))==0:
             self.textv.setGeometry(QRect(110, 20, wdt-220, hgt-40))
+        else:
+            self.photo.setVisible(False)    
         self.textv.setText(txta)
 
         self.ss_button.setVisible(False)
