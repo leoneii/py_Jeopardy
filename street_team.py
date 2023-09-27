@@ -13,7 +13,7 @@ import widget
 from categ import Category
 from widget import wnd, cenv
 
-global apt
+#global apt
 #база данных
 #global sqlDB
 QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
@@ -88,7 +88,6 @@ class Wint(QWidget):
         global gx
 
         painter = QPainter(self)
-      #  painter.begin(self)
         x = 0
         y = 0
         wd = self.size().width()
@@ -125,6 +124,12 @@ class Wint(QWidget):
         sqlDB = QSqlDatabase.addDatabase('QSQLITE')
         sqlDB.setDatabaseName(os.path.dirname(os.path.abspath(__file__))+"/./jep.sqlite")
         sqlDB.open()
+        # запись в settings параметров экрана
+        geometry = apt.primaryScreen().availableGeometry()
+        quec = QSqlQuery()
+        if not quec.exec("UPDATE settings set avaHeight = '"+str(geometry.height())+"', avaWidth = '"+str(geometry.width())+"';"):
+            logging.error("Failed to query database27")
+        #quec.next()  
         super(Wint, self).__init__(parent)
         #super().__init__()
         font = QFont()
@@ -133,18 +138,12 @@ class Wint(QWidget):
         alignmentc = Qt.AlignmentFlag.AlignCenter
         tkol = tkolt
         snd = ""
-        geometry = apt.primaryScreen().availableGeometry()
         self.setGeometry(geometry)
         wdt = self.size().width()
         twdt = (wdt - 20) / tkol - 10
         fw=int(twdt/lmaxlw)
         hgt = self.size().height()
         self.setAutoFillBackground(True)
-        # self.setStyleSheet("""
-        #         background-color: #0000cc;
-        #         color: #ddFFaa;
-        #         font-family: Arial;
-        #         """)
 #Насыщенность фона        
         def scrupd():
             global blc, shag
@@ -369,6 +368,7 @@ class Wint(QWidget):
             reply.exec()
 
 if __name__ == "__main__":
+    global apt
     apt = QApplication([])
     wnt = Wint(tkolt)
     wnt.showFullScreen()
