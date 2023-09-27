@@ -144,6 +144,16 @@ class Wint(QWidget):
         fw=int(twdt/lmaxlw)
         hgt = self.size().height()
         self.setAutoFillBackground(True)
+        mainlogoh=hgt/5
+        self.mainlogo=QLabel(self)
+        self.mainlogo.setGeometry(10,5,wdt-30,mainlogoh)
+        pixmap = QPixmap(os.path.dirname(os.path.abspath(__file__))+"/./img/logo/logo.png")
+        pixmap = pixmap.scaled(1200, hgt / 5-15 , Qt.KeepAspectRatio)
+        self.mainlogo.setPixmap(pixmap)
+        self.mainlogo.setAlignment(alignmentc)
+        self.sth = "background-color: rgba(0,0," + str(blc) + ",0);"
+        self.mainlogo.setStyleSheet(self.sth)
+        self.mainlogo.show()
 #Насыщенность фона        
         def scrupd():
             global blc, shag
@@ -220,7 +230,7 @@ class Wint(QWidget):
         for i in range(tkol):
             if len(logo[i]) > 0:
                 self.logo = QLabel(self)
-                self.logo.setGeometry(i * (twdt + 10) + 10, 10, twdt, hgt / 4 - 10)
+                self.logo.setGeometry(i * (twdt + 10) + 10, 10, twdt, hgt-mainlogoh / 4 - 10)
                 self.logo.setAlignment(alignmentc)
                 pixmap = QPixmap(os.path.dirname(os.path.abspath(__file__))+"/./img/logo/" + logo[i])
                 pixmap = pixmap.scaled(twdt, hgt / 4 - 20, Qt.KeepAspectRatio)
@@ -234,9 +244,9 @@ class Wint(QWidget):
             stsh = "border:3px solid #99aaff;font-size: " + str(fnts) + "px"
             self.tnm.setStyleSheet(stsh)
             if len(logo[i]) > 0:
-                self.tnm.setGeometry(i * (twdt + 10) + 10, 10 + hgt / 4, twdt, hgt / 3 - 20)
+                self.tnm.setGeometry(i * (twdt + 10) + 10, mainlogoh + hgt / 4, twdt, (hgt-mainlogoh) / 3 - 20)
             else:
-                self.tnm.setGeometry(i * (twdt + 10) + 10, 10, twdt, hgt / 3 + hgt / 4 - 20)
+                self.tnm.setGeometry(i * (twdt + 10) + 10, mainlogoh, twdt, (hgt-mainlogoh) / 3 + hgt / 4 - 20)
                 self.tnm.setStyleSheet("border:3px solid #9999ff;border-top-left-radius: 22px; border-top-right-radius: 22px;  font-size: "+str(fnts)+"px")
                 
             self.tnm.setWordWrap(True)
