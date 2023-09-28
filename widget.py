@@ -204,7 +204,7 @@ class wnd(QWidget):
                 if len(cpd)>0:
                     lbpd=QLabel(parent=self.temb)
                     lbpd.setObjectName("pd"+str(rowdb))
-                    lbpd.setText(cpd)
+                    lbpd.setText("-"+cpd)
                     lbpd.setGeometry(wkn*3/4-8,hkn*3/4-8,wkn/4+2,hkn/4+2)
                     csspd = "QLabel { background-color: rgba(0,200,150,160); border: none; border-radius: 10px; color: rgba(155,255,155,255); text-align: center center; background-position: center center; font-size: 46px}"
                     lbpd.setStyleSheet(csspd)
