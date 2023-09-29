@@ -48,7 +48,7 @@ class MainWindow(QMainWindow):
            # self.ui.label_answerPix.setEnabled(True)
             self.ui.toolButton_pixQ.setEnabled(True)
             self.ui.groupBox_tooltip.setEnabled(True)
-            self.ui.spinBox_costQuest.setEnabled(True)
+            #self.ui.spinBox_costQuest.setEnabled(True)
             self.ui.checkBox_isBonus.setEnabled(True)
             self.ui.groupBox_tooltip.setEnabled(True)
         else:
@@ -90,6 +90,10 @@ class MainWindow(QMainWindow):
             logging.error("Failed to query database")  
         #print(str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0)))  
         #print(costq)  
+        self.ui.tableView_themeTable.selectRow(self.ui.tableView_themeTable.currentIndex().row())
+        self.updateQuest()
+        self.EditMode(False)
+
         
     def updateform(self):
         self.ui.comboBox_Cat.clear()
@@ -104,8 +108,6 @@ class MainWindow(QMainWindow):
 
     def changeTeamListRow(self):
         modelt=self.ui.listView_teams.model()
-
-
 
 
         
@@ -146,6 +148,12 @@ class MainWindow(QMainWindow):
         txttot=query.value(6)
         self.ui.textEdit_tooltipText.setText(txttot)
         self.ui.checkBox_isBonus.setChecked(bool(query.value(8)))# бонус
+        if query.value(2)!=None:
+            self.ui.label_questText.setText("Текст вопроса на "+str(query.value(2)))
+            self.ui.label_answerText.setText("Текст ответа на "+str(query.value(2)))
+        else:
+            self.ui.label_questText.setText("Выберите вопрос") 
+            self.ui.label_answerText.setText("Выберите вопрос")   
         if query.value(2)!=None:
             self.ui.spinBox_costQuest.setValue(int(query.value(2)))
         if query.value(7):

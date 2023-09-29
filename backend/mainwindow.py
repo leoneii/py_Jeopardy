@@ -187,7 +187,7 @@ class Ui_MainWindow(object):
         self.textEdit_questText = QTextEdit(self.groupBox_4)
         self.textEdit_questText.setObjectName(u"textEdit_questText")
         self.textEdit_questText.setEnabled(False)
-        self.textEdit_questText.setMinimumSize(QSize(0, 80))
+        self.textEdit_questText.setMinimumSize(QSize(0, 120))
         font1 = QFont()
         font1.setPointSize(9)
         self.textEdit_questText.setFont(font1)
@@ -266,7 +266,7 @@ class Ui_MainWindow(object):
         self.textEdit_answerText = QTextEdit(self.groupBox_4)
         self.textEdit_answerText.setObjectName(u"textEdit_answerText")
         self.textEdit_answerText.setEnabled(False)
-        self.textEdit_answerText.setMinimumSize(QSize(0, 80))
+        self.textEdit_answerText.setMinimumSize(QSize(0, 100))
         self.textEdit_answerText.setFont(font1)
 
         self.verticalLayout_2.addWidget(self.textEdit_answerText)
