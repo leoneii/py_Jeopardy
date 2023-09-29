@@ -146,7 +146,8 @@ class Wint(QWidget):
         pixmap = QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/./img/logo/logo.png")
         pixmap = pixmap.scaled(wdt / 3, hgt / 5 - 15, Qt.KeepAspectRatio)
         self.mainlogo.setPixmap(pixmap)
-        self.mainlogo.setAlignment(alignmentc)
+        alignmentr = Qt.AlignmentFlag.AlignRight
+        self.mainlogo.setAlignment(alignmentr)
         self.sth = "background-color: rgba(0,0," + str(blc) + ",0);"
         self.mainlogo.setStyleSheet(self.sth)
         self.mainlogo.show()
@@ -299,7 +300,7 @@ class Wint(QWidget):
         self.catch.setText("Выбор категории")
         #        self.catch.setStyleSheet("font: bold 34px; border: 1px solid rgba(200,200,255,180); border-top-right-radius: 120px 60px; border-bottom-left-radius: 180px "+str(int(hgt / 15))+"px")
         shst = "QPushButton { font: bold " + str(
-            fs) + "px; border: 1px solid rgba(200,200,255,180); border-top-right-radius: 120px 60px; border-bottom-left-radius: 180px " + str(
+            fs) + "px; border: 1px solid rgba(200,200,255,180); border-top-right-radius: 120px 50px; border-bottom-left-radius: 160px " + str(
             int(hgt / 15)) + "px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
         self.catch.setStyleSheet(shst)
         self.catch.clicked.connect(chcat)
@@ -313,8 +314,8 @@ class Wint(QWidget):
         self.contin.setText(cnttxt)
 
         self.contin.setStyleSheet("QPushButton {font: bold " + str(
-            fs) + "px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: 180px " + str(
-            int(hgt / 15)) + "px; border-bottom-left-radius: 120px 60px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }")
+            fs) + "px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: 160px " + str(
+            int(hgt / 15)) + "px; border-bottom-left-radius: 120px 50px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }")
         self.contin.clicked.connect(cntn)
         self.contin.show()
 
