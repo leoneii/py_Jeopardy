@@ -20,12 +20,76 @@ class MainWindow(QMainWindow):
         sqlDB.setDatabaseName(os.path.dirname(os.path.abspath(__file__))+"/../jep.sqlite")
         sqlDB.open()
         self.ui.setupUi(self)
+        self.ui.pushButton_Save.setVisible(False)
+        self.ui.pushButton_Cancel.setVisible(False)
         self.ui.pushButton_addCat.clicked.connect(self.addCat)
         self.ui.pushButton_EditCat.clicked.connect(self.editCat)
         self.ui.pushButton__delCat.clicked.connect(self.delCat)
         self.ui.comboBox_Cat.currentIndexChanged.connect(self.catChange)
         self.ui.pushButton_editTeam.clicked.connect(self.changeTeamListRow)
+        self.ui.pushButton_editQ.clicked.connect(self.EditQ)
+        self.ui.pushButton_Save.clicked.connect(self.SaveQ)
+        self.ui.pushButton_Cancel.clicked.connect(self.CancelQ)
+        self.EditMode(False)
         self.updateform()
+    
+    def EditMode(self,Mode):
+        if (Mode==True):
+            self.ui.pushButton_Cancel.setVisible(True)
+            self.ui.pushButton_Save.setVisible(True)
+            self.ui.pushButton_addQ.setVisible(False)
+            self.ui.pushButton_editQ.setVisible(False)
+            self.ui.pushButton_delQ.setVisible(False)
+            self.ui.textEdit_questText.setEnabled(True)
+            self.ui.textEdit_answerText.setEnabled(True)
+           # self.ui.label_toolPix.setEnabled(True)
+           # self.ui.label_questPix.setEnabled(True)
+            self.ui.toolButton_pixA.setEnabled(True)
+           # self.ui.label_answerPix.setEnabled(True)
+            self.ui.toolButton_pixQ.setEnabled(True)
+            self.ui.groupBox_tooltip.setEnabled(True)
+            self.ui.spinBox_costQuest.setEnabled(True)
+            self.ui.checkBox_isBonus.setEnabled(True)
+            self.ui.groupBox_tooltip.setEnabled(True)
+        else:
+            self.ui.pushButton_Cancel.setVisible(False)
+            self.ui.pushButton_Save.setVisible(False)   
+            self.ui.pushButton_addQ.setVisible(True)
+            self.ui.pushButton_editQ.setVisible(True)
+            self.ui.pushButton_delQ.setVisible(True)
+            self.ui.textEdit_questText.setEnabled(False)
+            self.ui.textEdit_answerText.setEnabled(False)
+           # self.ui.label_toolPix.setEnabled(False)
+           # self.ui.label_questPix.setEnabled(False)
+            self.ui.toolButton_pixA.setEnabled(False)
+            #self.ui.label_answerPix.setEnabled(False)
+            self.ui.toolButton_pixQ.setEnabled(False)
+            self.ui.groupBox_tooltip.setEnabled(False)
+            self.ui.spinBox_costQuest.setEnabled(False)
+            self.ui.checkBox_isBonus.setEnabled(False)
+            self.ui.groupBox_tooltip.setEnabled(False)
+
+    def CancelQ(self):    
+        self.EditMode(False)
+        
+    def EditQ(self): 
+        if (self.ui.tableView_themeTable.currentIndex().row()!=-1):
+            if (self.ui.tableView_questTable.currentIndex().row()!=-1):
+                self.EditMode(True) 
+            else:
+             QMessageBox.warning(self,"Внимание!","Форма не готова для редактирования - вы не выбрали вопрос для редактирования")   
+        else:
+            QMessageBox.warning(self,"Внимание!","Форма не готова для редактирования - вы не выбрали тему для редактирования")
+            
+        
+    def SaveQ(self):    
+        costq = str(self.ui.tableView_questTable.currentIndex().row()+1)+"0"
+        query = QSqlQuery()
+        model= self.ui.tableView_themeTable.model()
+        if not query.exec("UPDATE ThemeAndQ SET Question = '"+self.ui.textEdit_questText.toPlainText()+"', isBonus = '"+str(self.ui.checkBox_isBonus.isChecked())+"', Answer = '"+self.ui.textEdit_answerText.toPlainText()+"', Tooltip = '"+self.ui.textEdit_tooltipText.toPlainText()+"' WHERE Cost = '"+costq+"' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
+            logging.error("Failed to query database")  
+        #print(str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0)))  
+        #print(costq)  
         
     def updateform(self):
         self.ui.comboBox_Cat.clear()
@@ -56,12 +120,10 @@ class MainWindow(QMainWindow):
         self.updateQuest()
 
     def updateQuest(self):
-        ridx=self.ui.tableView_themeTable.currentIndex().row()
-        cindex=self.ui.tableView_themeTable.model().index(ridx,0)
+        cindex=self.ui.tableView_themeTable.model().index(self.ui.tableView_themeTable.currentIndex().row(),0)
         curtheme=self.ui.tableView_themeTable.model().data(cindex)
         modelq = QSqlQueryModel()
-        txtqueryq="SELECT Question From ThemeAndQ WHERE Theme = '"+str(curtheme)+"';"
-        modelq.setQuery(txtqueryq)
+        modelq.setQuery("SELECT Question From ThemeAndQ WHERE Theme = '"+str(curtheme)+"';")
         self.ui.tableView_questTable.setModel(modelq)
         self.ui.tableView_questTable.setColumnWidth(0, 650)
         selectionModel = self.ui.tableView_questTable.selectionModel()
@@ -70,9 +132,8 @@ class MainWindow(QMainWindow):
 
 
 
-    def updQuestText(self):
-        ridx = self.ui.tableView_questTable.currentIndex()
-        quetext=self.ui.tableView_questTable.model().data(ridx)
+    def updQuestText(self): 
+        quetext=self.ui.tableView_questTable.model().data(self.ui.tableView_questTable.currentIndex())
         self.ui.textEdit_questText.setText(quetext)
 
 
@@ -84,12 +145,14 @@ class MainWindow(QMainWindow):
         self.ui.textEdit_answerText.setText(txtansw)
         txttot=query.value(6)
         self.ui.textEdit_tooltipText.setText(txttot)
+        self.ui.checkBox_isBonus.setChecked(bool(query.value(8)))# бонус
         if query.value(2)!=None:
             self.ui.spinBox_costQuest.setValue(int(query.value(2)))
         if query.value(7):
             self.ui.spinBox_costTooltip.setValue(int(query.value(7)))
         else:
             self.ui.spinBox_costTooltip.setValue(0)
+            
 
 
     def catChange(self):

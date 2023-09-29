@@ -188,8 +188,8 @@ class wnd(QWidget):
                 self.temb.setAutoFillBackground(True)
                 #self.temb.setBackgroundRole()
                 self.temb.setStyleSheet(cssbut)
-                scbon=str(query.value(8))
-                if scbon=="1":
+                scbon=bool(query.value(8))
+                if scbon==True:
                     self.temb.setStyleSheet(cssbut1)
                     lbbon=QLabel(parent=self.temb)
                     lbbon.setText("Бонусный вопрос")
