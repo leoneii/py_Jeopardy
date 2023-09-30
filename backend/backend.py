@@ -26,13 +26,116 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_EditCat.clicked.connect(self.editCat)
         self.ui.pushButton__delCat.clicked.connect(self.delCat)
         self.ui.comboBox_Cat.currentIndexChanged.connect(self.catChange)
-        self.ui.pushButton_editTeam.clicked.connect(self.changeTeamListRow)
+        self.ui.pushButton_editTeam.clicked.connect(self.changeTeam)
+        self.ui.pushButton_delTeam.clicked.connect(self.delTeam)
         self.ui.pushButton_editQ.clicked.connect(self.EditQ)
         self.ui.pushButton_Save.clicked.connect(self.SaveQ)
         self.ui.pushButton_Cancel.clicked.connect(self.CancelQ)
+        self.ui.pushButton_Qup.clicked.connect(self.Qup)
+        self.ui.pushButton_Qdown.clicked.connect(self.Qdown)
         self.EditMode(False)
         self.updateform()
     
+    
+    def delTeam(self):
+        curteam=self.ui.listView_teams.model().data(self.ui.listView_teams.currentIndex())
+        curin=self.ui.listView_teams.currentIndex()
+        dialog = QMessageBox()
+        dialog.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel);
+        dialog.setWindowTitle("Внимание!")
+        dialog.setDefaultButton( QMessageBox.Cancel)
+        dialog.setButtonText(QMessageBox.Save,"Удалить")
+        dialog.setButtonText(QMessageBox.Cancel,"Отменить")
+        dialog.setText("Удаляем команду: "+str(curteam))
+        dialog.setInformativeText("Осторожно, восстановить команду будет невозможно")
+        dialog.setIcon(QMessageBox.Icon.Critical)
+        #dialog.setTextValue(curteam)
+        #dialog.setInputMode(QInputDialog.TextInput)
+        ok = dialog.exec()
+        if  ok == QMessageBox.Save:
+    # Save was clicked
+            #print(newval + " was saved")
+            query = QSqlQuery()
+            if not query.exec("DELETE FROM Teams WHERE name  = '" + curteam + "';"):
+               logging.error("ошибка бд")  
+            
+        else:
+            logging.error("Отмена")
+        self.updateform()# переделать
+        self.ui.listView_teams.setCurrentIndex(curin-1)
+    
+    def changeTeam(self):
+        curteam=self.ui.listView_teams.model().data(self.ui.listView_teams.currentIndex())
+        curin=self.ui.listView_teams.currentIndex()
+        #print(str(curteam))
+        dialog = QInputDialog()
+        dialog.setWindowTitle("Внимание!")
+        dialog.setOkButtonText("Сохранить")
+        dialog.setLabelText("Изменяем название команды: "+str(curteam))
+        dialog.setTextValue(curteam)
+        dialog.setInputMode(QInputDialog.TextInput)
+        ok = dialog.exec()
+        newval = dialog.textValue()
+        if ok:
+            #print(newval + " was saved")
+            query = QSqlQuery()
+            if not query.exec("UPDATE Teams  SET Name = '" + newval + "' WHERE name  = '" + curteam + "';"):
+               logging.error("ошибка бд") 
+        else:
+            logging.error("отмена")
+        self.updateform()# переделать
+        self.ui.listView_teams.setCurrentIndex(curin)
+    
+    
+    
+    def Qup(self):
+        if (self.ui.tableView_themeTable.currentIndex().row()!=-1):
+            if (self.ui.tableView_questTable.currentIndex().row()!=-1):
+                self.ChangeCost("Up") 
+            else:
+             QMessageBox.warning(self,"Внимание!","Форма не готова для перемещения вопроса - вы не выбрали вопрос для перемещения")   
+        else:
+            QMessageBox.warning(self,"Внимание!","Форма не готова для перемещения вопроса - вы не выбрали тему для перемещения")
+        
+    def Qdown(self):
+        if (self.ui.tableView_themeTable.currentIndex().row()!=-1):
+            if (self.ui.tableView_questTable.currentIndex().row()!=-1):
+                self.ChangeCost("Down")
+            else:
+             QMessageBox.warning(self,"Внимание!","Форма не готова для перемещения вопроса - вы не выбрали вопрос для перемещения")   
+        else:
+            QMessageBox.warning(self,"Внимание!","Форма не готова для перемещения вопроса - вы не выбрали тему для перемещения")
+    
+    def ChangeCost(self,updown):
+        model= self.ui.tableView_themeTable.model()
+        maxcost = self.ui.tableView_questTable.model().rowCount()
+        costq = str(self.ui.tableView_questTable.currentIndex().row()+1)+"0"
+        query=QSqlQuery()
+        if (updown=="Up"):
+            if (int(costq)>10):
+                if not query.exec("UPDATE ThemeAndQ SET Cost = '777' WHERE Cost = '"+costq+"' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
+                     logging.error("Failed to query database30")  
+                if not query.exec("UPDATE ThemeAndQ SET Cost = '"+str(int(costq))+"' WHERE Cost = '"+str(int(costq)-10)+"' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
+                     logging.error("Failed to query database31")  
+                if not query.exec("UPDATE ThemeAndQ SET Cost = '"+str(int(costq)-10)+"' WHERE Cost = '777' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
+                     logging.error("Failed to query database30")      
+                       
+            else:
+                QMessageBox.warning(self,"Внимание!","Невозможно понизить стоимость этого вопроса")        
+        if (updown=="Down"):
+            if (int(costq)<(maxcost*10)):
+                if not query.exec("UPDATE ThemeAndQ SET Cost = '777' WHERE Cost = '"+costq+"' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
+                     logging.error("Failed to query database30")  
+                if not query.exec("UPDATE ThemeAndQ SET Cost = '"+str(int(costq))+"' WHERE Cost = '"+str(int(costq)+10)+"' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
+                     logging.error("Failed to query database31")  
+                if not query.exec("UPDATE ThemeAndQ SET Cost = '"+str(int(costq)+10)+"' WHERE Cost = '777' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
+                     logging.error("Failed to query database30")      
+                        
+                       
+            else:
+                QMessageBox.warning(self,"Внимание!","Невозможно повысить стоимость этого вопроса")            
+        self.updateQuest()
+        
     def EditMode(self,Mode):
         if (Mode==True):
             self.ui.pushButton_Cancel.setVisible(True)
@@ -125,12 +228,13 @@ class MainWindow(QMainWindow):
         cindex=self.ui.tableView_themeTable.model().index(self.ui.tableView_themeTable.currentIndex().row(),0)
         curtheme=self.ui.tableView_themeTable.model().data(cindex)
         modelq = QSqlQueryModel()
-        modelq.setQuery("SELECT Question From ThemeAndQ WHERE Theme = '"+str(curtheme)+"';")
+        modelq.setQuery("SELECT Question From ThemeAndQ WHERE Theme = '"+str(curtheme)+"'  ORDER BY Cost ;")
         self.ui.tableView_questTable.setModel(modelq)
         self.ui.tableView_questTable.setColumnWidth(0, 650)
         selectionModel = self.ui.tableView_questTable.selectionModel()
         selectionModel.selectionChanged.connect(self.updQuestText)
         self.updQuestText()
+       # print(str(self.ui.tableView_questTable.model().rowCount()))
 
 
 
