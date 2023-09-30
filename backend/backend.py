@@ -28,6 +28,7 @@ class MainWindow(QMainWindow):
         self.ui.comboBox_Cat.currentIndexChanged.connect(self.catChange)
         self.ui.pushButton_editTeam.clicked.connect(self.changeTeam)
         self.ui.pushButton_delTeam.clicked.connect(self.delTeam)
+        self.ui.pushButton_addTeam.clicked.connect(self.addTeam)
         self.ui.pushButton_editQ.clicked.connect(self.EditQ)
         self.ui.pushButton_Save.clicked.connect(self.SaveQ)
         self.ui.pushButton_Cancel.clicked.connect(self.CancelQ)
@@ -35,8 +36,20 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_Qdown.clicked.connect(self.Qdown)
         self.EditMode(False)
         self.updateform()
-    
-    
+
+
+    def addTeam(self):
+        texteam = QInputDialog.getText(None, "PyG", "Введите наименование команды");
+        query = QSqlQuery()
+        query2 = QSqlQuery()
+        if not query.exec("SELECT MAX(Id) FROM Teams;"):
+            logging.error("Failed to query database1")
+        query.first()
+        if texteam[1] == True:
+            if not query2.exec(
+                    "INSERT INTO Teams (ID,Name) VALUES ("+str(int(query.value(0))+1)+", '"+texteam[0]+"');"):
+                logging.error("Failed to query database2")
+        self.updateform()
     def delTeam(self):
         curteam=self.ui.listView_teams.model().data(self.ui.listView_teams.currentIndex())
         curin=self.ui.listView_teams.currentIndex()
@@ -62,7 +75,7 @@ class MainWindow(QMainWindow):
         else:
             logging.error("Отмена")
         self.updateform()# переделать
-        self.ui.listView_teams.setCurrentIndex(curin-1)
+        # self.ui.listView_teams.setCurrentIndex(curin-1)
     
     def changeTeam(self):
         curteam=self.ui.listView_teams.model().data(self.ui.listView_teams.currentIndex())
