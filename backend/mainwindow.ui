@@ -452,7 +452,7 @@ p, li { white-space: pre-wrap; }
                <pixmap>../testpy8/img/dog.jpg</pixmap>
               </property>
               <property name="scaledContents">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
               <property name="wordWrap">
                <bool>false</bool>
@@ -605,7 +605,7 @@ p, li { white-space: pre-wrap; }
                <pixmap>../testpy8/img/gepard.webp</pixmap>
               </property>
               <property name="scaledContents">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -722,11 +722,8 @@ p, li { white-space: pre-wrap; }
                   <property name="text">
                    <string/>
                   </property>
-                  <property name="pixmap">
-                   <pixmap>../img/logo/logo.png</pixmap>
-                  </property>
                   <property name="scaledContents">
-                   <bool>true</bool>
+                   <bool>false</bool>
                   </property>
                  </widget>
                 </item>
@@ -996,7 +993,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>296</width>
-          <height>673</height>
+          <height>685</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1167,7 +1164,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>296</width>
-          <height>673</height>
+          <height>685</height>
          </rect>
         </property>
         <attribute name="label">

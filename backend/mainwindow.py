@@ -257,7 +257,7 @@ class Ui_MainWindow(object):
         self.label_questPix.setMinimumSize(QSize(0, 80))
         self.label_questPix.setMaximumSize(QSize(16777215, 200))
         self.label_questPix.setPixmap(QPixmap(u"../testpy8/img/dog.jpg"))
-        self.label_questPix.setScaledContents(True)
+        self.label_questPix.setScaledContents(False)
         self.label_questPix.setWordWrap(False)
 
         self.horizontalLayout.addWidget(self.label_questPix)
@@ -333,7 +333,7 @@ class Ui_MainWindow(object):
         self.label_answerPix.setMinimumSize(QSize(0, 80))
         self.label_answerPix.setMaximumSize(QSize(16777215, 200))
         self.label_answerPix.setPixmap(QPixmap(u"../testpy8/img/gepard.webp"))
-        self.label_answerPix.setScaledContents(True)
+        self.label_answerPix.setScaledContents(False)
 
         self.horizontalLayout_2.addWidget(self.label_answerPix)
 
@@ -391,8 +391,7 @@ class Ui_MainWindow(object):
         self.label_toolPix.setObjectName(u"label_toolPix")
         self.label_toolPix.setMinimumSize(QSize(0, 80))
         self.label_toolPix.setMaximumSize(QSize(16777215, 100))
-        self.label_toolPix.setPixmap(QPixmap(u"../img/logo/logo.png"))
-        self.label_toolPix.setScaledContents(True)
+        self.label_toolPix.setScaledContents(False)
 
         self.horizontalLayout_6.addWidget(self.label_toolPix)
 
@@ -534,7 +533,7 @@ class Ui_MainWindow(object):
         self.toolBox.addItem(self.page, u"\u041a\u043e\u043c\u0430\u043d\u0434\u044b")
         self.page_3 = QWidget()
         self.page_3.setObjectName(u"page_3")
-        self.page_3.setGeometry(QRect(0, 0, 296, 673))
+        self.page_3.setGeometry(QRect(0, 0, 296, 685))
         self.gridLayout_5 = QGridLayout(self.page_3)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.horizontalSpacer_5 = QSpacerItem(77, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -628,7 +627,7 @@ class Ui_MainWindow(object):
         self.toolBox.addItem(self.page_3, u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430")
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
-        self.page_2.setGeometry(QRect(0, 0, 296, 673))
+        self.page_2.setGeometry(QRect(0, 0, 296, 685))
         self.toolBox.addItem(self.page_2, u"\u042d\u043a\u0441\u043f\u043e\u0440\u0442")
         self.splitter_2.addWidget(self.toolBox)
 

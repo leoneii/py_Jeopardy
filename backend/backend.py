@@ -77,12 +77,19 @@ class MainWindow(QMainWindow):
                     logging.error("Failed to query database")
 
             elif button_group.id(id_name) == 2:
-
-                reply.close()
-
+                costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
+                query = QSqlQuery()
+                model = self.ui.tableView_themeTable.model()
+                if not query.exec(
+                        "UPDATE ThemeAndQ SET Image = '' WHERE Cost = '" + costq + "' AND Theme = '" + str(
+                                model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
+                                        0)) + "';"):
+                    logging.error("Failed to query database")
             elif button_group.id(id_name) == 3:
-                reply.close()
+                pass
             reply.close()
+
+
         reply = QDialog()
         reply.setWindowFlag(Qt.FramelessWindowHint)
         sth = "background-color: rgba(0,0,255,90); color: #ddFFaa; font-size: 22px;  border: 6px;"
@@ -118,7 +125,7 @@ class MainWindow(QMainWindow):
         reply.exec()
 
     def addTeam(self):
-        texteam = QInputDialog.getText(None, "", "Введите наименование команды");
+        texteam = QInputDialog.getText(None, "Новая команда", "Введите наименование команды");
         query = QSqlQuery()
         query2 = QSqlQuery()
         if not query.exec("SELECT MAX(Id) FROM Teams;"):
@@ -169,7 +176,6 @@ class MainWindow(QMainWindow):
         ok = dialog.exec()
         newval = dialog.textValue()
         if ok:
-            #print(newval + " was saved")
             query = QSqlQuery()
             if not query.exec("UPDATE Teams  SET Name = '" + newval + "' WHERE name  = '" + curteam + "';"):
                logging.error("ошибка бд") 
@@ -333,12 +339,19 @@ class MainWindow(QMainWindow):
     def updQuestText(self): 
         quetext=self.ui.tableView_questTable.model().data(self.ui.tableView_questTable.currentIndex())
         self.ui.textEdit_questText.setText(quetext)
-
-
         query = QSqlQuery()
         qtxt="SELECT * FROM ThemeAndQ WHERE Question='"+str(quetext)+"';"
         query.exec(qtxt)
         query.first()
+
+        pixmap = QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/" + str(query.value(3)) )
+        # pixmap = pixmap.scaled(240, 80, Qt.KeepAspectRatio)
+        alignmentc = Qt.AlignmentFlag.AlignCenter
+        self.ui.label_questPix.setAlignment(alignmentc)
+
+        # self.ui.label_questPix.setPixmap(pixmap)
+        self.ui.label_questPix.setPixmap(pixmap.scaled(self.ui.label_questPix.frameSize(),Qt.KeepAspectRatio))
+
         txtansw=query.value(4)
         self.ui.textEdit_answerText.setText(txtansw)
         txttot=query.value(6)
