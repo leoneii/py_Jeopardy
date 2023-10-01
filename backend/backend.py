@@ -287,7 +287,7 @@ class MainWindow(QMainWindow):
         costq = str(self.ui.tableView_questTable.currentIndex().row()+1)+"0"
         query = QSqlQuery()
         model= self.ui.tableView_themeTable.model()
-        if not query.exec("UPDATE ThemeAndQ SET Question = '"+self.ui.textEdit_questText.toPlainText()+"', isBonus = '"+str(self.ui.checkBox_isBonus.isChecked())+"', Answer = '"+self.ui.textEdit_answerText.toPlainText()+"', Tooltip = '"+self.ui.textEdit_tooltipText.toPlainText()+"' WHERE Cost = '"+costq+"' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
+        if not query.exec("UPDATE ThemeAndQ SET Question = '"+self.ui.textEdit_questText.toPlainText()+"', isBonus = '"+str(self.ui.checkBox_isBonus.isChecked())+"', Answer = '"+self.ui.textEdit_answerText.toPlainText()+"', Tooltip = '"+self.ui.textEdit_tooltipText.toPlainText()+"', ToolCost = '"+str(self.ui.spinBox_costTooltip.value())+"' WHERE Cost = '"+costq+"' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
             logging.error("Failed to query database")  
         #print(str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0)))  
         #print(costq)  
