@@ -686,13 +686,13 @@ p, li { white-space: pre-wrap; }
              <item row="3" column="2">
               <widget class="QSpinBox" name="spinBox_costTooltip">
                <property name="maximum">
-                <number>70</number>
+                <number>100</number>
                </property>
                <property name="singleStep">
-                <number>10</number>
+                <number>5</number>
                </property>
                <property name="value">
-                <number>30</number>
+                <number>0</number>
                </property>
               </widget>
              </item>

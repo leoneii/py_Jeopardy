@@ -375,9 +375,9 @@ class Ui_MainWindow(object):
 
         self.spinBox_costTooltip = QSpinBox(self.groupBox_tooltip)
         self.spinBox_costTooltip.setObjectName(u"spinBox_costTooltip")
-        self.spinBox_costTooltip.setMaximum(70)
-        self.spinBox_costTooltip.setSingleStep(10)
-        self.spinBox_costTooltip.setValue(30)
+        self.spinBox_costTooltip.setMaximum(100)
+        self.spinBox_costTooltip.setSingleStep(5)
+        self.spinBox_costTooltip.setValue(0)
 
         self.gridLayout_7.addWidget(self.spinBox_costTooltip, 3, 2, 1, 1)
 
