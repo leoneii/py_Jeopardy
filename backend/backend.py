@@ -2,9 +2,13 @@
 import logging
 import os
 import sys
+
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QPixmap
 from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlQueryModel
 
-from PySide6.QtWidgets import QApplication, QInputDialog, QMainWindow, QMessageBox
+from PySide6.QtWidgets import QApplication, QInputDialog, QMainWindow, QMessageBox, QFileDialog, QDialog, QVBoxLayout, \
+    QLabel, QPushButton, QButtonGroup, QHBoxLayout
 
 # Important:
 # You need to run the following command to generate the ui_form.py file
@@ -16,6 +20,10 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
+
+        # wd = self.size().width()
+        # hd = self.size().height()
+        # self.setGeometry(wd*0.2,40,wd+0.6,hd*0.7)
         sqlDB = QSqlDatabase.addDatabase('QSQLITE')
         sqlDB.setDatabaseName(os.path.dirname(os.path.abspath(__file__))+"/../jep.sqlite")
         sqlDB.open()
@@ -34,12 +42,83 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_Cancel.clicked.connect(self.CancelQ)
         self.ui.pushButton_Qup.clicked.connect(self.Qup)
         self.ui.pushButton_Qdown.clicked.connect(self.Qdown)
+        self.ui.toolButton_pixQ.clicked.connect(self.NamePixQ)
         self.EditMode(False)
         self.updateform()
 
+    def NamePixQ(self):
+        def check_buttonQP(id_name):
+            if button_group.id(id_name) == 1:
+                dialog = QFileDialog()
+                dialog.setDirectory("/./img")
+                dialog.exec()
+                fileName = dialog.selectedFiles()
+
+                # fpath=fileName
+                # pixmap = QPixmap(fpath)
+                # pixmap = pixmap.scaled(640, 480, Qt.KeepAspectRatio)
+                # self.ui.label_questPix.setPixmap(pixmap)
+
+                s = str(fileName)
+                ch = '/'
+                indexes = [i for i, c in enumerate(s) if c == ch]
+                rpos = max(indexes)
+                fileName = s[rpos + 1:]
+                l = len(fileName)
+                fileName = fileName[:l - 2]
+                # print(fileName)
+                costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
+                query = QSqlQuery()
+                model = self.ui.tableView_themeTable.model()
+                if not query.exec(
+                        "UPDATE ThemeAndQ SET Image = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
+                                model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
+                                        0)) + "';"):
+                    logging.error("Failed to query database")
+
+            elif button_group.id(id_name) == 2:
+
+                reply.close()
+
+            elif button_group.id(id_name) == 3:
+                reply.close()
+            reply.close()
+        reply = QDialog()
+        reply.setWindowFlag(Qt.FramelessWindowHint)
+        sth = "background-color: rgba(0,0,255,90); color: #ddFFaa; font-size: 22px;  border: 6px;"
+        reply.setStyleSheet(sth)
+        vbox = QVBoxLayout()
+        label_dialog = QLabel()
+        label_dialog.setStyleSheet(
+            "background-color: rgba(0,0,255,240);border-top-left-radius: 80px 20px; border-bottom-right-radius: 80px 20px;")
+        label_dialog.setText('Изменение картинки вопроса')
+        button_yes = QPushButton(reply)
+        button_yes.setText("Изменить")
+        shst = "QPushButton { background-color: rgba(0,0,200,100); color: rgba(220,220,255,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 6px; font: Bold 22px} QPushButton::hover{background-color: #0077ff ;}"
+        button_yes.setStyleSheet(shst)
+        button_no = QPushButton(reply)
+        button_no.setText("Удалить")
+        button_no.setStyleSheet(shst)
+        button_canc = QPushButton(reply)
+        button_canc.setText("Отменить")
+        button_canc.setStyleSheet(shst)
+        button_group = QButtonGroup()
+        button_group.addButton(button_yes, 1)
+        button_group.addButton(button_no, 2)
+        button_group.addButton(button_canc, 3)
+        button_group.buttonClicked.connect(check_buttonQP)
+        layout = QHBoxLayout()
+        layout.addWidget(button_yes)
+        layout.addWidget(button_no)
+        layout.addWidget(button_canc)
+        vbox.addWidget(label_dialog)
+        vbox.addSpacing(20)
+        vbox.addLayout(layout)
+        reply.setLayout(vbox)
+        reply.exec()
 
     def addTeam(self):
-        texteam = QInputDialog.getText(None, "PyG", "Введите наименование команды");
+        texteam = QInputDialog.getText(None, "", "Введите наименование команды");
         query = QSqlQuery()
         query2 = QSqlQuery()
         if not query.exec("SELECT MAX(Id) FROM Teams;"):
