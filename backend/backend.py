@@ -20,10 +20,6 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
-
-        # wd = self.size().width()
-        # hd = self.size().height()
-        # self.setGeometry(wd*0.2,40,wd+0.6,hd*0.7)
         sqlDB = QSqlDatabase.addDatabase('QSQLITE')
         sqlDB.setDatabaseName(os.path.dirname(os.path.abspath(__file__))+"/../jep.sqlite")
         sqlDB.open()
@@ -59,11 +55,6 @@ class MainWindow(QMainWindow):
         dialog.setDirectory(os.path.dirname(os.path.abspath(__file__))+"/../img")
         dialog.exec()
         fileName = dialog.selectedFiles()
-        # fpath=fileName
-        # pixmap = QPixmap(fpath)
-        # pixmap = pixmap.scaled(640, 480, Qt.KeepAspectRatio)
-        # self.ui.label_questPix.setPixmap(pixmap)
-
         s = str(fileName)
         ch = '/'
         indexes = [i for i, c in enumerate(s) if c == ch]
@@ -93,11 +84,6 @@ class MainWindow(QMainWindow):
         dialog.setDirectory(os.path.dirname(os.path.abspath(__file__))+"/../img")
         dialog.exec()
         fileName = dialog.selectedFiles()
-        # fpath=fileName
-        # pixmap = QPixmap(fpath)
-        # pixmap = pixmap.scaled(640, 480, Qt.KeepAspectRatio)
-        # self.ui.label_questPix.setPixmap(pixmap)
-
         s = str(fileName)
         ch = '/'
         indexes = [i for i, c in enumerate(s) if c == ch]
@@ -128,11 +114,6 @@ class MainWindow(QMainWindow):
         dialog.setDirectory(os.path.dirname(os.path.abspath(__file__))+"/../img")
         dialog.exec()
         fileName = dialog.selectedFiles()
-        # fpath=fileName
-        # pixmap = QPixmap(fpath)
-        # pixmap = pixmap.scaled(640, 480, Qt.KeepAspectRatio)
-        # self.ui.label_questPix.setPixmap(pixmap)
-
         s = str(fileName)
         ch = '/'
         indexes = [i for i, c in enumerate(s) if c == ch]
@@ -140,7 +121,6 @@ class MainWindow(QMainWindow):
         fileName = s[rpos + 1:]
         l = len(fileName)
         fileName = fileName[:l - 2]
-        # print(fileName)
         costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
         model = self.ui.tableView_themeTable.model()
         self.textTpix =  ("UPDATE ThemeAndQ SET ToolTipImg = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
@@ -156,7 +136,6 @@ class MainWindow(QMainWindow):
                         model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
                                 0)) + "';")
         self.ui.label_toolPix.setPixmap(QPixmap(""))        
-
 
     def addTeam(self):
         texteam = QInputDialog.getText(None, "Новая команда", "Введите наименование команды");
@@ -200,7 +179,6 @@ class MainWindow(QMainWindow):
     def changeTeam(self):
         curteam=self.ui.listView_teams.model().data(self.ui.listView_teams.currentIndex())
         curin=self.ui.listView_teams.currentIndex()
-        #print(str(curteam))
         dialog = QInputDialog()
         dialog.setWindowTitle("Внимание!")
         dialog.setOkButtonText("Сохранить")
@@ -217,6 +195,7 @@ class MainWindow(QMainWindow):
             logging.error("отмена")
         self.updateform()# переделать
         self.ui.listView_teams.setCurrentIndex(curin)
+
     
     
     
@@ -367,13 +346,18 @@ class MainWindow(QMainWindow):
         modelt=QSqlQueryModel()
         modelt.setQuery("SELECT Name FROM Teams")
         self.ui.listView_teams.setModel(modelt)
+        self.changeTeamListRow()
+
+
 
     def changeTeamListRow(self):
         modelt=self.ui.listView_teams.model()
 
 
-        
-    def updateTheme(self):    
+
+
+
+    def updateTheme(self):
         model = QSqlQueryModel()
         txtquery = "SELECT DISTINCT Theme FROM ThemeAndQ WHERE Catname ='"+self.ui.comboBox_Cat.currentText()+"';"
         model.setQuery(txtquery)

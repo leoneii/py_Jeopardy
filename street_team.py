@@ -68,17 +68,6 @@ cenv = 0
 
 class Wint(QWidget):
     global cnttxt, cntcode, ccat
-    # забираем название категории из settings
-
-    # query = QSqlQuery()
-    # if not query.exec(
-    #         """
-    #             SELECT * FROM settings;
-    #         """
-    # ):
-    #     logging.error("Failed to query database")
-    # query.first()
-    # cnttxt = query.value(8) + "  >>>"
 
     # рисуем анимацию фона
     global cenv
@@ -240,7 +229,7 @@ class Wint(QWidget):
 
             self.tnm = QLabel(self)
             # fnts = 66 - tkolt * 7
-            fnts = int(fw * 1.5)
+            fnts = int(fw * 1.3)
             stsh = "border:3px solid #99aaff;font-size: " + str(fnts) + "px"
             self.tnm.setStyleSheet(stsh)
             if len(logo[i]) > 0:
