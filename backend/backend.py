@@ -425,7 +425,7 @@ class MainWindow(QMainWindow):
         if query.value(2)!=None:
             self.ui.label_questText.setText("Вопрос на  "+str(query.value(2)))
             self.ui.label_answerText.setText("Ответ на  "+str(query.value(2)))
-            self.ui.label_tooltipText.setText("Ответ на  "+str(query.value(2)))
+            self.ui.label_tooltipText.setText("Подсказка ответа на  "+str(query.value(2)))
         else:
             self.ui.label_questText.setText("Выберите вопрос") 
             self.ui.label_answerText.setText("Выберите вопрос")   
