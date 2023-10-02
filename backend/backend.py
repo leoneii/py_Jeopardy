@@ -280,10 +280,10 @@ class MainWindow(QMainWindow):
            # self.ui.toolButton_pixA.setEnabled(True)
            # self.ui.label_answerPix.setEnabled(True)
             #self.ui.toolButton_pixQ.setEnabled(True)
-            self.ui.groupBox_tooltip.setEnabled(True)
+         #   self.ui.groupBox_tooltip.setEnabled(True)
             #self.ui.spinBox_costQuest.setEnabled(True)
             self.ui.checkBox_isBonus.setEnabled(True)
-            self.ui.groupBox_tooltip.setEnabled(True)
+           # self.ui.groupBox_tooltip.setEnabled(True)
             self.ui.tableView_questTable.setEnabled(False)
             self.ui.tableView_themeTable.setEnabled(False)
             self.textQpix = ""
@@ -292,6 +292,8 @@ class MainWindow(QMainWindow):
             self.ui.frame_Qpix.setEnabled(True)
             self.ui.frame_Apix.setEnabled(True)
             self.ui.frame_Tpix.setEnabled(True)
+            self.ui.textEdit_tooltipText.setEnabled(True)
+            self.ui.spinBox_costTooltip.setEnabled(True)
             
             
         else:
@@ -307,15 +309,17 @@ class MainWindow(QMainWindow):
             #self.ui.toolButton_pixA.setEnabled(False)
             #self.ui.label_answerPix.setEnabled(False)
             #self.ui.toolButton_pixQ.setEnabled(False)
-            self.ui.groupBox_tooltip.setEnabled(False)
+            #self.ui.groupBox_tooltip.setEnabled(False)
             self.ui.spinBox_costQuest.setEnabled(False)
             self.ui.checkBox_isBonus.setEnabled(False)
-            self.ui.groupBox_tooltip.setEnabled(False)
+            #self.ui.groupBox_tooltip.setEnabled(False)
             self.ui.tableView_questTable.setEnabled(True)
             self.ui.tableView_themeTable.setEnabled(True)
             self.ui.frame_Qpix.setEnabled(False)
             self.ui.frame_Apix.setEnabled(False)
             self.ui.frame_Tpix.setEnabled(False)
+            self.ui.textEdit_tooltipText.setEnabled(False)
+            self.ui.spinBox_costTooltip.setEnabled(False)
 
     def CancelQ(self):    
         self.EditMode(False)
