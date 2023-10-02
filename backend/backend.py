@@ -42,87 +42,121 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_Cancel.clicked.connect(self.CancelQ)
         self.ui.pushButton_Qup.clicked.connect(self.Qup)
         self.ui.pushButton_Qdown.clicked.connect(self.Qdown)
-        self.ui.toolButton_pixQ.clicked.connect(self.NamePixQ)
+        self.ui.toolButton_selQpix.clicked.connect(self.selQpix)
+        self.ui.toolButton_delQpix.clicked.connect(self.delQpix)
+        self.ui.toolButton_selApix.clicked.connect(self.selApix)
+        self.ui.toolButton_delApix.clicked.connect(self.delApix)        
+        self.ui.toolButton_selTpix.clicked.connect(self.selTpix)
+        self.ui.toolButton_delTpix.clicked.connect(self.delTpix)        
+        self.textQpix = ""
+        self.textApix = ""
+        self.textTpix = ""
         self.EditMode(False)
         self.updateform()
 
-    def NamePixQ(self):
-        def check_buttonQP(id_name):
-            if button_group.id(id_name) == 1:
-                dialog = QFileDialog()
-                dialog.setDirectory("/./img")
-                dialog.exec()
-                fileName = dialog.selectedFiles()
+    def selQpix(self):
+        dialog = QFileDialog()
+        dialog.setDirectory(os.path.dirname(os.path.abspath(__file__))+"/../img")
+        dialog.exec()
+        fileName = dialog.selectedFiles()
+        # fpath=fileName
+        # pixmap = QPixmap(fpath)
+        # pixmap = pixmap.scaled(640, 480, Qt.KeepAspectRatio)
+        # self.ui.label_questPix.setPixmap(pixmap)
 
-                # fpath=fileName
-                # pixmap = QPixmap(fpath)
-                # pixmap = pixmap.scaled(640, 480, Qt.KeepAspectRatio)
-                # self.ui.label_questPix.setPixmap(pixmap)
+        s = str(fileName)
+        ch = '/'
+        indexes = [i for i, c in enumerate(s) if c == ch]
+        rpos = max(indexes)
+        fileName = s[rpos + 1:]
+        l = len(fileName)
+        fileName = fileName[:l - 2]
+        # print(fileName)
+        costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
+        model = self.ui.tableView_themeTable.model()
+        self.textQpix =  ("UPDATE ThemeAndQ SET Image = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
+                        model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
+                                0)) + "';")
+        self.ui.label_questPix.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.ui.label_questPix.setPixmap(QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/"+fileName).scaled(self.ui.label_questPix.frameSize(),Qt.KeepAspectRatio))
 
-                s = str(fileName)
-                ch = '/'
-                indexes = [i for i, c in enumerate(s) if c == ch]
-                rpos = max(indexes)
-                fileName = s[rpos + 1:]
-                l = len(fileName)
-                fileName = fileName[:l - 2]
-                # print(fileName)
-                costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
-                query = QSqlQuery()
-                model = self.ui.tableView_themeTable.model()
-                if not query.exec(
-                        "UPDATE ThemeAndQ SET Image = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
-                                model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
-                                        0)) + "';"):
-                    logging.error("Failed to query database")
+    def delQpix(self):
+        costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
+        model = self.ui.tableView_themeTable.model()
+        self.textQpix = ("UPDATE ThemeAndQ SET Image = '' WHERE Cost = '" + costq + "' AND Theme = '" + str(
+                        model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
+                                0)) + "';")
+        self.ui.label_questPix.setPixmap(QPixmap(""))
+    
+    def selApix(self):
+        dialog = QFileDialog()
+        dialog.setDirectory(os.path.dirname(os.path.abspath(__file__))+"/../img")
+        dialog.exec()
+        fileName = dialog.selectedFiles()
+        # fpath=fileName
+        # pixmap = QPixmap(fpath)
+        # pixmap = pixmap.scaled(640, 480, Qt.KeepAspectRatio)
+        # self.ui.label_questPix.setPixmap(pixmap)
 
-            elif button_group.id(id_name) == 2:
-                costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
-                query = QSqlQuery()
-                model = self.ui.tableView_themeTable.model()
-                if not query.exec(
-                        "UPDATE ThemeAndQ SET Image = '' WHERE Cost = '" + costq + "' AND Theme = '" + str(
-                                model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
-                                        0)) + "';"):
-                    logging.error("Failed to query database")
-            elif button_group.id(id_name) == 3:
-                pass
-            reply.close()
+        s = str(fileName)
+        ch = '/'
+        indexes = [i for i, c in enumerate(s) if c == ch]
+        rpos = max(indexes)
+        fileName = s[rpos + 1:]
+        l = len(fileName)
+        fileName = fileName[:l - 2]
+        # print(fileName)
+        costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
+        model = self.ui.tableView_themeTable.model()
+        self.textApix =  ("UPDATE ThemeAndQ SET ImageA = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
+                        model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
+                                0)) + "';")
+        self.ui.label_answerPix.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.ui.label_answerPix.setPixmap(QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/"+fileName).scaled(self.ui.label_answerPix.frameSize(),Qt.KeepAspectRatio))
 
+    def delApix(self):
+        costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
+        model = self.ui.tableView_themeTable.model()
+        self.textApix = ("UPDATE ThemeAndQ SET ImageA = '' WHERE Cost = '" + costq + "' AND Theme = '" + str(
+                        model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
+                                0)) + "';")
+        self.ui.label_answerPix.setPixmap(QPixmap(""))
+        
+        
+    def selTpix(self):
+        dialog = QFileDialog()
+        dialog.setDirectory(os.path.dirname(os.path.abspath(__file__))+"/../img")
+        dialog.exec()
+        fileName = dialog.selectedFiles()
+        # fpath=fileName
+        # pixmap = QPixmap(fpath)
+        # pixmap = pixmap.scaled(640, 480, Qt.KeepAspectRatio)
+        # self.ui.label_questPix.setPixmap(pixmap)
 
-        reply = QDialog()
-        reply.setWindowFlag(Qt.FramelessWindowHint)
-        sth = "background-color: rgba(0,0,255,90); color: #ddFFaa; font-size: 22px;  border: 6px;"
-        reply.setStyleSheet(sth)
-        vbox = QVBoxLayout()
-        label_dialog = QLabel()
-        label_dialog.setStyleSheet(
-            "background-color: rgba(0,0,255,240);border-top-left-radius: 80px 20px; border-bottom-right-radius: 80px 20px;")
-        label_dialog.setText('Изменение картинки вопроса')
-        button_yes = QPushButton(reply)
-        button_yes.setText("Изменить")
-        shst = "QPushButton { background-color: rgba(0,0,200,100); color: rgba(220,220,255,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 6px; font: Bold 22px} QPushButton::hover{background-color: #0077ff ;}"
-        button_yes.setStyleSheet(shst)
-        button_no = QPushButton(reply)
-        button_no.setText("Удалить")
-        button_no.setStyleSheet(shst)
-        button_canc = QPushButton(reply)
-        button_canc.setText("Отменить")
-        button_canc.setStyleSheet(shst)
-        button_group = QButtonGroup()
-        button_group.addButton(button_yes, 1)
-        button_group.addButton(button_no, 2)
-        button_group.addButton(button_canc, 3)
-        button_group.buttonClicked.connect(check_buttonQP)
-        layout = QHBoxLayout()
-        layout.addWidget(button_yes)
-        layout.addWidget(button_no)
-        layout.addWidget(button_canc)
-        vbox.addWidget(label_dialog)
-        vbox.addSpacing(20)
-        vbox.addLayout(layout)
-        reply.setLayout(vbox)
-        reply.exec()
+        s = str(fileName)
+        ch = '/'
+        indexes = [i for i, c in enumerate(s) if c == ch]
+        rpos = max(indexes)
+        fileName = s[rpos + 1:]
+        l = len(fileName)
+        fileName = fileName[:l - 2]
+        # print(fileName)
+        costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
+        model = self.ui.tableView_themeTable.model()
+        self.textTpix =  ("UPDATE ThemeAndQ SET ToolTipImg = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
+                        model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
+                                0)) + "';")
+        self.ui.label_toolPix.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.ui.label_toolPix.setPixmap(QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/"+fileName).scaled(self.ui.label_toolPix.frameSize(),Qt.KeepAspectRatio))
+
+    def delTpix(self):
+        costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
+        model = self.ui.tableView_themeTable.model()
+        self.textTpix = ("UPDATE ThemeAndQ SET ToolTipImg = '' WHERE Cost = '" + costq + "' AND Theme = '" + str(
+                        model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
+                                0)) + "';")
+        self.ui.label_toolPix.setPixmap(QPixmap(""))        
+
 
     def addTeam(self):
         texteam = QInputDialog.getText(None, "Новая команда", "Введите наименование команды");
@@ -228,8 +262,6 @@ class MainWindow(QMainWindow):
                      logging.error("Failed to query database31")  
                 if not query.exec("UPDATE ThemeAndQ SET Cost = '"+str(int(costq)+10)+"' WHERE Cost = '777' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
                      logging.error("Failed to query database30")      
-                        
-                       
             else:
                 QMessageBox.warning(self,"Внимание!","Невозможно повысить стоимость этого вопроса")            
         self.updateQuest()
@@ -245,13 +277,23 @@ class MainWindow(QMainWindow):
             self.ui.textEdit_answerText.setEnabled(True)
            # self.ui.label_toolPix.setEnabled(True)
            # self.ui.label_questPix.setEnabled(True)
-            self.ui.toolButton_pixA.setEnabled(True)
+           # self.ui.toolButton_pixA.setEnabled(True)
            # self.ui.label_answerPix.setEnabled(True)
-            self.ui.toolButton_pixQ.setEnabled(True)
+            #self.ui.toolButton_pixQ.setEnabled(True)
             self.ui.groupBox_tooltip.setEnabled(True)
             #self.ui.spinBox_costQuest.setEnabled(True)
             self.ui.checkBox_isBonus.setEnabled(True)
             self.ui.groupBox_tooltip.setEnabled(True)
+            self.ui.tableView_questTable.setEnabled(False)
+            self.ui.tableView_themeTable.setEnabled(False)
+            self.textQpix = ""
+            self.textApix = ""
+            self.textTpix = ""
+            self.ui.frame_Qpix.setEnabled(True)
+            self.ui.frame_Apix.setEnabled(True)
+            self.ui.frame_Tpix.setEnabled(True)
+            
+            
         else:
             self.ui.pushButton_Cancel.setVisible(False)
             self.ui.pushButton_Save.setVisible(False)   
@@ -262,13 +304,18 @@ class MainWindow(QMainWindow):
             self.ui.textEdit_answerText.setEnabled(False)
            # self.ui.label_toolPix.setEnabled(False)
            # self.ui.label_questPix.setEnabled(False)
-            self.ui.toolButton_pixA.setEnabled(False)
+            #self.ui.toolButton_pixA.setEnabled(False)
             #self.ui.label_answerPix.setEnabled(False)
-            self.ui.toolButton_pixQ.setEnabled(False)
+            #self.ui.toolButton_pixQ.setEnabled(False)
             self.ui.groupBox_tooltip.setEnabled(False)
             self.ui.spinBox_costQuest.setEnabled(False)
             self.ui.checkBox_isBonus.setEnabled(False)
             self.ui.groupBox_tooltip.setEnabled(False)
+            self.ui.tableView_questTable.setEnabled(True)
+            self.ui.tableView_themeTable.setEnabled(True)
+            self.ui.frame_Qpix.setEnabled(False)
+            self.ui.frame_Apix.setEnabled(False)
+            self.ui.frame_Tpix.setEnabled(False)
 
     def CancelQ(self):    
         self.EditMode(False)
@@ -291,6 +338,16 @@ class MainWindow(QMainWindow):
             logging.error("Failed to query database")  
         #print(str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0)))  
         #print(costq)  
+        if (len(self.textQpix)!=0):
+            if not query.exec(self.textQpix):
+                logging.error("Failed to query database40")  
+                print(self.textQpix)
+        if (len(self.textApix)!=0):
+            if not query.exec(self.textApix):
+                logging.error("Failed to query database41") 
+        if (len(self.textTpix)!=0):
+            if not query.exec(self.textTpix):
+                logging.error("Failed to query database42")                 
         self.ui.tableView_themeTable.selectRow(self.ui.tableView_themeTable.currentIndex().row())
         self.updateQuest()
         self.EditMode(False)
@@ -344,14 +401,18 @@ class MainWindow(QMainWindow):
         query.exec(qtxt)
         query.first()
 
-        pixmap = QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/" + str(query.value(3)) )
-        # pixmap = pixmap.scaled(240, 80, Qt.KeepAspectRatio)
-        alignmentc = Qt.AlignmentFlag.AlignCenter
-        self.ui.label_questPix.setAlignment(alignmentc)
+        pixQ = QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/" + str(query.value(3)) )
+        self.ui.label_questPix.setAlignment( Qt.AlignmentFlag.AlignCenter)
+        self.ui.label_questPix.setPixmap(pixQ.scaled(self.ui.label_questPix.frameSize(),Qt.KeepAspectRatio))
 
-        # self.ui.label_questPix.setPixmap(pixmap)
-        self.ui.label_questPix.setPixmap(pixmap.scaled(self.ui.label_questPix.frameSize(),Qt.KeepAspectRatio))
+        pixA = QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/" + str(query.value(5)) )
+        self.ui.label_answerPix.setAlignment( Qt.AlignmentFlag.AlignCenter)
+        self.ui.label_answerPix.setPixmap(pixA.scaled(self.ui.label_questPix.frameSize(),Qt.KeepAspectRatio))
 
+        pixT = QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/" + str(query.value(9)) )
+        self.ui.label_toolPix.setAlignment( Qt.AlignmentFlag.AlignCenter)
+        self.ui.label_toolPix.setPixmap(pixT.scaled(self.ui.label_questPix.frameSize(),Qt.KeepAspectRatio))
+        
         txtansw=query.value(4)
         self.ui.textEdit_answerText.setText(txtansw)
         txttot=query.value(6)

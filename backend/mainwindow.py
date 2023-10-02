@@ -28,7 +28,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1528, 832)
+        MainWindow.resize(1528, 895)
         sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -60,7 +60,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.splitter_2 = QSplitter(self.centralwidget)
         self.splitter_2.setObjectName(u"splitter_2")
-        self.splitter_2.setMaximumSize(QSize(21010, 1000))
+        self.splitter_2.setMaximumSize(QSize(21002, 1000))
         self.splitter_2.setOrientation(Qt.Horizontal)
         self.groupBox_6 = QGroupBox(self.splitter_2)
         self.groupBox_6.setObjectName(u"groupBox_6")
@@ -262,17 +262,33 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.label_questPix)
 
-        self.toolButton_pixQ = QToolButton(self.groupBox_4)
-        self.toolButton_pixQ.setObjectName(u"toolButton_pixQ")
-        self.toolButton_pixQ.setEnabled(False)
-        sizePolicy6 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
+        self.frame_Qpix = QFrame(self.groupBox_4)
+        self.frame_Qpix.setObjectName(u"frame_Qpix")
+        self.frame_Qpix.setEnabled(False)
+        self.frame_Qpix.setMaximumSize(QSize(100, 100))
+        self.frame_Qpix.setFrameShape(QFrame.StyledPanel)
+        self.frame_Qpix.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_7 = QVBoxLayout(self.frame_Qpix)
+        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
+        self.toolButton_selQpix = QToolButton(self.frame_Qpix)
+        self.toolButton_selQpix.setObjectName(u"toolButton_selQpix")
+        sizePolicy6 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy6.setHorizontalStretch(0)
         sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.toolButton_pixQ.sizePolicy().hasHeightForWidth())
-        self.toolButton_pixQ.setSizePolicy(sizePolicy6)
-        self.toolButton_pixQ.setMaximumSize(QSize(16777215, 200))
+        sizePolicy6.setHeightForWidth(self.toolButton_selQpix.sizePolicy().hasHeightForWidth())
+        self.toolButton_selQpix.setSizePolicy(sizePolicy6)
 
-        self.horizontalLayout.addWidget(self.toolButton_pixQ)
+        self.verticalLayout_7.addWidget(self.toolButton_selQpix)
+
+        self.toolButton_delQpix = QToolButton(self.frame_Qpix)
+        self.toolButton_delQpix.setObjectName(u"toolButton_delQpix")
+        sizePolicy6.setHeightForWidth(self.toolButton_delQpix.sizePolicy().hasHeightForWidth())
+        self.toolButton_delQpix.setSizePolicy(sizePolicy6)
+
+        self.verticalLayout_7.addWidget(self.toolButton_delQpix)
+
+
+        self.horizontalLayout.addWidget(self.frame_Qpix)
 
 
         self.verticalLayout_2.addLayout(self.horizontalLayout)
@@ -337,13 +353,30 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_2.addWidget(self.label_answerPix)
 
-        self.toolButton_pixA = QToolButton(self.groupBox_4)
-        self.toolButton_pixA.setObjectName(u"toolButton_pixA")
-        self.toolButton_pixA.setEnabled(False)
-        sizePolicy6.setHeightForWidth(self.toolButton_pixA.sizePolicy().hasHeightForWidth())
-        self.toolButton_pixA.setSizePolicy(sizePolicy6)
+        self.frame_Apix = QFrame(self.groupBox_4)
+        self.frame_Apix.setObjectName(u"frame_Apix")
+        self.frame_Apix.setEnabled(False)
+        self.frame_Apix.setMaximumSize(QSize(100, 100))
+        self.frame_Apix.setFrameShape(QFrame.StyledPanel)
+        self.frame_Apix.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_6 = QVBoxLayout(self.frame_Apix)
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.toolButton_selApix = QToolButton(self.frame_Apix)
+        self.toolButton_selApix.setObjectName(u"toolButton_selApix")
+        sizePolicy6.setHeightForWidth(self.toolButton_selApix.sizePolicy().hasHeightForWidth())
+        self.toolButton_selApix.setSizePolicy(sizePolicy6)
 
-        self.horizontalLayout_2.addWidget(self.toolButton_pixA)
+        self.verticalLayout_6.addWidget(self.toolButton_selApix)
+
+        self.toolButton_delApix = QToolButton(self.frame_Apix)
+        self.toolButton_delApix.setObjectName(u"toolButton_delApix")
+        sizePolicy6.setHeightForWidth(self.toolButton_delApix.sizePolicy().hasHeightForWidth())
+        self.toolButton_delApix.setSizePolicy(sizePolicy6)
+
+        self.verticalLayout_6.addWidget(self.toolButton_delApix)
+
+
+        self.horizontalLayout_2.addWidget(self.frame_Apix)
 
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_2)
@@ -351,14 +384,11 @@ class Ui_MainWindow(object):
         self.groupBox_tooltip = QGroupBox(self.groupBox_4)
         self.groupBox_tooltip.setObjectName(u"groupBox_tooltip")
         self.groupBox_tooltip.setEnabled(True)
+        self.groupBox_tooltip.setMinimumSize(QSize(0, 250))
         self.groupBox_tooltip.setAlignment(Qt.AlignCenter)
         self.groupBox_tooltip.setCheckable(False)
         self.gridLayout_7 = QGridLayout(self.groupBox_tooltip)
         self.gridLayout_7.setObjectName(u"gridLayout_7")
-        self.horizontalSpacer_9 = QSpacerItem(131, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_7.addItem(self.horizontalSpacer_9, 3, 1, 1, 1)
-
         self.textEdit_tooltipText = QTextEdit(self.groupBox_tooltip)
         self.textEdit_tooltipText.setObjectName(u"textEdit_tooltipText")
         self.textEdit_tooltipText.setEnabled(True)
@@ -368,41 +398,61 @@ class Ui_MainWindow(object):
 
         self.gridLayout_7.addWidget(self.textEdit_tooltipText, 0, 0, 1, 3)
 
-        self.label_14 = QLabel(self.groupBox_tooltip)
-        self.label_14.setObjectName(u"label_14")
+        self.horizontalSpacer_9 = QSpacerItem(131, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.gridLayout_7.addWidget(self.label_14, 3, 0, 1, 1)
+        self.gridLayout_7.addItem(self.horizontalSpacer_9, 3, 1, 1, 1)
 
         self.spinBox_costTooltip = QSpinBox(self.groupBox_tooltip)
         self.spinBox_costTooltip.setObjectName(u"spinBox_costTooltip")
+        self.spinBox_costTooltip.setMinimumSize(QSize(100, 0))
         self.spinBox_costTooltip.setMaximum(100)
         self.spinBox_costTooltip.setSingleStep(5)
         self.spinBox_costTooltip.setValue(0)
 
         self.gridLayout_7.addWidget(self.spinBox_costTooltip, 3, 2, 1, 1)
 
-        self.frame = QFrame(self.groupBox_tooltip)
-        self.frame.setObjectName(u"frame")
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_6 = QHBoxLayout(self.frame)
-        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-        self.label_toolPix = QLabel(self.frame)
+        self.label_14 = QLabel(self.groupBox_tooltip)
+        self.label_14.setObjectName(u"label_14")
+
+        self.gridLayout_7.addWidget(self.label_14, 3, 0, 1, 1)
+
+        self.horizontalLayout_10 = QHBoxLayout()
+        self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
+        self.label_toolPix = QLabel(self.groupBox_tooltip)
         self.label_toolPix.setObjectName(u"label_toolPix")
         self.label_toolPix.setMinimumSize(QSize(0, 80))
         self.label_toolPix.setMaximumSize(QSize(16777215, 100))
         self.label_toolPix.setScaledContents(False)
 
-        self.horizontalLayout_6.addWidget(self.label_toolPix)
+        self.horizontalLayout_10.addWidget(self.label_toolPix)
 
-        self.toolButton_PixT = QToolButton(self.frame)
-        self.toolButton_PixT.setObjectName(u"toolButton_PixT")
-        self.toolButton_PixT.setEnabled(True)
+        self.frame_Tpix = QFrame(self.groupBox_tooltip)
+        self.frame_Tpix.setObjectName(u"frame_Tpix")
+        self.frame_Tpix.setEnabled(False)
+        self.frame_Tpix.setMaximumSize(QSize(100, 100))
+        self.frame_Tpix.setFrameShape(QFrame.StyledPanel)
+        self.frame_Tpix.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_3 = QVBoxLayout(self.frame_Tpix)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.toolButton_selTpix = QToolButton(self.frame_Tpix)
+        self.toolButton_selTpix.setObjectName(u"toolButton_selTpix")
+        sizePolicy6.setHeightForWidth(self.toolButton_selTpix.sizePolicy().hasHeightForWidth())
+        self.toolButton_selTpix.setSizePolicy(sizePolicy6)
 
-        self.horizontalLayout_6.addWidget(self.toolButton_PixT)
+        self.verticalLayout_3.addWidget(self.toolButton_selTpix)
+
+        self.toolButton_delTpix = QToolButton(self.frame_Tpix)
+        self.toolButton_delTpix.setObjectName(u"toolButton_delTpix")
+        sizePolicy6.setHeightForWidth(self.toolButton_delTpix.sizePolicy().hasHeightForWidth())
+        self.toolButton_delTpix.setSizePolicy(sizePolicy6)
+
+        self.verticalLayout_3.addWidget(self.toolButton_delTpix)
 
 
-        self.gridLayout_7.addWidget(self.frame, 2, 0, 1, 3)
+        self.horizontalLayout_10.addWidget(self.frame_Tpix)
+
+
+        self.gridLayout_7.addLayout(self.horizontalLayout_10, 1, 0, 1, 3)
 
 
         self.verticalLayout_2.addWidget(self.groupBox_tooltip)
@@ -463,7 +513,7 @@ class Ui_MainWindow(object):
         self.toolBox.setLineWidth(2)
         self.page = QWidget()
         self.page.setObjectName(u"page")
-        self.page.setGeometry(QRect(0, 0, 296, 685))
+        self.page.setGeometry(QRect(0, 0, 310, 733))
         self.gridLayout_4 = QGridLayout(self.page)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
@@ -533,7 +583,7 @@ class Ui_MainWindow(object):
         self.toolBox.addItem(self.page, u"\u041a\u043e\u043c\u0430\u043d\u0434\u044b")
         self.page_3 = QWidget()
         self.page_3.setObjectName(u"page_3")
-        self.page_3.setGeometry(QRect(0, 0, 296, 685))
+        self.page_3.setGeometry(QRect(0, 0, 310, 733))
         self.gridLayout_5 = QGridLayout(self.page_3)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.horizontalSpacer_5 = QSpacerItem(77, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -627,7 +677,7 @@ class Ui_MainWindow(object):
         self.toolBox.addItem(self.page_3, u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430")
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
-        self.page_2.setGeometry(QRect(0, 0, 296, 685))
+        self.page_2.setGeometry(QRect(0, 0, 310, 733))
         self.toolBox.addItem(self.page_2, u"\u042d\u043a\u0441\u043f\u043e\u0440\u0442")
         self.splitter_2.addWidget(self.toolBox)
 
@@ -636,7 +686,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1528, 21))
+        self.menubar.setGeometry(QRect(0, 0, 1528, 30))
         self.menu = QMenu(self.menubar)
         self.menu.setObjectName(u"menu")
         self.menu_2 = QMenu(self.menubar)
@@ -694,27 +744,30 @@ class Ui_MainWindow(object):
         self.textEdit_questText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><title>\u0412\u043e\u043f\u0440\u043e\u0441</title><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:'Noto Sans'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sans Serif';\">\u0428\u0442\u043e \u0437\u0430 \u0441\u043e\u0431\u0430\u043a\u0430</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif';\"><br /></p></body></html>", None))
         self.label_quiestPict.setText(QCoreApplication.translate("MainWindow", u"\u041a\u0430\u0440\u0442\u0438\u043d\u043a\u0430 \u0432\u043e\u043f\u0440\u043e\u0441\u0430", None))
         self.label_questPix.setText("")
-        self.toolButton_pixQ.setText(QCoreApplication.translate("MainWindow", u"...", None))
+        self.toolButton_selQpix.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c", None))
+        self.toolButton_delQpix.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"    \u0426\u0435\u043d\u0430 \u0432\u043e\u043f\u0440\u043e\u0441\u0430", None))
         self.checkBox_isBonus.setText(QCoreApplication.translate("MainWindow", u"\u0411\u043e\u043d\u0443\u0441\u043d\u044b\u0439 \u0432\u043e\u043f\u0440\u043e\u0441", None))
         self.label_answerText.setText(QCoreApplication.translate("MainWindow", u"\u0422\u0435\u043a\u0441\u0442 \u043e\u0442\u0432\u0435\u0442\u0430", None))
         self.textEdit_answerText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:'Noto Sans'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sans Serif';\">\u0421\u043e\u0431\u0430\u043a\u0430 \u043b\u0435\u0436\u0430\u043a\u0430</span></p></body></html>", None))
         self.label_answPict.setText(QCoreApplication.translate("MainWindow", u"\u041a\u0430\u0440\u0442\u0438\u043d\u043a\u0430 \u043e\u0442\u0432\u0435\u0442\u0430", None))
         self.label_answerPix.setText("")
-        self.toolButton_pixA.setText(QCoreApplication.translate("MainWindow", u"...", None))
+        self.toolButton_selApix.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c", None))
+        self.toolButton_delApix.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.groupBox_tooltip.setTitle(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0434\u0441\u043a\u0430\u0437\u043a\u0430", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"\u0426\u0435\u043d\u0430 \u043f\u043e\u0434\u0441\u043a\u0430\u0437\u043a\u0438", None))
         self.label_toolPix.setText("")
-        self.toolButton_PixT.setText(QCoreApplication.translate("MainWindow", u"...", None))
+        self.toolButton_selTpix.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c", None))
+        self.toolButton_delTpix.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.groupBox.setTitle("")
         self.pushButton_addQ.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
         self.pushButton_Save.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
