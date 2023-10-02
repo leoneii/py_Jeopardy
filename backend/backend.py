@@ -423,11 +423,13 @@ class MainWindow(QMainWindow):
         self.ui.textEdit_tooltipText.setText(txttot)
         self.ui.checkBox_isBonus.setChecked(bool(query.value(8)))# бонус
         if query.value(2)!=None:
-            self.ui.label_questText.setText("Текст вопроса на "+str(query.value(2)))
-            self.ui.label_answerText.setText("Текст ответа на "+str(query.value(2)))
+            self.ui.label_questText.setText("Вопрос на  "+str(query.value(2)))
+            self.ui.label_answerText.setText("Ответ на  "+str(query.value(2)))
+            self.ui.label_tooltipText.setText("Ответ на  "+str(query.value(2)))
         else:
             self.ui.label_questText.setText("Выберите вопрос") 
             self.ui.label_answerText.setText("Выберите вопрос")   
+            self.ui.label_tooltipText.setText("Выберите вопрос")
         if query.value(2)!=None:
             self.ui.spinBox_costQuest.setValue(int(query.value(2)))
         if query.value(7):
