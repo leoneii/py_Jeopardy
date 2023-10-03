@@ -106,7 +106,7 @@ class Wint(QWidget):
         ):
             logging.error("Failed to query database14")
         query.first()
-        cnttxt = query.value(8) + "  >>>"
+        cnttxt = query.value(8)
         self.contin.setText(cnttxt)
 
     def __init__(self, tkol, parent=None):
@@ -211,7 +211,7 @@ class Wint(QWidget):
             if not query.exec("SELECT * FROM settings ;"):
                 logging.error("Failed to query database6")
             query.first()
-            cnttxt = query.value(8) + "  >>>"
+            cnttxt = query.value(8)
             lcnnxt = len(cnttxt)
             cntname = str(query.value(8))
 
@@ -265,7 +265,7 @@ class Wint(QWidget):
             self.plusb = QPushButton(self)
             self.plusb.setObjectName("pls" + str(i))
             # QMessageBox.warning(self, "Нажматие!!!))", "Название объекта " + str(self.plusb.objectName()))
-            self.plusb.setGeometry(i * (twdt + 10) + 10, mainlogoh + hgt / 4 + hgt / 3 + hgt / 5 + 10, twdt / 2 - 2,
+            self.plusb.setGeometry(i * (twdt + 15-i) + 30, mainlogoh + hgt / 4 + hgt / 3 + hgt / 5 + 10, twdt / 2 - 30,
                                    hgt / 10)
             self.plusb.setText("+")
             self.plusb.setStyleSheet(botb)
@@ -274,8 +274,8 @@ class Wint(QWidget):
 
             self.minub = QPushButton(self)
             self.minub.setObjectName("mns" + str(i))
-            self.minub.setGeometry(i * (twdt + 10) + 12 + twdt / 2, mainlogoh + hgt / 4 + hgt / 3 + hgt / 5 + 10,
-                                   twdt / 2 - 2,
+            self.minub.setGeometry(i * (twdt + 15-i) + 15 + twdt / 2, mainlogoh + hgt / 4 + hgt / 3 + hgt / 5 + 10,
+                                   twdt / 2 - 30,
                                    hgt / 10)
             self.minub.setText("-")
             self.minub.setStyleSheet(botb)
