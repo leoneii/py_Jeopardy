@@ -124,7 +124,6 @@ class wnd(QWidget):
             logging.error("Failed to query database3")
         query2.first()
         kolt = int(query2.value(0))
-        print(kolt)
         query2 = QSqlQuery()
         if not query2.exec("SELECT Theme, COUNT(*) value_count FROM ThemeAndQ WHERE catname = '"+ catname +"' GROUP BY Theme HAVING value_count > 1  ;"):
             logging.error("Failed to query database4")
@@ -199,6 +198,7 @@ class wnd(QWidget):
                     lbbon.setGeometry(wkn*2/4-8,hkn*3/4-8,wkn/2+2,hkn/4+2)
                     lbbon.setAlignment(alignmentc)
                     lbbon.setVisible(True)
+                    lbbon.setObjectName("bon" + str(rowdb))
                 self.temb.installEventFilter(self)
                 self.temb.setWordWrap(False) #флаг кликабельности
                 
@@ -207,11 +207,10 @@ class wnd(QWidget):
                 if len(cTooltip)==0:
                     cTooltip="0"
                 
-                print(cTooltip)    
+
                 if (int(cTooltip)>0):
                     lbpd=QLabel(parent=self.temb)
                     lbpd.setObjectName("pd"+str(rowdb))
-                    print (str(lbpd.objectName()))
                     lbpd.setText("-"+cTooltip)
                     lbpd.setGeometry(wkn*3/4-8,hkn*3/4-8,wkn/4+2,hkn/4+2)
                     csspd = "QLabel { background-color: rgba(0,200,150,160); border: none; border-radius: 10px; color: rgba(155,255,155,255); text-align: center center; background-position: center center; font-size: 46px}"
@@ -285,7 +284,13 @@ class wnd(QWidget):
                             lbpd=obj.findChild(QLabel,ipd)
                             if lbpd != None:
                                 lbpd.setVisible(False)
-                            
+
+                            # удаляем пометку бонус
+                            ipod = "bon" + obj1.objectName()
+                            lpod=obj.findChild(QLabel,ipod)
+                            if lpod != None:
+                                lpod.setVisible(False)
+
                             #obj2.setVisible(False)
 
                # elif mouse_event.buttons() == Qt.MidButton: #средняя кнопка
