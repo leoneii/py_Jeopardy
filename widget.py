@@ -176,7 +176,7 @@ class wnd(QWidget):
                 ktxt=str(query.value(2))
                 self.temb = QLabel(self)
                 self.temb.setObjectName(str(rowdb))
-                rowdb = rowdb+1
+                
 
                 self.temb.setGeometry(QRect(gij, vij, wkn, hkn))
                 self.temb.setText(ktxt)
@@ -188,7 +188,10 @@ class wnd(QWidget):
                 self.temb.setAutoFillBackground(True)
                 #self.temb.setBackgroundRole()
                 self.temb.setStyleSheet(cssbut)
-                scbon=bool(query.value(8))
+                if bool(query.value(8)):
+                    scbon=True# бонус
+                else:
+                    scbon=False# бонус                
                 if scbon==True:
                     self.temb.setStyleSheet(cssbut1)
                     lbbon=QLabel(parent=self.temb)
@@ -198,20 +201,25 @@ class wnd(QWidget):
                     lbbon.setVisible(True)
                 self.temb.installEventFilter(self)
                 self.temb.setWordWrap(False) #флаг кликабельности
-
+                
                 #цена подсказки
-                cpd=str(query.value(7))
-                if len(cpd)>0:
+                cTooltip=str(query.value(7))
+                if len(cTooltip)==0:
+                    cTooltip="0"
+                
+                print(cTooltip)    
+                if (int(cTooltip)>0):
                     lbpd=QLabel(parent=self.temb)
                     lbpd.setObjectName("pd"+str(rowdb))
-                    lbpd.setText("-"+cpd)
+                    print (str(lbpd.objectName()))
+                    lbpd.setText("-"+cTooltip)
                     lbpd.setGeometry(wkn*3/4-8,hkn*3/4-8,wkn/4+2,hkn/4+2)
                     csspd = "QLabel { background-color: rgba(0,200,150,160); border: none; border-radius: 10px; color: rgba(155,255,155,255); text-align: center center; background-position: center center; font-size: 46px}"
                     lbpd.setStyleSheet(csspd)
                     lbpd.setAlignment(alignmentc)
                     lbpd.setVisible(True)
 
-
+                rowdb = rowdb+1
                 query.next()
 
         def scrupd():
@@ -260,7 +268,7 @@ class wnd(QWidget):
                             self.hide()
                             # записываем текст ответа в ячейку цены вопроса
 
-                            ipd="pd"+obj.objectName()
+                            ipd="pd"+obj1.objectName()
                             obj1.setText(str(query.value(4)))
                             ds=len(str(query.value(4)))
                             if ds<60:
@@ -271,13 +279,13 @@ class wnd(QWidget):
                                 cssa = "QLabel { background-color: rgba(0,100,255,90); border: none;color: rgba(255,255,200,255); text-align: bottom center; background-position: bottom center; font-size: 20px}"
                             obj1.setStyleSheet(cssa)
                             obj1.setWordWrap(True)# флаг "невидимости и неактивности"
-
+                            
 
                             # удаляем цену подсказки
-                            lbpd=obj.findChild(QLabel)
+                            lbpd=obj.findChild(QLabel,ipd)
                             if lbpd != None:
                                 lbpd.setVisible(False)
-
+                            
                             #obj2.setVisible(False)
 
                # elif mouse_event.buttons() == Qt.MidButton: #средняя кнопка

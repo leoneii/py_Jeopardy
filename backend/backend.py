@@ -49,6 +49,7 @@ class MainWindow(QMainWindow):
         self.textTpix = ""
         self.EditMode(False)
         self.updateform()
+        #print(str(bool("false")))
 
     def selQpix(self):
         dialog = QFileDialog()
@@ -317,7 +318,12 @@ class MainWindow(QMainWindow):
         costq = str(self.ui.tableView_questTable.currentIndex().row()+1)+"0"
         query = QSqlQuery()
         model= self.ui.tableView_themeTable.model()
-        if not query.exec("UPDATE ThemeAndQ SET Question = '"+self.ui.textEdit_questText.toPlainText()+"', isBonus = '"+str(self.ui.checkBox_isBonus.isChecked())+"', Answer = '"+self.ui.textEdit_answerText.toPlainText()+"', Tooltip = '"+self.ui.textEdit_tooltipText.toPlainText()+"', ToolCost = '"+str(self.ui.spinBox_costTooltip.value())+"' WHERE Cost = '"+costq+"' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
+        if self.ui.checkBox_isBonus.isChecked():
+            isBonus= str(True)
+        else:
+            isBonus= ""
+                
+        if not query.exec("UPDATE ThemeAndQ SET Question = '"+self.ui.textEdit_questText.toPlainText()+"', isBonus = '"+isBonus+"', Answer = '"+self.ui.textEdit_answerText.toPlainText()+"', Tooltip = '"+self.ui.textEdit_tooltipText.toPlainText()+"', ToolCost = '"+str(self.ui.spinBox_costTooltip.value())+"' WHERE Cost = '"+costq+"' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
             logging.error("Failed to query database")  
         #print(str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0)))  
         #print(costq)  
@@ -405,7 +411,12 @@ class MainWindow(QMainWindow):
         self.ui.textEdit_answerText.setText(txtansw)
         txttot=query.value(6)
         self.ui.textEdit_tooltipText.setText(txttot)
-        self.ui.checkBox_isBonus.setChecked(bool(query.value(8)))# бонус
+        if bool(query.value(8)):
+            self.ui.checkBox_isBonus.setChecked(True)# бонус
+        else:
+            self.ui.checkBox_isBonus.setChecked(False)# бонус
+            
+        
         if query.value(2)!=None:
             self.ui.label_questText.setText("Вопрос на  "+str(query.value(2)))
             self.ui.label_answerText.setText("Ответ на  "+str(query.value(2)))
