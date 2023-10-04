@@ -104,17 +104,17 @@ class winq(QWidget):
         leghtext= len(txt)
         if leghtext>250:
             if phyn==1:
-                fs=42
+                fs=40
             else:
                 fs=54
         elif leghtext in range(100,250):
             if phyn==1:
-                fs=54
+                fs=46
             else:
                 fs=60
         elif leghtext in range(1,99):
             if phyn==1:
-                fs=60
+                fs=58
             else:
                 fs=70
 

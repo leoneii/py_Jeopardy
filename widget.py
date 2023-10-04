@@ -175,8 +175,6 @@ class wnd(QWidget):
                 ktxt=str(query.value(2))
                 self.temb = QLabel(self)
                 self.temb.setObjectName(str(rowdb))
-                
-
                 self.temb.setGeometry(QRect(gij, vij, wkn, hkn))
                 self.temb.setText(ktxt)
                 self.temb.setAlignment(alignmentc)
