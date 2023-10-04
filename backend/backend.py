@@ -30,6 +30,9 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_EditCat.clicked.connect(self.editCat)
         self.ui.pushButton__delCat.clicked.connect(self.delCat)
         self.ui.comboBox_Cat.currentIndexChanged.connect(self.catChange)
+        self.ui.pushButton_addTheme.clicked.connect(self.addTheme)
+
+
         self.ui.pushButton_editTeam.clicked.connect(self.changeTeam)
         self.ui.pushButton_delTeam.clicked.connect(self.delTeam)
         self.ui.pushButton_addTeam.clicked.connect(self.addTeam)
@@ -50,6 +53,23 @@ class MainWindow(QMainWindow):
         self.EditMode(False)
         self.updateform()
         #print(str(bool("false")))
+
+    def addTheme(self):
+        query = QSqlQuery()
+        if not query.exec("SELECT * FROM ThemeAndQ;"):
+            logging.error("Failed to query categ")
+        query.first()
+        curcat=str(query.value(11))
+        print(curcat)
+        themename = QInputDialog.getText(None, "Новая тема", "Введите наименование темы");
+        thnm=str(themename[0])
+        query = QSqlQuery()
+        if not query.exec("INSERT INTO ThemeAndQ (Theme,Catname) Values ("'"'+thnm+"',"'"'+curcat+'"'");"):
+            logging.error("Failed to query newTheme1")
+
+
+        self.updateform()
+
 
     def selQpix(self):
         dialog = QFileDialog()
