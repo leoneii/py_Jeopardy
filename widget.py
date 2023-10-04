@@ -66,7 +66,7 @@ font.setBold(True)
 alignmentc=Qt.AlignmentFlag.AlignCenter
 css = "QLabel { background-color: rgba(0,0,180,255); color: rgba(255,255,255,255); text-align: bottom center; background-position: bottom center;}"
 cssbut = "QLabel { background-color: rgba(0,0,180,255); color: rgba(255,255,255,255); text-align:center center; background-position: bottom center;} QLabel::hover{background-color: #0077ff ;}"
-cssbut1 = "QLabel { background-color: rgba(250,0,250,80); color: rgba(255,255,255,255); text-align:center center; background-position: bottom center;} QLabel::hover{background-color: #0077ff ;}"
+cssbut1 = "QLabel { background-color: rgba(250,0,250,80); color: rgba(255,255,255,255); text-align:center center; background-position: bottom center;} QLabel::hover{background-color: #770099 ;}"
 
 bgpalbut = QPalette()
 bgpalbut.setColor(QPalette.Button, Qt.blue )
@@ -179,7 +179,7 @@ class wnd(QWidget):
                 self.temb.setText(ktxt)
                 self.temb.setAlignment(alignmentc)
                 leghtext= len(ktxt)
-                font.setPointSize(hgt/(leghtext+20))
+                font.setPointSize(hgt/(leghtext+20)+20)
                 self.temb.setFont(font)
                 self.temb.setFrameShape(QFrame.Box)
                 self.temb.setAutoFillBackground(True)
@@ -269,11 +269,11 @@ class wnd(QWidget):
                             obj1.setText(str(query.value(4)))
                             ds=len(str(query.value(4)))
                             if ds<60:
-                                cssa = "QLabel { background-color: rgba(0,100,255,90); border: none;color: rgba(255,255,200,255); text-align: bottom center; background-position: bottom center; font-size: 32px}"
+                                cssa = "QLabel { background-color: rgba(0,70,235,210); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: 32px}"
                             elif 60<=ds<=100:
-                                cssa = "QLabel { background-color: rgba(0,100,255,90); border: none;color: rgba(255,255,200,255); text-align: bottom center; background-position: bottom center; font-size: 24px}"
+                                cssa = "QLabel { background-color: rgba(0,70,235,210); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: 24px}"
                             elif ds>100:
-                                cssa = "QLabel { background-color: rgba(0,100,255,90); border: none;color: rgba(255,255,200,255); text-align: bottom center; background-position: bottom center; font-size: 20px}"
+                                cssa = "QLabel { background-color: rgba(0,70,235,210); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: 20px}"
                             obj1.setStyleSheet(cssa)
                             obj1.setWordWrap(True)# флаг "невидимости и неактивности"
                             
