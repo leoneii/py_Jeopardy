@@ -31,8 +31,8 @@ class MainWindow(QMainWindow):
         self.ui.pushButton__delCat.clicked.connect(self.delCat)
         self.ui.comboBox_Cat.currentIndexChanged.connect(self.catChange)
         self.ui.pushButton_addTheme.clicked.connect(self.addTheme)
-
-
+        self.ui.pushButton_editTheme.clicked.connect(self.editTheme)
+        self.ui.pushButton_delTheme.clicked.connect(self.delTheme)
         self.ui.pushButton_editTeam.clicked.connect(self.changeTeam)
         self.ui.pushButton_delTeam.clicked.connect(self.delTeam)
         self.ui.pushButton_addTeam.clicked.connect(self.addTeam)
@@ -52,8 +52,30 @@ class MainWindow(QMainWindow):
         self.textTpix = ""
         self.EditMode(False)
         self.updateform()
-        #print(str(bool("false")))
 
+    def delTheme(self):
+        index = self.ui.tableView_themeTable.currentIndex()
+        curname = str(index.data())
+        msbox=QMessageBox()
+        msbox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        msbox.setButtonText(QMessageBox.Ok, "Удаляем")
+        msbox.setButtonText(QMessageBox.Cancel, "Отменить")
+        msbox.setWindowTitle("Осторожно!!!")
+        msbox.setText(" Будут удалены все вопросы темы  "+curname)
+        ok=msbox.exec()
+        if ok==QMessageBox.Ok:
+            query = QSqlQuery()
+            query.exec("DELETE FROM ThemeAndQ WHERE Theme='"+curname+"';")
+        self.updateform()
+
+    def editTheme(self):
+        index=self.ui.tableView_themeTable.currentIndex()
+        curname = str(index.data())
+        themename = QInputDialog.getText(None, "Изменяем название темы "+curname, "         Введите новое наименование темы         ");
+        thnm = str(themename[0])
+        query = QSqlQuery()
+        query.exec("UPDATE ThemesAndQ SET Theme='"+thnm+"' WHERE Theme='"+curname+"';")
+        self.updateform()
     def addTheme(self):
         query = QSqlQuery()
         if not query.exec("SELECT * FROM ThemeAndQ;"):
@@ -63,10 +85,15 @@ class MainWindow(QMainWindow):
         print(curcat)
         themename = QInputDialog.getText(None, " Новая тема ", "Введите наименование темы");
         thnm=str(themename[0])
+        kvt=QInputDialog.getText(None, "  ", "Введите количество вопросов в теме");
+        kvt=int(kvt[0])
         query = QSqlQuery()
-        txtq="INSERT INTO ThemeAndQ (Theme,Cost,Catname) Values ('"+thnm+"',"+10+","+str(curcat)+"');"
-        if not query.exec(txtq):
-            logging.error("Failed to query newTheme1")
+        k=0
+        for i in range(kvt):
+            k+=10
+            txtq="INSERT INTO ThemeAndQ (Theme,Question,Cost,Catname) Values ('"+thnm+"','Вопрос на "+str(k)+"',"+str(k)+",'"+str(curcat)+"');"
+            if not query.exec(txtq):
+                logging.error("Failed to query newTheme1")
 
         self.updateform()
 
