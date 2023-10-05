@@ -61,7 +61,7 @@ class MainWindow(QMainWindow):
         query.first()
         curcat=str(query.value(11))
         print(curcat)
-        themename = QInputDialog.getText(None, "Новая тема", "Введите наименование темы");
+        themename = QInputDialog.getText(None, " Новая тема ", "Введите наименование темы");
         thnm=str(themename[0])
         query = QSqlQuery()
         txtq="INSERT INTO ThemeAndQ (Theme,Cost,Catname) Values ('"+thnm+"',"+10+","+str(curcat)+"');"
