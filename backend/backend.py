@@ -64,10 +64,9 @@ class MainWindow(QMainWindow):
         themename = QInputDialog.getText(None, "Новая тема", "Введите наименование темы");
         thnm=str(themename[0])
         query = QSqlQuery()
-        txtq="INSERT INTO ThemeAndQ (Theme,Cost,Catname) Values ("+'"'+thnm+'",0,"'+str(curcat)+'");'
+        txtq="INSERT INTO ThemeAndQ (Theme,Cost,Catname) Values ('"+thnm+"',"+10+","+str(curcat)+"');"
         if not query.exec(txtq):
             logging.error("Failed to query newTheme1")
-
 
         self.updateform()
 
