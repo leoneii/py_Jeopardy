@@ -55,16 +55,12 @@ class MainWindow(QMainWindow):
         #print(str(bool("false")))
 
     def addTheme(self):
-        query = QSqlQuery()
-        if not query.exec("SELECT * FROM ThemeAndQ;"):
-            logging.error("Failed to query categ")
-        query.first()
-        curcat=str(query.value(11))
+        curcat=self.ui.comboBox_Cat.currentText()
         print(curcat)
         themename = QInputDialog.getText(None, "Новая тема", "Введите наименование темы");
         thnm=str(themename[0])
         query = QSqlQuery()
-        txtq="INSERT INTO ThemeAndQ (Theme,Cost,Catname) Values ("+'"'+thnm+'",0,"'+str(curcat)+'");'
+        txtq="INSERT INTO ThemeAndQ (Theme,Cost,Catname) Values ('"+thnm+"',10,'"+str(curcat)+"');"
         if not query.exec(txtq):
             logging.error("Failed to query newTheme1")
 
