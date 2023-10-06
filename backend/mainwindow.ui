@@ -173,6 +173,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="testButton">
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QLabel" name="label_10">
           <property name="maximumSize">
            <size>
@@ -1340,7 +1347,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="action_newGame"/>
     <addaction name="action_saveGame"/>
     <addaction name="separator"/>
-    <addaction name="action_4"/>
+    <addaction name="action_exportGame"/>
     <addaction name="action_8"/>
    </widget>
    <widget class="QMenu" name="menu_2">
@@ -1369,7 +1376,7 @@ p, li { white-space: pre-wrap; }
     <string>Сохранить игру</string>
    </property>
   </action>
-  <action name="action_4">
+  <action name="action_exportGame">
    <property name="text">
     <string>Экспорт</string>
    </property>

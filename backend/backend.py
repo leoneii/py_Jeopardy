@@ -51,11 +51,21 @@ class MainWindow(QMainWindow):
         self.ui.action_saveGame.triggered.connect(self.saveGame) 
         self.ui.action_newGame.triggered.connect(self.newGame)    
         self.ui.action_openGame.triggered.connect(self.openGame)  
+        self.ui.testButton.clicked.connect(self.testB)
         self.textQpix = ""
         self.textApix = ""
         self.textTpix = ""
         self.EditMode(False)
         self.updateform()
+
+    def testB(self):
+        self.selector(5,0)
+    
+    def selector (self, themeRow, questRow):    
+        if (themeRow!=None):
+             self.ui.tableView_themeTable.selectRow(themeRow)
+        if (questRow!=None):
+             self.ui.tableView_questTable.selectRow(questRow) 
 
     def newGame(self):
         msbox=QMessageBox()
@@ -115,17 +125,23 @@ class MainWindow(QMainWindow):
         curcat=str(query.value(11))
         print(curcat)
         themename = str(QInputDialog.getText(None, " Новая тема ", "Введите наименование темы")[0])
-        kvt=QInputDialog.getText(None, "  ", "Введите количество вопросов в теме");
-        kvt=int(kvt[0])
+        queryCount=QSqlQuery()
+        if not queryCount.exec("SELECT COUNT(Cost) FROM ThemeAndQ WHERE Cost='10';"):
+            logging.error("Failed to query categ")
+        queryCount.first()
+        kvt = queryCount.value(0)
+        if  (kvt == None):
+            kvt=QInputDialog.getText(None, "  ", "Введите количество вопросов в теме");
+            kvt=int(kvt[0])
         query = QSqlQuery()
-        k=0
+        cost=0
         for i in range(kvt):
-            k+=10
-            txtq="INSERT INTO ThemeAndQ (Theme,Question,Cost,Catname) Values ('"+themename+"','Вопрос на "+str(k)+"',"+str(k)+",'"+str(curcat)+"');"
-            if not query.exec(txtq):
+            cost+=10
+            if not query.exec("INSERT INTO ThemeAndQ (Theme,Question,Cost,Catname,Answer) Values ('"+themename+"','Вопрос на "+str(cost)+" темы "+themename+"',"+str(cost)+",'"+str(curcat)+"','Ответ на  "+str(cost)+" темы "+themename+"');"):
                 logging.error("Failed to query newTheme1")
 
         self.updateform()
+        self.selector(self.ui.tableView_themeTable.model().rowCount()-1,0)
 
 
     def selQpix(self):
@@ -466,10 +482,10 @@ class MainWindow(QMainWindow):
 
     def updQuestText(self): 
         quetext=self.ui.tableView_questTable.model().data(self.ui.tableView_questTable.currentIndex())
+        themetext=self.ui.tableView_themeTable.model().data(self.ui.tableView_themeTable.currentIndex())
         self.ui.textEdit_questText.setText(quetext)
         query = QSqlQuery()
-        qtxt="SELECT * FROM ThemeAndQ WHERE Question='"+str(quetext)+"';"
-        query.exec(qtxt)
+        query.exec("SELECT * FROM ThemeAndQ WHERE Question='"+str(quetext)+"' AND Theme='"+themetext+"';")
         query.first()
 
         pixQ = QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/" + str(query.value(3)) )
@@ -484,10 +500,8 @@ class MainWindow(QMainWindow):
         self.ui.label_toolPix.setAlignment( Qt.AlignmentFlag.AlignCenter)
         self.ui.label_toolPix.setPixmap(pixT.scaled(self.ui.label_questPix.frameSize(),Qt.KeepAspectRatio))
         
-        txtansw=query.value(4)
-        self.ui.textEdit_answerText.setText(txtansw)
-        txttot=query.value(6)
-        self.ui.textEdit_tooltipText.setText(txttot)
+        self.ui.textEdit_answerText.setText(query.value(4))
+        self.ui.textEdit_tooltipText.setText(query.value(6))
         if bool(query.value(8)):
             self.ui.checkBox_isBonus.setChecked(True)# бонус
         else:

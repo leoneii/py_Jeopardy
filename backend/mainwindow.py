@@ -42,8 +42,8 @@ class Ui_MainWindow(object):
         self.action_newGame.setObjectName(u"action_newGame")
         self.action_saveGame = QAction(MainWindow)
         self.action_saveGame.setObjectName(u"action_saveGame")
-        self.action_4 = QAction(MainWindow)
-        self.action_4.setObjectName(u"action_4")
+        self.action_exportGame = QAction(MainWindow)
+        self.action_exportGame.setObjectName(u"action_exportGame")
         self.action_5 = QAction(MainWindow)
         self.action_5.setObjectName(u"action_5")
         self.action_8 = QAction(MainWindow)
@@ -125,6 +125,11 @@ class Ui_MainWindow(object):
 
 
         self.verticalLayout.addWidget(self.groupBox_Cat)
+
+        self.testButton = QPushButton(self.groupBox_6)
+        self.testButton.setObjectName(u"testButton")
+
+        self.verticalLayout.addWidget(self.testButton)
 
         self.label_10 = QLabel(self.groupBox_6)
         self.label_10.setObjectName(u"label_10")
@@ -731,7 +736,7 @@ class Ui_MainWindow(object):
         self.menu.addAction(self.action_newGame)
         self.menu.addAction(self.action_saveGame)
         self.menu.addSeparator()
-        self.menu.addAction(self.action_4)
+        self.menu.addAction(self.action_exportGame)
         self.menu.addAction(self.action_8)
         self.menu_2.addSeparator()
         self.menu_2.addAction(self.action_5)
@@ -749,7 +754,7 @@ class Ui_MainWindow(object):
         self.action_openGame.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0438\u0433\u0440\u0443", None))
         self.action_newGame.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0437\u0434\u0430\u0442\u044c \u0438\u0433\u0440\u0443", None))
         self.action_saveGame.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0438\u0433\u0440\u0443", None))
-        self.action_4.setText(QCoreApplication.translate("MainWindow", u"\u042d\u043a\u0441\u043f\u043e\u0440\u0442", None))
+        self.action_exportGame.setText(QCoreApplication.translate("MainWindow", u"\u042d\u043a\u0441\u043f\u043e\u0440\u0442", None))
         self.action_5.setText(QCoreApplication.translate("MainWindow", u"\u041e \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0435", None))
         self.action_8.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0445\u043e\u0434", None))
         self.groupBox_6.setTitle("")
@@ -759,6 +764,7 @@ class Ui_MainWindow(object):
         self.pushButton__delCat.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.comboBox_Cat.setItemText(0, QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0432\u0430\u044f \u043a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u044f", None))
 
+        self.testButton.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"\u0422\u0435\u043c\u044b", None))
         self.groupBox_5.setTitle("")
         self.pushButton_addTheme.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
