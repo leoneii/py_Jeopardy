@@ -2,6 +2,7 @@
 import logging
 import os
 import sys
+import shutil
 
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap
@@ -46,12 +47,42 @@ class MainWindow(QMainWindow):
         self.ui.toolButton_selApix.clicked.connect(self.selApix)
         self.ui.toolButton_delApix.clicked.connect(self.delApix)        
         self.ui.toolButton_selTpix.clicked.connect(self.selTpix)
-        self.ui.toolButton_delTpix.clicked.connect(self.delTpix)        
+        self.ui.toolButton_delTpix.clicked.connect(self.delTpix)     
+        self.ui.action_saveGame.triggered.connect(self.saveGame) 
+        self.ui.action_newGame.triggered.connect(self.newGame)    
+        self.ui.action_openGame.triggered.connect(self.openGame)  
         self.textQpix = ""
         self.textApix = ""
         self.textTpix = ""
         self.EditMode(False)
         self.updateform()
+
+    def newGame(self):
+        msbox=QMessageBox()
+        msbox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        msbox.setButtonText(QMessageBox.Ok, "Сохранить")
+        msbox.setButtonText(QMessageBox.Cancel, "Отменить")
+        msbox.setWindowTitle("Осторожно!!!")
+        msbox.setText("     Сохранить ли текущую игру? ")
+        ok=msbox.exec()
+        if ok==QMessageBox.Ok:
+            self.saveGame()
+            
+
+    def openGame(self):
+        dialog = QFileDialog()
+        dName=str(dialog.getExistingDirectory(self,"Выбрать папку","./games/"))
+        print(dName)
+        shutil.copytree(dName+"/img",os.path.dirname(os.path.abspath(__file__))+"/../img",  symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=True)
+        shutil.copyfile(dName+"/jep.sqlite",os.path.dirname(os.path.abspath(__file__)) + "/../jep.sqlite")
+        self.updateform()
+        
+
+    def saveGame(self):
+        fName =str(QInputDialog.getText(None, " Сохраняем игру", "Введите название ")[0])
+        shutil.copytree(os.path.dirname(os.path.abspath(__file__))+"/../img", os.path.dirname(os.path.abspath(__file__))+"/../games/"+fName+"/img", symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=False)
+        shutil.copyfile(os.path.dirname(os.path.abspath(__file__)) + "/../jep.sqlite",os.path.dirname(os.path.abspath(__file__))+"/../games/"+fName+"/jep.sqlite")
+
 
     def delTheme(self):
         index = self.ui.tableView_themeTable.currentIndex()
@@ -71,11 +102,11 @@ class MainWindow(QMainWindow):
     def editTheme(self):
         index=self.ui.tableView_themeTable.currentIndex()
         curname = str(index.data())
-        themename = QInputDialog.getText(None, "Изменяем название темы "+curname, "         Введите новое наименование темы         ");
-        thnm = str(themename[0])
+        themename =str(QInputDialog.getText(None, "Изменяем название темы "+curname, "         Введите новое наименование темы         ")[0])
         query = QSqlQuery()
-        query.exec("UPDATE ThemesAndQ SET Theme='"+thnm+"' WHERE Theme='"+curname+"';")
+        query.exec("UPDATE ThemeAndQ SET Theme='"+themename+"' WHERE Theme='"+curname+"';")
         self.updateform()
+        
     def addTheme(self):
         query = QSqlQuery()
         if not query.exec("SELECT * FROM ThemeAndQ;"):
@@ -83,15 +114,14 @@ class MainWindow(QMainWindow):
         query.first()
         curcat=str(query.value(11))
         print(curcat)
-        themename = QInputDialog.getText(None, " Новая тема ", "Введите наименование темы");
-        thnm=str(themename[0])
+        themename = str(QInputDialog.getText(None, " Новая тема ", "Введите наименование темы")[0])
         kvt=QInputDialog.getText(None, "  ", "Введите количество вопросов в теме");
         kvt=int(kvt[0])
         query = QSqlQuery()
         k=0
         for i in range(kvt):
             k+=10
-            txtq="INSERT INTO ThemeAndQ (Theme,Question,Cost,Catname) Values ('"+thnm+"','Вопрос на "+str(k)+"',"+str(k)+",'"+str(curcat)+"');"
+            txtq="INSERT INTO ThemeAndQ (Theme,Question,Cost,Catname) Values ('"+themename+"','Вопрос на "+str(k)+"',"+str(k)+",'"+str(curcat)+"');"
             if not query.exec(txtq):
                 logging.error("Failed to query newTheme1")
 
