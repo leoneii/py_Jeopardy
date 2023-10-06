@@ -11,11 +11,9 @@ from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlQueryModel
 from PySide6.QtWidgets import QApplication, QInputDialog, QMainWindow, QMessageBox, QFileDialog, QDialog, QVBoxLayout, \
     QLabel, QPushButton, QButtonGroup, QHBoxLayout
 
-# Important:
-# You need to run the following command to generate the ui_form.py file
-#     pyside6-uic form.ui -o ui_form.py, or
-#     pyside2-uic form.ui -o ui_form.p+*-/y
+
 from mainwindow import Ui_MainWindow
+from newDialog import *
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -47,7 +45,8 @@ class MainWindow(QMainWindow):
         self.ui.toolButton_selApix.clicked.connect(self.selApix)
         self.ui.toolButton_delApix.clicked.connect(self.delApix)        
         self.ui.toolButton_selTpix.clicked.connect(self.selTpix)
-        self.ui.toolButton_delTpix.clicked.connect(self.delTpix)     
+        self.ui.toolButton_delTpix.clicked.connect(self.delTpix)  
+        self.ui.pushButton_delQ.clicked.connect(self.delQ)   
         self.ui.action_saveGame.triggered.connect(self.saveGame) 
         self.ui.action_newGame.triggered.connect(self.newGame)    
         self.ui.action_openGame.triggered.connect(self.openGame)  
@@ -77,7 +76,8 @@ class MainWindow(QMainWindow):
         ok=msbox.exec()
         if ok==QMessageBox.Ok:
             self.saveGame()
-            
+        newdialog =  newDialog(self)
+        newdialog.show()   
 
     def openGame(self):
         dialog = QFileDialog()
@@ -86,12 +86,15 @@ class MainWindow(QMainWindow):
         shutil.copytree(dName+"/img",os.path.dirname(os.path.abspath(__file__))+"/../img",  symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=True)
         shutil.copyfile(dName+"/jep.sqlite",os.path.dirname(os.path.abspath(__file__)) + "/../jep.sqlite")
         self.updateform()
+        self.selector(0,0)
+
         
 
     def saveGame(self):
         fName =str(QInputDialog.getText(None, " Сохраняем игру", "Введите название ")[0])
         shutil.copytree(os.path.dirname(os.path.abspath(__file__))+"/../img", os.path.dirname(os.path.abspath(__file__))+"/../games/"+fName+"/img", symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=False)
         shutil.copyfile(os.path.dirname(os.path.abspath(__file__)) + "/../jep.sqlite",os.path.dirname(os.path.abspath(__file__))+"/../games/"+fName+"/jep.sqlite")
+        self.selector(0,0)
 
 
     def delTheme(self):
@@ -108,6 +111,7 @@ class MainWindow(QMainWindow):
             query = QSqlQuery()
             query.exec("DELETE FROM ThemeAndQ WHERE Theme='"+curname+"';")
         self.updateform()
+        self.selector(0,0)
 
     def editTheme(self):
         index=self.ui.tableView_themeTable.currentIndex()
@@ -116,6 +120,7 @@ class MainWindow(QMainWindow):
         query = QSqlQuery()
         query.exec("UPDATE ThemeAndQ SET Theme='"+themename+"' WHERE Theme='"+curname+"';")
         self.updateform()
+        self.selector(index.row(),0)
         
     def addTheme(self):
         query = QSqlQuery()
@@ -126,7 +131,7 @@ class MainWindow(QMainWindow):
         print(curcat)
         themename = str(QInputDialog.getText(None, " Новая тема ", "Введите наименование темы")[0])
         queryCount=QSqlQuery()
-        if not queryCount.exec("SELECT COUNT(Cost) FROM ThemeAndQ WHERE Cost='10';"):
+        if not queryCount.exec("SELECT COUNT(Cost) FROM ThemeAndQ WHERE thememe='"+themename+"';"):
             logging.error("Failed to query categ")
         queryCount.first()
         kvt = queryCount.value(0)
@@ -145,6 +150,8 @@ class MainWindow(QMainWindow):
 
 
     def selQpix(self):
+        indexT=self.ui.tableView_themeTable.currentIndex()
+        indexQ=self.ui.tableView_questTable.currentIndex()
         dialog = QFileDialog()
         dialog.setDirectory(os.path.dirname(os.path.abspath(__file__))+"/../img")
         dialog.exec()
@@ -164,16 +171,22 @@ class MainWindow(QMainWindow):
                                 0)) + "';")
         self.ui.label_questPix.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.ui.label_questPix.setPixmap(QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/"+fileName).scaled(self.ui.label_questPix.frameSize(),Qt.KeepAspectRatio))
+        self.selector(indexT.row(),indexQ.row())
 
     def delQpix(self):
+        indexT=self.ui.tableView_themeTable.currentIndex()
+        indexQ=self.ui.tableView_questTable.currentIndex()
         costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
         model = self.ui.tableView_themeTable.model()
         self.textQpix = ("UPDATE ThemeAndQ SET Image = '' WHERE Cost = '" + costq + "' AND Theme = '" + str(
                         model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
                                 0)) + "';")
         self.ui.label_questPix.setPixmap(QPixmap(""))
+        self.selector(indexT.row(),indexQ.row())
     
     def selApix(self):
+        indexT=self.ui.tableView_themeTable.currentIndex()
+        indexQ=self.ui.tableView_questTable.currentIndex()
         dialog = QFileDialog()
         dialog.setDirectory(os.path.dirname(os.path.abspath(__file__))+"/../img")
         dialog.exec()
@@ -193,17 +206,22 @@ class MainWindow(QMainWindow):
                                 0)) + "';")
         self.ui.label_answerPix.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.ui.label_answerPix.setPixmap(QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/"+fileName).scaled(self.ui.label_answerPix.frameSize(),Qt.KeepAspectRatio))
-
+        self.selector(indexT.row(),indexQ.row())
+        
     def delApix(self):
+        indexT=self.ui.tableView_themeTable.currentIndex()
+        indexQ=self.ui.tableView_questTable.currentIndex()        
         costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
         model = self.ui.tableView_themeTable.model()
         self.textApix = ("UPDATE ThemeAndQ SET ImageA = '' WHERE Cost = '" + costq + "' AND Theme = '" + str(
                         model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
                                 0)) + "';")
         self.ui.label_answerPix.setPixmap(QPixmap(""))
-        
+        self.selector(indexT.row(),indexQ.row())        
         
     def selTpix(self):
+        indexT=self.ui.tableView_themeTable.currentIndex()
+        indexQ=self.ui.tableView_questTable.currentIndex()   
         dialog = QFileDialog()
         dialog.setDirectory(os.path.dirname(os.path.abspath(__file__))+"/../img")
         dialog.exec()
@@ -222,15 +240,19 @@ class MainWindow(QMainWindow):
                                 0)) + "';")
         self.ui.label_toolPix.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.ui.label_toolPix.setPixmap(QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/"+fileName).scaled(self.ui.label_toolPix.frameSize(),Qt.KeepAspectRatio))
+        self.selector(indexT.row(),indexQ.row()) 
 
     def delTpix(self):
+        indexT=self.ui.tableView_themeTable.currentIndex()
+        indexQ=self.ui.tableView_questTable.currentIndex()
         costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
         model = self.ui.tableView_themeTable.model()
         self.textTpix = ("UPDATE ThemeAndQ SET ToolTipImg = '' WHERE Cost = '" + costq + "' AND Theme = '" + str(
                         model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
                                 0)) + "';")
         self.ui.label_toolPix.setPixmap(QPixmap(""))        
-
+        self.selector(indexT.row(),indexQ.row()) 
+        
     def addTeam(self):
         texteam = QInputDialog.getText(None, "Новая команда", "Введите наименование команды");
         query = QSqlQuery()
@@ -243,6 +265,8 @@ class MainWindow(QMainWindow):
                     "INSERT INTO Teams (ID,Name) VALUES ("+str(int(query.value(0))+1)+", '"+texteam[0]+"');"):
                 logging.error("Failed to query database2")
         self.updateform()
+        
+        
     def delTeam(self):
         curteam=self.ui.listView_teams.model().data(self.ui.listView_teams.currentIndex())
         curin=self.ui.listView_teams.currentIndex()
@@ -312,6 +336,7 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self,"Внимание!","Форма не готова для перемещения вопроса - вы не выбрали тему для перемещения")
     
     def ChangeCost(self,updown):
+        indexT=self.ui.tableView_themeTable.currentIndex()
         model= self.ui.tableView_themeTable.model()
         maxcost = self.ui.tableView_questTable.model().rowCount()
         costq = str(self.ui.tableView_questTable.currentIndex().row()+1)+"0"
@@ -338,6 +363,7 @@ class MainWindow(QMainWindow):
             else:
                 QMessageBox.warning(self,"Внимание!","Невозможно повысить стоимость этого вопроса")            
         self.updateQuest()
+        self.selector(indexT.row(),0) 
         
     def EditMode(self,Mode):
         if (Mode==True):
@@ -406,8 +432,38 @@ class MainWindow(QMainWindow):
         else:
             QMessageBox.warning(self,"Внимание!","Форма не готова для редактирования - вы не выбрали тему для редактирования")
             
+    def delQ(self):
+        indexT=self.ui.tableView_themeTable.currentIndex()
+        cost = str(self.ui.tableView_questTable.currentIndex().row()+1)+"0"
+        if (self.ui.tableView_themeTable.currentIndex().row()!=-1):
+            if (self.ui.tableView_questTable.currentIndex().row()!=-1):
+                dialog = QMessageBox()
+                dialog.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel);
+                dialog.setWindowTitle("Внимание!")
+                dialog.setDefaultButton( QMessageBox.Cancel)
+                dialog.setButtonText(QMessageBox.Save,"Удалить")
+                dialog.setButtonText(QMessageBox.Cancel,"Отменить")
+                dialog.setText("Удаляем ВСЕ вопросы ценой: "+cost))
+                dialog.setInformativeText("Осторожно,  Удаление будет произведено во ВСЕХ темах!")
+                dialog.setIcon(QMessageBox.Icon.Critical)
+                #dialog.setTextValue(curteam)
+                #dialog.setInputMode(QInputDialog.TextInput)
+                ok = dialog.exec()
+                if  ok == QMessageBox.Save:
+                    query = QSqlQuery()
+                    query.exec("DELETE from ThemeAndQ WHERE cost= '"+cost+"'")
+                    self.updateform()
+            else:
+             QMessageBox.warning(self,"Внимание!","Форма не готова - вы не выбрали вопрос для удаления")   
+        else:
+            QMessageBox.warning(self,"Внимание!","Форма не готова - вы не выбрали тему ")
+
+        self.selector(indexT.row(),0)    
+
         
     def SaveQ(self):    
+        indexT=self.ui.tableView_themeTable.currentIndex()
+        indexQ=self.ui.tableView_questTable.currentIndex()
         costq = str(self.ui.tableView_questTable.currentIndex().row()+1)+"0"
         query = QSqlQuery()
         model= self.ui.tableView_themeTable.model()
@@ -430,10 +486,14 @@ class MainWindow(QMainWindow):
         if (len(self.textTpix)!=0):
             if not query.exec(self.textTpix):
                 logging.error("Failed to query database42")                 
-        self.ui.tableView_themeTable.selectRow(self.ui.tableView_themeTable.currentIndex().row())
         self.updateQuest()
         self.EditMode(False)
-
+        self.selector(indexT.row(),indexQ.row()) 
+   
+   
+   
+   
+   
         
     def updateform(self):
         self.ui.comboBox_Cat.clear()
@@ -448,12 +508,8 @@ class MainWindow(QMainWindow):
         self.changeTeamListRow()
 
 
-
     def changeTeamListRow(self):
         modelt=self.ui.listView_teams.model()
-
-
-
 
 
     def updateTheme(self):
@@ -559,6 +615,7 @@ class MainWindow(QMainWindow):
             if not query2.exec("INSERT INTO category  VALUES ("+str(int(query.value(0))+1)+", '"+texcat[0]+"');"):
                  logging.error("Failed to query database")
         self.updateform()
+        self.selector(0,0)
 
     def editCat(self):
         curcat=self.ui.comboBox_Cat.currentText()
@@ -581,6 +638,7 @@ class MainWindow(QMainWindow):
             logging.error("Failed to save category")
         self.updateform()
         self.ui.comboBox_Cat.setCurrentIndex(curin)
+        self.selector(0,0)
 
 
     def delCat(self):
@@ -592,7 +650,21 @@ class MainWindow(QMainWindow):
             query = QSqlQuery()
             query.exec("DELETE from category where catname = '"+cbcat+"'")
             self.updateform()
-
+        self.selector(0,0)    
+        
+class newDialog(QDialog):
+    def __init__(self,parent):
+        super().__init__(parent)
+        self.ui = Ui_Dialog()
+        self.ui.setupUi(self)
+        self.ui.pushButton_Cancel.connect(self.cancel)
+        self.ui.pushButton_Create.connect(self.create)
+    
+    def create(self):
+       print()     
+    
+    def cancel(self):
+        self.close()    
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

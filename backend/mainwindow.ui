@@ -321,6 +321,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="pushButton_delQ">
+          <property name="text">
+           <string>Удалить группу вопросов текущей цены</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="verticalSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -934,13 +941,6 @@ p, li { white-space: pre-wrap; }
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_delQ">
-               <property name="text">
-                <string>Удалить</string>
-               </property>
-              </widget>
-             </item>
             </layout>
            </widget>
           </item>
@@ -1002,7 +1002,7 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>386</width>
+          <width>364</width>
           <height>733</height>
          </rect>
         </property>
@@ -1146,8 +1146,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>386</width>
-          <height>733</height>
+          <width>306</width>
+          <height>236</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1317,8 +1317,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>386</width>
-          <height>733</height>
+          <width>96</width>
+          <height>26</height>
          </rect>
         </property>
         <attribute name="label">

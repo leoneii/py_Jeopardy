@@ -207,6 +207,11 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.frame_2)
 
+        self.pushButton_delQ = QPushButton(self.groupBox_6)
+        self.pushButton_delQ.setObjectName(u"pushButton_delQ")
+
+        self.verticalLayout.addWidget(self.pushButton_delQ)
+
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout.addItem(self.verticalSpacer)
@@ -516,11 +521,6 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_4.addWidget(self.pushButton_Cancel)
 
-        self.pushButton_delQ = QPushButton(self.groupBox)
-        self.pushButton_delQ.setObjectName(u"pushButton_delQ")
-
-        self.horizontalLayout_4.addWidget(self.pushButton_delQ)
-
 
         self.verticalLayout_2.addWidget(self.groupBox)
 
@@ -547,7 +547,7 @@ class Ui_MainWindow(object):
         self.toolBox.setLineWidth(2)
         self.page = QWidget()
         self.page.setObjectName(u"page")
-        self.page.setGeometry(QRect(0, 0, 386, 733))
+        self.page.setGeometry(QRect(0, 0, 364, 733))
         self.gridLayout_4 = QGridLayout(self.page)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
@@ -617,7 +617,7 @@ class Ui_MainWindow(object):
         self.toolBox.addItem(self.page, u"\u041a\u043e\u043c\u0430\u043d\u0434\u044b")
         self.page_3 = QWidget()
         self.page_3.setObjectName(u"page_3")
-        self.page_3.setGeometry(QRect(0, 0, 386, 733))
+        self.page_3.setGeometry(QRect(0, 0, 306, 236))
         self.gridLayout_5 = QGridLayout(self.page_3)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.horizontalSpacer_5 = QSpacerItem(77, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -711,7 +711,7 @@ class Ui_MainWindow(object):
         self.toolBox.addItem(self.page_3, u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430")
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
-        self.page_2.setGeometry(QRect(0, 0, 386, 733))
+        self.page_2.setGeometry(QRect(0, 0, 96, 26))
         self.toolBox.addItem(self.page_2, u"\u042d\u043a\u0441\u043f\u043e\u0440\u0442")
         self.splitter_2.addWidget(self.toolBox)
 
@@ -773,6 +773,7 @@ class Ui_MainWindow(object):
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"\u0412\u043e\u043f\u0440\u043e\u0441\u044b", None))
         self.pushButton_Qdown.setText(QCoreApplication.translate("MainWindow", u"v", None))
         self.pushButton_Qup.setText(QCoreApplication.translate("MainWindow", u"^", None))
+        self.pushButton_delQ.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0433\u0440\u0443\u043f\u043f\u0443 \u0432\u043e\u043f\u0440\u043e\u0441\u043e\u0432 \u0442\u0435\u043a\u0443\u0449\u0435\u0439 \u0446\u0435\u043d\u044b", None))
         self.groupBox_4.setTitle("")
         self.label_questText.setText(QCoreApplication.translate("MainWindow", u"\u0412\u043e\u043f\u0440\u043e\u0441", None))
         self.textEdit_questText.setDocumentTitle(QCoreApplication.translate("MainWindow", u"\u0412\u043e\u043f\u0440\u043e\u0441", None))
@@ -809,7 +810,6 @@ class Ui_MainWindow(object):
         self.pushButton_Save.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
         self.pushButton_editQ.setText(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c", None))
         self.pushButton_Cancel.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u043c\u0435\u043d\u0438\u0442\u044c", None))
-        self.pushButton_delQ.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.toolButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
         self.label.setText("")
         self.groupBox_2.setTitle("")
