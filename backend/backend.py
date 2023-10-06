@@ -57,6 +57,7 @@ class MainWindow(QMainWindow):
         self.textTpix = ""
         self.EditMode(False)
         self.updateform()
+        self.selector(0,0)
 
     def testB(self):
         self.selector(5,0)
