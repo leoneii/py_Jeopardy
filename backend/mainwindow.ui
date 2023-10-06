@@ -321,6 +321,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="pushButton_addQ">
+          <property name="text">
+           <string>Добавить группу вопросов</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="pushButton_delQ">
           <property name="text">
            <string>Удалить группу вопросов текущей цены</string>
@@ -911,13 +918,6 @@ p, li { white-space: pre-wrap; }
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
-              <widget class="QPushButton" name="pushButton_addQ">
-               <property name="text">
-                <string>Добавить</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QPushButton" name="pushButton_Save">
                <property name="enabled">
                 <bool>true</bool>
@@ -1146,8 +1146,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>306</width>
-          <height>236</height>
+          <width>364</width>
+          <height>733</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1317,8 +1317,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>96</width>
-          <height>26</height>
+          <width>364</width>
+          <height>733</height>
          </rect>
         </property>
         <attribute name="label">

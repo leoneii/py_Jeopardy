@@ -46,7 +46,8 @@ class MainWindow(QMainWindow):
         self.ui.toolButton_delApix.clicked.connect(self.delApix)        
         self.ui.toolButton_selTpix.clicked.connect(self.selTpix)
         self.ui.toolButton_delTpix.clicked.connect(self.delTpix)  
-        self.ui.pushButton_delQ.clicked.connect(self.delQ)   
+        self.ui.pushButton_delQ.clicked.connect(self.delQ)  
+        self.ui.pushButton_addQ.clicked.connect(self.addQ)  
         self.ui.action_saveGame.triggered.connect(self.saveGame) 
         self.ui.action_newGame.triggered.connect(self.newGame)    
         self.ui.action_openGame.triggered.connect(self.openGame)  
@@ -443,7 +444,7 @@ class MainWindow(QMainWindow):
                 dialog.setDefaultButton( QMessageBox.Cancel)
                 dialog.setButtonText(QMessageBox.Save,"Удалить")
                 dialog.setButtonText(QMessageBox.Cancel,"Отменить")
-                dialog.setText("Удаляем ВСЕ вопросы ценой: "+cost))
+                dialog.setText("Удаляем ВСЕ вопросы ценой: "+cost)
                 dialog.setInformativeText("Осторожно,  Удаление будет произведено во ВСЕХ темах!")
                 dialog.setIcon(QMessageBox.Icon.Critical)
                 #dialog.setTextValue(curteam)
@@ -459,7 +460,32 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self,"Внимание!","Форма не готова - вы не выбрали тему ")
 
         self.selector(indexT.row(),0)    
-
+        
+    def addQ(self):
+        indexT=self.ui.tableView_themeTable.currentIndex()
+        if (self.ui.tableView_themeTable.currentIndex().row()!=-1):
+            cost=str((self.ui.tableView_questTable.model().rowCount()*10)+10)
+            dialog = QMessageBox()
+            dialog.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel);
+            dialog.setWindowTitle("Внимание!")
+            dialog.setDefaultButton( QMessageBox.Cancel)
+            dialog.setButtonText(QMessageBox.Save,"Добавить вопросы")
+            dialog.setButtonText(QMessageBox.Cancel,"Отменить")
+            dialog.setText("Добавляем вопросы вопросы ценой: "+cost)
+            dialog.setInformativeText("Внимание, Добавление вопросов будет произведено во ВСЕХ темах!")
+            dialog.setIcon(QMessageBox.Icon.Critical)
+            #dialog.setTextValue(curteam)
+            #dialog.setInputMode(QInputDialog.TextInput)
+            ok = dialog.exec()
+            if  ok == QMessageBox.Save:
+                query = QSqlQuery()
+                #query.exec("DELETE from ThemeAndQ WHERE cost= '"+cost+"'")
+                QMessageBox.about(self, "Не доделал, простите извините))","Не доделал")
+                self.updateform()
+        else:
+            QMessageBox.warning(self,"Внимание!","Форма не готова - вы не выбрали тему ")
+        self.selector(indexT.row(),0)     
+        
         
     def SaveQ(self):    
         indexT=self.ui.tableView_themeTable.currentIndex()
