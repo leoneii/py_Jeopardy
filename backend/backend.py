@@ -74,7 +74,7 @@ class MainWindow(QMainWindow):
         themename = QInputDialog.getText(None, "Изменяем название темы "+curname, "         Введите новое наименование темы         ");
         thnm = str(themename[0])
         query = QSqlQuery()
-        query.exec("UPDATE ThemesAndQ SET Theme='"+thnm+"' WHERE Theme='"+curname+"';")
+        query.exec("UPDATE ThemeAndQ SET Theme='"+thnm+"' WHERE Theme='"+curname+"';")
         self.updateform()
     def addTheme(self):
         query = QSqlQuery()
