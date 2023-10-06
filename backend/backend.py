@@ -549,7 +549,10 @@ class MainWindow(QMainWindow):
         selectionModel.selectionChanged.connect(self.updateQuest)
         self.updateQuest()
 
+        
+
     def updateQuest(self):
+        indexT=self.ui.tableView_themeTable.currentIndex()
         cindex=self.ui.tableView_themeTable.model().index(self.ui.tableView_themeTable.currentIndex().row(),0)
         curtheme=self.ui.tableView_themeTable.model().data(cindex)
         modelq = QSqlQueryModel()
@@ -560,7 +563,7 @@ class MainWindow(QMainWindow):
         selectionModel.selectionChanged.connect(self.updQuestText)
         self.updQuestText()
        # print(str(self.ui.tableView_questTable.model().rowCount()))
-
+        self.selector(indexT.row(),0) 
 
 
     def updQuestText(self): 
