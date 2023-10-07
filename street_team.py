@@ -297,6 +297,12 @@ class Wint(QWidget):
             self.catch.show()
         else:
             self.catch.setVisible(False)
+            query=QSqlQuery()
+            query.exec("SELECT Catname FROM ThemeAndQ")
+            query.first()
+            cattxt=str(query.value(0))
+            query1 = QSqlQuery()
+            query1.exec("UPDATE settings SET curCatName= '"+cattxt+"' ;")
 
         self.contin = QPushButton(self)
         self.contin.setGeometry((wdt - 25) / 2+10, mainlogoh + hgt - hgt / 15 - 10, (wdt - 25) / 2, hgt / 15)
