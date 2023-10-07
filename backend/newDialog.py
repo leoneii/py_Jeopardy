@@ -79,6 +79,8 @@ class Ui_Dialog(object):
         self.comboBox_questCount_2.addItem("")
         self.comboBox_questCount_2.addItem("")
         self.comboBox_questCount_2.addItem("")
+        self.comboBox_questCount_2.addItem("")
+        self.comboBox_questCount_2.addItem("")
         self.comboBox_questCount_2.setObjectName(u"comboBox_questCount_2")
 
         self.gridLayout.addWidget(self.comboBox_questCount_2, 3, 1, 1, 1)
@@ -129,6 +131,8 @@ class Ui_Dialog(object):
         self.comboBox_questCount_2.setItemText(0, QCoreApplication.translate("Dialog", u"2", None))
         self.comboBox_questCount_2.setItemText(1, QCoreApplication.translate("Dialog", u"3", None))
         self.comboBox_questCount_2.setItemText(2, QCoreApplication.translate("Dialog", u"4", None))
+        self.comboBox_questCount_2.setItemText(3, QCoreApplication.translate("Dialog", u"5", None))
+        self.comboBox_questCount_2.setItemText(4, QCoreApplication.translate("Dialog", u"6", None))
 
         self.pushButton_Create.setText(QCoreApplication.translate("Dialog", u"\u0421\u043e\u0437\u0434\u0430\u0442\u044c \u0438\u0433\u0440\u0443", None))
         self.pushButton_Cancel.setText(QCoreApplication.translate("Dialog", u"\u041e\u0442\u043c\u0435\u043d\u0430", None))

@@ -125,18 +125,13 @@ class MainWindow(QMainWindow):
         self.selector(index.row(),0)
         
     def addTheme(self):
-        query = QSqlQuery()
-        if not query.exec("SELECT * FROM ThemeAndQ;"):
-            logging.error("Failed to query categ")
-        query.first()
-        curcat=str(query.value(11))
-        print(curcat)
+        curcat=str(self.ui.comboBox_Cat.currentText())
         themename = str(QInputDialog.getText(None, " Новая тема ", "Введите наименование темы")[0])
         queryCount=QSqlQuery()
-        if not queryCount.exec("SELECT COUNT(Cost) FROM ThemeAndQ WHERE thememe='"+themename+"';"):
+        if not queryCount.exec("SELECT MAX(Cost) FROM ThemeAndQ ;"):
             logging.error("Failed to query categ")
         queryCount.first()
-        kvt = queryCount.value(0)
+        kvt = int(int(queryCount.value(0))/10)
         if  (kvt == None):
             kvt=QInputDialog.getText(None, "  ", "Введите количество вопросов в теме");
             kvt=int(kvt[0])
@@ -436,7 +431,8 @@ class MainWindow(QMainWindow):
             
     def delQ(self):
         indexT=self.ui.tableView_themeTable.currentIndex()
-        cost = str(self.ui.tableView_questTable.currentIndex().row()+1)+"0"
+        #cost = str(self.ui.tableView_questTable.currentIndex().row()+1)+"0"
+        cost=str((self.ui.tableView_questTable.model().rowCount()*10))
         if (self.ui.tableView_themeTable.currentIndex().row()!=-1):
             if (self.ui.tableView_questTable.currentIndex().row()!=-1):
                 dialog = QMessageBox()
@@ -479,13 +475,21 @@ class MainWindow(QMainWindow):
             #dialog.setInputMode(QInputDialog.TextInput)
             ok = dialog.exec()
             if  ok == QMessageBox.Save:
+                curcat=str(self.ui.comboBox_Cat.currentText())
+                queryTheme=QSqlQuery()
+                if not queryTheme.exec("SELECT DISTINCT Theme FROM ThemeAndQ;"):
+                    logging.error("Failed to query categ2")
                 query = QSqlQuery()
-                #query.exec("DELETE from ThemeAndQ WHERE cost= '"+cost+"'")
-                QMessageBox.about(self, "Не доделал, простите извините))","Не доделал")
-                self.updateform()
+                while queryTheme.next():
+                    if not query.exec("INSERT INTO ThemeAndQ (Theme,Question,Cost,Catname,Answer) Values ('"+str(queryTheme.value(0))+"','Вопрос на "+str(cost)+" темы "+str(queryTheme.value(0))+"',"+str(cost)+",'"+str(curcat)+"','Ответ на  "+str(cost)+" темы "+str(queryTheme.value(0))+"');"):
+                        logging.error("Failed to query newTheme1")
+            self.updateform()
+            self.selector(indexT.row(),0)
+            self.selector(indexT.row(),self.ui.tableView_questTable.model().rowCount()-1) 
+
         else:
             QMessageBox.warning(self,"Внимание!","Форма не готова - вы не выбрали тему ")
-        self.selector(indexT.row(),0)     
+            
         
         
     def SaveQ(self):    
@@ -687,11 +691,26 @@ class newDialog(QDialog):
         super().__init__(parent)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
-        self.ui.pushButton_Cancel.connect(self.cancel)
-        self.ui.pushButton_Create.connect(self.create)
+        self.ui.pushButton_Cancel.clicked.connect(self.cancel)
+        self.ui.pushButton_Create.clicked.connect(self.create)
     
     def create(self):
-       print()     
+       #цикл категорий
+       queryCat=QSqlQuery()
+  
+       for cat in range(int(self.ui.comboBox_categCount.currentText())):
+            if (int(self.ui.comboBox_categCount.currentText())<=1):
+                catname = "К вопросам"
+            else:
+                catname = "Категория номер "+str(cat)
+            if not queryCat.exec("INSERT INTO category  VALUES ("+str(cat)+", '"+catname+"');"):
+                logging.eror("Failed to query a") 
+                    
+            #цикл тем
+            for theme in range(int(self.ui.comboBox_themeCount.currentText())):
+                
+                
+       #цикл вопросов
     
     def cancel(self):
         self.close()    
