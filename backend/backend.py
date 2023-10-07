@@ -52,6 +52,7 @@ class MainWindow(QMainWindow):
         self.ui.action_newGame.triggered.connect(self.newGame)    
         self.ui.action_openGame.triggered.connect(self.openGame)  
         self.ui.testButton.clicked.connect(self.testB)
+        self.ui.testButton.setVisible(False)
         self.textQpix = ""
         self.textApix = ""
         self.textTpix = ""
@@ -85,6 +86,12 @@ class MainWindow(QMainWindow):
         #self.catChange()
         self.ui.tableView_themeTable.selectRow(0)
         self.updateform()
+        #заполняем цену подсказки нулями
+        qzero=QSqlQuery()
+        qzero.exec("UPDATE ThemeAndQ SET ToolCost=0 ")
+
+
+
         self.selector(0,0)
 
 

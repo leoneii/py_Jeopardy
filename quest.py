@@ -179,7 +179,7 @@ class winq(QWidget):
         self.tl_button.setGeometry((wdt - 200)/2, hgt - 100, 200, 60)
         self.tl_button.setStyleSheet(cssbut1)
         self.tl_button.clicked.connect(self.tl_func)
-        if len(cpd)>0:
+        if int(cpd)>0:
             self.tl_button.setVisible(True)
         else:
             self.tl_button.setVisible(False)
