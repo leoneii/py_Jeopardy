@@ -60,7 +60,7 @@ class MainWindow(QMainWindow):
         self.selector(0,0)
 
     def testB(self):
-        self.selector(5,0)
+        self.updateTheme()
     
     def selector (self, themeRow, questRow):    
         if (themeRow!=None):
@@ -79,8 +79,16 @@ class MainWindow(QMainWindow):
         if ok==QMessageBox.Ok:
             self.saveGame()
         newdialog =  newDialog(self)
-        newdialog.show()   
+        newdialog.setWindowModality(Qt.WindowModal)
+        newdialog.exec_() #Вот жеж, exec_ ждется, а show - нет
+        #self.updateform()
+        #self.catChange()
+        self.ui.tableView_themeTable.selectRow(0)
+        self.updateform()
+        self.selector(0,0)
 
+
+        
     def openGame(self):
         dialog = QFileDialog()
         dName=str(dialog.getExistingDirectory(self,"Выбрать папку","./games/"))
@@ -89,6 +97,7 @@ class MainWindow(QMainWindow):
         shutil.copyfile(dName+"/jep.sqlite",os.path.dirname(os.path.abspath(__file__)) + "/../jep.sqlite")
         self.updateform()
         self.selector(0,0)
+        
 
         
 
@@ -573,9 +582,11 @@ class MainWindow(QMainWindow):
     def updQuestText(self): 
         quetext=self.ui.tableView_questTable.model().data(self.ui.tableView_questTable.currentIndex())
         themetext=self.ui.tableView_themeTable.model().data(self.ui.tableView_themeTable.currentIndex())
+        catname=self.ui.comboBox_Cat.currentText()
         self.ui.textEdit_questText.setText(quetext)
         query = QSqlQuery()
-        query.exec("SELECT * FROM ThemeAndQ WHERE Question='"+str(quetext)+"' AND Theme='"+themetext+"';")
+        if not query.exec("SELECT * FROM ThemeAndQ WHERE Question='"+str(quetext)+"' AND Theme='"+str(themetext)+"' AND Catname = '"+str(catname)+"';"):
+            logging.error("Failed to query database") 
         query.first()
 
         pixQ = QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/" + str(query.value(3)) )
@@ -636,6 +647,9 @@ class MainWindow(QMainWindow):
         # while(query.next()):
         #     print("vchjd")
         self.updateTheme()
+        self.ui.tableView_themeTable.selectRow(0)
+      #  self.updateform()
+      #  self.selector(0,0)
         #self.updateform()
     
     def addCat(self):
@@ -695,22 +709,50 @@ class newDialog(QDialog):
         self.ui.pushButton_Create.clicked.connect(self.create)
     
     def create(self):
-       #цикл категорий
-       queryCat=QSqlQuery()
-  
-       for cat in range(int(self.ui.comboBox_categCount.currentText())):
-            if (int(self.ui.comboBox_categCount.currentText())<=1):
-                catname = "К вопросам"
-            else:
-                catname = "Категория номер "+str(cat)
-            if not queryCat.exec("INSERT INTO category  VALUES ("+str(cat)+", '"+catname+"');"):
-                logging.eror("Failed to query a") 
-                    
-            #цикл тем
-            for theme in range(int(self.ui.comboBox_themeCount.currentText())):
-                print()
-                
-       #цикл вопросов
+        #подготовка 
+        qertyPrep=QSqlQuery()
+        queryCat=QSqlQuery()
+        query=QSqlQuery()
+        if not query.exec("DELETE FROM ThemeAndQ;"):
+            logging.error("Failed to query a") 
+        if not query.exec("DELETE FROM category;"):
+            logging.error("Failed to query a")        
+        if not query.exec("DELETE FROM Teams;"):
+            logging.error("Failed to query a")                  
+        if not query.exec("DELETE FROM settings;"):
+            logging.error("Failed to query a") 
+        #Команды
+        for team in range(int(self.ui.comboBox_teamCount.currentText())):
+            if not query.exec("INSERT INTO Teams (ID,Name) VALUES ("+str(team+1)+", 'Команда номер "+str(team+1)+"');"):
+                logging.error("Failed to query database2")
+        #Настройки
+        if not query.exec("INSERT INTO settings (NameGame,TimeSec,Pad) VALUES ('Игра', '30', '10');"):
+            logging.error("Failed to query database2")
+        
+        #цикл категорий
+
+        for cat in range(int(self.ui.comboBox_categCount.currentText())):
+                if (int(self.ui.comboBox_categCount.currentText())<=1):
+                    catname = "К вопросам"
+                else:
+                    catname = "Категория номер "+str(cat+1)
+                if not queryCat.exec("INSERT INTO category  VALUES ("+str(cat+1)+", '"+catname+"');"):
+                    logging.eror("Failed to query a") 
+                        
+                #цикл тем
+                for theme in range(int(self.ui.comboBox_themeCount.currentText())):
+                    themename="Тема "+str(theme+1)+" категории "+catname
+                    cost=0       #Цикл вопросов
+                    for quest in range(int(self.ui.comboBox_questCount.currentText())):
+                        cost+=10
+                        if not query.exec("INSERT INTO ThemeAndQ (Theme,Question,Cost,Catname,Answer) Values ('"+themename+"','Вопрос на "+str(cost)+" темы "+themename+"',"+str(cost)+",'"+catname+"','Ответ на  "+str(cost)+" темы "+themename+"');"):
+                            logging.error("Failed to query newTheme1")
+                        
+        
+        QMessageBox.information(self,"Готово","Создание новой игры завершено")
+        
+        self.close()
+        
     
     def cancel(self):
         self.close()    
