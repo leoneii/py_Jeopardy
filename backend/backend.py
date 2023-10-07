@@ -708,7 +708,7 @@ class newDialog(QDialog):
                     
             #цикл тем
             for theme in range(int(self.ui.comboBox_themeCount.currentText())):
-                
+                print()
                 
        #цикл вопросов
     
