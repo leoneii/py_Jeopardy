@@ -229,7 +229,10 @@ class Wint(QWidget):
 
             self.tnm = QLabel(self)
             # fnts = 66 - tkolt * 7
-            fnts = int(fw * 1.3)
+            fnts = int(fw * 1.4)
+            if fnts>60:
+                fnts=60
+
             stsh = "border:3px solid #99aaff;font-size: " + str(fnts) + "px"
             self.tnm.setStyleSheet(stsh)
             if len(logo[i]) > 0:
