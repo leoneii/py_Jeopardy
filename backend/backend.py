@@ -52,6 +52,8 @@ class MainWindow(QMainWindow):
         self.ui.action_newGame.triggered.connect(self.newGame)    
         self.ui.action_openGame.triggered.connect(self.openGame)  
         self.ui.testButton.clicked.connect(self.testB)
+        self.ui.pushButton_addTeamLogo.clicked.connect(self.addTeamLogo)
+        self.ui.pushButton_delTeamLogo.clicked.connect(self.delTeamLogo)
         self.ui.testButton.setVisible(False)
         self.textQpix = ""
         self.textApix = ""
@@ -62,7 +64,52 @@ class MainWindow(QMainWindow):
 
     def testB(self):
         self.updateTheme()
-    
+
+    def addTeamLogo(self):
+        rown = int(self.ui.listView_teams.currentIndex().row())
+        rown+=1
+        dialog = QFileDialog()
+        dialog.setDirectory(os.path.dirname(os.path.abspath(__file__)) + "/../img/logo")
+        dialog.exec()
+        fileName = dialog.selectedFiles()
+        s = str(fileName)
+        ch = '/'
+        indexes = [i for i, c in enumerate(s) if c == ch]
+        rpos = max(indexes)
+        fileName = s[rpos + 1:]
+        l = len(fileName)
+        fileName = fileName[:l - 2]
+        query=QSqlQuery()
+        txtq="UPDATE Teams SET Logo='"+str(fileName)+"' WHERE Id="+str(rown)+";"
+        query.exec(txtq)
+        query.first()
+        self.ui.label_teamLogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        # self.ui.label_teamLogo.setPixmap(
+        #     QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/logo" + fileName).scaled(
+        #         self.ui.label_questPix.frameSize(), Qt.KeepAspectRatio))
+        self.ui.listView_teams.selectRow(rown-1)
+        #self.updateform()
+
+    def delTeamLogo(self):
+        rown = int(self.ui.listView_teams.currentIndex().row())
+        rown += 1
+        dialog = QMessageBox()
+        dialog.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel);
+        dialog.setWindowTitle("Внимание!")
+        dialog.setDefaultButton(QMessageBox.Cancel)
+        dialog.setButtonText(QMessageBox.Save, "Удалить логотип")
+        dialog.setButtonText(QMessageBox.Cancel, "Не изменять")
+        dialog.setInformativeText("Вы действительно хотите удалить логотип?")
+        dialog.setIcon(QMessageBox.Icon.Critical)
+        ok = dialog.exec()
+        if ok == QMessageBox.Save:
+            query = QSqlQuery()
+            txtq = "UPDATE Teams SET Logo='"+"' WHERE Id=" + str(rown) + ";"
+            query.exec(txtq)
+            query.first()
+
+
     def selector (self, themeRow, questRow):    
         if (themeRow!=None):
              self.ui.tableView_themeTable.selectRow(themeRow)
