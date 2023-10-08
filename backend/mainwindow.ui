@@ -1035,7 +1035,7 @@ p, li { white-space: pre-wrap; }
           </widget>
          </item>
          <item row="2" column="2">
-          <widget class="QLabel" name="label_teamLogo">
+          <widget class="QLabel" name="label_teamLogoTxt">
            <property name="text">
             <string>Логотип команды</string>
            </property>
@@ -1130,30 +1130,30 @@ p, li { white-space: pre-wrap; }
           </spacer>
          </item>
          <item row="3" column="0" rowspan="4" colspan="2">
-          <widget class="QLabel" name="label_teamLogo_2">
+          <widget class="QLabel" name="label_teamLogo">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
            <property name="minimumSize">
             <size>
-             <width>0</width>
-             <height>200</height>
+             <width>180</width>
+             <height>180</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>16777215</width>
-             <height>200</height>
+             <width>230</width>
+             <height>230</height>
             </size>
            </property>
            <property name="text">
             <string/>
            </property>
            <property name="scaledContents">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>

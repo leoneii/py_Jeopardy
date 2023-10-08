@@ -72,24 +72,27 @@ class MainWindow(QMainWindow):
         dialog.setDirectory(os.path.dirname(os.path.abspath(__file__)) + "/../img/logo")
         dialog.exec()
         fileName = dialog.selectedFiles()
-        s = str(fileName)
-        ch = '/'
-        indexes = [i for i, c in enumerate(s) if c == ch]
-        rpos = max(indexes)
-        fileName = s[rpos + 1:]
-        l = len(fileName)
-        fileName = fileName[:l - 2]
-        query=QSqlQuery()
-        txtq="UPDATE Teams SET Logo='"+str(fileName)+"' WHERE Id="+str(rown)+";"
-        query.exec(txtq)
-        query.first()
-        self.ui.label_teamLogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        if len(fileName)>0:
+            s = str(fileName)
+            ch = '/'
+            indexes = [i for i, c in enumerate(s) if c == ch]
+            rpos = max(indexes)
+            fileName = s[rpos + 1:]
+            l = len(fileName)
+            fileName = fileName[:l - 2]
+            query=QSqlQuery()
+            txtq="UPDATE Teams SET Logo='"+str(fileName)+"' WHERE Id="+str(rown)+";"
+            query.exec(txtq)
+            query.first()
+            self.ui.label_teamLogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            pixmap=QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/logo/" + fileName).scaled(self.ui.label_teamLogo.frameSize(),Qt.KeepAspectRatio)
+            self.ui.label_teamLogo.setPixmap(pixmap)
 
-        # self.ui.label_teamLogo.setPixmap(
-        #     QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/logo" + fileName).scaled(
-        #         self.ui.label_questPix.frameSize(), Qt.KeepAspectRatio))
-        self.ui.listView_teams.selectRow(rown-1)
-        #self.updateform()
+            # self.ui.label_teamLogo.setPixmap(
+            #     QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/logo" + fileName).scaled(
+            #         self.ui.label_questPix.frameSize(), Qt.KeepAspectRatio))
+            # self.ui.listView_teams.selectRow(rown-1)
+            #self.updateform()
 
     def delTeamLogo(self):
         rown = int(self.ui.listView_teams.currentIndex().row())
@@ -100,7 +103,7 @@ class MainWindow(QMainWindow):
         dialog.setDefaultButton(QMessageBox.Cancel)
         dialog.setButtonText(QMessageBox.Save, "Удалить логотип")
         dialog.setButtonText(QMessageBox.Cancel, "Не изменять")
-        dialog.setInformativeText("Вы действительно хотите удалить логотип?")
+        #dialog.setInformativeText("Вы действительно хотите удалить логотип?")
         dialog.setIcon(QMessageBox.Icon.Critical)
         ok = dialog.exec()
         if ok == QMessageBox.Save:
@@ -108,7 +111,7 @@ class MainWindow(QMainWindow):
             txtq = "UPDATE Teams SET Logo='"+"' WHERE Id=" + str(rown) + ";"
             query.exec(txtq)
             query.first()
-
+        self.updTeams()
 
     def selector (self, themeRow, questRow):    
         if (themeRow!=None):
@@ -599,8 +602,20 @@ class MainWindow(QMainWindow):
 
 
     def changeTeamListRow(self):
-        modelt=self.ui.listView_teams.model()
+        selectionModel = self.ui.listView_teams.selectionModel()
+        selectionModel.selectionChanged.connect(self.updTeams)
 
+    def updTeams(self):
+        rown = int(self.ui.listView_teams.currentIndex().row())
+        rown += 1
+        query=QSqlQuery()
+        query.exec("SELECT Logo FROM Teams WHERE Id="+str(rown)+";")
+        query.first()
+        fileName=str(query.value(0))
+        print(fileName)
+        pixmap = QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/logo/" + fileName).scaled(
+            self.ui.label_teamLogo.frameSize(), Qt.KeepAspectRatio)
+        self.ui.label_teamLogo.setPixmap(pixmap)
 
     def updateTheme(self):
         model = QSqlQueryModel()
