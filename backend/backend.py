@@ -149,7 +149,6 @@ class MainWindow(QMainWindow):
     def openGame(self):
         dialog = QFileDialog()
         dName=str(dialog.getExistingDirectory(self,"Выбрать папку","./games/"))
-        print(dName)
         shutil.copytree(dName+"/img",os.path.dirname(os.path.abspath(__file__))+"/../img",  symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=True)
         shutil.copyfile(dName+"/jep.sqlite",os.path.dirname(os.path.abspath(__file__)) + "/../jep.sqlite")
         self.updateform()
@@ -226,7 +225,6 @@ class MainWindow(QMainWindow):
         fileName = s[rpos + 1:]
         l = len(fileName)
         fileName = fileName[:l - 2]
-        # print(fileName)
         costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
         model = self.ui.tableView_themeTable.model()
         self.textQpix =  ("UPDATE ThemeAndQ SET Image = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
@@ -261,7 +259,6 @@ class MainWindow(QMainWindow):
         fileName = s[rpos + 1:]
         l = len(fileName)
         fileName = fileName[:l - 2]
-        # print(fileName)
         costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
         model = self.ui.tableView_themeTable.model()
         self.textApix =  ("UPDATE ThemeAndQ SET ImageA = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
@@ -566,13 +563,10 @@ class MainWindow(QMainWindow):
             isBonus= ""
                 
         if not query.exec("UPDATE ThemeAndQ SET Question = '"+self.ui.textEdit_questText.toPlainText()+"', isBonus = '"+isBonus+"', Answer = '"+self.ui.textEdit_answerText.toPlainText()+"', Tooltip = '"+self.ui.textEdit_tooltipText.toPlainText()+"', ToolCost = '"+str(self.ui.spinBox_costTooltip.value())+"' WHERE Cost = '"+costq+"' AND Catname ='"+self.ui.comboBox_Cat.currentText()+"' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
-            logging.error("Failed to query database")  
-        #print(str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0)))  
-        #print(costq)  
+            logging.error("Failed to query database")
         if (len(self.textQpix)!=0):
             if not query.exec(self.textQpix):
-                logging.error("Failed to query database40")  
-                print(self.textQpix)
+                logging.error("Failed to query database40")
         if (len(self.textApix)!=0):
             if not query.exec(self.textApix):
                 logging.error("Failed to query database41") 
@@ -612,7 +606,6 @@ class MainWindow(QMainWindow):
         query.exec("SELECT Logo FROM Teams WHERE Id="+str(rown)+";")
         query.first()
         fileName=str(query.value(0))
-        print(fileName)
         pixmap = QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/logo/" + fileName).scaled(
             self.ui.label_teamLogo.frameSize(), Qt.KeepAspectRatio)
         self.ui.label_teamLogo.setPixmap(pixmap)

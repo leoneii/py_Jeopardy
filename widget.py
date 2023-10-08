@@ -269,11 +269,11 @@ class wnd(QWidget):
                             obj1.setText(str(query.value(4)))
                             ds=len(str(query.value(4)))
                             if ds<40:
-                                cssa = "QLabel { background-color: rgba(0,70,235,210); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: 32px}"
+                                cssa = "QLabel { background-color: rgba(0,150,255,180); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: 32px}"
                             elif 40<=ds<=70:
-                                cssa = "QLabel { background-color: rgba(0,70,235,210); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: 22px}"
+                                cssa = "QLabel { background-color: rgba(0,150,255,180); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: 22px}"
                             elif ds>70:
-                                cssa = "QLabel { background-color: rgba(0,70,235,210); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: 18px}"
+                                cssa = "QLabel { background-color: rgba(0,150,255,180); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: 18px}"
                             obj1.setStyleSheet(cssa)
                             obj1.setWordWrap(True)# флаг "невидимости и неактивности"
                             
