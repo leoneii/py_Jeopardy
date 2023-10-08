@@ -211,7 +211,7 @@ class wnd(QWidget):
                     lbpd.setObjectName("pd"+str(rowdb))
                     lbpd.setText("-"+cTooltip)
                     lbpd.setGeometry(wkn*3/4-8,hkn*3/4-8,wkn/4+2,hkn/4+2)
-                    csspd = "QLabel { background-color: rgba(0,200,150,160); border: none; border-radius: 10px; color: rgba(155,255,155,255); text-align: center center; background-position: center center; font-size: 46px}"
+                    csspd = "QLabel { background-color: rgba(0,200,150,160); border: none; border-radius: 10px; color: rgba(155,255,155,255); text-align: center center; background-position: center center; font-size: 36px}"
                     lbpd.setStyleSheet(csspd)
                     lbpd.setAlignment(alignmentc)
                     lbpd.setVisible(True)
