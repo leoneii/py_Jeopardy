@@ -58,6 +58,7 @@ class winq(QWidget):
     def __init__(self,apt,ynph,txt,ynpha_l, txta_l,ttq_l,txtp_l,cpd_l,cost_l):
         #txtp текст подсказки
         #cpd цена подсказки
+
         global txtp, cpd, cost
         global txta, wdt, hgt
         global ynpha, ynp
