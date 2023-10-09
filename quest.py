@@ -206,32 +206,29 @@ class winq(QWidget):
             self.textv.setGeometry(QRect(130, 20, wdt-260, hgt-40))
             self.photo.setVisible(False) 
 
-        self.textv.setText(txtp)
         self.tl_button.setVisible(False)
         leghtext = len(txtp)
         
-        if leghtext > 250:
+        if leghtext>250:
             if len(ynpht) > 0:
-                fs = int(40 * kfont)
+                fs = int(40*kfont)
             else:
-                fs = int(54 * kfont)
-        elif leghtext in range(100, 250):
+                fs = int(54*kfont)
+        elif leghtext in range(100,250):
             if len(ynpht) > 0:
-                fs = int(54 * kfont)
+                fs = int(54*kfont)
             else:
-                fs = int(60 * kfont)
-        elif leghtext in range(1, 99):
+                fs = int(60*kfont)
+        elif leghtext in range(1,99):
             if len(ynpht) > 0:
-                fs = int(60 * kfont)
+                fs = int(60*kfont)
             else:
-                fs = int(70 * kfont)
+                fs = int(70*kfont)
 
         tfs = "background-color: rgba(0,0,80,0); color: rgba(225,255,255,255); border:0px solid black;font-size:" + str(fs) + "px"
-        self.textv.setFont(self.font)
-        self.textv.setFrameShape(QFrame.Box)
-        self.textv.setAutoFillBackground(True)
+        self.textv.setText(txtp)
         self.textv.setStyleSheet(tfs)
-            
+        
     def start_stop_func(self):
         self.ss_button.setIconSize(QSize(0,0))
         if self.ss_button.text() == '':
@@ -260,7 +257,7 @@ class winq(QWidget):
 
         wdt=self.size().width()
         hgt=self.size().height()
-        self.textv.setText(txta)
+        
         if len(ynpha) > 0:
             pixmap=QPixmap("./img/"+ynpha)
             self.photo.setPixmap(pixmap)
@@ -270,7 +267,27 @@ class winq(QWidget):
             self.textv.setGeometry(QRect(120, 20, wdt-240, hgt-100))
             self.photo.setVisible(False) 
 
+        leghtext = len(txta)
+        
+        if leghtext>250:
+            if len(ynpha) > 0:
+                fs = int(40*kfont)
+            else:
+                fs = int(54*kfont)
+        elif leghtext in range(100,250):
+            if len(ynpha) > 0:
+                fs = int(54*kfont)
+            else:
+                fs = int(60*kfont)
+        elif leghtext in range(1,99):
+            if len(ynpha) > 0:
+                fs = int(60*kfont)
+            else:
+                fs = int(70*kfont)
+        
+        tfs = "background-color: rgba(0,0,80,0); color: rgba(225,255,255,255); border:0px solid black;font-size:" + str(fs) + "px"
         self.textv.setText(txta)
+        self.textv.setStyleSheet(tfs)
 
         self.ss_button.setVisible(False)
         self.progressbar.setVisible(False)
