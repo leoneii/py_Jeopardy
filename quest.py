@@ -58,6 +58,11 @@ class winq(QWidget):
     def __init__(self,apt,ynph,txt,ynpha_l, txta_l,ttq_l,txtp_l,cpd_l,cost_l):
         #txtp текст подсказки
         #cpd цена подсказки
+        global kfont,fkfont
+        (gwidth, gheight) = apt.screens()[0].size().toTuple()
+        kfont = gwidth / 1920
+        fkfont = (1.4 - 0.2 * (1 - kfont)) / 1.4
+
 
         global txtp, cpd, cost
         global txta, wdt, hgt
@@ -105,19 +110,19 @@ class winq(QWidget):
         leghtext= len(txt)
         if leghtext>250:
             if phyn==1:
-                fs=40
+                fs = int(40*kfont)
             else:
-                fs=54
+                fs = int(54*kfont)
         elif leghtext in range(100,250):
             if phyn==1:
-                fs=46
+                fs = int(54*kfont)
             else:
-                fs=60
+                fs = int(60*kfont)
         elif leghtext in range(1,99):
             if phyn==1:
-                fs=58
+                fs = int(60*kfont)
             else:
-                fs=70
+                fs = int(70*kfont)
 
         tfs = "background-color: rgba(0,0,80,0); color: rgba(225,255,255,255); border:0px solid black;font-size:" + str(fs) + "px"
         self.textv.setFont(self.font)
@@ -202,21 +207,21 @@ class winq(QWidget):
             leghtext = len(txtpd)
             if leghtext > 250:
                 if phyn == 1:
-                    fs = 38
+                    fs = int(40 * kfont)
                 else:
-                    fs = 46
+                    fs = int(54 * kfont)
             elif leghtext in range(100, 250):
                 if phyn == 1:
-                    fs = 52
+                    fs = int(54 * kfont)
                 else:
-                    fs = 68
+                    fs = int(60 * kfont)
             elif leghtext in range(1, 99):
                 if phyn == 1:
-                    fs = 58
+                    fs = int(60 * kfont)
                 else:
-                    fs = 66
-            tfs = "background-color: rgba(0,0,80,0); color: rgba(225,255,255,255); border:0px solid black;font-size:" + str(
-                fs) + "px"
+                    fs = int(70 * kfont)
+
+            tfs = "background-color: rgba(0,0,80,0); color: rgba(225,255,255,255); border:0px solid black;font-size:" + str(fs) + "px"
             self.textv.setStyleSheet(tfs)
     def start_stop_func(self):
         self.ss_button.setIconSize(QSize(0,0))

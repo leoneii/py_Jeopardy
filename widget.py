@@ -107,17 +107,16 @@ class wnd(QWidget):
     #     super().__init__(parent)
     def __init__(self, catname, apt, parent= None):
         #вот тут делаем apt глобальной переменной
-        global appt
+        global appt,fkfont,kfont
         appt=apt
-        super(wnd, self).__init__(parent)
-        #QWidget.__init__(self,parent)
+        (gwidth, gheight) = apt.screens()[0].size().toTuple()
+        kfont = gwidth / 1920
+        fkfont = (1.4 - 0.2 * (1 - kfont))/1.4
 
-        #super(wnd, self).__init__(parent, apt)
-        #print(pcatname)
-        #catname= catname.str.strip()
-        #catn = "hjgfjhgfgh"
-        #catname = str(pcatname).
-        #catname=""
+
+
+        super(wnd, self).__init__(parent)
+
 #       Высчитываем количество тем и вопросов
         query2 = QSqlQuery()
         if not query2.exec("SELECT COUNT(DISTINCT Theme) FROM ThemeAndQ WHERE catname = '"+ catname +"' ;"):
@@ -162,7 +161,7 @@ class wnd(QWidget):
             self.temb.setWordWrap(True)
             self.temb.setText(ltxt)
             leghtext= len(ltxt)
-            font.setPointSize(hgt/(leghtext+20))
+            font.setPointSize(hgt*fkfont/(leghtext+20))
             self.temb.setFont(font)
             self.temb.setFrameShape(QFrame.Box)
             self.temb.setAutoFillBackground(True)
@@ -179,7 +178,7 @@ class wnd(QWidget):
                 self.temb.setText(ktxt)
                 self.temb.setAlignment(alignmentc)
                 leghtext= len(ktxt)
-                font.setPointSize(hgt/(leghtext+20)+20)
+                font.setPointSize(hgt*fkfont/(leghtext+20)+20)
                 self.temb.setFont(font)
                 self.temb.setFrameShape(QFrame.Box)
                 self.temb.setAutoFillBackground(True)
@@ -269,11 +268,15 @@ class wnd(QWidget):
                             obj1.setText(str(query.value(4)))
                             ds=len(str(query.value(4)))
                             if ds<40:
-                                cssa = "QLabel { background-color: rgba(0,150,255,180); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: 32px}"
+                                fw=int(32*kfont)
+                                # cssa = "QLabel { background-color: rgba(0,150,255,180); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: "+str(fw)+"px}"
                             elif 40<=ds<=70:
-                                cssa = "QLabel { background-color: rgba(0,150,255,180); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: 22px}"
+                                fw = int(22 * kfont)
+                                # cssa = "QLabel { background-color: rgba(0,150,255,180); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: 22px}"
                             elif ds>70:
-                                cssa = "QLabel { background-color: rgba(0,150,255,180); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: 18px}"
+                                fw = int(18 * kfont)
+                                # cssa = "QLabel { background-color: rgba(0,150,255,180); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: 18px}"
+                            cssa = "QLabel { background-color: rgba(0,150,255,180); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: " + str(fw) + "px}"
                             obj1.setStyleSheet(cssa)
                             obj1.setWordWrap(True)# флаг "невидимости и неактивности"
                             

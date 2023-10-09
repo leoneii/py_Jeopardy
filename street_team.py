@@ -110,6 +110,7 @@ class Wint(QWidget):
         self.contin.setText(cnttxt)
 
     def __init__(self, tkol, parent=None):
+
         global lmaxlw, ccat
         sqlDB = QSqlDatabase.addDatabase('QSQLITE')
         sqlDB.setDatabaseName(os.path.dirname(os.path.abspath(__file__)) + "/./jep.sqlite")
@@ -229,7 +230,7 @@ class Wint(QWidget):
 
             self.tnm = QLabel(self)
             # fnts = 66 - tkolt * 7
-            fnts = int(fw * 1.4)
+            fnts = int(fw * (1.4-0.2*(1-kfont)))
             if fnts>60:
                 fnts=60
 
@@ -287,7 +288,7 @@ class Wint(QWidget):
 
         self.catch = QPushButton(self)
         self.catch.setGeometry(10, mainlogoh + hgt - hgt / 15 - 10, (wdt - 25) / 2,
-                               hgt / 15)
+                               hgt / 15+5)
         fs = int(1.5 * (((wdt - 25) / 2) / (lcnnxt + 2)))
         self.catch.setText("Выбор категории")
         #        self.catch.setStyleSheet("font: bold 34px; border: 1px solid rgba(200,200,255,180); border-top-right-radius: 120px 60px; border-bottom-left-radius: 180px "+str(int(hgt / 15))+"px")
@@ -308,7 +309,7 @@ class Wint(QWidget):
             query1.exec("UPDATE settings SET curCatName= '"+cattxt+"' ;")
 
         self.contin = QPushButton(self)
-        self.contin.setGeometry((wdt - 25) / 2+10, mainlogoh + hgt - hgt / 15 - 10, (wdt - 25) / 2, hgt / 15)
+        self.contin.setGeometry((wdt - 25) / 2+10, mainlogoh + hgt - hgt / 15 - 10, (wdt - 25) / 2, hgt / 15+5)
         self.contin.setText(cnttxt)
 
         self.contin.setStyleSheet("QPushButton {font: bold " + str(
@@ -382,7 +383,10 @@ class Wint(QWidget):
 
 
 if __name__ == "__main__":
+    global gwidth,gheight,kfont
     apt = QApplication([])
+    (gwidth, gheight) = apt.screens()[0].size().toTuple()
+    kfont=gwidth/1920
     wnt = Wint(tkolt)
     wnt.showFullScreen()
     sys.exit(apt.exec())
