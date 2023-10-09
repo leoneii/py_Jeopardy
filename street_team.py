@@ -113,7 +113,7 @@ class Wint(QWidget):
 
         global lmaxlw, ccat
         sqlDB = QSqlDatabase.addDatabase('QSQLITE')
-        sqlDB.setDatabaseName(os.path.dirname(os.path.abspath(__file__)) + "/./jep.sqlite")
+        sqlDB.setDatabaseName("./jep.sqlite")
         sqlDB.open()
         super(Wint, self).__init__(parent)
         # super().__init__()
@@ -133,7 +133,7 @@ class Wint(QWidget):
         mainlogoh = hgt / 5
         self.mainlogo = QLabel(self)
         self.mainlogo.setGeometry(10, 5, wdt - 30, mainlogoh)
-        pixmap = QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/./img/logo/logo.png")
+        pixmap = QPixmap("./img/logo/logo.png")
         pixmap = pixmap.scaled(wdt / 3, hgt / 5 - 15, Qt.KeepAspectRatio)
         self.mainlogo.setPixmap(pixmap)
         alignmentr = Qt.AlignmentFlag.AlignRight
@@ -221,7 +221,7 @@ class Wint(QWidget):
                 self.logo = QLabel(self)
                 self.logo.setGeometry(i * (twdt + 10) + 10, mainlogoh + 10, twdt, hgt / 4 - 10)
                 self.logo.setAlignment(alignmentc)
-                pixmap = QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/./img/logo/" + logo[i])
+                pixmap = QPixmap("./img/logo/" + logo[i])
                 pixmap = pixmap.scaled(twdt, hgt / 4 - 20, Qt.KeepAspectRatio)
                 self.logo.setPixmap(pixmap)
                 self.logo.setStyleSheet(

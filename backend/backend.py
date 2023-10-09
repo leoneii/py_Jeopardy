@@ -20,7 +20,7 @@ class MainWindow(QMainWindow):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
         sqlDB = QSqlDatabase.addDatabase('QSQLITE')
-        sqlDB.setDatabaseName(os.path.dirname(os.path.abspath(__file__))+"/../jep.sqlite")
+        sqlDB.setDatabaseName("../jep.sqlite")
         sqlDB.open()
         self.ui.setupUi(self)
         self.ui.pushButton_Save.setVisible(False)
@@ -69,7 +69,7 @@ class MainWindow(QMainWindow):
         rown = int(self.ui.listView_teams.currentIndex().row())
         rown+=1
         dialog = QFileDialog()
-        dialog.setDirectory(os.path.dirname(os.path.abspath(__file__)) + "/../img/logo")
+        dialog.setDirectory("../img/logo")
         dialog.exec()
         fileName = dialog.selectedFiles()
         if len(fileName)>0:
@@ -85,11 +85,11 @@ class MainWindow(QMainWindow):
             query.exec(txtq)
             query.first()
             self.ui.label_teamLogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            pixmap=QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/logo/" + fileName).scaled(self.ui.label_teamLogo.frameSize(),Qt.KeepAspectRatio)
+            pixmap=QPixmap("../img/logo/" + fileName).scaled(self.ui.label_teamLogo.frameSize(),Qt.KeepAspectRatio)
             self.ui.label_teamLogo.setPixmap(pixmap)
 
             # self.ui.label_teamLogo.setPixmap(
-            #     QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/logo" + fileName).scaled(
+            #     QPixmap("../img/logo" + fileName).scaled(
             #         self.ui.label_questPix.frameSize(), Qt.KeepAspectRatio))
             # self.ui.listView_teams.selectRow(rown-1)
             #self.updateform()
@@ -149,8 +149,8 @@ class MainWindow(QMainWindow):
     def openGame(self):
         dialog = QFileDialog()
         dName=str(dialog.getExistingDirectory(self,"Выбрать папку","./games/"))
-        shutil.copytree(dName+"/img",os.path.dirname(os.path.abspath(__file__))+"/../img",  symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=True)
-        shutil.copyfile(dName+"/jep.sqlite",os.path.dirname(os.path.abspath(__file__)) + "/../jep.sqlite")
+        shutil.copytree(dName+"/img","../img",  symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=True)
+        shutil.copyfile(dName+"/jep.sqlite","../jep.sqlite")
         self.updateform()
         self.selector(0,0)
         
@@ -159,8 +159,8 @@ class MainWindow(QMainWindow):
 
     def saveGame(self):
         fName =str(QInputDialog.getText(None, " Сохраняем игру", "Введите название ")[0])
-        shutil.copytree(os.path.dirname(os.path.abspath(__file__))+"/../img", os.path.dirname(os.path.abspath(__file__))+"/../games/"+fName+"/img", symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=False)
-        shutil.copyfile(os.path.dirname(os.path.abspath(__file__)) + "/../jep.sqlite",os.path.dirname(os.path.abspath(__file__))+"/../games/"+fName+"/jep.sqlite")
+        shutil.copytree("../img", "../games/"+fName+"/img", symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=False)
+        shutil.copyfile("../jep.sqlite","../games/"+fName+"/jep.sqlite")
         self.selector(0,0)
 
 
@@ -215,7 +215,7 @@ class MainWindow(QMainWindow):
         indexT=self.ui.tableView_themeTable.currentIndex()
         indexQ=self.ui.tableView_questTable.currentIndex()
         dialog = QFileDialog()
-        dialog.setDirectory(os.path.dirname(os.path.abspath(__file__))+"/../img")
+        dialog.setDirectory("../img")
         dialog.exec()
         fileName = dialog.selectedFiles()
         s = str(fileName)
@@ -231,7 +231,7 @@ class MainWindow(QMainWindow):
                         model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
                                 0)) + "';")
         self.ui.label_questPix.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.ui.label_questPix.setPixmap(QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/"+fileName).scaled(self.ui.label_questPix.frameSize(),Qt.KeepAspectRatio))
+        self.ui.label_questPix.setPixmap(QPixmap("../img/"+fileName).scaled(self.ui.label_questPix.frameSize(),Qt.KeepAspectRatio))
         self.selector(indexT.row(),indexQ.row())
 
     def delQpix(self):
@@ -249,7 +249,7 @@ class MainWindow(QMainWindow):
         indexT=self.ui.tableView_themeTable.currentIndex()
         indexQ=self.ui.tableView_questTable.currentIndex()
         dialog = QFileDialog()
-        dialog.setDirectory(os.path.dirname(os.path.abspath(__file__))+"/../img")
+        dialog.setDirectory("../img")
         dialog.exec()
         fileName = dialog.selectedFiles()
         s = str(fileName)
@@ -265,7 +265,7 @@ class MainWindow(QMainWindow):
                         model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
                                 0)) + "';")
         self.ui.label_answerPix.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.ui.label_answerPix.setPixmap(QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/"+fileName).scaled(self.ui.label_answerPix.frameSize(),Qt.KeepAspectRatio))
+        self.ui.label_answerPix.setPixmap(QPixmap("../img/"+fileName).scaled(self.ui.label_answerPix.frameSize(),Qt.KeepAspectRatio))
         self.selector(indexT.row(),indexQ.row())
         
     def delApix(self):
@@ -283,7 +283,7 @@ class MainWindow(QMainWindow):
         indexT=self.ui.tableView_themeTable.currentIndex()
         indexQ=self.ui.tableView_questTable.currentIndex()   
         dialog = QFileDialog()
-        dialog.setDirectory(os.path.dirname(os.path.abspath(__file__))+"/../img")
+        dialog.setDirectory("../img")
         dialog.exec()
         fileName = dialog.selectedFiles()
         s = str(fileName)
@@ -299,7 +299,7 @@ class MainWindow(QMainWindow):
                         model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
                                 0)) + "';")
         self.ui.label_toolPix.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.ui.label_toolPix.setPixmap(QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/"+fileName).scaled(self.ui.label_toolPix.frameSize(),Qt.KeepAspectRatio))
+        self.ui.label_toolPix.setPixmap(QPixmap("../img/"+fileName).scaled(self.ui.label_toolPix.frameSize(),Qt.KeepAspectRatio))
         self.selector(indexT.row(),indexQ.row()) 
 
     def delTpix(self):
@@ -606,7 +606,7 @@ class MainWindow(QMainWindow):
         query.exec("SELECT Logo FROM Teams WHERE Id="+str(rown)+";")
         query.first()
         fileName=str(query.value(0))
-        pixmap = QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/logo/" + fileName).scaled(
+        pixmap = QPixmap("../img/logo/" + fileName).scaled(
             self.ui.label_teamLogo.frameSize(), Qt.KeepAspectRatio)
         self.ui.label_teamLogo.setPixmap(pixmap)
 
@@ -648,15 +648,15 @@ class MainWindow(QMainWindow):
             logging.error("Failed to query database") 
         query.first()
 
-        pixQ = QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/" + str(query.value(3)) )
+        pixQ = QPixmap("../img/" + str(query.value(3)) )
         self.ui.label_questPix.setAlignment( Qt.AlignmentFlag.AlignCenter)
         self.ui.label_questPix.setPixmap(pixQ.scaled(self.ui.label_questPix.frameSize(),Qt.KeepAspectRatio))
 
-        pixA = QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/" + str(query.value(5)) )
+        pixA = QPixmap("../img/" + str(query.value(5)) )
         self.ui.label_answerPix.setAlignment( Qt.AlignmentFlag.AlignCenter)
         self.ui.label_answerPix.setPixmap(pixA.scaled(self.ui.label_questPix.frameSize(),Qt.KeepAspectRatio))
 
-        pixT = QPixmap(os.path.dirname(os.path.abspath(__file__)) + "/../img/" + str(query.value(9)) )
+        pixT = QPixmap("../img/" + str(query.value(9)) )
         self.ui.label_toolPix.setAlignment( Qt.AlignmentFlag.AlignCenter)
         self.ui.label_toolPix.setPixmap(pixT.scaled(self.ui.label_questPix.frameSize(),Qt.KeepAspectRatio))
         

@@ -55,7 +55,7 @@ class winq(QWidget):
 
 
 # закончили с фоном
-    def __init__(self,apt,ynph,txt,ynpha_l, txta_l,ttq_l,txtp_l,cpd_l,cost_l):
+    def __init__(self,apt,ynph_1,txt,ynpha_l, txta_l,ttq_l,txtp_l,cpd_l,ynpht_1,cost_l):
         #txtp текст подсказки
         #cpd цена подсказки
         global kfont,fkfont
@@ -66,12 +66,13 @@ class winq(QWidget):
 
         global txtp, cpd, cost
         global txta, wdt, hgt
-        global ynpha, ynp
+        global ynpha, ynph, ynpht
         global ttq #время таймера
-        ynp=ynph
         ttq=ttq_l*10
         txta=txta_l
+        ynpht=ynpht_1
         ynpha=ynpha_l
+        ynph=ynph_1
         txtp=txtp_l
         cpd=cpd_l
         cost = cost_l
@@ -85,14 +86,13 @@ class winq(QWidget):
         # color: #ddFFaa;
         # font-family: Arial;
         # """)
-
+        self.photo=QLabel(self)
+        self.photo.setAlignment(self.alignmentc)
+        self.photo.setGeometry(QRect(100, 20, wdt-200, hgt*2/3-100))
+        self.photo.setStyleSheet("background-color: rgba(0,0,80,5)")
         #Фото
         if len(ynph) > 0:
-            self.photo=QLabel(self)
-            self.photo.setAlignment(self.alignmentc)
-            self.photo.setGeometry(QRect(100, 20, wdt-200, hgt*2/3-100))
-            self.photo.setStyleSheet("background-color: rgba(0,0,80,5)")
-            pixmap=QPixmap(os.path.dirname(os.path.abspath(__file__))+"/./img/"+ynph)
+            pixmap=QPixmap("./img/"+ynph)
             pixmap = pixmap.scaled(900, hgt*2/3-40, Qt.KeepAspectRatio)
             self.photo.setPixmap(pixmap)
 #Конец фото
@@ -109,17 +109,17 @@ class winq(QWidget):
         self.textv.setText(txt)
         leghtext= len(txt)
         if leghtext>250:
-            if phyn==1:
+            if len(ynph) > 0:
                 fs = int(40*kfont)
             else:
                 fs = int(54*kfont)
         elif leghtext in range(100,250):
-            if phyn==1:
+            if len(ynph) > 0:
                 fs = int(54*kfont)
             else:
                 fs = int(60*kfont)
         elif leghtext in range(1,99):
-            if phyn==1:
+            if len(ynph) > 0:
                 fs = int(60*kfont)
             else:
                 fs = int(70*kfont)
@@ -165,7 +165,7 @@ class winq(QWidget):
         self.step = 0
         self.timer = QTimer(self)                               # 4
         self.timer.timeout.connect(self.update_func)
-        icon = QIcon("img/icon/timerw.png")
+        icon = QIcon("./img/icon/timerw.png")
         self.ss_button = QPushButton(icon,"", self)             # 5
         self.ss_button.clicked.connect(self.start_stop_func)
         self.nxt_button = QPushButton('Ответ', self)          # 6
@@ -192,37 +192,46 @@ class winq(QWidget):
 # Использование подсказки
     def tl_func(self):
         query2 = QSqlQuery()
-        quetext = "UPDATE settings set tmpDat1 =" + str(int(cost) - int(cpd)) + ";"
-        if not query2.exec(quetext):
+        if not query2.exec("UPDATE settings set tmpDat1 =" + str(int(cost) - int(cpd)) + ";"):
             logging.error("Failed to query database9")
         # txtpd=self.textv.text()
         # txtpd+="\n\n"+txtp
-        txtpd=txtp
-        self.textv.setText(txtpd)
+        #txtpd=txtp
+        if len(ynpht) > 0:
+            self.textv.setGeometry(QRect(120, hgt*2/3-20, wdt-240, hgt/3-40))
+            pixmap=QPixmap("./img/"+ynpht)
+            self.photo.setPixmap(pixmap)
+            self.photo.setVisible(True) 
+        else:
+            self.textv.setGeometry(QRect(130, 20, wdt-260, hgt-40))
+            self.photo.setVisible(False) 
 
+        self.textv.setText(txtp)
         self.tl_button.setVisible(False)
-        if len(ynpha) > 0:
-            self.textv.setGeometry(QRect(120, hgt/2, wdt-240, hgt/2-40))
-            self.photo.setGeometry(QRect(120, 20, wdt - 240, hgt / 2 - 40))
-            leghtext = len(txtpd)
-            if leghtext > 250:
-                if phyn == 1:
-                    fs = int(40 * kfont)
-                else:
-                    fs = int(54 * kfont)
-            elif leghtext in range(100, 250):
-                if phyn == 1:
-                    fs = int(54 * kfont)
-                else:
-                    fs = int(60 * kfont)
-            elif leghtext in range(1, 99):
-                if phyn == 1:
-                    fs = int(60 * kfont)
-                else:
-                    fs = int(70 * kfont)
+        leghtext = len(txtp)
+        
+        if leghtext > 250:
+            if len(ynpht) > 0:
+                fs = int(40 * kfont)
+            else:
+                fs = int(54 * kfont)
+        elif leghtext in range(100, 250):
+            if len(ynpht) > 0:
+                fs = int(54 * kfont)
+            else:
+                fs = int(60 * kfont)
+        elif leghtext in range(1, 99):
+            if len(ynpht) > 0:
+                fs = int(60 * kfont)
+            else:
+                fs = int(70 * kfont)
 
-            tfs = "background-color: rgba(0,0,80,0); color: rgba(225,255,255,255); border:0px solid black;font-size:" + str(fs) + "px"
-            self.textv.setStyleSheet(tfs)
+        tfs = "background-color: rgba(0,0,80,0); color: rgba(225,255,255,255); border:0px solid black;font-size:" + str(fs) + "px"
+        self.textv.setFont(self.font)
+        self.textv.setFrameShape(QFrame.Box)
+        self.textv.setAutoFillBackground(True)
+        self.textv.setStyleSheet(tfs)
+            
     def start_stop_func(self):
         self.ss_button.setIconSize(QSize(0,0))
         if self.ss_button.text() == '':
@@ -251,19 +260,16 @@ class winq(QWidget):
 
         wdt=self.size().width()
         hgt=self.size().height()
-
+        self.textv.setText(txta)
         if len(ynpha) > 0:
-            pixmap=QPixmap(os.path.dirname(os.path.abspath(__file__))+"/./img/"+ynpha)
+            pixmap=QPixmap("./img/"+ynpha)
             self.photo.setPixmap(pixmap)
-            self.textv.setText(txta)
             self.textv.setGeometry(QRect(120, hgt*2/3-20, wdt-240, hgt/3-40))
+            self.photo.setVisible(True) 
         else:
             self.textv.setGeometry(QRect(120, 20, wdt-240, hgt-100))
-            self.textv.setText(txta)
-        if (len(ynp))==0:
-            self.textv.setGeometry(QRect(120, 20, wdt-240, hgt-100))
-        else:
-            self.photo.setVisible(False)    
+            self.photo.setVisible(False) 
+
         self.textv.setText(txta)
 
         self.ss_button.setVisible(False)
@@ -272,18 +278,8 @@ class winq(QWidget):
 
         self.nxt_button.setText('Далее')
         self.nxt_button.clicked.connect(self.nxta_func)
+        
     def nxta_func(self):
-        # wdt=self.size().width()
-        # hgt=self.size().height()
-        # if self.ynph==1:
-        #     pixmap=QPixmap("img/tree.jpg")
-        #     self.photo.setPixmap(pixmap)
-
-        # if self.ynph==1:
-        #     self.textv.setGeometry(QRect(100, hgt*2/3+20, wdt-200, hgt/3-40))
-        # else:
-        #     self.textv.setGeometry(QRect(100, 20, wdt-200, hgt-40))
-        #     self.textv.setText(self.txt)
         self.tmr.stop()
         self.ss_button.setVisible(True)
         self.progressbar.setVisible(True)

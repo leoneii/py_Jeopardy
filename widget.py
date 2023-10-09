@@ -17,7 +17,7 @@ cenv=0
 #global sqlDB
 QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
 sqlDB = QSqlDatabase.addDatabase('QSQLITE')
-sqlDB.setDatabaseName(os.path.dirname(os.path.abspath(__file__))+"/./jep.sqlite")
+sqlDB.setDatabaseName("./jep.sqlite")
 sqlDB.open()
 
 #переменные
@@ -254,7 +254,7 @@ class wnd(QWidget):
                             query.seek(int(obj.objectName())) #переходим к конкретной строке БД
                             global newwind
 #                            newwind = winq(app, str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq,str(query.value(6)),str(query.value(7)))
-                            newwind = winq(appt,str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)), ttq, str(query.value(6)), str(query.value(7)), str(query.value(2)))
+                            newwind = winq(appt,str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)), ttq, str(query.value(6)), str(query.value(7)), str(query.value(9)), str(query.value(2)))
                             newwind.showFullScreen()
                             cnv=query.value(2)
                             query1=QSqlQuery()
