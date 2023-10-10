@@ -28,13 +28,13 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1528, 895)
+        MainWindow.resize(1488, 931)
         sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QSize(0, 600))
+        MainWindow.setMinimumSize(QSize(0, 0))
         MainWindow.setMaximumSize(QSize(16777215, 100000))
         self.action_openGame = QAction(MainWindow)
         self.action_openGame.setObjectName(u"action_openGame")
@@ -60,7 +60,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.splitter_2 = QSplitter(self.centralwidget)
         self.splitter_2.setObjectName(u"splitter_2")
-        self.splitter_2.setMaximumSize(QSize(21010, 1000))
+        self.splitter_2.setMaximumSize(QSize(21002, 1000))
         self.splitter_2.setOrientation(Qt.Horizontal)
         self.groupBox_6 = QGroupBox(self.splitter_2)
         self.groupBox_6.setObjectName(u"groupBox_6")
@@ -69,7 +69,7 @@ class Ui_MainWindow(object):
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.groupBox_6.sizePolicy().hasHeightForWidth())
         self.groupBox_6.setSizePolicy(sizePolicy2)
-        self.groupBox_6.setMinimumSize(QSize(400, 0))
+        self.groupBox_6.setMinimumSize(QSize(300, 0))
         self.groupBox_6.setMaximumSize(QSize(600, 16777215))
         self.verticalLayout = QVBoxLayout(self.groupBox_6)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -258,9 +258,14 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_11.addWidget(self.textEdit_questText)
 
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.label_questPix = QLabel(self.groupBox_4)
+        self.frame_4 = QFrame(self.groupBox_4)
+        self.frame_4.setObjectName(u"frame_4")
+        self.frame_4.setMinimumSize(QSize(100, 0))
+        self.frame_4.setFrameShape(QFrame.StyledPanel)
+        self.frame_4.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_11 = QVBoxLayout(self.frame_4)
+        self.verticalLayout_11.setObjectName(u"verticalLayout_11")
+        self.label_questPix = QLabel(self.frame_4)
         self.label_questPix.setObjectName(u"label_questPix")
         self.label_questPix.setMinimumSize(QSize(180, 100))
         self.label_questPix.setMaximumSize(QSize(230, 200))
@@ -268,12 +273,17 @@ class Ui_MainWindow(object):
         self.label_questPix.setScaledContents(False)
         self.label_questPix.setWordWrap(False)
 
-        self.horizontalLayout.addWidget(self.label_questPix)
+        self.verticalLayout_11.addWidget(self.label_questPix)
 
+
+        self.horizontalLayout_11.addWidget(self.frame_4)
+
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.frame_Qpix = QFrame(self.groupBox_4)
         self.frame_Qpix.setObjectName(u"frame_Qpix")
         self.frame_Qpix.setEnabled(False)
-        self.frame_Qpix.setMinimumSize(QSize(100, 0))
+        self.frame_Qpix.setMinimumSize(QSize(0, 0))
         self.frame_Qpix.setMaximumSize(QSize(1000, 1000))
         self.frame_Qpix.setFrameShape(QFrame.StyledPanel)
         self.frame_Qpix.setFrameShadow(QFrame.Raised)
@@ -322,12 +332,6 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_3.addWidget(self.checkBox_isBonus)
 
-        self.label_13 = QLabel(self.groupBox_4)
-        self.label_13.setObjectName(u"label_13")
-        self.label_13.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
-
-        self.horizontalLayout_3.addWidget(self.label_13)
-
         self.spinBox_costQuest = QSpinBox(self.groupBox_4)
         self.spinBox_costQuest.setObjectName(u"spinBox_costQuest")
         self.spinBox_costQuest.setEnabled(False)
@@ -356,23 +360,33 @@ class Ui_MainWindow(object):
         self.textEdit_answerText.setObjectName(u"textEdit_answerText")
         self.textEdit_answerText.setEnabled(False)
         self.textEdit_answerText.setMinimumSize(QSize(0, 100))
-        self.textEdit_answerText.setMaximumSize(QSize(1000, 16777215))
+        self.textEdit_answerText.setMaximumSize(QSize(1000, 1000))
         self.textEdit_answerText.setFont(font1)
         self.textEdit_answerText.setStyleSheet(u"color: rgb(1, 27, 113);")
 
         self.horizontalLayout_12.addWidget(self.textEdit_answerText)
 
-        self.horizontalLayout_2 = QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.label_answerPix = QLabel(self.groupBox_4)
+        self.frame_5 = QFrame(self.groupBox_4)
+        self.frame_5.setObjectName(u"frame_5")
+        self.frame_5.setMinimumSize(QSize(100, 0))
+        self.frame_5.setFrameShape(QFrame.StyledPanel)
+        self.frame_5.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_12 = QVBoxLayout(self.frame_5)
+        self.verticalLayout_12.setObjectName(u"verticalLayout_12")
+        self.label_answerPix = QLabel(self.frame_5)
         self.label_answerPix.setObjectName(u"label_answerPix")
         self.label_answerPix.setMinimumSize(QSize(180, 100))
         self.label_answerPix.setMaximumSize(QSize(230, 200))
         self.label_answerPix.setPixmap(QPixmap(u"../testpy8/img/gepard.webp"))
         self.label_answerPix.setScaledContents(False)
 
-        self.horizontalLayout_2.addWidget(self.label_answerPix)
+        self.verticalLayout_12.addWidget(self.label_answerPix)
 
+
+        self.horizontalLayout_12.addWidget(self.frame_5)
+
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.frame_Apix = QFrame(self.groupBox_4)
         self.frame_Apix.setObjectName(u"frame_Apix")
         self.frame_Apix.setEnabled(False)
@@ -424,22 +438,32 @@ class Ui_MainWindow(object):
         self.textEdit_tooltipText.setObjectName(u"textEdit_tooltipText")
         self.textEdit_tooltipText.setEnabled(True)
         self.textEdit_tooltipText.setMinimumSize(QSize(0, 100))
-        self.textEdit_tooltipText.setMaximumSize(QSize(1000, 16777215))
+        self.textEdit_tooltipText.setMaximumSize(QSize(1000, 1000))
         self.textEdit_tooltipText.setFont(font1)
         self.textEdit_tooltipText.setStyleSheet(u"color: rgb(1, 27, 113);")
 
         self.horizontalLayout_13.addWidget(self.textEdit_tooltipText)
 
-        self.horizontalLayout_10 = QHBoxLayout()
-        self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
-        self.label_toolPix = QLabel(self.groupBox_4)
+        self.frame_6 = QFrame(self.groupBox_4)
+        self.frame_6.setObjectName(u"frame_6")
+        self.frame_6.setMinimumSize(QSize(100, 0))
+        self.frame_6.setFrameShape(QFrame.StyledPanel)
+        self.frame_6.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_17 = QHBoxLayout(self.frame_6)
+        self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
+        self.label_toolPix = QLabel(self.frame_6)
         self.label_toolPix.setObjectName(u"label_toolPix")
         self.label_toolPix.setMinimumSize(QSize(180, 100))
         self.label_toolPix.setMaximumSize(QSize(230, 200))
         self.label_toolPix.setScaledContents(False)
 
-        self.horizontalLayout_10.addWidget(self.label_toolPix)
+        self.horizontalLayout_17.addWidget(self.label_toolPix)
 
+
+        self.horizontalLayout_13.addWidget(self.frame_6)
+
+        self.horizontalLayout_10 = QHBoxLayout()
+        self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
         self.frame_Tpix = QFrame(self.groupBox_4)
         self.frame_Tpix.setObjectName(u"frame_Tpix")
         self.frame_Tpix.setEnabled(False)
@@ -532,38 +556,24 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addItem(self.verticalSpacer_5)
 
         self.splitter_2.addWidget(self.groupBox_4)
-        self.toolBox_addTeamLogo = QToolBox(self.splitter_2)
-        self.toolBox_addTeamLogo.setObjectName(u"toolBox_addTeamLogo")
+        self.toolBox = QToolBox(self.splitter_2)
+        self.toolBox.setObjectName(u"toolBox")
         sizePolicy7 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
         sizePolicy7.setHorizontalStretch(0)
         sizePolicy7.setVerticalStretch(0)
-        sizePolicy7.setHeightForWidth(self.toolBox_addTeamLogo.sizePolicy().hasHeightForWidth())
-        self.toolBox_addTeamLogo.setSizePolicy(sizePolicy7)
-        self.toolBox_addTeamLogo.setMinimumSize(QSize(300, 0))
-        self.toolBox_addTeamLogo.setMaximumSize(QSize(400, 1000))
-        self.toolBox_addTeamLogo.setFont(font1)
-        self.toolBox_addTeamLogo.setFrameShape(QFrame.WinPanel)
-        self.toolBox_addTeamLogo.setFrameShadow(QFrame.Raised)
-        self.toolBox_addTeamLogo.setLineWidth(2)
+        sizePolicy7.setHeightForWidth(self.toolBox.sizePolicy().hasHeightForWidth())
+        self.toolBox.setSizePolicy(sizePolicy7)
+        self.toolBox.setMinimumSize(QSize(250, 0))
+        self.toolBox.setMaximumSize(QSize(400, 1000))
+        self.toolBox.setFont(font1)
+        self.toolBox.setFrameShape(QFrame.WinPanel)
+        self.toolBox.setFrameShadow(QFrame.Raised)
+        self.toolBox.setLineWidth(2)
         self.page = QWidget()
         self.page.setObjectName(u"page")
-        self.page.setGeometry(QRect(0, 0, 372, 748))
-        self.gridLayout_4 = QGridLayout(self.page)
-        self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.pushButton_delTeamLogo = QPushButton(self.page)
-        self.pushButton_delTeamLogo.setObjectName(u"pushButton_delTeamLogo")
-        font3 = QFont()
-        font3.setPointSize(8)
-        self.pushButton_delTeamLogo.setFont(font3)
-
-        self.gridLayout_4.addWidget(self.pushButton_delTeamLogo, 4, 2, 1, 1)
-
-        self.pushButton_addTeamLogo = QPushButton(self.page)
-        self.pushButton_addTeamLogo.setObjectName(u"pushButton_addTeamLogo")
-        self.pushButton_addTeamLogo.setFont(font3)
-
-        self.gridLayout_4.addWidget(self.pushButton_addTeamLogo, 3, 2, 1, 1)
-
+        self.page.setGeometry(QRect(0, 0, 354, 769))
+        self.verticalLayout_9 = QVBoxLayout(self.page)
+        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
         self.groupBox_2 = QGroupBox(self.page)
         self.groupBox_2.setObjectName(u"groupBox_2")
         self.groupBox_2.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
@@ -573,6 +583,8 @@ class Ui_MainWindow(object):
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.pushButton_editTeam = QPushButton(self.groupBox_2)
         self.pushButton_editTeam.setObjectName(u"pushButton_editTeam")
+        font3 = QFont()
+        font3.setPointSize(8)
         self.pushButton_editTeam.setFont(font3)
 
         self.gridLayout_3.addWidget(self.pushButton_editTeam, 4, 0, 1, 2)
@@ -600,37 +612,72 @@ class Ui_MainWindow(object):
         self.gridLayout_3.addWidget(self.pushButton_addTeam, 3, 0, 1, 1)
 
 
-        self.gridLayout_4.addWidget(self.groupBox_2, 0, 0, 1, 3)
+        self.verticalLayout_9.addWidget(self.groupBox_2)
+
+        self.label = QLabel(self.page)
+        self.label.setObjectName(u"label")
+        self.label.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.verticalLayout_9.addWidget(self.label)
+
+        self.horizontalLayout_16 = QHBoxLayout()
+        self.horizontalLayout_16.setObjectName(u"horizontalLayout_16")
+        self.frame_3 = QFrame(self.page)
+        self.frame_3.setObjectName(u"frame_3")
+        self.frame_3.setFrameShape(QFrame.StyledPanel)
+        self.frame_3.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_10 = QVBoxLayout(self.frame_3)
+        self.verticalLayout_10.setObjectName(u"verticalLayout_10")
+        self.label_teamLogo = QLabel(self.frame_3)
+        self.label_teamLogo.setObjectName(u"label_teamLogo")
+        sizePolicy1.setHeightForWidth(self.label_teamLogo.sizePolicy().hasHeightForWidth())
+        self.label_teamLogo.setSizePolicy(sizePolicy1)
+        self.label_teamLogo.setMinimumSize(QSize(120, 120))
+        self.label_teamLogo.setMaximumSize(QSize(16777215, 200))
+        self.label_teamLogo.setScaledContents(True)
+
+        self.verticalLayout_10.addWidget(self.label_teamLogo)
+
+
+        self.horizontalLayout_16.addWidget(self.frame_3)
+
+        self.frame = QFrame(self.page)
+        self.frame.setObjectName(u"frame")
+        self.frame.setMaximumSize(QSize(100, 16777215))
+        self.frame.setFrameShape(QFrame.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_8 = QVBoxLayout(self.frame)
+        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
+        self.pushButton_addTeamLogo = QPushButton(self.frame)
+        self.pushButton_addTeamLogo.setObjectName(u"pushButton_addTeamLogo")
+        sizePolicy2.setHeightForWidth(self.pushButton_addTeamLogo.sizePolicy().hasHeightForWidth())
+        self.pushButton_addTeamLogo.setSizePolicy(sizePolicy2)
+        self.pushButton_addTeamLogo.setMaximumSize(QSize(16777215, 16777215))
+
+        self.verticalLayout_8.addWidget(self.pushButton_addTeamLogo)
+
+        self.pushButton_delTeamLogo = QPushButton(self.frame)
+        self.pushButton_delTeamLogo.setObjectName(u"pushButton_delTeamLogo")
+        sizePolicy2.setHeightForWidth(self.pushButton_delTeamLogo.sizePolicy().hasHeightForWidth())
+        self.pushButton_delTeamLogo.setSizePolicy(sizePolicy2)
+        self.pushButton_delTeamLogo.setMaximumSize(QSize(16777215, 16777215))
+
+        self.verticalLayout_8.addWidget(self.pushButton_delTeamLogo)
+
+
+        self.horizontalLayout_16.addWidget(self.frame)
+
+
+        self.verticalLayout_9.addLayout(self.horizontalLayout_16)
 
         self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.gridLayout_4.addItem(self.verticalSpacer_3, 7, 0, 1, 1)
+        self.verticalLayout_9.addItem(self.verticalSpacer_3)
 
-        self.label_teamLogo = QLabel(self.page)
-        self.label_teamLogo.setObjectName(u"label_teamLogo")
-        sizePolicy6.setHeightForWidth(self.label_teamLogo.sizePolicy().hasHeightForWidth())
-        self.label_teamLogo.setSizePolicy(sizePolicy6)
-        self.label_teamLogo.setMinimumSize(QSize(180, 180))
-        self.label_teamLogo.setMaximumSize(QSize(230, 230))
-        self.label_teamLogo.setScaledContents(False)
-
-        self.gridLayout_4.addWidget(self.label_teamLogo, 3, 0, 4, 2)
-
-        self.label_teamLogoTxt = QLabel(self.page)
-        self.label_teamLogoTxt.setObjectName(u"label_teamLogoTxt")
-        font4 = QFont()
-        font4.setPointSize(9)
-        font4.setBold(True)
-        self.label_teamLogoTxt.setFont(font4)
-        self.label_teamLogoTxt.setStyleSheet(u"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 80), stop:1 rgba(255, 255, 255, 155));")
-        self.label_teamLogoTxt.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
-
-        self.gridLayout_4.addWidget(self.label_teamLogoTxt, 2, 0, 1, 3)
-
-        self.toolBox_addTeamLogo.addItem(self.page, u"\u041a\u043e\u043c\u0430\u043d\u0434\u044b")
+        self.toolBox.addItem(self.page, u"\u041a\u043e\u043c\u0430\u043d\u0434\u044b")
         self.page_3 = QWidget()
         self.page_3.setObjectName(u"page_3")
-        self.page_3.setGeometry(QRect(0, 0, 372, 748))
+        self.page_3.setGeometry(QRect(0, 0, 354, 769))
         self.gridLayout_5 = QGridLayout(self.page_3)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.horizontalSpacer_5 = QSpacerItem(77, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -721,19 +768,19 @@ class Ui_MainWindow(object):
 
         self.gridLayout_5.addItem(self.verticalSpacer_2, 7, 1, 1, 1)
 
-        self.toolBox_addTeamLogo.addItem(self.page_3, u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430")
+        self.toolBox.addItem(self.page_3, u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430")
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
-        self.page_2.setGeometry(QRect(0, 0, 372, 748))
-        self.toolBox_addTeamLogo.addItem(self.page_2, u"\u042d\u043a\u0441\u043f\u043e\u0440\u0442")
-        self.splitter_2.addWidget(self.toolBox_addTeamLogo)
+        self.page_2.setGeometry(QRect(0, 0, 354, 769))
+        self.toolBox.addItem(self.page_2, u"\u042d\u043a\u0441\u043f\u043e\u0440\u0442")
+        self.splitter_2.addWidget(self.toolBox)
 
         self.verticalLayout_5.addWidget(self.splitter_2)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1528, 21))
+        self.menubar.setGeometry(QRect(0, 0, 1488, 30))
         self.menu = QMenu(self.menubar)
         self.menu.setObjectName(u"menu")
         self.menu_2 = QMenu(self.menubar)
@@ -756,7 +803,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.toolBox_addTeamLogo.setCurrentIndex(0)
+        self.toolBox.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -790,11 +837,10 @@ class Ui_MainWindow(object):
         self.pushButton_delQ.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0433\u0440\u0443\u043f\u043f\u0443 \u0432\u043e\u043f\u0440\u043e\u0441\u043e\u0432 \u0442\u0435\u043a\u0443\u0449\u0435\u0439 \u0446\u0435\u043d\u044b", None))
         self.groupBox_4.setTitle("")
         self.label_questText.setText(QCoreApplication.translate("MainWindow", u"\u0412\u043e\u043f\u0440\u043e\u0441", None))
-        self.textEdit_questText.setDocumentTitle(QCoreApplication.translate("MainWindow", u"\u0412\u043e\u043f\u0440\u043e\u0441", None))
         self.textEdit_questText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><title>\u0412\u043e\u043f\u0440\u043e\u0441</title><style type=\"text/css\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:'Noto Sans'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sans Serif';\">\u0428\u0442\u043e \u0437\u0430 \u0441\u043e\u0431\u0430\u043a\u0430</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif';\"><br /></p></body></html>", None))
         self.label_questPix.setText("")
@@ -802,12 +848,11 @@ class Ui_MainWindow(object):
         self.toolButton_selQpix.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c", None))
         self.toolButton_delQpix.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.checkBox_isBonus.setText(QCoreApplication.translate("MainWindow", u"\u0411\u043e\u043d\u0443\u0441\u043d\u044b\u0439 \u0432\u043e\u043f\u0440\u043e\u0441", None))
-        self.label_13.setText(QCoreApplication.translate("MainWindow", u"    \u0426\u0435\u043d\u0430 \u0432\u043e\u043f\u0440\u043e\u0441\u0430", None))
         self.label_answerText.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u0432\u0435\u0442", None))
         self.textEdit_answerText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:'Noto Sans'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sans Serif';\">\u0421\u043e\u0431\u0430\u043a\u0430 \u043b\u0435\u0436\u0430\u043a\u0430</span></p></body></html>", None))
         self.label_answerPix.setText("")
         self.label_answPict.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435", None))
@@ -823,15 +868,15 @@ class Ui_MainWindow(object):
         self.pushButton_Save.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
         self.pushButton_editQ.setText(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c", None))
         self.pushButton_Cancel.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u043c\u0435\u043d\u0438\u0442\u044c", None))
-        self.pushButton_delTeamLogo.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
-        self.pushButton_addTeamLogo.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c/\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c", None))
         self.groupBox_2.setTitle("")
         self.pushButton_editTeam.setText(QCoreApplication.translate("MainWindow", u"\u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c", None))
         self.pushButton_delTeam.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
         self.pushButton_addTeam.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\u041b\u043e\u0433\u043e\u0442\u0438\u043f \u043a\u043e\u043c\u0430\u043d\u0434\u044b", None))
         self.label_teamLogo.setText("")
-        self.label_teamLogoTxt.setText(QCoreApplication.translate("MainWindow", u"\u041b\u043e\u0433\u043e\u0442\u0438\u043f \u043a\u043e\u043c\u0430\u043d\u0434\u044b", None))
-        self.toolBox_addTeamLogo.setItemText(self.toolBox_addTeamLogo.indexOf(self.page), QCoreApplication.translate("MainWindow", u"\u041a\u043e\u043c\u0430\u043d\u0434\u044b", None))
+        self.pushButton_addTeamLogo.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c", None))
+        self.pushButton_delTeamLogo.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
+        self.toolBox.setItemText(self.toolBox.indexOf(self.page), QCoreApplication.translate("MainWindow", u"\u041a\u043e\u043c\u0430\u043d\u0434\u044b", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u0441\u0442\u0443\u043f\u044b ", None))
@@ -839,8 +884,8 @@ class Ui_MainWindow(object):
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u0422\u0430\u0439\u043c\u0435\u0440 \u043e\u0442\u0432\u0435\u0442\u0430, \u0441\u0435\u043a.", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.pushButton_saveSet.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
-        self.toolBox_addTeamLogo.setItemText(self.toolBox_addTeamLogo.indexOf(self.page_3), QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430", None))
-        self.toolBox_addTeamLogo.setItemText(self.toolBox_addTeamLogo.indexOf(self.page_2), QCoreApplication.translate("MainWindow", u"\u042d\u043a\u0441\u043f\u043e\u0440\u0442", None))
+        self.toolBox.setItemText(self.toolBox.indexOf(self.page_3), QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430", None))
+        self.toolBox.setItemText(self.toolBox.indexOf(self.page_2), QCoreApplication.translate("MainWindow", u"\u042d\u043a\u0441\u043f\u043e\u0440\u0442", None))
         self.menu.setTitle(QCoreApplication.translate("MainWindow", u"\u0418\u0433\u0440\u0430", None))
         self.menu_2.setTitle(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u043c\u043e\u0449\u044c", None))
     # retranslateUi

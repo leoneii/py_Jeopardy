@@ -55,6 +55,7 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_addTeamLogo.clicked.connect(self.addTeamLogo)
         self.ui.pushButton_delTeamLogo.clicked.connect(self.delTeamLogo)
         self.ui.testButton.setVisible(False)
+        self.ui.spinBox_costQuest.setVisible(False)
         self.textQpix = ""
         self.textApix = ""
         self.textTpix = ""
@@ -67,6 +68,9 @@ class MainWindow(QMainWindow):
 
     def addTeamLogo(self):
         rown = int(self.ui.listView_teams.currentIndex().row())
+        if (rown==-1):
+           QMessageBox.warning(self,"Внимание!","Не выбрана команда для изменения логотипа")
+           return()   
         rown+=1
         dialog = QFileDialog()
         dialog.setDirectory("../img/logo")
@@ -96,6 +100,9 @@ class MainWindow(QMainWindow):
 
     def delTeamLogo(self):
         rown = int(self.ui.listView_teams.currentIndex().row())
+        if (rown==-1):
+           QMessageBox.warning(self,"Внимание!","Не выбрана команда для удаления логотипа")
+           return()  
         rown += 1
         dialog = QMessageBox()
         dialog.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel);
@@ -818,5 +825,5 @@ class newDialog(QDialog):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     widget = MainWindow()
-    widget.show()
+    widget.showMaximized()
     sys.exit(app.exec())
