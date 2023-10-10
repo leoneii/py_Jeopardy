@@ -448,6 +448,9 @@ p, li { white-space: pre-wrap; }
               <property name="frameShadow">
                <enum>QFrame::Raised</enum>
               </property>
+              <property name="lineWidth">
+               <number>2</number>
+              </property>
               <layout class="QVBoxLayout" name="verticalLayout_11">
                <item>
                 <widget class="QLabel" name="label_questPix">
@@ -462,6 +465,9 @@ p, li { white-space: pre-wrap; }
                    <width>230</width>
                    <height>200</height>
                   </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::NoFrame</enum>
                  </property>
                  <property name="text">
                   <string/>
@@ -664,6 +670,9 @@ p, li { white-space: pre-wrap; }
               <property name="frameShadow">
                <enum>QFrame::Raised</enum>
               </property>
+              <property name="lineWidth">
+               <number>2</number>
+              </property>
               <layout class="QVBoxLayout" name="verticalLayout_12">
                <item>
                 <widget class="QLabel" name="label_answerPix">
@@ -678,6 +687,9 @@ p, li { white-space: pre-wrap; }
                    <width>230</width>
                    <height>200</height>
                   </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::NoFrame</enum>
                  </property>
                  <property name="text">
                   <string/>
@@ -817,6 +829,9 @@ p, li { white-space: pre-wrap; }
               <property name="frameShadow">
                <enum>QFrame::Raised</enum>
               </property>
+              <property name="lineWidth">
+               <number>2</number>
+              </property>
               <layout class="QHBoxLayout" name="horizontalLayout_17">
                <item>
                 <widget class="QLabel" name="label_toolPix">
@@ -831,6 +846,9 @@ p, li { white-space: pre-wrap; }
                    <width>230</width>
                    <height>200</height>
                   </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::NoFrame</enum>
                  </property>
                  <property name="text">
                   <string/>
@@ -1027,10 +1045,7 @@ p, li { white-space: pre-wrap; }
         </font>
        </property>
        <property name="frameShape">
-        <enum>QFrame::WinPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="lineWidth">
         <number>2</number>
@@ -1043,8 +1058,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>354</width>
-          <height>769</height>
+          <width>358</width>
+          <height>773</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1145,6 +1160,9 @@ p, li { white-space: pre-wrap; }
              </property>
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
+             </property>
+             <property name="lineWidth">
+              <number>2</number>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_10">
               <item>
@@ -1256,8 +1274,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>354</width>
-          <height>769</height>
+          <width>358</width>
+          <height>773</height>
          </rect>
         </property>
         <attribute name="label">
@@ -1427,8 +1445,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>354</width>
-          <height>769</height>
+          <width>358</width>
+          <height>773</height>
          </rect>
         </property>
         <attribute name="label">
