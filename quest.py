@@ -7,6 +7,8 @@ from PySide6.QtSql import QSqlQuery, QSqlDatabase
 from PySide6.QtWidgets import (QApplication, QLabel,QWidget,
         QFrame,QProgressBar,QPushButton)
 from PySide6.QtGui import (QFont, QPixmap, QIcon,QPainter, QLinearGradient, QColor,QPen)
+from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
+
 
 
 
@@ -63,7 +65,11 @@ class winq(QWidget):
         kfont = gwidth / 1920
         fkfont = (1.4 - 0.2 * (1 - kfont)) / 1.4
 
-
+        self.player = QMediaPlayer()
+        self.audio = QAudioOutput()
+        self.player.setSource("./timer-tick.mp3")
+        self.player.setAudioOutput(self.audio)
+        
         global txtp, cpd, cost
         global txta, wdt, hgt
         global ynpha, ynph, ynpht
@@ -191,6 +197,9 @@ class winq(QWidget):
             self.tl_button.setVisible(False)
 # Использование подсказки
     def tl_func(self):
+        self.start_stop_func()
+        self.step = 0
+        self.progressbar.setValue(self.step)
         query2 = QSqlQuery()
         if not query2.exec("UPDATE settings set tmpDat1 =" + str(int(cost) - int(cpd)) + ";"):
             logging.error("Failed to query database9")
@@ -234,10 +243,12 @@ class winq(QWidget):
         if self.ss_button.text() == '':
             self.ss_button.setText(' ')
             self.timer.start(100)
+            self.player.play()
         else:
             self.ss_button.setText('')
             self.ss_button.setIconSize(QSize(90, 90))
             self.timer.stop()
+            self.player.stop()
  
     def update_func(self):
             self.step += 1
@@ -252,6 +263,7 @@ class winq(QWidget):
                 self.ss_button.setText('0')
                 self.timer.stop()
                 self.step = 0
+                self.player.stop()
 #окно ответа
     def nxt_func(self):
 
@@ -294,10 +306,12 @@ class winq(QWidget):
         self.tl_button.setVisible(False)
 
         self.nxt_button.setText('Далее')
+        self.player.stop()
         self.nxt_button.clicked.connect(self.nxta_func)
         
     def nxta_func(self):
         self.tmr.stop()
+        self.player.stop()
         self.ss_button.setVisible(True)
         self.progressbar.setVisible(True)
         self.close()
