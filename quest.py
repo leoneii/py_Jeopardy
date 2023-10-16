@@ -7,10 +7,9 @@ from PySide6.QtSql import QSqlQuery, QSqlDatabase
 from PySide6.QtWidgets import (QApplication, QLabel,QWidget,
         QFrame,QProgressBar,QPushButton)
 from PySide6.QtGui import (QFont, QPixmap, QIcon,QPainter, QLinearGradient, QColor,QPen)
-from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 
-
-
+import simpleaudio as simple_audio 
+ 
 
 #from widget import sqlDB
 phyn=1 # 0-без фото, 1- с фото
@@ -19,14 +18,11 @@ smx=3
 gx=200
 
 
-
-
 class winq(QWidget):
     font = QFont()
     font.setFamilies([u"Arial"])
     font.setBold(True)
     alignmentc=Qt.AlignmentFlag.AlignCenter
-
 
 
 # рисуем анимацию фона
@@ -65,10 +61,9 @@ class winq(QWidget):
         kfont = gwidth / 1920
         fkfont = (1.4 - 0.2 * (1 - kfont)) / 1.4
 
-        self.player = QMediaPlayer()
-        self.audio = QAudioOutput()
-        self.player.setSource("./timer-tick.mp3")
-        self.player.setAudioOutput(self.audio)
+
+        self.timerSound = simple_audio.WaveObject.from_wave_file( "./timer-tick.wav" ) 
+        
         
         global txtp, cpd, cost
         global txta, wdt, hgt
@@ -240,16 +235,18 @@ class winq(QWidget):
         
     def start_stop_func(self):
         self.ss_button.setIconSize(QSize(0,0))
+
         if self.ss_button.text() == '':
             self.ss_button.setText(' ')
             self.timer.start(100)
-            self.player.play()
+            self.tiker = self.timerSound.play()
+            
         else:
             self.ss_button.setText('')
             self.ss_button.setIconSize(QSize(90, 90))
             self.timer.stop()
-            self.player.stop()
- 
+            self.tiker.stop()
+             
     def update_func(self):
             self.step += 1
             tob=int((ttq-self.step)/10+1)
@@ -263,7 +260,7 @@ class winq(QWidget):
                 self.ss_button.setText('0')
                 self.timer.stop()
                 self.step = 0
-                self.player.stop()
+                self.tiker.stop()
 #окно ответа
     def nxt_func(self):
 
@@ -306,12 +303,12 @@ class winq(QWidget):
         self.tl_button.setVisible(False)
 
         self.nxt_button.setText('Далее')
-        self.player.stop()
+        self.tiker.stop()
         self.nxt_button.clicked.connect(self.nxta_func)
         
     def nxta_func(self):
         self.tmr.stop()
-        self.player.stop()
+        self.tiker.stop()
         self.ss_button.setVisible(True)
         self.progressbar.setVisible(True)
         self.close()

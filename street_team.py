@@ -13,6 +13,7 @@ import widget
 from categ import Category
 from widget import wnd, cenv
 
+
 global apt
 # база данных
 # global sqlDB
