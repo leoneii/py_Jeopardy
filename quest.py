@@ -61,9 +61,10 @@ class winq(QWidget):
         kfont = gwidth / 1920
         fkfont = (1.4 - 0.2 * (1 - kfont)) / 1.4
 
-
+        self.muteSound = simple_audio.WaveObject.from_wave_file( "./untitled.wav" ) 
         self.timerSound = simple_audio.WaveObject.from_wave_file( "./timer-tick.wav" ) 
-        
+        self.tiker = self.muteSound.play()
+        self.tiker.stop()
         
         global txtp, cpd, cost
         global txta, wdt, hgt
@@ -239,8 +240,7 @@ class winq(QWidget):
         if self.ss_button.text() == '':
             self.ss_button.setText(' ')
             self.timer.start(100)
-            self.tiker = self.timerSound.play()
-            
+            self.tiker = self.timerSound.play()     
         else:
             self.ss_button.setText('')
             self.ss_button.setIconSize(QSize(90, 90))
@@ -303,12 +303,19 @@ class winq(QWidget):
         self.tl_button.setVisible(False)
 
         self.nxt_button.setText('Далее')
-        self.tiker.stop()
+        try:
+            if not self.tiker:
+                print ("нет tiker")
+            else:
+                self.tiker.stop()
+        except NameError:
+            print()        
+
+
         self.nxt_button.clicked.connect(self.nxta_func)
         
     def nxta_func(self):
         self.tmr.stop()
-        self.tiker.stop()
         self.ss_button.setVisible(True)
         self.progressbar.setVisible(True)
         self.close()
