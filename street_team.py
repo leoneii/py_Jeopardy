@@ -12,6 +12,7 @@ from PySide6.QtSql import QSqlDatabase, QSqlQuery
 import widget
 from categ import Category
 from widget import wnd, cenv
+import simpleaudio as simple_audio
 
 
 global apt
@@ -112,6 +113,8 @@ class Wint(QWidget):
 
     def __init__(self, tkol, parent=None):
 
+        self.plusSound = simple_audio.WaveObject.from_wave_file("./sound/plus.wav")
+        self.minusSound = simple_audio.WaveObject.from_wave_file("./sound/minus.wav")
         global lmaxlw, ccat
         sqlDB = QSqlDatabase.addDatabase('QSQLITE')
         sqlDB.setDatabaseName("./jep.sqlite")
@@ -335,8 +338,10 @@ class Wint(QWidget):
         sndr = self.sender().objectName()
         # QMessageBox.warning(self, "Нажматие!!!))", " " + str(self.sender().objectName()))
         if sndr[:3] == "pls":
+            self.plbutclick = self.plusSound.play()
             tots[int(sndr[3:])] += cenp
         else:
+            self.minbutclick = self.minusSound.play()
             tots[int(sndr[3:])] -= cenv
         # меняем значения на лейблах
         obj = self.findChild(QLabel, "rst" + sndr[3:])

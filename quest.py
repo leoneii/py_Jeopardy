@@ -61,9 +61,11 @@ class winq(QWidget):
         kfont = gwidth / 1920
         fkfont = (1.4 - 0.2 * (1 - kfont)) / 1.4
 
-
-        self.timerSound = simple_audio.WaveObject.from_wave_file( "./timer-tick.wav" ) 
-        
+        self.muteSound = simple_audio.WaveObject.from_wave_file( "./sound/untitled.wav" )
+        self.timerSound = simple_audio.WaveObject.from_wave_file( "./sound/timer-tick.wav" )
+        self.timerEnd=simple_audio.WaveObject.from_wave_file("./sound/tick_end.wav")
+        self.tiker = self.muteSound.play()
+        self.tiker.stop()
         
         global txtp, cpd, cost
         global txta, wdt, hgt
@@ -239,8 +241,7 @@ class winq(QWidget):
         if self.ss_button.text() == '':
             self.ss_button.setText(' ')
             self.timer.start(100)
-            self.tiker = self.timerSound.play()
-            
+            self.tiker = self.timerSound.play()     
         else:
             self.ss_button.setText('')
             self.ss_button.setIconSize(QSize(90, 90))
@@ -256,6 +257,10 @@ class winq(QWidget):
             stsh= "QProgressBar {border: 2px solid rgba(33, 37, 43, 60);border-radius: 12px;text-align: center;background-color: rgba(00, 00, 200, 30);color: black;}QProgressBar::chunk {background-color: rgba(80,200,255,"+alppb+");border-radius: 12px;}"
             self.progressbar.setStyleSheet(stsh)
  
+            #if int((ttq-self.step)/10+1)==8:
+            if (ttq - self.step) / 10 + 1 == 8:
+                self.tickend = self.timerEnd.play()
+
             if self.step >= ttq:
                 self.ss_button.setText('0')
                 self.timer.stop()
@@ -303,12 +308,19 @@ class winq(QWidget):
         self.tl_button.setVisible(False)
 
         self.nxt_button.setText('Далее')
-        self.tiker.stop()
+        try:
+            if not self.tiker:
+                print ("нет tiker")
+            else:
+                self.tiker.stop()
+        except NameError:
+            print()        
+
+
         self.nxt_button.clicked.connect(self.nxta_func)
         
     def nxta_func(self):
         self.tmr.stop()
-        self.tiker.stop()
         self.ss_button.setVisible(True)
         self.progressbar.setVisible(True)
         self.close()
