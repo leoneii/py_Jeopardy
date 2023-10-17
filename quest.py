@@ -61,8 +61,9 @@ class winq(QWidget):
         kfont = gwidth / 1920
         fkfont = (1.4 - 0.2 * (1 - kfont)) / 1.4
 
-        self.muteSound = simple_audio.WaveObject.from_wave_file( "./untitled.wav" ) 
-        self.timerSound = simple_audio.WaveObject.from_wave_file( "./timer-tick.wav" ) 
+        self.muteSound = simple_audio.WaveObject.from_wave_file( "./sound/untitled.wav" )
+        self.timerSound = simple_audio.WaveObject.from_wave_file( "./sound/timer-tick.wav" )
+        self.tickEndSound=simple_audio.WaveObject.from_wave_file( "./sound/tick_end.wav" )
         self.tiker = self.muteSound.play()
         self.tiker.stop()
         
@@ -256,6 +257,9 @@ class winq(QWidget):
             stsh= "QProgressBar {border: 2px solid rgba(33, 37, 43, 60);border-radius: 12px;text-align: center;background-color: rgba(00, 00, 200, 30);color: black;}QProgressBar::chunk {background-color: rgba(80,200,255,"+alppb+");border-radius: 12px;}"
             self.progressbar.setStyleSheet(stsh)
  
+            if (ttq-self.step)/10+1==8:
+                self.tickend=self.tickEndSound.play()
+
             if self.step >= ttq:
                 self.ss_button.setText('0')
                 self.timer.stop()
