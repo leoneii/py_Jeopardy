@@ -96,7 +96,7 @@ class Winteamcr(QWidget):
         #таймер элементов экрана
         self.tmrscrobj=QTimer()
         self.tmrscrobj.timeout.connect(objupd)
-        self.tmrscrobj.start(5)
+        self.tmrscrobj.start(8)
         #таймер элементов экрана
 
         self.titlabel=QLabel(self)
@@ -108,14 +108,16 @@ class Winteamcr(QWidget):
         if fnts>60:
             fnts=60
         self.titlabel.setFont(font)
-        stsh = "border:1px solid #99aaff; border-radius: 10px; background-color: rgba(0,0,200,50); font-size: " + str(fnts) + "px"
+        stsh = "border:0px solid #99aaff; border-radius: 10px; background-color: rgba(0,0,200,30); font-size: " + str(fnts) + "px"
         self.titlabel.setStyleSheet(stsh)
 
-        self.badd=1 
+        self.badd=0
         self.butAddTeam=QPushButton(self)
-        self.butAddTeam.setText("Добавить команду")  
-        stshb = "border:1px solid #99aaff; border-radius: 10px; background-color: rgba(0,0,200,50); font-size: " + str(int(fnts*0.5)) + "px"
-        self.butAddTeam.setStyleSheet(stshb)
+        self.butAddTeam.setFont(font)
+        self.butAddTeam.setText("Добавить команду")
+        self.butAddTeam.setGeometry(wd / 2 - wd / 6, 125, self.badd, 40)
+        botb = "QPushButton{font-size: " +  str(int(fnts*0.7)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50)} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
+        self.butAddTeam.setStyleSheet(botb)
 
 
 
