@@ -4,7 +4,7 @@ from PySide6 import QtCore
 from PySide6.QtCore import Qt, QPoint, QTimer, QEvent
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient, QPixmap)
 from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QDialog, \
-    QVBoxLayout, QButtonGroup, QHBoxLayout
+    QVBoxLayout, QButtonGroup, QHBoxLayout, QSpinBox
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 import simpleaudio as simple_audio
 
@@ -77,8 +77,19 @@ class Winteamcr(QWidget):
                 else:
                     self.wdl=wd/3
                     if self.badd<self.wdl/2:
-                         self.badd+=5
-                         self.butAddTeam.setGeometry(wd/2-wd/6,125,self.badd,40)
+                        self.badd+=5
+                        self.butAddTeam.setGeometry(wd/2-wd/6,125,self.badd,40)
+                    else:
+                        self.badd=self.wdl/2
+                        if self.spwt<self.wdl/2-5:
+                            self.spwt+=5
+                            self.spinTeamCount.setGeometry(wd / 2 + 5, 125, self.spwt, 40)
+                        else:
+                            self.spwt=self.wdl/2-5
+
+
+
+
                     
 
                
@@ -108,18 +119,42 @@ class Winteamcr(QWidget):
         if fnts>60:
             fnts=60
         self.titlabel.setFont(font)
-        stsh = "border:0px solid #99aaff; border-radius: 10px; background-color: rgba(0,0,200,30); font-size: " + str(fnts) + "px"
+        stsh = "border:0px solid #99aaff; border-radius: 10px; background-color: rgba(0,0,200,40); font-size: " + str(fnts) + "px"
         self.titlabel.setStyleSheet(stsh)
 
+
+        def changeTeamCount():
+            if self.butAddTeam.text()=="Изменить количество":
+                self.butAddTeam.setText("Подтвердить количество")
+                self.spinTeamCount.setEnabled(True)
+                spstsh = "QSpinBox{border:3px solid #99aaff; border-radius: 10px; background-color: rgba(0,0,20,130); font-size: " + str(
+                    int(fnts * 0.7)) + "px}"
+                self.spinTeamCount.setStyleSheet(spstsh)
+            else:
+                self.butAddTeam.setText("Изменить количество")
+                spstsh = "QSpinBox{border:1px solid #99aaff; border-radius: 10px; background-color: rgba(0,0,200,30); font-size: " + str(
+                    int(fnts * 0.7)) + "px}"
+                self.spinTeamCount.setStyleSheet(spstsh)
+                self.spinTeamCount.setEnabled(False)
         self.badd=0
         self.butAddTeam=QPushButton(self)
-        self.butAddTeam.setFont(font)
-        self.butAddTeam.setText("Добавить команду")
-        self.butAddTeam.setGeometry(wd / 2 - wd / 6, 125, self.badd, 40)
-        botb = "QPushButton{font-size: " +  str(int(fnts*0.7)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50)} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
+        self.butAddTeam.setText("Изменить количество")
+        self.butAddTeam.setGeometry(wd / 2 - wd / 6-5, 125, self.badd, 40)
+        botb = "QPushButton{font-size: " +  str(int(fnts*0.5)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50)} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
         self.butAddTeam.setStyleSheet(botb)
+        self.butAddTeam.clicked.connect(changeTeamCount)
 
-
+        self.spwt=0
+        self.spinTeamCount=QSpinBox(self)
+        self.spinTeamCount.setGeometry(wd / 2 +5, 125, self.spwt, 40)
+        spstsh = "QSpinBox{border:1px solid #99aaff; border-radius: 10px; background-color: rgba(0,0,200,30); font-size: " + str(int(fnts*0.7)) + "px}"
+        self.spinTeamCount.setStyleSheet(spstsh)
+        self.spinTeamCount.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.spinTeamCount.setFont(font)
+        self.spinTeamCount.setMinimum(2)
+        self.spinTeamCount.setMaximum(7)
+        self.spinTeamCount.setEnabled(False)
+        self.spinTeamCount.show()
 
 
 if __name__ == "__main__":
