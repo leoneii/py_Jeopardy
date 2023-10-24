@@ -67,8 +67,8 @@ class Winteamcr(QWidget):
                 self.sth="background-color: rgba(0,0,255,"+str(self.blc)+"); color: #ddFFaa;"
                 self.setStyleSheet(self.sth)
 # Эффект раскрытия объектов
-        def objupd():    
-                   
+        def objupd():
+
                 if self.wdl<wd/3:
                     self.wdl+=10
                     self.titlabel.setGeometry(wd/2-wd/6,40,self.wdl,80)
@@ -85,6 +85,18 @@ class Winteamcr(QWidget):
                         else:
                             self.spwt=self.wdl/2-5
 
+                            while self.hdn < hd - 260:
+                                self.hdn += 1
+                                for i in range(kolteam):
+                                    x = 40 + i * (wd - 80) / kolteam
+                                    wdnl = (wd - 80) / kolteam - 20
+                                    y = 180
+                                    self.labi = self.findChild(QLabel,u"labtmname"+str(i))
+                                    self.labi.setGeometry(x, y, wdnl, self.hdn)
+
+
+
+
 # таймер фона
         self.blc = 80
         self.shag=1
@@ -95,7 +107,7 @@ class Winteamcr(QWidget):
 #таймер элементов экрана
         self.tmrscrobj=QTimer()
         self.tmrscrobj.timeout.connect(objupd)
-        self.tmrscrobj.start(8)
+        self.tmrscrobj.start(20)
 
 # Label заголовка экрана
         self.titlabel=QLabel(self)
@@ -146,22 +158,25 @@ class Winteamcr(QWidget):
         self.spinTeamCount.setEnabled(False)
         self.spinTeamCount.show()
 
-# Модуль изменения наименования команд и их логотипов
 
-        for i in range(kolteam):
-            self.lab_teamName = QLabel(self)
-            self.lab_teamName.setFont(font)
-            stshteamname = "border:0px solid #99aaff; border-radius: 20px; background-color: rgba(40,60,150,120); font-size: " + str(fnts) + "px"
-            self.lab_teamName.setStyleSheet(stshteamname)
-            self.lab_teamName.setText("Команда "+str(i+1))
-            x=40+i*(wd-80)/kolteam
-            wdnl=(wd-80)/kolteam-20
-            y=180
-            hdnl=hd-260
-            self.lab_teamName.setGeometry(x,y,wdnl,hdnl)
-            self.lab_teamName.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            self.lab_teamName.show()
-        #self.lab_teamName.setGeometry()
+# Модуль изменения наименования команд и их логотипов
+        def mod_chang_team_name():
+            stshteamname = "border:0px solid #99aaff; border-radius: 20px; background-color: rgba(40,60,150,120); font-size: " + str(
+                fnts) + "px"
+            self.hdn=0
+            for i in range(kolteam):
+                self.lab_teamName = QLabel(self)
+                self.lab_teamName.setObjectName(u"labtmname"+str(i))
+                self.lab_teamName.setFont(font)
+                self.lab_teamName.setStyleSheet(stshteamname)
+                self.lab_teamName.setText("Команда "+str(i+1))
+                x=40+i*(wd-80)/kolteam
+                wdnl=(wd-80)/kolteam-20
+                y=180
+                self.lab_teamName.setGeometry(x,y,wdnl,self.hdn)
+                self.lab_teamName.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        mod_chang_team_name()
+
 
 
 
