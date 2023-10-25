@@ -84,8 +84,7 @@ class Winteamcr(QWidget):
                             self.spinTeamCount.setGeometry(wd / 2 + 5, 125, self.spwt, 40)
                         else:
                             self.spwt=self.wdl/2-5
-
-                            while self.hdn < hd - 260:
+                            while self.hdn < hd - hd/3.5:
                                 self.hdn += 1
                                 for i in range(kolteam):
                                     x = 40 + i * (wd - 80) / kolteam
@@ -93,11 +92,18 @@ class Winteamcr(QWidget):
                                     y = 180
                                     self.labi = self.findChild(QLabel,u"labtmname"+str(i))
                                     self.labi.setGeometry(x, y, wdnl, self.hdn)
+                                    self.bnam=self.findChild(QPushButton,u"butname" + str(i))
+                                    self.bnam.setGeometry(10, int(self.hdn / 3 + 5),
+                                                             int(self.lab_teamName.width() - 20),
+                                                             int(self.hdn / 1.5 - 15))
+                                    self.blog = self.findChild(QPushButton, u"butlogo" + str(i))
+                                    self.blog.setGeometry(10, 10,
+                                                             int(self.lab_teamName.width() - 20),
+                                                             int(self.hdn / 3 - 10))
+                                    self.tmrscrobj.stop()
 
 
-
-
-# таймер фона
+        # таймер фона
         self.blc = 80
         self.shag=1
         self.tmr = QTimer()  # 4
@@ -130,6 +136,7 @@ class Winteamcr(QWidget):
                 spstsh = "QSpinBox{border:3px solid #99aaff; border-radius: 10px; background-color: rgba(0,0,20,130); font-size: " + str(
                     int(fnts * 0.7)) + "px}"
                 self.spinTeamCount.setStyleSheet(spstsh)
+                self.spinTeamCount.setFocus()
             else:
                 self.butAddTeam.setText("Изменить количество")
                 spstsh = "QSpinBox{border:1px solid #99aaff; border-radius: 10px; background-color: rgba(0,0,200,30); font-size: " + str(
@@ -137,6 +144,24 @@ class Winteamcr(QWidget):
                 self.spinTeamCount.setStyleSheet(spstsh)
                 self.spinTeamCount.setEnabled(False)
                 kolteam=self.spinTeamCount.value()
+
+                mod_chang_team_name(kolteam)
+                self.hdn = hd - hd / 3.5
+                for i in range(kolteam):
+                    x = 40 + i * (wd - 80) / kolteam
+                    wdnl = (wd - 80) / kolteam - 20
+                    y = 180
+                    self.labi = self.findChild(QLabel, u"labtmname" + str(i))
+                    self.labi.setGeometry(x, y, wdnl, self.hdn)
+                    print(x, y, wdnl, self.hdn)
+                    self.bnam = self.findChild(QPushButton, u"butname" + str(i))
+                    self.bnam.setGeometry(10, int(self.hdn / 3 + 5),
+                                          int(self.lab_teamName.width() - 20),
+                                          int(self.hdn / 1.5 - 15))
+                    self.blog = self.findChild(QPushButton, u"butlogo" + str(i))
+                    self.blog.setGeometry(10, 10,
+                                          int(self.lab_teamName.width() - 20),
+                                          int(self.hdn / 3 - 10))
 
         self.badd=0
         self.butAddTeam=QPushButton(self)
@@ -160,22 +185,42 @@ class Winteamcr(QWidget):
 
 
 # Модуль изменения наименования команд и их логотипов
-        def mod_chang_team_name():
+        def mod_chang_team_name(tc):
             stshteamname = "border:0px solid #99aaff; border-radius: 20px; background-color: rgba(40,60,150,120); font-size: " + str(
                 fnts) + "px"
-            self.hdn=0
-            for i in range(kolteam):
+            #self.hdn=hd - hd/3.5
+            self.hdn = 0
+            for i in range(tc):
                 self.lab_teamName = QLabel(self)
                 self.lab_teamName.setObjectName(u"labtmname"+str(i))
                 self.lab_teamName.setFont(font)
                 self.lab_teamName.setStyleSheet(stshteamname)
-                self.lab_teamName.setText("Команда "+str(i+1))
-                x=40+i*(wd-80)/kolteam
-                wdnl=(wd-80)/kolteam-20
+                x=40+i*(wd-80)/tc
+                wdnl=(wd-80)/tc-20
                 y=180
                 self.lab_teamName.setGeometry(x,y,wdnl,self.hdn)
                 self.lab_teamName.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        mod_chang_team_name()
+
+                self.butname=QPushButton(self.lab_teamName)
+                self.butname.setObjectName(u"butname" + str(i))
+                self.butname.setFont(font)
+                self.butname.setText("Команда " + str(i + 1))
+                stshbn = "QPushButton{font-size: " +  str(int(fnts)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50)} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
+                self.butname.setStyleSheet(stshbn)
+                self.butname.setGeometry(10,int(self.lab_teamName.height()/3+5),int(self.lab_teamName.width()-20),int(self.lab_teamName.height()/1.5-15))
+
+                self.butlogo = QPushButton(self.lab_teamName)
+                self.butlogo.setObjectName(u"butlogo" + str(i))
+                self.butlogo.setFont(font)
+                self.butlogo.setText("Логотип команды " + str(i + 1))
+                stshbn = "QPushButton{font-size: " + str(int(fnts)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50); color: rgba(0,100,255,100)} QPushButton::hover{background-color: #0077ff ; color: rgba(0,200,255,200)} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
+                self.butlogo.setStyleSheet(stshbn)
+                self.butlogo.setGeometry(10, 10,
+                                         int(self.lab_teamName.width() - 20),
+                                         int(self.lab_teamName.height() / 3 - 10))
+
+        mod_chang_team_name(7)
+        mod_chang_team_name(kolteam)
 
 
 
