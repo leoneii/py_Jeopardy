@@ -169,12 +169,15 @@ class Winteamcr(QWidget):
                 self.lab_teamName.setObjectName(u"labtmname"+str(i))
                 self.lab_teamName.setFont(font)
                 self.lab_teamName.setStyleSheet(stshteamname)
-                self.lab_teamName.setText("Команда "+str(i+1))
+                #self.lab_teamName.setText("Команда "+str(i+1))
                 x=40+i*(wd-80)/kolteam
                 wdnl=(wd-80)/kolteam-20
                 y=180
                 self.lab_teamName.setGeometry(x,y,wdnl,self.hdn)
                 self.lab_teamName.setAlignment(Qt.AlignmentFlag.AlignCenter)
+                self.namedit=QPushButton(self.lab_teamName)
+                self.namedit.setText("Команда "+str(i+1))
+
         mod_chang_team_name()
 
 
