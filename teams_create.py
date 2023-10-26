@@ -74,32 +74,32 @@ class Winteamcr(QWidget):
                     self.titlabel.setGeometry(wd/2-wd/6,40,self.wdl,80)
                 else:
                     self.wdl=wd/3
-                    if self.badd<self.wdl/2:
+                    if self.badd<self.wdl/2-5:
                         self.badd+=10
                         self.butAddTeam.setGeometry(wd/2-wd/6,125,self.badd,40)
                     else:
-                        self.badd=self.wdl/2
-                        if self.spwt<self.wdl/2-5:
+                        self.badd=self.wdl/2-5
+                        if self.spwt<self.wdl/2-10:
                             self.spwt+=10
-                            self.spinTeamCount.setGeometry(wd / 2 + 5, 125, self.spwt, 40)
+                            self.spinTeamCount.setGeometry(wd / 2 + 10, 125, self.spwt, 40)
                         else:
-                            self.spwt=self.wdl/2-5
-                            while self.hdn < hd - hd/3.5:
+                            self.spwt=self.wdl/2-10
+                            while self.hdn < hd - 165 -hd/8:
                                 self.hdn += 1
                                 for i in range(kolteam):
                                     x = 40 + i * (wd - 80) / kolteam
-                                    wdnl = (wd - 80) / kolteam - 20
+                                    wdnl = (wd - 80) / kolteam - 10
                                     y = 180
                                     self.labi = self.findChild(QLabel,u"labtmname"+str(i))
                                     self.labi.setGeometry(x, y, wdnl, self.hdn)
                                     self.bnam=self.findChild(QPushButton,u"butname" + str(i))
-                                    self.bnam.setGeometry(10, int(self.hdn / 3 + 5),
-                                                             int(self.lab_teamName.width() - 20),
-                                                             int(self.hdn / 1.5 - 15))
+                                    self.bnam.setGeometry(5, int(self.hdn / 3 + 5),
+                                                             int(self.lab_teamName.width() - 5),
+                                                             int(self.hdn / 1.5 - 10))
                                     self.blog = self.findChild(QPushButton, u"butlogo" + str(i))
-                                    self.blog.setGeometry(10, 10,
-                                                             int(self.lab_teamName.width() - 20),
-                                                             int(self.hdn / 3 - 10))
+                                    self.blog.setGeometry(5, 5,
+                                                             int(self.lab_teamName.width() - 5),
+                                                             int(self.hdn / 3 - 5))
                                     twdt = (wd - 20) / kolteam - 10
                                     fw = int(twdt / len("Логотип команды " + str(i + 1)))
 
@@ -107,6 +107,8 @@ class Winteamcr(QWidget):
                                     stshbn = "QPushButton{font-size: " + str(
                                         int(fw)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50); color: rgba(0,100,255,100)} QPushButton::hover{background-color: #0077ff ; color: rgba(0,200,255,200)} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
                                     self.blog.setStyleSheet(stshbn)
+
+                                    self.contin.setVisible(True)
                                     self.tmrscrobj.stop()
 
 
@@ -152,25 +154,25 @@ class Winteamcr(QWidget):
                 self.spinTeamCount.setEnabled(False)
                 kolteam=self.spinTeamCount.value()
                 mod_chang_team_name(kolteam)
-                self.hdn = hd - hd / 3.5
-                for j in range(6):
+                self.hdn = hd - 165 -hd/8
+                for j in range(7):
                     self.labi = self.findChild(QLabel, u"labtmname" + str(j))
                     self.labi.setVisible(False)
                 for i in range(kolteam):
                     x = 40 + i * (wd - 80) / kolteam
-                    wdnl = (wd - 80) / kolteam - 20
+                    wdnl = (wd - 80) / kolteam - 10
                     y = 180
                     self.labi = self.findChild(QLabel, u"labtmname" + str(i))
                     self.labi.setVisible(True)
                     self.labi.setGeometry(x, y, wdnl, self.hdn)
                     self.bnam = self.findChild(QPushButton, u"butname" + str(i))
-                    self.bnam.setGeometry(10, int(self.hdn / 3 + 5),
-                                          int(self.lab_teamName.width() - 20),
-                                          int(self.hdn / 1.5 - 15))
+                    self.bnam.setGeometry(5, int(self.hdn / 3 + 5),
+                                          int(self.lab_teamName.width() - 5),
+                                          int(self.hdn / 1.5 - 10))
                     self.blog = self.findChild(QPushButton, u"butlogo" + str(i))
-                    self.blog.setGeometry(10, 10,
-                                          int(self.lab_teamName.width() - 20),
-                                          int(self.hdn / 3 - 10))
+                    self.blog.setGeometry(5, 5,
+                                          int(self.lab_teamName.width() - 5),
+                                          int(self.hdn / 3 - 5))
                     twdt = (wd - 20) / kolteam - 10
                     fw = int(twdt / len("Логотип команды " + str(i + 1)))
                     print(fw)
@@ -182,7 +184,7 @@ class Winteamcr(QWidget):
         self.butAddTeam=QPushButton(self)
         self.butAddTeam.setText("Изменить количество")
         self.butAddTeam.setGeometry(wd / 2 - wd / 6-5, 125, self.badd, 40)
-        botb = "QPushButton{font-size: " +  str(int(fnts*0.5)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50)} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
+        botb = "QPushButton{font-size: " +  str(int(fnts*0.5)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,30)} QPushButton::hover{background-color: rgba(0, 155, 255, 195);} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
         self.butAddTeam.setStyleSheet(botb)
         self.butAddTeam.clicked.connect(changeTeamCount)
 # Спинер изменения количества команд
@@ -208,10 +210,12 @@ class Winteamcr(QWidget):
             for i in range(tc):
                 self.lab_teamName = QLabel(self)
                 self.lab_teamName.setObjectName(u"labtmname"+str(i))
+                self.lab_teamName.setWordWrap(True)
+                self.lab_teamName.setText("Команда игроков №" + str(i + 1))
                 self.lab_teamName.setFont(font)
                 self.lab_teamName.setStyleSheet(stshteamname)
                 x=40+i*(wd-80)/tc
-                wdnl=(wd-80)/tc-20
+                wdnl=(wd-80)/tc-15
                 y=180
                 self.lab_teamName.setGeometry(x,y,wdnl,self.hdn)
                 self.lab_teamName.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -219,10 +223,10 @@ class Winteamcr(QWidget):
                 self.butname=QPushButton(self.lab_teamName)
                 self.butname.setObjectName(u"butname" + str(i))
                 self.butname.setFont(font)
-                self.butname.setText("Команда " + str(i + 1))
-                stshbn = "QPushButton{font-size: " +  str(int(fnts)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50)} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
+
+                stshbn = "QPushButton{font-size: " +  str(int(fnts)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50)} QPushButton::hover{background-color: rgba(0,120,255,100) ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
                 self.butname.setStyleSheet(stshbn)
-                self.butname.setGeometry(10,int(self.lab_teamName.height()/3+5),int(self.lab_teamName.width()-20),int(self.lab_teamName.height()/1.5-15))
+                self.butname.setGeometry(5,int(self.lab_teamName.height()/3+5),int(self.lab_teamName.width()-10),int(self.lab_teamName.height()/1.5-15))
 
                 self.butlogo = QPushButton(self.lab_teamName)
                 self.butlogo.setObjectName(u"butlogo" + str(i))
@@ -233,12 +237,20 @@ class Winteamcr(QWidget):
                 self.butlogo.setText("Логотип команды " + str(i + 1))
                 stshbn = "QPushButton{font-size: " + str(int(fw)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50); color: rgba(0,100,255,100)} QPushButton::hover{background-color: #0077ff ; color: rgba(0,200,255,200)} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
                 self.butlogo.setStyleSheet(stshbn)
-                self.butlogo.setGeometry(10, 10,
-                                         int(self.lab_teamName.width() - 20),
+                self.butlogo.setGeometry(5, 5,
+                                         int(self.lab_teamName.width() - 10),
                                          int(self.lab_teamName.height() / 3 - 10))
 
         mod_chang_team_name(7)
         mod_chang_team_name(kolteam)
+
+        self.contin = QPushButton(self)
+        self.contin.setGeometry(wd *3/ 4 -60, hd - hd / 15-20, (wd - 20) / 4, hd / 15 -10)
+        self.contin.setText("К игре")
+        self.contin.setStyleSheet("QPushButton { background-color: rgba(0,0,180,50) ; font: bold " + str(
+            fw) + "px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: 120px 50px; border-bottom-left-radius: 120px 50px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,180) }")
+        #self.contin.clicked.connect(cntn)
+        self.contin.setVisible(False)
 
 
 
