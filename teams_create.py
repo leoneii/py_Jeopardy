@@ -175,7 +175,6 @@ class Winteamcr(QWidget):
                                           int(self.hdn / 3 - 5))
                     twdt = (wd - 20) / kolteam - 10
                     fw = int(twdt / len("Логотип команды " + str(i + 1)))
-                    print(fw)
                     stshbn = "QPushButton{font-size: " + str(
                         int(fw)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50); color: rgba(0,100,255,100)} QPushButton::hover{background-color: #0077ff ; color: rgba(0,200,255,200)} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
                     self.blog.setStyleSheet(stshbn)
@@ -245,10 +244,11 @@ class Winteamcr(QWidget):
         mod_chang_team_name(kolteam)
 
         self.contin = QPushButton(self)
-        self.contin.setGeometry(wd *3/ 4 -60, hd - hd / 15-20, (wd - 20) / 4, hd / 15 -10)
+        tmh=int(hd / 15 -10)
+        self.contin.setGeometry(wd *3/ 4 -60, hd - hd / 15-20, (wd - 20) / 4, tmh )
         self.contin.setText("К игре")
         self.contin.setStyleSheet("QPushButton { background-color: rgba(0,0,180,50) ; font: bold " + str(
-            fw) + "px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: 120px 50px; border-bottom-left-radius: 120px 50px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,180) }")
+            fw) + "px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: "+str(tmh*2)+"px "+str(tmh)+"px; border-bottom-left-radius: "+str(tmh*2)+"px "+str(tmh)+"px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,180) }")
         #self.contin.clicked.connect(cntn)
         self.contin.setVisible(False)
 
