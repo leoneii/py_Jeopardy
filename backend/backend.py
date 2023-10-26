@@ -11,7 +11,6 @@ from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlQueryModel
 from PySide6.QtWidgets import QApplication, QInputDialog, QMainWindow, QMessageBox, QFileDialog, QDialog, QVBoxLayout, \
     QLabel, QPushButton, QButtonGroup, QHBoxLayout
 
-
 from mainwindow import Ui_MainWindow
 from newDialog import *
 
@@ -73,17 +72,18 @@ class MainWindow(QMainWindow):
            return()   
         rown+=1
         dialog = QFileDialog()
-        dialog.setDirectory("../img/logo")
-        dialog.exec()
-        fileName = dialog.selectedFiles()
-        if len(fileName)>0:
-            s = str(fileName)
-            ch = '/'
-            indexes = [i for i, c in enumerate(s) if c == ch]
-            rpos = max(indexes)
-            fileName = s[rpos + 1:]
-            l = len(fileName)
-            fileName = fileName[:l - 2]
+        #dialog.setDirectory("../img/logo")
+        #dialog.exec()
+        ofileName, filetype = QFileDialog.getOpenFileName(
+            self,
+            "Выберите изображение", 
+            "", 
+            "Images (*.jpeg *.jpg)"
+        )
+        fileName = os.path.basename(ofileName)
+
+        if len(ofileName)>0:
+            shutil.copy2(ofileName,"../img/logo/"+fileName)
             query=QSqlQuery()
             txtq="UPDATE Teams SET Logo='"+str(fileName)+"' WHERE Id="+str(rown)+";"
             query.exec(txtq)
@@ -222,24 +222,26 @@ class MainWindow(QMainWindow):
         indexT=self.ui.tableView_themeTable.currentIndex()
         indexQ=self.ui.tableView_questTable.currentIndex()
         dialog = QFileDialog()
-        dialog.setDirectory("../img")
-        dialog.exec()
-        fileName = dialog.selectedFiles()
-        s = str(fileName)
-        ch = '/'
-        indexes = [i for i, c in enumerate(s) if c == ch]
-        rpos = max(indexes)
-        fileName = s[rpos + 1:]
-        l = len(fileName)
-        fileName = fileName[:l - 2]
-        costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
-        model = self.ui.tableView_themeTable.model()
-        self.textQpix =  ("UPDATE ThemeAndQ SET Image = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
+        #dialog.setDirectory("../img")
+        #dialog.exec()
+        ofileName, filetype = QFileDialog.getOpenFileName(
+            self,
+            "Выберите изображение", 
+            "", 
+            "Images (*.jpeg *.jpg)"
+        )
+        fileName = os.path.basename(ofileName)
+
+        if len(ofileName)>0:
+            shutil.copy2(ofileName,"../img/"+fileName)
+            costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
+            model = self.ui.tableView_themeTable.model()
+            self.textQpix =  ("UPDATE ThemeAndQ SET Image = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
                         model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
                                 0)) + "';")
-        self.ui.label_questPix.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.ui.label_questPix.setPixmap(QPixmap("../img/"+fileName).scaled(self.ui.label_questPix.frameSize(),Qt.KeepAspectRatio))
-        self.selector(indexT.row(),indexQ.row())
+            self.ui.label_questPix.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            self.ui.label_questPix.setPixmap(QPixmap("../img/"+fileName).scaled(self.ui.label_questPix.frameSize(),Qt.KeepAspectRatio))
+            self.selector(indexT.row(),indexQ.row())
 
     def delQpix(self):
         indexT=self.ui.tableView_themeTable.currentIndex()
@@ -256,24 +258,26 @@ class MainWindow(QMainWindow):
         indexT=self.ui.tableView_themeTable.currentIndex()
         indexQ=self.ui.tableView_questTable.currentIndex()
         dialog = QFileDialog()
-        dialog.setDirectory("../img")
-        dialog.exec()
-        fileName = dialog.selectedFiles()
-        s = str(fileName)
-        ch = '/'
-        indexes = [i for i, c in enumerate(s) if c == ch]
-        rpos = max(indexes)
-        fileName = s[rpos + 1:]
-        l = len(fileName)
-        fileName = fileName[:l - 2]
-        costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
-        model = self.ui.tableView_themeTable.model()
-        self.textApix =  ("UPDATE ThemeAndQ SET ImageA = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
+        #dialog.setDirectory("../img")
+        #dialog.exec()
+        ofileName, filetype = QFileDialog.getOpenFileName(
+            self,
+            "Выберите изображение", 
+            "", 
+            "Images (*.jpeg *.jpg)"
+        )
+        fileName = os.path.basename(ofileName)
+
+        if len(ofileName)>0:
+            shutil.copy2(ofileName,"../img/"+fileName)
+            costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
+            model = self.ui.tableView_themeTable.model()
+            self.textApix =  ("UPDATE ThemeAndQ SET ImageA = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
                         model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
                                 0)) + "';")
-        self.ui.label_answerPix.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.ui.label_answerPix.setPixmap(QPixmap("../img/"+fileName).scaled(self.ui.label_answerPix.frameSize(),Qt.KeepAspectRatio))
-        self.selector(indexT.row(),indexQ.row())
+            self.ui.label_answerPix.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            self.ui.label_answerPix.setPixmap(QPixmap("../img/"+fileName).scaled(self.ui.label_answerPix.frameSize(),Qt.KeepAspectRatio))
+            self.selector(indexT.row(),indexQ.row())
         
     def delApix(self):
         indexT=self.ui.tableView_themeTable.currentIndex()
@@ -290,24 +294,26 @@ class MainWindow(QMainWindow):
         indexT=self.ui.tableView_themeTable.currentIndex()
         indexQ=self.ui.tableView_questTable.currentIndex()   
         dialog = QFileDialog()
-        dialog.setDirectory("../img")
-        dialog.exec()
-        fileName = dialog.selectedFiles()
-        s = str(fileName)
-        ch = '/'
-        indexes = [i for i, c in enumerate(s) if c == ch]
-        rpos = max(indexes)
-        fileName = s[rpos + 1:]
-        l = len(fileName)
-        fileName = fileName[:l - 2]
-        costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
-        model = self.ui.tableView_themeTable.model()
-        self.textTpix =  ("UPDATE ThemeAndQ SET ToolTipImg = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
+        #dialog.setDirectory("../img")
+        #dialog.exec()
+        ofileName, filetype = QFileDialog.getOpenFileName(
+            self,
+            "Выберите изображение", 
+            "", 
+            "Images (*.jpeg *.jpg)"
+        )
+        fileName = os.path.basename(ofileName)
+
+        if len(ofileName)>0:
+            shutil.copy2(ofileName,"../img/"+fileName)
+            costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
+            model = self.ui.tableView_themeTable.model()
+            self.textTpix =  ("UPDATE ThemeAndQ SET ToolTipImg = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
                         model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
                                 0)) + "';")
-        self.ui.label_toolPix.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.ui.label_toolPix.setPixmap(QPixmap("../img/"+fileName).scaled(self.ui.label_toolPix.frameSize(),Qt.KeepAspectRatio))
-        self.selector(indexT.row(),indexQ.row()) 
+            self.ui.label_toolPix.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            self.ui.label_toolPix.setPixmap(QPixmap("../img/"+fileName).scaled(self.ui.label_toolPix.frameSize(),Qt.KeepAspectRatio))
+            self.selector(indexT.row(),indexQ.row()) 
 
     def delTpix(self):
         indexT=self.ui.tableView_themeTable.currentIndex()
