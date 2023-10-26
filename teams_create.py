@@ -100,6 +100,13 @@ class Winteamcr(QWidget):
                                     self.blog.setGeometry(10, 10,
                                                              int(self.lab_teamName.width() - 20),
                                                              int(self.hdn / 3 - 10))
+                                    twdt = (wd - 20) / kolteam - 10
+                                    fw = int(twdt / len("Логотип команды " + str(i + 1)))
+
+                                    self.blog.setText("Логотип команды " + str(i + 1))
+                                    stshbn = "QPushButton{font-size: " + str(
+                                        int(fw)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50); color: rgba(0,100,255,100)} QPushButton::hover{background-color: #0077ff ; color: rgba(0,200,255,200)} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
+                                    self.blog.setStyleSheet(stshbn)
                                     self.tmrscrobj.stop()
 
 
@@ -144,14 +151,17 @@ class Winteamcr(QWidget):
                 self.spinTeamCount.setStyleSheet(spstsh)
                 self.spinTeamCount.setEnabled(False)
                 kolteam=self.spinTeamCount.value()
-
                 mod_chang_team_name(kolteam)
                 self.hdn = hd - hd / 3.5
+                for j in range(6):
+                    self.labi = self.findChild(QLabel, u"labtmname" + str(j))
+                    self.labi.setVisible(False)
                 for i in range(kolteam):
                     x = 40 + i * (wd - 80) / kolteam
                     wdnl = (wd - 80) / kolteam - 20
                     y = 180
                     self.labi = self.findChild(QLabel, u"labtmname" + str(i))
+                    self.labi.setVisible(True)
                     self.labi.setGeometry(x, y, wdnl, self.hdn)
                     self.bnam = self.findChild(QPushButton, u"butname" + str(i))
                     self.bnam.setGeometry(10, int(self.hdn / 3 + 5),
@@ -186,7 +196,7 @@ class Winteamcr(QWidget):
         self.spinTeamCount.setMinimum(2)
         self.spinTeamCount.setMaximum(7)
         self.spinTeamCount.setEnabled(False)
-        self.spinTeamCount.show()
+        #self.spinTeamCount.show()
 
 
 # Модуль изменения наименования команд и их логотипов
