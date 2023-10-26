@@ -64,7 +64,7 @@ class Winteamcr(QWidget):
                 self.blc+=self.shag
                 if self.blc>=254 or self.blc<=60:
                     self.shag*= -1
-                self.sth="background-color: rgba(0,0,255,"+str(self.blc)+"); color: #ddFFaa;"
+                self.sth="background-color: rgba(0,0,255,"+str(self.blc)+"); color: #ddFFFF;"
                 self.setStyleSheet(self.sth)
 # Эффект раскрытия объектов
         def objupd():
@@ -210,7 +210,7 @@ class Winteamcr(QWidget):
                 self.lab_teamName = QLabel(self)
                 self.lab_teamName.setObjectName(u"labtmname"+str(i))
                 self.lab_teamName.setWordWrap(True)
-                self.lab_teamName.setText("Команда игроков №" + str(i + 1))
+                self.lab_teamName.setText("Команда №" + str(i + 1))
                 self.lab_teamName.setFont(font)
                 self.lab_teamName.setStyleSheet(stshteamname)
                 x=40+i*(wd-80)/tc
