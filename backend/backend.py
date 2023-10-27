@@ -71,7 +71,7 @@ class MainWindow(QMainWindow):
            QMessageBox.warning(self,"Внимание!","Не выбрана команда для изменения логотипа")
            return()   
         rown+=1
-        dialog = QFileDialog()
+        #dialog = QFileDialog()
         #dialog.setDirectory("../img/logo")
         #dialog.exec()
         ofileName, filetype = QFileDialog.getOpenFileName(
@@ -221,7 +221,7 @@ class MainWindow(QMainWindow):
     def selQpix(self):
         indexT=self.ui.tableView_themeTable.currentIndex()
         indexQ=self.ui.tableView_questTable.currentIndex()
-        dialog = QFileDialog()
+        #dialog = QFileDialog()
         #dialog.setDirectory("../img")
         #dialog.exec()
         ofileName, filetype = QFileDialog.getOpenFileName(
@@ -257,7 +257,7 @@ class MainWindow(QMainWindow):
     def selApix(self):
         indexT=self.ui.tableView_themeTable.currentIndex()
         indexQ=self.ui.tableView_questTable.currentIndex()
-        dialog = QFileDialog()
+        #dialog = QFileDialog()
         #dialog.setDirectory("../img")
         #dialog.exec()
         ofileName, filetype = QFileDialog.getOpenFileName(
@@ -293,7 +293,7 @@ class MainWindow(QMainWindow):
     def selTpix(self):
         indexT=self.ui.tableView_themeTable.currentIndex()
         indexQ=self.ui.tableView_questTable.currentIndex()   
-        dialog = QFileDialog()
+        #dialog = QFileDialog()
         #dialog.setDirectory("../img")
         #dialog.exec()
         ofileName, filetype = QFileDialog.getOpenFileName(
