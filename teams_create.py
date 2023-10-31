@@ -282,6 +282,7 @@ class Winteamcr(QWidget):
         dialog.setOkButtonText("Сохранить изменение")
         dialog.setCancelButtonText("Отказаться")
         dialog.setLabelText('Текущее наименование "'+comname[numTeam]+'" изменяем на:')
+        dialog.setTextValue(comname[numTeam])
         dialog.setInputMode(QInputDialog.TextInput)
         ok = dialog.exec()
 
