@@ -226,10 +226,13 @@ class Winteamcr(QWidget):
                 stshbn = "QPushButton{font-size: " +  str(int(fnts)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50)} QPushButton::hover{background-color: rgba(0,120,255,100) ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
                 self.butname.setStyleSheet(stshbn)
                 self.butname.setGeometry(5,int(self.lab_teamName.height()/3+5),int(self.lab_teamName.width()-10),int(self.lab_teamName.height()/1.5-15))
+                self.butname.installEventFilter(self)
+
 
                 self.butlogo = QPushButton(self.lab_teamName)
                 self.butlogo.setObjectName(u"butlogo" + str(i))
                 self.butlogo.setFont(font)
+                self.butlogo.installEventFilter(self)
                 twdt = (wd - 20) / tc - 10
                 fw = int(twdt / len("Логотип команды " + str(i + 1)))
 
@@ -252,8 +255,18 @@ class Winteamcr(QWidget):
         #self.contin.clicked.connect(cntn)
         self.contin.setVisible(False)
 
+    def eventFilter(self, obj, event):
+        if event.type() == QEvent.MouseButtonPress:
+                mouse_event = QMouseEvent(event)
+                if mouse_event.buttons() == Qt.LeftButton:
+                   #print(obj.objectName()[7])
+                   if (obj.objectName()[3])!= "l":
+                        self.enterName(int(obj.objectName()[7]))
+                   else:
+                       print ("logo"+obj.objectName()[7])     
 
-
+    def enterName(self,numTeam):
+        print(numTeam)
 
 if __name__ == "__main__":
     global gwidth,gheight,kfont
