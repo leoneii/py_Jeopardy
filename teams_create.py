@@ -3,8 +3,8 @@ import shutil
 import sys
 # import PySide6
 from PySide6 import QtCore
-from PySide6.QtCore import Qt, QPoint, QTimer, QEvent
-from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient, QPixmap)
+from PySide6.QtCore import Qt, QPoint, QTimer, QEvent, QSize
+from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient, QPixmap, QIcon)
 from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QDialog, \
     QVBoxLayout, QButtonGroup, QHBoxLayout, QSpinBox, QInputDialog, QMessageBox, QFileDialog, QStyle
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
@@ -108,10 +108,11 @@ class Winteamcr(QWidget):
                                     twdt = (wd - 20) / kolteam - 10
                                     fw = int(twdt / len("Логотип команды " + str(i + 1)))
 
-                                    self.blog.setText(comname[i])
+                                    self.blog.setText("Логотип")
                                     stshbn = "QPushButton{font-size: " + str(
                                         int(fw)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50); color: rgba(0,100,255,100)} QPushButton::hover{background-color: #0077ff ; color: rgba(0,200,255,200)} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
                                     self.blog.setStyleSheet(stshbn)
+
 
                                     self.contin.setVisible(True)
                                     self.tmrscrobj.stop()
@@ -183,6 +184,8 @@ class Winteamcr(QWidget):
                     stshbn = "QPushButton{font-size: " + str(
                         int(fw)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50); color: rgba(0,100,255,100)} QPushButton::hover{background-color: #0077ff ; color: rgba(0,200,255,200)} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
                     self.blog.setStyleSheet(stshbn)
+                    self.blog.setIcon(QIcon("./img/logo/"+teamlogo[i]))
+                    self.blog.setIconSize((QSize(190, 190)))
 
         self.badd=0
         self.butAddTeam=QPushButton(self)
@@ -240,8 +243,10 @@ class Winteamcr(QWidget):
                 self.butlogo.installEventFilter(self)
                 twdt = (wd - 20) / tc - 10
                 fw = int(twdt / len("Логотип команды " + str(i + 1)))
-
-                self.butlogo.setText(comname[i])
+                if len(teamlogo[i])==0:
+                    self.butlogo.setText("Логотип")
+                else:
+                    self.butlogo.setText("")
                 stshbn = "QPushButton{font-size: " + str(int(fw)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50); color: rgba(0,100,255,100)} QPushButton::hover{background-color: #0077ff ; color: rgba(0,200,255,200)} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
                 self.butlogo.setStyleSheet(stshbn)
                 self.butlogo.setGeometry(5, 5,
@@ -271,12 +276,23 @@ class Winteamcr(QWidget):
                         self.labi1 = self.findChild(QLabel, u"labtmname" + str(int(obj.objectName()[7])))
                         self.labi1.setText(comname[int(obj.objectName()[7])])
                         self.blog1 = self.findChild(QPushButton, u"butlogo" + str(int(obj.objectName()[7])))
-                        self.blog1.setText("Логотип "+comname[int(obj.objectName()[7])])
+                        if len(teamlogo[int(obj.objectName()[7])])==0:
+                            self.blog1.setText("Логотип ")
+                        else:
+                            self.blog1.setIcon(QIcon("./img/logo/" + teamlogo[int(obj.objectName()[7])]))
+                            self.blog1.setIconSize((QSize(190, 190)))
+                            self.blog1.setText("")
 
                         return True
                    else:
+
                        # print ("logo"+obj.objectName()[7])
                         self.enterLogoPath(int(obj.objectName()[7]))
+                        self.blog1 = self.findChild(QPushButton, u"butlogo" + str(int(obj.objectName()[7])))
+                        self.blog1.setIcon(QIcon("./img/logo/" + teamlogo[int(obj.objectName()[7])]))
+                        self.blog1.setIconSize((QSize(190, 190)))
+                        self.blog1.setText("")
+
                         return True
 
     def enterName(self,numTeam):
@@ -303,19 +319,15 @@ class Winteamcr(QWidget):
                 mesbox.exec()
 
     def enterLogoPath(self,numTeam):
-        print("Путь к логотипу "+str(numTeam))
         dialogL = QFileDialog()
-        #dialogL.setStyleSheet("QWidget { all: unset;} ")
-        ofileName, filetype = dialogL.getOpenFileName(
-            self,
-            "Выберите изображение", 
-            "", 
-            "Images (*.jpeg *.jpg)"
-        )
+        ofileName, filetype = dialogL.getOpenFileName(self, "Выберите изображение",  "",  "Images (*.jpeg *.jpg *.png)")
         fileName = os.path.basename(ofileName)
         if len(ofileName)>0:
+            teamlogo[numTeam]=str(fileName)
             shutil.copy2(ofileName,"./img/logo/"+fileName)
 
+
+        return True
 
 if __name__ == "__main__":
     global gwidth,gheight,kfont
