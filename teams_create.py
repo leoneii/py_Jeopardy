@@ -106,7 +106,7 @@ class Winteamcr(QWidget):
                                     twdt = (wd - 20) / kolteam - 10
                                     fw = int(twdt / len("Логотип команды " + str(i + 1)))
 
-                                    self.blog.setText("Логотип команды " + str(i + 1))
+                                    self.blog.setText(comname[i])
                                     stshbn = "QPushButton{font-size: " + str(
                                         int(fw)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50); color: rgba(0,100,255,100)} QPushButton::hover{background-color: #0077ff ; transition: background-color 1s ease-in-out; color: rgba(0,200,255,200)} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
                                     self.blog.setStyleSheet(stshbn)
@@ -239,7 +239,7 @@ class Winteamcr(QWidget):
                 twdt = (wd - 20) / tc - 10
                 fw = int(twdt / len("Логотип команды " + str(i + 1)))
 
-                self.butlogo.setText("Логотип команды " + str(i + 1))
+                self.butlogo.setText(comname[i])
                 stshbn = "QPushButton{font-size: " + str(int(fw)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50); color: rgba(0,100,255,100)} QPushButton::hover{background-color: #0077ff ; color: rgba(0,200,255,200)} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
                 self.butlogo.setStyleSheet(stshbn)
                 self.butlogo.setGeometry(5, 5,
@@ -268,6 +268,9 @@ class Winteamcr(QWidget):
                         #obj.setText(comname[int(obj.objectName()[7])])
                         self.labi1 = self.findChild(QLabel, u"labtmname" + str(int(obj.objectName()[7])))
                         self.labi1.setText(comname[int(obj.objectName()[7])])
+                        self.blog1 = self.findChild(QPushButton, u"butlogo" + str(int(obj.objectName()[7])))
+                        self.blog1.setText("Логотип "+comname[int(obj.objectName()[7])])
+
                         return True
                    else:
                        # print ("logo"+obj.objectName()[7])
