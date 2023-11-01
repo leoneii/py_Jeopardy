@@ -1,10 +1,12 @@
+import os
+import shutil
 import sys
 # import PySide6
 from PySide6 import QtCore
 from PySide6.QtCore import Qt, QPoint, QTimer, QEvent
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient, QPixmap)
 from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QDialog, \
-    QVBoxLayout, QButtonGroup, QHBoxLayout, QSpinBox, QInputDialog, QMessageBox
+    QVBoxLayout, QButtonGroup, QHBoxLayout, QSpinBox, QInputDialog, QMessageBox, QFileDialog
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 import simpleaudio as simple_audio
 
@@ -108,7 +110,7 @@ class Winteamcr(QWidget):
 
                                     self.blog.setText(comname[i])
                                     stshbn = "QPushButton{font-size: " + str(
-                                        int(fw)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50); color: rgba(0,100,255,100)} QPushButton::hover{background-color: #0077ff ; transition: background-color 1s ease-in-out; color: rgba(0,200,255,200)} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
+                                        int(fw)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50); color: rgba(0,100,255,100)} QPushButton::hover{background-color: #0077ff ; color: rgba(0,200,255,200)} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
                                     self.blog.setStyleSheet(stshbn)
 
                                     self.contin.setVisible(True)
@@ -179,14 +181,14 @@ class Winteamcr(QWidget):
                     twdt = (wd - 20) / kolteam - 10
                     fw = int(twdt / len("Логотип команды " + str(i + 1)))
                     stshbn = "QPushButton{font-size: " + str(
-                        int(fw)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50); color: rgba(0,100,255,100)} QPushButton::hover{background-color: #0077ff ; transition: background-color 0.5s; color: rgba(0,200,255,200)} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
+                        int(fw)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50); color: rgba(0,100,255,100)} QPushButton::hover{background-color: #0077ff ; color: rgba(0,200,255,200)} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
                     self.blog.setStyleSheet(stshbn)
 
         self.badd=0
         self.butAddTeam=QPushButton(self)
         self.butAddTeam.setText("Изменить количество")
         self.butAddTeam.setGeometry(wd / 2 - wd / 6-5, 125, self.badd, 40)
-        botb = "QPushButton{font-size: " +  str(int(fnts*0.5)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,30)} QPushButton::hover{background-color: rgba(0, 155, 255, 195); transition: background-color 0.5s;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
+        botb = "QPushButton{font-size: " +  str(int(fnts*0.5)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,30)} QPushButton::hover{background-color: rgba(0, 155, 255, 195);} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
         self.butAddTeam.setStyleSheet(botb)
         self.butAddTeam.clicked.connect(changeTeamCount)
 # Спинер изменения количества команд
@@ -254,7 +256,7 @@ class Winteamcr(QWidget):
         self.contin.setGeometry(wd *3/ 4 -60, hd - hd / 15-20, (wd - 20) / 4, tmh )
         self.contin.setText("К игре")
         self.contin.setStyleSheet("QPushButton { background-color: rgba(0,0,180,50) ; font: bold " + str(
-            fw) + "px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: "+str(tmh*2)+"px "+str(tmh)+"px; border-bottom-left-radius: "+str(tmh*2)+"px "+str(tmh)+"px} QPushButton::hover{background-color: #0077ff ;transition: background-color 0.5s;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,180) }")
+            fw) + "px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: "+str(tmh*2)+"px "+str(tmh)+"px; border-bottom-left-radius: "+str(tmh*2)+"px "+str(tmh)+"px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,180) }")
         #self.contin.clicked.connect(cntn)
         self.contin.setVisible(False)
 
@@ -275,11 +277,11 @@ class Winteamcr(QWidget):
                    else:
                        # print ("logo"+obj.objectName()[7])
                         self.enterLogoPath(int(obj.objectName()[7]))
-
+                        return True
 
     def enterName(self,numTeam):
         dialog = QInputDialog()
-        dialog.setStyleSheet("QPushButton { background-color: rgba(0,0,180,50) ; font: bold 14px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: 40px 10px; border-bottom-left-radius: 40px 10px} QPushButton::hover{background-color: #0077ff ;transition: background-color 0.5s;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,180) } QWidget{ background-color: rgba(0,100,220,190); font: bold 18px; color: rgba(255,255,255,210);} QLineEdit{background-color: rgba(0,20,120,220); color: rgba(255,255,255,255); font: bold 18px}")
+        dialog.setStyleSheet("QPushButton { background-color: rgba(0,0,180,50) ; font: bold 14px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: 40px 10px; border-bottom-left-radius: 40px 10px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,180) } QWidget{ background-color: rgba(0,100,220,190); font: bold 18px; color: rgba(255,255,255,210);} QLineEdit{background-color: rgba(0,20,120,220); color: rgba(255,255,255,255); font: bold 18px}")
         dialog.setGeometry(gwidth/2-gwidth/6,gheight/2-gheight/10,gwidth/3,gheight/5)
         dialog.setWindowTitle("Изменяем наименование "+comname[numTeam])
         dialog.setOkButtonText("Сохранить изменение")
@@ -302,6 +304,15 @@ class Winteamcr(QWidget):
 
     def enterLogoPath(self,numTeam):
         print("Путь к логотипу "+str(numTeam))
+        ofileName, filetype = QFileDialog.getOpenFileName(
+            self,
+            "Выберите изображение", 
+            "", 
+            "Images (*.jpeg *.jpg)"
+        )
+        fileName = os.path.basename(ofileName)
+        if len(ofileName)>0:
+            shutil.copy2(ofileName,"./img/logo/"+fileName)
 
 
 if __name__ == "__main__":
