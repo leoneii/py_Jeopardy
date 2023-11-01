@@ -6,7 +6,7 @@ from PySide6 import QtCore
 from PySide6.QtCore import Qt, QPoint, QTimer, QEvent
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient, QPixmap)
 from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QDialog, \
-    QVBoxLayout, QButtonGroup, QHBoxLayout, QSpinBox, QInputDialog, QMessageBox, QFileDialog
+    QVBoxLayout, QButtonGroup, QHBoxLayout, QSpinBox, QInputDialog, QMessageBox, QFileDialog, QStyle
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 import simpleaudio as simple_audio
 
@@ -304,7 +304,9 @@ class Winteamcr(QWidget):
 
     def enterLogoPath(self,numTeam):
         print("Путь к логотипу "+str(numTeam))
-        ofileName, filetype = QFileDialog.getOpenFileName(
+        dialogL = QFileDialog()
+        #dialogL.setStyleSheet("QWidget { all: unset;} ")
+        ofileName, filetype = dialogL.getOpenFileName(
             self,
             "Выберите изображение", 
             "", 
