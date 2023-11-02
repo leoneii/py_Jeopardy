@@ -253,6 +253,18 @@ class Winteamcr(QWidget):
                                          int(self.lab_teamName.width() - 10),
                                          int(self.lab_teamName.height() / 3 - 10))
 
+                self.dellogo=QPushButton(self.butlogo)
+                self.dellogo.setObjectName(u"dellog"+str(i))
+                xd=self.butlogo.width()*4/5-5
+                yd=self.butlogo.height()*4/5-5
+                print(xd,yd)
+                # wdd=self.butlogo.width()/5
+                # hdd=self.butlogo.height()/5
+                self.dellogo.setGeometry(xd,yd,50,20)
+                self.dellogo.setText("X")
+
+
+
         mod_chang_team_name(7)
         mod_chang_team_name(kolteam)
 
