@@ -184,21 +184,7 @@ class Winteamcr(QWidget):
                     stshbn = "QPushButton{font-size: " + str(
                         int(fw)) + "px; border-radius: 10px; border: 1px solid rgba(200,200,255,180); background-color: rgba(0,0,200,50); color: rgba(0,100,255,100)} QPushButton::hover{background-color: #0077ff ; color: rgba(0,200,255,200)} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
                     self.blog.setStyleSheet(stshbn)
-                    self.blog.setIcon(QIcon("./img/logo/"+teamlogo[i]))
-                    self.blog.setIconSize((QSize(self.blog.width()/1.3, self.blog.height()/1.3)))
-
-                    self.blogd= self.findChild(QPushButton, u"dellog" + str(i))
-                    xd = self.blog.width() * 5 / 6 - 5
-                    yd = self.blog.height() * 4 / 5 - 5
-                    wdd=self.blog.width()/6
-                    hdd=self.blog.height()/5
-                    self.blogd.setGeometry(xd, yd, wdd, hdd)
-                    if len(teamlogo[i])>0:
-                        self.blogd.setVisible(True)
-                    else:
-                        self.blogd.setVisible(False)
-
-                    #self.dellogo.setText("X")
+                    self.upLogo(i)
 
 
 
@@ -270,13 +256,14 @@ class Winteamcr(QWidget):
                                          int(self.lab_teamName.height() / 3 - 10))
 
                 self.dellogo=QPushButton(self.butlogo)
-                self.dellogo.setObjectName(u"dellog"+str(i))
+                self.dellogo.setObjectName(u"delog"+str(i))
                 xd = self.butlogo.width() * 5 / 6 - 5
                 yd = self.butlogo.height() * 4 / 5 - 5
                 wdd = self.butlogo.width() / 6
                 hdd = self.butlogo.height() / 5
                 self.dellogo.setGeometry(xd, yd, wdd, hdd)
                 self.dellogo.setText("X")
+                self.dellogo.installEventFilter(self)
 
                 if len(teamlogo[i])==0:
                     self.dellogo.setVisible(False)
@@ -300,65 +287,58 @@ class Winteamcr(QWidget):
         if event.type() == QEvent.MouseButtonPress:
                 mouse_event = QMouseEvent(event)
                 if mouse_event.buttons() == Qt.LeftButton:
-                   #print(obj.objectName())
-                   if (obj.objectName()[3])!= "l":
+                    if (obj.objectName()[3])== "l": #добавление лого
+                        self.enterLogoPath(int(obj.objectName()[7]))
+                        self.upLogo(int(obj.objectName()[7]))
+                        return True     
+                    
+                    elif (obj.objectName()[3])== "o": #удаление лого
+                        self.clearLogoPath(int(obj.objectName()[5]))
+                        return True
+                    
+                    elif(obj.objectName()[3])== "n": #имя команды
                         self.enterName(int(obj.objectName()[7]))
-                        #obj.setText(comname[int(obj.objectName()[7])])
                         self.labi1 = self.findChild(QLabel, u"labtmname" + str(int(obj.objectName()[7])))
                         self.labi1.setText(comname[int(obj.objectName()[7])])
-                        self.blog1 = self.findChild(QPushButton, u"butlogo" + str(int(obj.objectName()[7])))
-                        if len(teamlogo[int(obj.objectName()[7])])==0:
-                            self.blog1.setText("Логотип ")
-                        else:
-                            self.blog1.setIcon(QIcon("./img/logo/" + teamlogo[int(obj.objectName()[7])]))
-                            self.blog1.setIconSize((QSize(self.blog1.width()/1.3, self.blog1.height()/1.3)))
-                            self.blog1.setText("")
-
-                            self.blogd1 = self.findChild(QPushButton, u"dellog" + str(int(obj.objectName()[7])))
-                            xd = self.blog1.width() * 5 / 6 - 5
-                            yd = self.blog1.height() * 4 / 5 - 5
-                            wdd = self.blog1.width() / 6
-                            hdd = self.blog1.height() / 5
-                            self.blogd1.setGeometry(xd, yd, wdd, hdd)
-                            if len(teamlogo[int(obj.objectName()[7])]) > 0:
-                                self.blogd1.setVisible(True)
-                            else:
-                                self.blogd1.setVisible(False)
-
-
-
-                        return True
-                   else:
-                        print(obj.objectName())
-                        self.enterLogoPath(int(obj.objectName()[7]))
-                        self.blog1 = self.findChild(QPushButton, u"butlogo" + str(int(obj.objectName()[7])))
-                        self.blog1.setIcon(QIcon("./img/logo/" + teamlogo[int(obj.objectName()[7])]))
-                        self.blog1.setIconSize((QSize(self.blog1.width()/1.3, self.blog1.height()/1.3)))
-                        self.blog1.setText("")
-                        self.blogd1 = self.findChild(QPushButton, u"dellog" + str(int(obj.objectName()[7])))
-                        xd = self.blog1.width() * 5 / 6 - 5
-                        yd = self.blog1.height() * 4 / 5 - 5
-                        wdd = self.blog1.width() / 6
-                        hdd = self.blog1.height() / 5
-                        self.blogd1.setGeometry(xd, yd, wdd, hdd)
-                        if len(teamlogo[int(obj.objectName()[7])]) == 0:
-                            self.blogd1.setVisible(False)
-                        else:
-                            self.blogd1.setVisible(True)
-
+                        self.upLogo(int(obj.objectName()[7]))
                         return True
 
+    
+    def upLogo(self,numTeam):
+        self.blog1 = self.findChild(QPushButton, u"butlogo" + str(numTeam))
+        self.blogd1 = self.findChild(QPushButton, u"delog" + str(numTeam))
+        if len(teamlogo[numTeam])==0:
+            self.blog1.setText("Логотип ")
+            self.blog1.setIcon(QIcon(""))
+            if len(teamlogo[numTeam]) > 0:
+                self.blogd1.setVisible(True)
+            else:
+                self.blogd1.setVisible(False)
+        else:
+            self.blog1.setIcon(QIcon("./img/logo/" + teamlogo[numTeam]))
+            self.blog1.setIconSize((QSize(self.blog1.width()/1.3, self.blog1.height()/1.3)))
+            self.blog1.setText("")
+            self.blogd1 = self.findChild(QPushButton, u"delog" + str(numTeam))
+            xd = self.blog1.width() * 5 / 6 - 5
+            yd = self.blog1.height() * 4 / 5 - 5
+            wdd = self.blog1.width() / 6
+            hdd = self.blog1.height() / 5
+            self.blogd1.setGeometry(xd, yd, wdd, hdd)
+            if len(teamlogo[numTeam]) > 0:
+                self.blogd1.setVisible(True)
+            else:
+                self.blogd1.setVisible(False)
 
     def clearLogoPath(self,numTeam):
         dlg = QMessageBox()
         dlg.setWindowTitle("Удаление логотипа!!!")
-        dlg.setText("Уверены, что логотип необходимо удалить?")
+        dlg.setText("Уверены, что логотип необходимо удалить?" + str(numTeam))
         dlg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         dlg.setIcon(QMessageBox.Question)
         button = dlg.exec()
         if button == QMessageBox.Ok:
-            print(self.blogd1.objectName())
-
+            teamlogo[numTeam] = ""
+            self.upLogo(numTeam)
             return True
         if button == QMessageBox.Cancel:
             return False
