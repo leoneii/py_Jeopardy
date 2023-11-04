@@ -9,6 +9,7 @@ from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QDialo
     QVBoxLayout, QButtonGroup, QHBoxLayout, QSpinBox, QInputDialog, QMessageBox, QFileDialog, QStyle
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 import simpleaudio as simple_audio
+from pyqt6_plugins.examplebuttonplugin import QtGui
 
 blc = 120
 shag = 2
@@ -303,6 +304,7 @@ class Winteamcr(QWidget):
                         self.upLogo(int(obj.objectName()[7]))
                         return True
 
+        return super(Winteamcr, self).eventFilter(obj, event)
     
     def upLogo(self,numTeam):
         self.blog1 = self.findChild(QPushButton, u"butlogo" + str(numTeam))
@@ -331,9 +333,17 @@ class Winteamcr(QWidget):
 
     def clearLogoPath(self,numTeam):
         dlg = QMessageBox()
+        dlg.setStyleSheet(
+            " QWidget{ background-color: rgba(0,100,220,190); font: bold 18px; color: rgba(255,255,255,255);} QPushButton::Hover{background-color: rgba(0,180,240,150);} QPushButton::Pressed{background-color: rgba(0,200,250,100);}")
         dlg.setWindowTitle("Удаление логотипа!!!")
-        dlg.setText("Уверены, что логотип необходимо удалить?" + str(numTeam))
+        dlg.setText("Уверены, что логотип необходимо удалить?")
         dlg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        # dlg.setButtonText(QMessageBox.Ok, "Да")
+        # dlg.setButtonText(QMessageBox.Cancel, "Нет, отказаться")
+        buttonY = dlg.button(QMessageBox.Ok)
+        buttonY.setText('Да')
+        buttonN = dlg.button(QMessageBox.Cancel)
+        buttonN.setText('Нет, отказаться')
         dlg.setIcon(QMessageBox.Question)
         button = dlg.exec()
         if button == QMessageBox.Ok:
@@ -342,7 +352,6 @@ class Winteamcr(QWidget):
             return True
         if button == QMessageBox.Cancel:
             return False
-
     def enterName(self,numTeam):
         dialog = QInputDialog()
         dialog.setStyleSheet("QPushButton { background-color: rgba(0,0,180,50) ; font: bold 14px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: 40px 10px; border-bottom-left-radius: 40px 10px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,180) } QWidget{ background-color: rgba(0,100,220,190); font: bold 18px; color: rgba(255,255,255,210);} QLineEdit{background-color: rgba(0,20,120,220); color: rgba(255,255,255,255); font: bold 18px}")
@@ -372,7 +381,10 @@ class Winteamcr(QWidget):
         fileName = os.path.basename(ofileName)
         if len(ofileName)>0:
             teamlogo[numTeam]=str(fileName)
-            shutil.copy2(ofileName,"./img/logo/"+fileName)
+            if "/img/logo/" in ofileName:
+                pass
+            else:
+                shutil.copy2(ofileName,"./img/logo/"+fileName)
 
 
 
