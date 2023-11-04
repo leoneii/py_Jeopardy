@@ -9,7 +9,7 @@ from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QDialo
     QVBoxLayout, QButtonGroup, QHBoxLayout, QSpinBox, QInputDialog, QMessageBox, QFileDialog, QStyle
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 import simpleaudio as simple_audio
-from pyqt6_plugins.examplebuttonplugin import QtGui
+#from pyqt6_plugins.examplebuttonplugin import QtGui
 
 blc = 120
 shag = 2
