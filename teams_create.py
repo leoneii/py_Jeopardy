@@ -21,7 +21,7 @@ comname = ["Команда 1", "Команда 2", "Команда 3", "Кома
 teamlogo = ["", "", "", "", "", "", ""]
 
 class Winteamcr(QWidget):
-    global comname, teamlogo
+    global comname, teamlogo,kolteam
 # Анимация фона экрана
     def paintEvent(self, event):
         global smx,blc,shag
@@ -55,7 +55,7 @@ class Winteamcr(QWidget):
         font.setFamilies([u"Arial"])
         font.setBold(True)
 
-        global gwidth, gheight,wdl, kolteam
+        global gwidth, gheight,wdl,kolteam
         (gwidth, gheight) = apt.screens()[0].size().toTuple()
         super(Winteamcr, self).__init__(parent)
         wd=gwidth
@@ -141,20 +141,21 @@ class Winteamcr(QWidget):
 
 # кнопка изменения количества команд
         def changeTeamCount():
+            global kolteam
             if self.butAddTeam.text()=="Изменить количество":
                 self.butAddTeam.setText("Подтвердить количество")
-# не понятно, не отключается
+
                 for i in range(7):
                     self.labi = self.findChild(QLabel, u"labtmname" + str(i))
                     self.labi.setVisible(False)
-
+                self.contin.setVisible(False)
                 self.spinTeamCount.setEnabled(True)
                 spstsh = "QSpinBox{border:3px solid #99aaff; border-radius: 10px; background-color: rgba(0,0,20,130); font-size: " + str(
                     int(fnts * 0.7)) + "px}"
                 self.spinTeamCount.setStyleSheet(spstsh)
                 self.spinTeamCount.setFocus()
             else:
-
+                self.contin.setVisible(True)
                 self.butAddTeam.setText("Изменить количество")
                 spstsh = "QSpinBox{border:1px solid #99aaff; border-radius: 10px; background-color: rgba(0,0,200,30); font-size: " + str(
                     int(fnts * 0.7)) + "px}"
@@ -226,7 +227,6 @@ class Winteamcr(QWidget):
                 y=180
                 self.lab_teamName.setGeometry(x,y,wdnl,self.hdn)
                 self.lab_teamName.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
                 self.butname=QPushButton(self.lab_teamName)
                 self.butname.setObjectName(u"butname" + str(i))
                 self.butname.setFont(font)
@@ -235,8 +235,6 @@ class Winteamcr(QWidget):
                 self.butname.setStyleSheet(stshbn)
                 self.butname.setGeometry(5,int(self.lab_teamName.height()/3+5),int(self.lab_teamName.width()-10),int(self.lab_teamName.height()/1.5-15))
                 self.butname.installEventFilter(self)
-
-
                 self.butlogo = QPushButton(self.lab_teamName)
                 self.butlogo.setObjectName(u"butlogo" + str(i))
                 self.butlogo.setFont(font)
@@ -278,8 +276,38 @@ class Winteamcr(QWidget):
         self.contin.setText("К игре")
         self.contin.setStyleSheet("QPushButton { background-color: rgba(0,0,180,50) ; font: bold " + str(
             fw) + "px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: "+str(tmh*2)+"px "+str(tmh)+"px; border-bottom-left-radius: "+str(tmh*2)+"px "+str(tmh)+"px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,180) }")
-        #self.contin.clicked.connect(cntn)
+        self.contin.clicked.connect(self.cntn)
         self.contin.setVisible(False)
+    def cntn(self):
+        dlg = QMessageBox()
+        dlg.setStyleSheet(
+            " QWidget{ background-color: rgba(0,100,220,190); font: bold 18px; color: rgba(255,255,255,255);} QPushButton::Hover{background-color: rgba(0,180,240,150);} QPushButton::Pressed{background-color: rgba(0,200,250,100);}")
+        dlg.setWindowTitle("Переход к игре")
+        dlg.setText("Уверены, что все данные внесены корректно?")
+        dlg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        buttonY = dlg.button(QMessageBox.Ok)
+        buttonY.setText('Да')
+        buttonN = dlg.button(QMessageBox.Cancel)
+        buttonN.setText('Нет, вернуться')
+        dlg.setIcon(QMessageBox.Question)
+        button = dlg.exec()
+        if button == QMessageBox.Ok:
+            sqlDB = QSqlDatabase.addDatabase('QSQLITE')
+            sqlDB.setDatabaseName("./jep.sqlite")
+            sqlDB.open()
+            query = QSqlQuery()
+            txtq = "DELETE FROM Teams"
+            query.exec(txtq)
+            query1 = QSqlQuery()
+            for i in range(kolteam):
+                query1.next()
+                txtq="INSERT INTO Teams (Id, Logo, Name) VALUES ( "+str(i)+", '"+teamlogo[i]+"', '"+comname[i]+"' );"
+                query1.exec(txtq)
+            sqlDB.close()
+            apt.quit()
+        if button == QMessageBox.Cancel:
+            return False
+
 
     def eventFilter(self, obj, event):
         if event.type() == QEvent.MouseButtonPress:
@@ -335,8 +363,6 @@ class Winteamcr(QWidget):
         dlg.setWindowTitle("Удаление логотипа!!!")
         dlg.setText("Уверены, что логотип необходимо удалить?")
         dlg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-        # dlg.setButtonText(QMessageBox.Ok, "Да")
-        # dlg.setButtonText(QMessageBox.Cancel, "Нет, отказаться")
         buttonY = dlg.button(QMessageBox.Ok)
         buttonY.setText('Да')
         buttonN = dlg.button(QMessageBox.Cancel)

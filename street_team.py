@@ -386,8 +386,6 @@ class Wint(QWidget):
             vbox.addLayout(layout)
             reply.setLayout(vbox)
             reply.exec()
-
-
 if __name__ == "__main__":
     global gwidth,gheight,kfont
     apt = QApplication([])
