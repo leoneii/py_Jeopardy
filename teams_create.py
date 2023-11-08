@@ -22,10 +22,6 @@ teamlogo = ["", "", "", "", "", "", ""]
 
 class Winteamcr(QWidget):
     global comname, teamlogo
-
-
-    
-
 # Анимация фона экрана
     def paintEvent(self, event):
         global smx,blc,shag
@@ -64,7 +60,6 @@ class Winteamcr(QWidget):
         super(Winteamcr, self).__init__(parent)
         wd=gwidth
         hd=gheight
-        
 #запускаем анимацию фона
         def scrupd():
                 self.blc+=self.shag
@@ -148,12 +143,32 @@ class Winteamcr(QWidget):
         def changeTeamCount():
             if self.butAddTeam.text()=="Изменить количество":
                 self.butAddTeam.setText("Подтвердить количество")
+# не понятно, не отключается
+                for i in range(7):
+                    self.labi = self.findChild(QLabel, u"labtmname" + str(i))
+                    self.labi.setEnabled(False)
+                    #print(self.labi.objectName())
+                    self.butn=self.findChild(QPushButton,u"butname" + str(i))
+                    self.butn.setEnabled(False)
+                    self.blog1 = self.findChild(QPushButton, u"butlogo" + str(i))
+                    self.blog1.setEnabled(False)
+
+
                 self.spinTeamCount.setEnabled(True)
                 spstsh = "QSpinBox{border:3px solid #99aaff; border-radius: 10px; background-color: rgba(0,0,20,130); font-size: " + str(
                     int(fnts * 0.7)) + "px}"
                 self.spinTeamCount.setStyleSheet(spstsh)
                 self.spinTeamCount.setFocus()
             else:
+
+                for i in range(7):
+                    self.labi = self.findChild(QLabel, u"labtmname" + str(i))
+                    self.labi.setEnabled(True)
+                    self.butn = self.findChild(QPushButton, u"butname" + str(i))
+                    self.butn.setEnabled(True)
+                    self.blog1 = self.findChild(QPushButton, u"butlogo" + str(i))
+                    self.blog1.setEnabled(True)
+
                 self.butAddTeam.setText("Изменить количество")
                 spstsh = "QSpinBox{border:1px solid #99aaff; border-radius: 10px; background-color: rgba(0,0,200,30); font-size: " + str(
                     int(fnts * 0.7)) + "px}"
@@ -187,9 +202,6 @@ class Winteamcr(QWidget):
                     self.blog.setStyleSheet(stshbn)
                     self.upLogo(i)
 
-
-
-
         self.badd=0
         self.butAddTeam=QPushButton(self)
         self.butAddTeam.setText("Изменить количество")
@@ -209,7 +221,6 @@ class Winteamcr(QWidget):
         self.spinTeamCount.setMaximum(7)
         self.spinTeamCount.setEnabled(False)
         #self.spinTeamCount.show()
-
 
 # Модуль изменения наименования команд и их логотипов
         def mod_chang_team_name(tc):
@@ -385,8 +396,6 @@ class Winteamcr(QWidget):
                 pass
             else:
                 shutil.copy2(ofileName,"./img/logo/"+fileName)
-
-
 
         return True
 
