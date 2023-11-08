@@ -146,13 +146,7 @@ class Winteamcr(QWidget):
 # не понятно, не отключается
                 for i in range(7):
                     self.labi = self.findChild(QLabel, u"labtmname" + str(i))
-                    self.labi.setEnabled(False)
-                    #print(self.labi.objectName())
-                    self.butn=self.findChild(QPushButton,u"butname" + str(i))
-                    self.butn.setEnabled(False)
-                    self.blog1 = self.findChild(QPushButton, u"butlogo" + str(i))
-                    self.blog1.setEnabled(False)
-
+                    self.labi.setVisible(False)
 
                 self.spinTeamCount.setEnabled(True)
                 spstsh = "QSpinBox{border:3px solid #99aaff; border-radius: 10px; background-color: rgba(0,0,20,130); font-size: " + str(
@@ -160,14 +154,6 @@ class Winteamcr(QWidget):
                 self.spinTeamCount.setStyleSheet(spstsh)
                 self.spinTeamCount.setFocus()
             else:
-
-                for i in range(7):
-                    self.labi = self.findChild(QLabel, u"labtmname" + str(i))
-                    self.labi.setEnabled(True)
-                    self.butn = self.findChild(QPushButton, u"butname" + str(i))
-                    self.butn.setEnabled(True)
-                    self.blog1 = self.findChild(QPushButton, u"butlogo" + str(i))
-                    self.blog1.setEnabled(True)
 
                 self.butAddTeam.setText("Изменить количество")
                 spstsh = "QSpinBox{border:1px solid #99aaff; border-radius: 10px; background-color: rgba(0,0,200,30); font-size: " + str(
