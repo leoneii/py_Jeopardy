@@ -3,7 +3,7 @@ import shutil
 import sys
 # import PySide6
 from PySide6 import QtCore
-from PySide6.QtCore import Qt, QPoint, QTimer, QEvent, QSize
+from PySide6.QtCore import Qt, QPoint, QTimer, QEvent, QSize, QProcess
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient, QPixmap, QIcon)
 from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QDialog, \
     QVBoxLayout, QButtonGroup, QHBoxLayout, QSpinBox, QInputDialog, QMessageBox, QFileDialog, QStyle
@@ -304,9 +304,13 @@ class Winteamcr(QWidget):
                 txtq="INSERT INTO Teams (Id, Logo, Name) VALUES ( "+str(i)+", '"+teamlogo[i]+"', '"+comname[i]+"' );"
                 query1.exec(txtq)
             sqlDB.close()
-            apt.quit()
+            self.p = QProcess()  # Keep a reference to the QProcess (e.g. on self) while it's running.
+            self.p.finished.connect(self.process_finished)
+            self.p.start("python", ['street_team.py'])
         if button == QMessageBox.Cancel:
             return False
+    def process_finished(self):
+        apt.quit()
 
 
     def eventFilter(self, obj, event):
