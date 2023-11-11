@@ -278,6 +278,8 @@ class Winteamcr(QWidget):
             fw) + "px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: "+str(tmh*2)+"px "+str(tmh)+"px; border-bottom-left-radius: "+str(tmh*2)+"px "+str(tmh)+"px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,180) }")
         self.contin.clicked.connect(self.cntn)
         self.contin.setVisible(False)
+        
+        # к игре
     def cntn(self):
         dlg = QMessageBox()
         dlg.setStyleSheet(
@@ -304,9 +306,11 @@ class Winteamcr(QWidget):
                 txtq="INSERT INTO Teams (Id, Logo, Name) VALUES ( "+str(i)+", '"+teamlogo[i]+"', '"+comname[i]+"' );"
                 query1.exec(txtq)
             sqlDB.close()
-            self.p = QProcess()  # Keep a reference to the QProcess (e.g. on self) while it's running.
-            self.p.finished.connect(self.process_finished)
-            self.p.start("python", ['street_team.py'])
+            # self.p = QProcess()  # Keep a reference to the QProcess (e.g. on self) while it's running.
+            # self.p.finished.connect(self.process_finished)
+            # self.p.start("python", ['street_team.py'])
+            os.popen("street_team.exe")
+            self.process_finished()
         if button == QMessageBox.Cancel:
             return False
     def process_finished(self):
