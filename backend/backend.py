@@ -160,6 +160,11 @@ class MainWindow(QMainWindow):
         dialog = QFileDialog()
         dName=str(dialog.getExistingDirectory(self,"Выбрать папку","./games/"))
         try:
+            shutil.rmtree(dName)
+        except:
+           print("апшипка games") 
+           
+        try:
             shutil.copytree(dName+"/img","../img",  symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=True)
         except:
             print("апшипка games")     
