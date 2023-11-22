@@ -78,7 +78,7 @@ class MainWindow(QMainWindow):
             self,
             "Выберите изображение", 
             "", 
-            "Images (*.jpeg *.jpg)"
+            "Images (*.jpeg *.jpg *.png)"
         )
         fileName = os.path.basename(ofileName)
 
@@ -159,15 +159,16 @@ class MainWindow(QMainWindow):
     def openGame(self):
         dialog = QFileDialog()
         dName=str(dialog.getExistingDirectory(self,"Выбрать папку","./games/"))
-        try:
-            shutil.rmtree(dName)
-        except:
-           print("апшипка games") 
            
+        try:
+            shutil.rmtree("../img")    
+        except:
+            print("апшипка games") 
+        
         try:
             shutil.copytree(dName+"/img","../img",  symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=True)
         except:
-            print("апшипка games")     
+            print("апшипка games2")           
         shutil.copyfile(dName+"/jep.sqlite","../jep.sqlite")
         self.updateform()
         self.selector(0,0)
@@ -175,6 +176,11 @@ class MainWindow(QMainWindow):
 
     def saveGame(self):
         fName =str(QInputDialog.getText(None, " Сохраняем игру", "Введите название ")[0])
+        try:
+            shutil.rmtree("../games/"+fName)
+        except:
+           print("апшипка games") 
+           
         try:
             shutil.copytree("../img", "../games/"+fName+"/img", symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=False)
         except:
@@ -240,7 +246,7 @@ class MainWindow(QMainWindow):
             self,
             "Выберите изображение", 
             "", 
-            "Images (*.jpeg *.jpg)"
+            "Images (*.jpeg *.jpg *.png)"
         )
         fileName = os.path.basename(ofileName)
 
@@ -279,7 +285,7 @@ class MainWindow(QMainWindow):
             self,
             "Выберите изображение", 
             "", 
-            "Images (*.jpeg *.jpg)"
+            "Images (*.jpeg *.jpg *.png)"
         )
         fileName = os.path.basename(ofileName)
 
@@ -318,7 +324,7 @@ class MainWindow(QMainWindow):
             self,
             "Выберите изображение", 
             "", 
-            "Images (*.jpeg *.jpg)"
+            "Images (*.jpeg *.jpg *.png)"
         )
         fileName = os.path.basename(ofileName)
 
