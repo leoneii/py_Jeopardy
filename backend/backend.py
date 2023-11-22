@@ -83,7 +83,10 @@ class MainWindow(QMainWindow):
         fileName = os.path.basename(ofileName)
 
         if len(ofileName)>0:
-            shutil.copy2(ofileName,"../img/logo/"+fileName)
+            try:
+                shutil.copy2(ofileName,"../img/logo/"+fileName)
+            except:
+                print("апшипка logo")    
             query=QSqlQuery()
             txtq="UPDATE Teams SET Logo='"+str(fileName)+"' WHERE Id="+str(rown)+";"
             query.exec(txtq)
@@ -156,17 +159,21 @@ class MainWindow(QMainWindow):
     def openGame(self):
         dialog = QFileDialog()
         dName=str(dialog.getExistingDirectory(self,"Выбрать папку","./games/"))
-        shutil.copytree(dName+"/img","../img",  symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=True)
+        try:
+            shutil.copytree(dName+"/img","../img",  symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=True)
+        except:
+            print("апшипка games")     
         shutil.copyfile(dName+"/jep.sqlite","../jep.sqlite")
         self.updateform()
         self.selector(0,0)
         
 
-        
-
     def saveGame(self):
         fName =str(QInputDialog.getText(None, " Сохраняем игру", "Введите название ")[0])
-        shutil.copytree("../img", "../games/"+fName+"/img", symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=False)
+        try:
+            shutil.copytree("../img", "../games/"+fName+"/img", symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=False)
+        except:
+            print("апшипка games") 
         shutil.copyfile("../jep.sqlite","../games/"+fName+"/jep.sqlite")
         self.selector(0,0)
 
@@ -233,7 +240,10 @@ class MainWindow(QMainWindow):
         fileName = os.path.basename(ofileName)
 
         if len(ofileName)>0:
-            shutil.copy2(ofileName,"../img/"+fileName)
+            try:
+                shutil.copy2(ofileName,"../img/"+fileName)
+            except:
+                print("апшипка")    
             costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
             model = self.ui.tableView_themeTable.model()
             self.textQpix =  ("UPDATE ThemeAndQ SET Image = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
@@ -269,7 +279,10 @@ class MainWindow(QMainWindow):
         fileName = os.path.basename(ofileName)
 
         if len(ofileName)>0:
-            shutil.copy2(ofileName,"../img/"+fileName)
+            try:
+                shutil.copy2(ofileName,"../img/"+fileName)
+            except:
+                print("апшипка")    
             costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
             model = self.ui.tableView_themeTable.model()
             self.textApix =  ("UPDATE ThemeAndQ SET ImageA = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
@@ -305,7 +318,10 @@ class MainWindow(QMainWindow):
         fileName = os.path.basename(ofileName)
 
         if len(ofileName)>0:
-            shutil.copy2(ofileName,"../img/"+fileName)
+            try:
+                shutil.copy2(ofileName,"../img/"+fileName)
+            except:
+                print("апшипка")    
             costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
             model = self.ui.tableView_themeTable.model()
             self.textTpix =  ("UPDATE ThemeAndQ SET ToolTipImg = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
