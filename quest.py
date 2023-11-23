@@ -225,7 +225,7 @@ class winq(QWidget):
                 fs = int(54*kfont)
             else:
                 fs = int(60*kfont)
-        elif leghtext in range(1,99):
+        elif leghtext in range(1,100):
             if len(ynpht) > 0:
                 fs = int(60*kfont)
             else:
