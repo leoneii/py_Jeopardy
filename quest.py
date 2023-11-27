@@ -91,12 +91,12 @@ class winq(QWidget):
         # """)
         self.photo=QLabel(self)
         self.photo.setAlignment(self.alignmentc)
-        self.photo.setGeometry(QRect(100, 20, wdt-200, hgt*2/3-100))
+        self.photo.setGeometry(QRect(100, 20, wdt-200, hgt*2/3-120))
         self.photo.setStyleSheet("background-color: rgba(0,0,80,5)")
         #Фото
         if len(ynph) > 0:
             pixmap=QPixmap("./img/"+ynph)
-            pixmap = pixmap.scaled(900, hgt*2/3-40, Qt.KeepAspectRatio)
+            pixmap = pixmap.scaled(wdt-200, hgt*2/3-120, Qt.KeepAspectRatio)
             self.photo.setPixmap(pixmap)
 #Конец фото
 
@@ -105,9 +105,9 @@ class winq(QWidget):
         self.textv.setObjectName(u"txtvopr")
         self.textv.setAlignment(self.alignmentc)
         if len(ynph) > 0:
-            self.textv.setGeometry(QRect(130, hgt*2/3-80, wdt-260, hgt/3-20))
+            self.textv.setGeometry(QRect(130, hgt*2/3-100, wdt-260, hgt/3-20))
         else:
-            self.textv.setGeometry(QRect(130, 20, wdt-260, hgt-40))
+            self.textv.setGeometry(QRect(130, 20, wdt-260, hgt-60))
         self.textv.setWordWrap(True)
         self.textv.setText(txt)
         leghtext= len(txt)
@@ -121,7 +121,7 @@ class winq(QWidget):
                 fs = int(54*kfont)
             else:
                 fs = int(60*kfont)
-        elif leghtext in range(1,99):
+        elif leghtext in range(0,99):
             if len(ynph) > 0:
                 fs = int(60*kfont)
             else:
@@ -194,22 +194,35 @@ class winq(QWidget):
             self.tl_button.setVisible(False)
 # Использование подсказки
     def tl_func(self):
-        self.start_stop_func()
+        #self.start_stop_func()
+        self.ss_button.setText('')
+        self.ss_button.setIconSize(QSize(90, 90))
+        self.timer.stop()
+        self.tiker.stop()
         self.step = 0
         self.progressbar.setValue(self.step)
         query2 = QSqlQuery()
         if not query2.exec("UPDATE settings set tmpDat1 =" + str(int(cost) - int(cpd)) + ";"):
             logging.error("Failed to query database9")
-        # txtpd=self.textv.text()
-        # txtpd+="\n\n"+txtp
-        #txtpd=txtp
+
         if len(ynpht) > 0:
-            self.textv.setGeometry(QRect(120, hgt*2/3-20, wdt-240, hgt/3-40))
-            pixmap=QPixmap("./img/"+ynpht)
+
+            pixmap = QPixmap("./img/" + ynpht)
+            if len(txtp)>0:
+                self.textv.setGeometry(QRect(120, hgt*2/3-20, wdt-240, hgt/3-40))
+                self.photo.setGeometry(QRect(100, 20, wdt-200, hgt*2/3-100))
+                pixmap = pixmap.scaled(wdt - 200, hgt * 2 / 3 - 100, Qt.KeepAspectRatio)
+
+            else:
+                self.photo.setGeometry(QRect(120, 20, wdt - 240, hgt  - 160))
+                pixmap = pixmap.scaled(wdt - 240, hgt  - 180, Qt.KeepAspectRatio)
+
+
             self.photo.setPixmap(pixmap)
-            self.photo.setVisible(True) 
+            self.photo.setVisible(True)
+
         else:
-            self.textv.setGeometry(QRect(130, 20, wdt-260, hgt-40))
+            self.textv.setGeometry(QRect(130, 20, wdt-260, hgt-60))
             self.photo.setVisible(False) 
 
         self.tl_button.setVisible(False)
@@ -225,7 +238,7 @@ class winq(QWidget):
                 fs = int(54*kfont)
             else:
                 fs = int(60*kfont)
-        elif leghtext in range(1,100):
+        elif leghtext in range(0,100):
             if len(ynpht) > 0:
                 fs = int(60*kfont)
             else:
@@ -267,12 +280,15 @@ class winq(QWidget):
                 self.tiker.stop()
 #окно ответа
     def nxt_func(self):
+        self.timer.stop()
+        self.tiker.stop()
 
         wdt=self.size().width()
         hgt=self.size().height()
         
         if len(ynpha) > 0:
             pixmap=QPixmap("./img/"+ynpha)
+            pixmap = pixmap.scaled(wdt - 240, hgt * 2 / 3 - 100, Qt.KeepAspectRatio)
             self.photo.setPixmap(pixmap)
             self.textv.setGeometry(QRect(120, hgt*2/3-20, wdt-240, hgt/3-40))
             self.photo.setVisible(True) 
@@ -292,7 +308,7 @@ class winq(QWidget):
                 fs = int(54*kfont)
             else:
                 fs = int(60*kfont)
-        elif leghtext in range(1,99):
+        elif leghtext in range(0,99):
             if len(ynpha) > 0:
                 fs = int(60*kfont)
             else:
