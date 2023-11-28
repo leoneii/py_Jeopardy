@@ -1,15 +1,14 @@
 import logging
 import os
 import sys
+import re
 
+import simpleaudio as simple_audio
 from PySide6.QtCore import (Qt, QRect, QTimer, QSize, QPoint)
-from PySide6.QtSql import QSqlQuery, QSqlDatabase
-from PySide6.QtWidgets import (QApplication, QLabel,QWidget,
-        QFrame,QProgressBar,QPushButton)
-from PySide6.QtGui import (QFont, QPixmap, QIcon,QPainter, QLinearGradient, QColor,QPen)
-
-import simpleaudio as simple_audio 
- 
+from PySide6.QtGui import (QFont, QPixmap, QIcon, QPainter, QLinearGradient, QColor, QPen)
+from PySide6.QtSql import QSqlQuery
+from PySide6.QtWidgets import (QLabel, QWidget,
+                               QFrame, QProgressBar, QPushButton)
 
 #from widget import sqlDB
 phyn=1 # 0-без фото, 1- с фото
@@ -111,6 +110,9 @@ class winq(QWidget):
         self.textv.setWordWrap(True)
         self.textv.setText(txt)
         leghtext= len(txt)
+        regex = re.findall('\n', txt)
+        nstr=len(regex)
+        leghtext=leghtext+nstr*int(leghtext/2)
         if leghtext>250:
             if len(ynph) > 0:
                 fs = int(40*kfont)
