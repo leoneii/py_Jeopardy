@@ -10,7 +10,6 @@ from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import (QLabel, QWidget,
                                QFrame, QProgressBar, QPushButton)
 
-#from widget import sqlDB
 phyn=1 # 0-без фото, 1- с фото
 testtext=" "
 smx=3
@@ -112,22 +111,22 @@ class winq(QWidget):
         leghtext= len(txt)
         regex = re.findall('\n', txt)
         nstr=len(regex)
-        leghtext=leghtext+nstr*int(leghtext/2)
+        leghtext=leghtext+nstr*int(leghtext/8)
         if leghtext>250:
             if len(ynph) > 0:
-                fs = int(40*kfont)
+                fs = int((40 - 10*(leghtext/1000))*kfont)
             else:
-                fs = int(54*kfont)
+                fs = int((56 - 10*(leghtext/1000))*kfont)
         elif leghtext in range(100,250):
             if len(ynph) > 0:
-                fs = int(54*kfont)
+                fs = int((50 - 10*(leghtext/500))*kfont)
             else:
-                fs = int(60*kfont)
+                fs = int((66-10*(leghtext/500))*kfont)
         elif leghtext in range(0,99):
             if len(ynph) > 0:
-                fs = int(60*kfont)
+                fs = int((60-10*(leghtext/200))*kfont)
             else:
-                fs = int(70*kfont)
+                fs = int((76-10*(leghtext/200))*kfont)
 
         tfs = "background-color: rgba(0,0,80,0); color: rgba(225,255,255,255); border:0px solid black;font-size:" + str(fs) + "px"
         self.textv.setFont(self.font)
@@ -232,19 +231,19 @@ class winq(QWidget):
         
         if leghtext>250:
             if len(ynpht) > 0:
-                fs = int(40*kfont)
+                fs = int((40 - 10 * (leghtext / 1000)) * kfont)
             else:
-                fs = int(54*kfont)
+                fs = int((56 - 10 * (leghtext / 1000)) * kfont)
         elif leghtext in range(100,250):
             if len(ynpht) > 0:
-                fs = int(54*kfont)
+                fs = int((50 - 10 * (leghtext / 500)) * kfont)
             else:
-                fs = int(60*kfont)
+                fs = int((66 - 10 * (leghtext / 500)) * kfont)
         elif leghtext in range(0,100):
             if len(ynpht) > 0:
-                fs = int(60*kfont)
+                fs = int((60 - 10 * (leghtext / 200)) * kfont)
             else:
-                fs = int(70*kfont)
+                fs = int((76 - 10 * (leghtext / 200)) * kfont)
 
         tfs = "background-color: rgba(0,0,80,0); color: rgba(225,255,255,255); border:0px solid black;font-size:" + str(fs) + "px"
         self.textv.setText(txtp)
@@ -302,19 +301,19 @@ class winq(QWidget):
         
         if leghtext>250:
             if len(ynpha) > 0:
-                fs = int(40*kfont)
+                fs = int((40 - 10 * (leghtext / 1000)) * kfont)
             else:
-                fs = int(54*kfont)
+                fs = int((56 - 10 * (leghtext / 1000)) * kfont)
         elif leghtext in range(100,250):
             if len(ynpha) > 0:
-                fs = int(54*kfont)
+                fs = int((50 - 10 * (leghtext / 500)) * kfont)
             else:
-                fs = int(60*kfont)
+                fs = int((66 - 10 * (leghtext / 500)) * kfont)
         elif leghtext in range(0,99):
             if len(ynpha) > 0:
-                fs = int(60*kfont)
+                fs = int((60 - 10 * (leghtext / 200)) * kfont)
             else:
-                fs = int(70*kfont)
+                fs = int((76 - 10 * (leghtext / 200)) * kfont)
         
         tfs = "background-color: rgba(0,0,80,0); color: rgba(225,255,255,255); border:0px solid black;font-size:" + str(fs) + "px"
         self.textv.setText(txta)
