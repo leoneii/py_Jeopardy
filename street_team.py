@@ -6,7 +6,7 @@ from PySide6 import QtCore
 from PySide6.QtCore import Qt, QPoint, QTimer, QEvent
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient, QPixmap)
 from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QDialog, \
-    QVBoxLayout, QButtonGroup, QHBoxLayout
+    QVBoxLayout, QButtonGroup, QHBoxLayout, QGraphicsDropShadowEffect
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 
 import widget
@@ -16,12 +16,9 @@ import simpleaudio as simple_audio
 
 
 global apt
-# база данных
-# global sqlDB
+
 QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
-# sqlDB = QSqlDatabase.addDatabase('QSQLITE')
-# sqlDB.setDatabaseName('jep.sqlite')
-# sqlDB.open()
+
 name = ["", "", "", "", "", "", "", ""]
 logo = ["", "", "", "", "", "", "", ""]
 lcnnxt = 30
@@ -358,6 +355,10 @@ class Wint(QWidget):
                     reply.close()
                     event.ignore()
 
+            screen = apt.primaryScreen()
+            img = screen.grabWindow()
+            img.save('screenshot.png', 'png')
+
             reply = QDialog()
             reply.setWindowFlag(Qt.FramelessWindowHint)
             sth = "background-color: rgba(0,0,255,90); color: #ddFFaa; font-size: 22px;  border: 6px;"
@@ -369,11 +370,23 @@ class Wint(QWidget):
             label_dialog.setText('Вы действительно хотите закончить игру?')
             button_yes = QPushButton(reply)
             button_yes.setText("Да")
+
+
+
+
             shst = "QPushButton { background-color: rgba(0,0,200,100); color: rgba(220,220,255,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 6px; font: Bold 22px} QPushButton::hover{background-color: #0077ff ;}"
             button_yes.setStyleSheet(shst)
             button_no = QPushButton(reply)
             button_no.setText('Нет')
             button_no.setStyleSheet(shst)
+            shadow = QGraphicsDropShadowEffect(
+                self, blurRadius=5, offset=3, color=QColor(80, 180, 180, 180)
+            )
+            button_no.setGraphicsEffect(shadow)
+            shadow = QGraphicsDropShadowEffect(
+                self, blurRadius=5, offset=3, color=QColor(80, 180, 180, 180)
+            )
+            button_yes.setGraphicsEffect(shadow)
             button_group = QButtonGroup()
             button_group.addButton(button_yes, 1)
             button_group.addButton(button_no, 2)
@@ -386,6 +399,9 @@ class Wint(QWidget):
             vbox.addLayout(layout)
             reply.setLayout(vbox)
             reply.exec()
+
+
+
 if __name__ == "__main__":
     global gwidth,gheight,kfont
     apt = QApplication([])
