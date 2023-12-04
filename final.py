@@ -13,7 +13,7 @@ class FinalWind(QMainWindow):
         (wdt, hgt) = app.screens()[0].size().toTuple()
         stsh="background-color: black"
         self.setStyleSheet(stsh)
-        n=5
+        n=170
         k=0
         pix=QPixmap('screenshot.png')
 
@@ -22,14 +22,17 @@ class FinalWind(QMainWindow):
                 k+=1
                 pix1=pix.copy(i*(wdt/n),j*(hgt/n),wdt/n,hgt/n)
                 lbl=QLabel(self)
-                lbl.setObjectName("lbl"+str(k))
+                lbl.setObjectName("lbl"+str(i+1)+"w"+str(j))
                 lbl.setGeometry(i*(wdt/n),j*(hgt/n),wdt/n,hgt/n)
                 lbl.setPixmap(pix1)
+        for z in range (169):
+            self.move("lbl"+str(z+1)+"w"+str(z+1), wdt/n, hgt/n )
 
 
 
-
-
+    def move(self, oName, oWdt, oHgt):
+        obj1 = self.findChild(QLabel,oName)
+        obj1.setGeometry(random.randint(0,800),random.randint(0,500),oWdt,oHgt)
 
 
 app = QApplication(sys.argv)
