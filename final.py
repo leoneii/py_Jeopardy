@@ -48,24 +48,29 @@ class FinalWind(QMainWindow):
     def screenup(self):
         self.tick+=1
         self.k=0
-        self.g=0.2
-        if self.tick>25000 and self.tick<25100:
+        self.g=0.4
+        if self.tick>25000 and self.tick<25048:
             for s in spr:
+                tmw = s.size().width()
+                tmh = s.size().height()
                 self.x=int(s.pos().x())
                 self.y=int(s.pos().y())
                 dx=random.randint(-2,2)
                 self.x+=dx
                 dy = random.randint(-1, 1)
                 self.y += dy
-                s.setGeometry(self.x,self.y,self.wdt/n,self.hgt/n)
-                #self.k += 1
+                s.setGeometry(self.x, self.y, tmw , tmh )
+        if self.tick>=25048 and self.tick<=25052:
+            for s in spr:
+                tmw = s.size().width()
+                tmh = s.size().height()
+                self.x = int(s.pos().x())
+                self.y = int(s.pos().y())
+                s.setGeometry(self.x,self.y,tmw*.8,tmh*.8)
 
         self.k=0
-        if self.tick>25100:
-
+        if self.tick>25052:
             for s in spr:
-
-
                 tmw = s.size().width()
                 tmh = s.size().height()
                 self.x=int(s.pos().x())
@@ -87,19 +92,19 @@ class FinalWind(QMainWindow):
                 if tmw<=10 and self.y>self.hgt-tmh*2:
                     if self.x<=self.wdt/2:
                         self.x=50+random.randint(-10,10)
-                        self.dvy=-15*random.random()-5
+                        self.dvy=-25*random.random()-5
                         vy[self.k]=self.dvy
                         self.dvx=random.random()*6-3
                         vx[self.k]=self.dvx
                     else:
                         self.x=self.wdt-50+20*random.random()-10
-                        self.dvy = -15 * random.random() - 5
+                        self.dvy = -25 * random.random() - 5
                         vy[self.k] = self.dvy
                         self.dvx = random.random() * 6 - 3
                         vx[self.k] = self.dvx
 
                 s.setGeometry(self.x,self.y,tmw,tmh)
-                shadow = QGraphicsDropShadowEffect(self, blurRadius=15, offset=0, color=QColor(255, 0, 0, 200))
+                shadow = QGraphicsDropShadowEffect(self, blurRadius=35, offset=0, color=QColor(255*random.random(), 255*random.random(), 255*random.random(), 200))
                 s.setGraphicsEffect(shadow)
 
 
