@@ -7,45 +7,50 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget, Q
 
 
 class FinalWind(QMainWindow):
-
+    global spr
+    global s
+    spr = []
+    vx = 1
+    vy = 1
+    wdt = 0
+    hgt = 0
+    x=1
+    y=1
     def __init__(self, parent= None):
         super().__init__()
-        (wdt, hgt) = app.screens()[0].size().toTuple()
+        (self.wdt, self.hgt) = app.screens()[0].size().toTuple()
         stsh="background-color: black"
         self.setStyleSheet(stsh)
         n=2
-        spr=[]
-
         self.k=0
         pix=QPixmap('screenshot.png')
+        self.tmr = QTimer()  # 4
+        self.tmr.timeout.connect(self.screenup)
+        self.tmr.start(100)
+
 
         for i in range (n):
             for j in range(n):
                 self.k+=1
-                pix1=pix.copy(i*(wdt/n),j*(hgt/n),wdt/n,hgt/n)
+                pix1=pix.copy(i*(self.wdt/n),j*(self.hgt/n),self.wdt/n,self.hgt/n)
                 lbl=QLabel(self)
                 lbl.setObjectName("lbl"+str(i)+"w"+str(j))
-                lbl.setGeometry(i*(wdt/n),j*(hgt/n),wdt/n,hgt/n)
+                lbl.setGeometry(i*(self.wdt/n),j*(self.hgt/n),self.wdt/n,self.hgt/n)
                 lbl.setPixmap(pix1)
                 spr.append(lbl)
-        vx=1
-        for i in range(1000):
-            j=0
-            for s in spr:
-                x=spr[j].pos().x()
-                y=spr[j].pos().y()
 
-                x+=vx
-                if x>=wdt or x<=0:
-                    vx*=-1
-                # y+=1
+    def screenup(self):
+        for s in spr:
+            self.x+=self.vx
+            self.y+=self.vy
+            if self.x>=self.wdt or self.x<=0:
+                self.vx*=-1
+            if self.y>=self.hgt or self.y<=0:
+                self.vy*=-1
+            #print(x,y)
+            s.setGeometry(self.x,self.y,50,50)
 
-                s.pos=QPoint(1,1)
-                #spr[j].move(x,y)
-                j=j+1
-
-
-    #     for i in range (n):
+                #     for i in range (n):
     #         for j in range(n):
     #             self.move("lbl"+str(i)+"w"+str(j), wdt/n, hgt/n )
     #
