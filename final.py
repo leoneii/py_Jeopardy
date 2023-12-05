@@ -55,7 +55,7 @@ class FinalWind(QMainWindow):
                 tmh = s.size().height()
                 self.x=int(s.pos().x())
                 self.y=int(s.pos().y())
-                dx=random.randint(-2,2)
+                dx=random.randint(-1,1)
                 self.x+=dx
                 dy = random.randint(-1, 1)
                 self.y += dy
@@ -66,7 +66,7 @@ class FinalWind(QMainWindow):
                 tmh = s.size().height()
                 self.x = int(s.pos().x())
                 self.y = int(s.pos().y())
-                s.setGeometry(self.x,self.y,tmw*.8,tmh*.8)
+                s.setGeometry(self.x+tmw*.1,self.y,tmw*.8,tmh*.8)
 
         self.k=0
         if self.tick>25052:
@@ -92,13 +92,13 @@ class FinalWind(QMainWindow):
                 if tmw<=10 and self.y>self.hgt-tmh*2:
                     if self.x<=self.wdt/2:
                         self.x=50+random.randint(-10,10)
-                        self.dvy=-25*random.random()-5
+                        self.dvy=-24*random.random()-5
                         vy[self.k]=self.dvy
-                        self.dvx=random.random()*6-3
+                        self.dvx=random.random()*6-2
                         vx[self.k]=self.dvx
                     else:
                         self.x=self.wdt-50+20*random.random()-10
-                        self.dvy = -25 * random.random() - 5
+                        self.dvy = -24 * random.random() - 5
                         vy[self.k] = self.dvy
                         self.dvx = random.random() * 6 - 3
                         vx[self.k] = self.dvx
