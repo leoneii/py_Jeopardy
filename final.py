@@ -8,7 +8,8 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget, Q
 
 class FinalWind(QMainWindow):
     global spr
-    global s
+    global s,n
+    n = 2
     spr = []
     vx = 1
     vy = 1
@@ -21,12 +22,12 @@ class FinalWind(QMainWindow):
         (self.wdt, self.hgt) = app.screens()[0].size().toTuple()
         stsh="background-color: black"
         self.setStyleSheet(stsh)
-        n=2
+
         self.k=0
         pix=QPixmap('screenshot.png')
-        self.tmr = QTimer()  # 4
+        self.tmr = QTimer()
         self.tmr.timeout.connect(self.screenup)
-        self.tmr.start(100)
+        self.tmr.start(10)
 
 
         for i in range (n):
@@ -41,6 +42,8 @@ class FinalWind(QMainWindow):
 
     def screenup(self):
         for s in spr:
+            self.x=int(s.pos().x())
+            self.y=int(s.pos().y())
             self.x+=self.vx
             self.y+=self.vy
             if self.x>=self.wdt or self.x<=0:
@@ -48,7 +51,7 @@ class FinalWind(QMainWindow):
             if self.y>=self.hgt or self.y<=0:
                 self.vy*=-1
             #print(x,y)
-            s.setGeometry(self.x,self.y,50,50)
+            s.setGeometry(self.x,self.y,self.wdt/n,self.hgt/n)
 
                 #     for i in range (n):
     #         for j in range(n):
