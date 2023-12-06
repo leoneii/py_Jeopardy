@@ -18,9 +18,33 @@ class FinalWind(QMainWindow):
     hgt = 0
     x=1
     y=1
+
+
     def __init__(self, parent= None):
+
+
         super().__init__()
+
+
         (self.wdt, self.hgt) = app.screens()[0].size().toTuple()
+
+        tlab = QLabel(self)
+        tlab.setText("Побеждает")
+        tlab.setGeometry(self.wdt/2-260, self.hgt/10, 520, 100)
+        tlab.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        shadow = QGraphicsDropShadowEffect(
+            self, blurRadius=20, offset=0, color=QColor(255, 255, 80, 255)
+        )
+        tlab.setGraphicsEffect(shadow)
+        tlab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba(100,0,0,255); font: bold 94px")
+
+        
+        
+        
+        
+        
+        
+        
         stsh="background-color: black"
         self.setStyleSheet(stsh)
         self.tick = 0
@@ -29,6 +53,7 @@ class FinalWind(QMainWindow):
         self.tmr = QTimer()
         self.tmr.timeout.connect(self.screenup)
         self.tmr.start()
+
 
 
         for i in range (n):
@@ -44,6 +69,8 @@ class FinalWind(QMainWindow):
                 vx.append(tmp)
                 tmp = random.randint(-3, 3)
                 vy.append(tmp)
+
+
 
     def screenup(self):
         self.tick+=1
@@ -104,7 +131,7 @@ class FinalWind(QMainWindow):
                         vx[self.k] = self.dvx
 
                 s.setGeometry(self.x,self.y,tmw,tmh)
-                shadow = QGraphicsDropShadowEffect(self, blurRadius=35, offset=0, color=QColor(255*random.random(), 255*random.random(), 255*random.random(), 200))
+                shadow = QGraphicsDropShadowEffect(self, blurRadius=20, offset=0, color=QColor(155*random.random(), 100*random.random()+155, 100*random.random()+155, 255))
                 s.setGraphicsEffect(shadow)
 
 
