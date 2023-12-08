@@ -1,8 +1,9 @@
 import random
 import sys
-
+import logging
 from PySide6.QtCore import QSize, Qt, QVariantAnimation, QObject, QTimer, QPoint
 from PySide6.QtGui import QPainter, QPen, QPixmap, QColor
+from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget, QLabel, QGraphicsDropShadowEffect
 
 
@@ -24,27 +25,61 @@ class FinalWind(QMainWindow):
 
 
         super().__init__()
+        sqlDB = QSqlDatabase.addDatabase('QSQLITE')
+        sqlDB.setDatabaseName("./jep.sqlite")
+        sqlDB.open()
+
+        query = QSqlQuery()
+        if not query.exec(
+                """
+                    SELECT max(sum), count(Name) FROM Teams Where sum = (SELECT max(sum) FROM teams) ;
+                """
+        ):
+            logging.error("Failed to query database")
+        query.first()
+        maxsum=query.value(0)
+        wincount= query.value(1)
+        if not query.exec("SELECT Name FROM Teams Where sum = "+str(maxsum)+";"):
+            logging.error("Failed to query database")
+        query.first()
+
+        textName = ""
+        if wincount==1:
+            textPob="Побеждает"
+            textName=query.value(0)+"\n"
+        else:
+            textPob = "Побеждают"
+            k=0
+            textName+="\n"
+            while k<wincount:
+                k+=1
+                ktext=query.value(0)
+                textName=textName+ktext+"\n\n"
+                query.next()
 
 
+        print(textName)
         (self.wdt, self.hgt) = app.screens()[0].size().toTuple()
 
         tlab = QLabel(self)
-        tlab.setText("Побеждает")
-        tlab.setGeometry(self.wdt/2-260, self.hgt/10, 520, 100)
+        tlab.setText(textPob)
+        tlab.setGeometry(self.wdt/2-275, self.hgt*.1, 560, 100)
         tlab.setAlignment(Qt.AlignmentFlag.AlignCenter)
         shadow = QGraphicsDropShadowEffect(
             self, blurRadius=20, offset=0, color=QColor(255, 255, 80, 255)
         )
-        tlab.setGraphicsEffect(shadow)
-        tlab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba(100,0,0,255); font: bold 94px")
+        # tlab.setGraphicsEffect(shadow)
+        tlab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba(200,60,0,255); font: bold 94px")
 
-        
-        
-        
-        
-        
-        
-        
+        nameLab=QLabel(self)
+        nameLab.setText(textName)
+        nameLab.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        nameLab.setWordWrap(True)
+        nameLab.setGeometry(self.wdt / 2 -self.wdt / 3 , self.hgt *.1+100, 2*self.wdt / 3, self.hgt*.9-210)
+        nameLab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba(200,60,0,255); font: bold 115px")
+
+
+
         stsh="background-color: black"
         self.setStyleSheet(stsh)
         self.tick = 0

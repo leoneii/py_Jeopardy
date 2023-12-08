@@ -32,6 +32,10 @@ if not query.exec(
 query.next()
 tkolt = int(query.value(0))  # количество команд
 
+quec = QSqlQuery()
+if not quec.exec("UPDATE teams set sum=0;"):
+    logging.error("Failed to query database7")
+
 query = QSqlQuery()
 if not query.exec(
         """
@@ -337,12 +341,18 @@ class Wint(QWidget):
         if sndr[:3] == "pls":
             self.plbutclick = self.plusSound.play()
             tots[int(sndr[3:])] += cenp
+
         else:
             self.minbutclick = self.minusSound.play()
             tots[int(sndr[3:])] -= cenv
         # меняем значения на лейблах
         obj = self.findChild(QLabel, "rst" + sndr[3:])
         obj.setText(str(tots[int(sndr[3:])]))
+
+        quec = QSqlQuery()
+        idt=int(sndr[3:])+1
+        if not quec.exec("UPDATE teams set sum="+str(tots[int(sndr[3:])]) + " WHERE Id="+str(idt)+";"):
+            logging.error("Failed to query database7")
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
