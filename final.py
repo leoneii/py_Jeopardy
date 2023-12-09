@@ -42,26 +42,23 @@ class FinalWind(QMainWindow):
         if not query.exec("SELECT Name FROM Teams Where sum = "+str(maxsum)+";"):
             logging.error("Failed to query database")
         query.first()
-
+        self.fs=120
         textName = ""
         if wincount==1:
             textPob="Побеждает"
-            textName=query.value(0)+"\n"
+            textName='"'+query.value(0)+'"'+"\n"
         else:
             textPob = "Побеждают"
             k=0
             # textName+="\n"
             while k<wincount:
                 k+=1
+                self.fs-=7
                 ktext=query.value(0)
-                # textName=textName+ktext+"\n\n"
-                textName = textName + ktext + "\n"
+                textName = textName +'"'+ ktext +'"\n'
                 query.next()
 
-
-        print(textName)
         (self.wdt, self.hgt) = app.screens()[0].size().toTuple()
-
         tlab = QLabel(self)
         tlab.setText(textPob)
         tlab.setGeometry(self.wdt/2-275, self.hgt*.1, 560, 100)
@@ -69,22 +66,23 @@ class FinalWind(QMainWindow):
             Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter
         )
         #tlab.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        shadow = QGraphicsDropShadowEffect(
-            self, blurRadius=20, offset=0, color=QColor(255, 255, 80, 255)
+        self.shadow = QGraphicsDropShadowEffect(
+            self, blurRadius=0, offset=0, color=QColor(255, 255, 80, 255)
         )
         # tlab.setGraphicsEffect(shadow)
-        tlab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba(200,60,0,255); font: bold 90px")
+        tlab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba(200,160,60,255); font: bold 90px")
 
-        nameLab=QLabel(self)
-        nameLab.setText(textName)
+        self.nameLab=QLabel(self)
+        self.nameLab.setText(textName)
         # nameLab.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        nameLab.setAlignment(
+        self.nameLab.setAlignment(
             Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter
         )
-        nameLab.setWordWrap(True)
-        nameLab.setGeometry(self.wdt / 2 -self.wdt / 3 , self.hgt *.1+100, 2*self.wdt / 3, self.hgt*.9-100)
-        nameLab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba(200,60,0,255); font: bold 105px")
+        self.nameLab.setWordWrap(True)
+        self.nameLab.setGeometry(self.wdt / 2 -self.wdt / 3 , self.hgt *.1+100, 2*self.wdt / 3, self.hgt*.9-100)
 
+        # self.nameLab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba(0,0,0,255); font: bold "+str(self.fs)+"px")
+        self.nameLab.setGraphicsEffect(self.shadow)
 
 
         stsh="background-color: black"
@@ -96,6 +94,8 @@ class FinalWind(QMainWindow):
         self.tmr.timeout.connect(self.screenup)
         self.tmr.start()
 
+        self.tmrsh=QTimer()
+        self.tmrsh.timeout.connect(self.shadblink)
 
 
         for i in range (n):
@@ -111,8 +111,15 @@ class FinalWind(QMainWindow):
                 vx.append(tmp)
                 tmp = random.randint(-3, 3)
                 vy.append(tmp)
-
-
+        self.nb=16
+        self.br=1
+    def shadblink(self):
+        self.nb+=self.br
+        if self.nb>50 or self.nb<5:
+            self.br*=-1
+        print(self.fs)
+        self.nameLab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba("+str(205-4*self.nb)+","+str(26-self.nb/2)+","+str(2*self.nb/2)+",255); font: bold "+str(self.fs)+"px")
+        self.shadow.setBlurRadius(self.nb)
 
     def screenup(self):
         self.tick+=1
@@ -136,6 +143,9 @@ class FinalWind(QMainWindow):
                 self.x = int(s.pos().x())
                 self.y = int(s.pos().y())
                 s.setGeometry(self.x+tmw*.1,self.y,tmw*.8,tmh*.8)
+        if self.tick==25125:
+            self.tmrsh.start(40)
+
 
         self.k=0
         if self.tick>25052:
