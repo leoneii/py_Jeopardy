@@ -25,6 +25,16 @@ class FinalWind(QMainWindow):
 
 
         super().__init__()
+        (self.wdt, self.hgt) = app.screens()[0].size().toTuple()
+        stsh="background-color: black"
+        stshf = 'border-image: url("img/back.png");'
+        self.setStyleSheet(stsh)
+        fonl=QLabel(self)
+        fonl.setGeometry(0,0,self.wdt,self.hgt)
+        fonl.setStyleSheet(stshf)
+
+
+
         sqlDB = QSqlDatabase.addDatabase('QSQLITE')
         sqlDB.setDatabaseName("./jep.sqlite")
         sqlDB.open()
@@ -58,7 +68,7 @@ class FinalWind(QMainWindow):
                 textName = textName +'"'+ ktext +'"\n'
                 query.next()
 
-        (self.wdt, self.hgt) = app.screens()[0].size().toTuple()
+
         tlab = QLabel(self)
         tlab.setText(textPob)
         tlab.setGeometry(self.wdt/2-275, self.hgt*.1, 560, 100)
@@ -70,7 +80,8 @@ class FinalWind(QMainWindow):
             self, blurRadius=0, offset=0, color=QColor(255, 255, 80, 255)
         )
         # tlab.setGraphicsEffect(shadow)
-        tlab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba(200,160,60,255); font: bold 90px")
+        tlab.setStyleSheet("border: none; background-color: rgba(224, 255, 255, 0); color: rgba(200,160,60,255); font: bold 90px")
+
 
         self.nameLab=QLabel(self)
         self.nameLab.setText(textName)
@@ -79,14 +90,14 @@ class FinalWind(QMainWindow):
             Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter
         )
         self.nameLab.setWordWrap(True)
-        self.nameLab.setGeometry(self.wdt / 2 -self.wdt / 3 , self.hgt *.1+100, 2*self.wdt / 3, self.hgt*.9-100)
-
-        # self.nameLab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba(0,0,0,255); font: bold "+str(self.fs)+"px")
+        #self.nameLab.setGeometry(self.wdt / 2 -self.wdt / 3 , self.hgt *.1+100, 2*self.wdt / 3, self.hgt*.9-100)
+        self.nameLab.setGeometry(0,0,3,3)
+        #self.nameLab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba(0,0,0,255); font: bold "+str(self.fs)+"px")
         self.nameLab.setGraphicsEffect(self.shadow)
+        self.nameLab.setVisible(False)
 
 
-        stsh="background-color: black"
-        self.setStyleSheet(stsh)
+
         self.tick = 0
         self.k=0
         pix=QPixmap('screenshot.png')
@@ -117,7 +128,7 @@ class FinalWind(QMainWindow):
         self.nb+=self.br
         if self.nb>50 or self.nb<5:
             self.br*=-1
-        print(self.fs)
+
         self.nameLab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba("+str(205-4*self.nb)+","+str(26-self.nb/2)+","+str(2*self.nb/2)+",255); font: bold "+str(self.fs)+"px")
         self.shadow.setBlurRadius(self.nb)
 
@@ -145,6 +156,9 @@ class FinalWind(QMainWindow):
                 s.setGeometry(self.x+tmw*.1,self.y,tmw*.8,tmh*.8)
         if self.tick==25125:
             self.tmrsh.start(40)
+            self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, self.hgt * .1 + 100, 2 * self.wdt / 3,
+                                     self.hgt * .9 - 100)
+            self.nameLab.setVisible(True)
 
 
         self.k=0
