@@ -50,11 +50,12 @@ class FinalWind(QMainWindow):
         else:
             textPob = "Побеждают"
             k=0
-            textName+="\n"
+            # textName+="\n"
             while k<wincount:
                 k+=1
                 ktext=query.value(0)
-                textName=textName+ktext+"\n\n"
+                # textName=textName+ktext+"\n\n"
+                textName = textName + ktext + "\n"
                 query.next()
 
 
@@ -64,19 +65,25 @@ class FinalWind(QMainWindow):
         tlab = QLabel(self)
         tlab.setText(textPob)
         tlab.setGeometry(self.wdt/2-275, self.hgt*.1, 560, 100)
-        tlab.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        tlab.setAlignment(
+            Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter
+        )
+        #tlab.setAlignment(Qt.AlignmentFlag.AlignCenter)
         shadow = QGraphicsDropShadowEffect(
             self, blurRadius=20, offset=0, color=QColor(255, 255, 80, 255)
         )
         # tlab.setGraphicsEffect(shadow)
-        tlab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba(200,60,0,255); font: bold 94px")
+        tlab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba(200,60,0,255); font: bold 90px")
 
         nameLab=QLabel(self)
         nameLab.setText(textName)
-        nameLab.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        # nameLab.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        nameLab.setAlignment(
+            Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter
+        )
         nameLab.setWordWrap(True)
-        nameLab.setGeometry(self.wdt / 2 -self.wdt / 3 , self.hgt *.1+100, 2*self.wdt / 3, self.hgt*.9-210)
-        nameLab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba(200,60,0,255); font: bold 115px")
+        nameLab.setGeometry(self.wdt / 2 -self.wdt / 3 , self.hgt *.1+100, 2*self.wdt / 3, self.hgt*.9-100)
+        nameLab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba(200,60,0,255); font: bold 105px")
 
 
 
