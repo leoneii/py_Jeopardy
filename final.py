@@ -1,10 +1,11 @@
 import random
 import logging
-from PySide6.QtCore import QSize, QMetaObject ,Qt, QVariantAnimation, QObject, QTimer, QPoint
+from PySide6.QtCore import QSize, QMetaObject, Qt, QVariantAnimation, QObject, QTimer, QPoint, QUrl
 from PySide6.QtGui import QPainter, QPen, QPixmap, QColor, QLinearGradient
+from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget, QLabel, QGraphicsDropShadowEffect
-
+import simpleaudio as simple_audio
 
 
 class FinalWind(QWidget):
@@ -25,7 +26,13 @@ class FinalWind(QWidget):
 
 
         super().__init__()
-# начало чуда
+
+        self.finalSound = simple_audio.WaveObject.from_wave_file("./sound/finalsound.wav")
+        self.coda=self.finalSound.play()
+
+
+
+        # начало чуда
         def scrupd():
             sth="background-color: rgba(0,0,80,255); color: #ddFFaa;"
             self.setStyleSheet(sth)
