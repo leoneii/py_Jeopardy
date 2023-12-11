@@ -1,13 +1,13 @@
 import random
-import sys
 import logging
-from PySide6.QtCore import QSize, Qt, QVariantAnimation, QObject, QTimer, QPoint
-from PySide6.QtGui import QPainter, QPen, QPixmap, QColor
+from PySide6.QtCore import QSize, QMetaObject ,Qt, QVariantAnimation, QObject, QTimer, QPoint
+from PySide6.QtGui import QPainter, QPen, QPixmap, QColor, QLinearGradient
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget, QLabel, QGraphicsDropShadowEffect
 
 
-class FinalWind(QMainWindow):
+
+class FinalWind(QWidget):
     global spr,vx,vy
     global s,n,tick
 
@@ -21,10 +21,22 @@ class FinalWind(QMainWindow):
     y=1
 
 
-    def __init__(self, parent= None):
+    def __init__(self, app= QApplication, parent= None):
 
 
         super().__init__()
+# начало чуда
+        def scrupd():
+            sth="background-color: rgba(0,0,80,255); color: #ddFFaa;"
+            self.setStyleSheet(sth)
+
+
+        self.tmr4 = QTimer()  # 4
+        self.tmr4.timeout.connect(scrupd)
+        self.tmr4.start(40)  
+        self.tmr4.stop() 
+# конец чуда       
+    
         (self.wdt, self.hgt) = app.screens()[0].size().toTuple()
         stsh="background-color: black"
         stshf = 'border-image: url("img/back.png");'
@@ -33,12 +45,10 @@ class FinalWind(QMainWindow):
         fonl.setGeometry(0,0,self.wdt,self.hgt)
         fonl.setStyleSheet(stshf)
 
-
-
-        sqlDB = QSqlDatabase.addDatabase('QSQLITE')
-        sqlDB.setDatabaseName("./jep.sqlite")
-        sqlDB.open()
-
+        # sqlDB = QSqlDatabase.addDatabase('QSQLITE')
+        # sqlDB.setDatabaseName("./jep.sqlite")
+        # sqlDB.open()
+        
         query = QSqlQuery()
         if not query.exec(
                 """
@@ -69,6 +79,7 @@ class FinalWind(QMainWindow):
                 query.next()
 
 
+        
         tlab = QLabel(self)
         tlab.setText(textPob)
         tlab.setGeometry(self.wdt/2-275, self.hgt*.1, 560, 100)
@@ -97,7 +108,7 @@ class FinalWind(QMainWindow):
         self.nameLab.setVisible(False)
 
 
-
+        
         self.tick = 0
         self.k=0
         pix=QPixmap('screenshot.png')
@@ -107,6 +118,7 @@ class FinalWind(QMainWindow):
 
         self.tmrsh=QTimer()
         self.tmrsh.timeout.connect(self.shadblink)
+        
 
 
         for i in range (n):
@@ -131,6 +143,8 @@ class FinalWind(QMainWindow):
 
         self.nameLab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba("+str(205-4*self.nb)+","+str(26-self.nb/2)+","+str(2*self.nb/2)+",255); font: bold "+str(self.fs)+"px")
         self.shadow.setBlurRadius(self.nb)
+        
+
 
     def screenup(self):
         self.tick+=1
@@ -159,6 +173,7 @@ class FinalWind(QMainWindow):
             self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, self.hgt * .1 + 100, 2 * self.wdt / 3,
                                      self.hgt * .9 - 100)
             self.nameLab.setVisible(True)
+            
 
 
         self.k=0
@@ -199,12 +214,11 @@ class FinalWind(QMainWindow):
                 s.setGeometry(self.x,self.y,tmw,tmh)
                 shadow = QGraphicsDropShadowEffect(self, blurRadius=20, offset=0, color=QColor(155*random.random(), 100*random.random()+155, 100*random.random()+155, 255))
                 s.setGraphicsEffect(shadow)
-
-
                 self.k += 1
 
 
-app = QApplication(sys.argv)
-window = FinalWind()
-window.showFullScreen()
-app.exec()
+
+# app = QApplication(sys.argv)
+# window = FinalWind(app)
+# window.showFullScreen()
+# app.exec()

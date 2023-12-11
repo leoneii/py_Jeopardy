@@ -13,6 +13,7 @@ import widget
 from categ import Category
 from widget import wnd, cenv
 import simpleaudio as simple_audio
+from final import FinalWind
 
 
 global apt
@@ -147,6 +148,8 @@ class Wint(QWidget):
         self.mainlogo.setStyleSheet(self.sth)
         self.mainlogo.show()
         hgt = hgt - mainlogoh
+
+
 
         # self.setStyleSheet("""
         #         background-color: #0000cc;
@@ -359,8 +362,12 @@ class Wint(QWidget):
             # диалоговое окно выхода из программы
             def check_button(id_name):
                 if button_group.id(id_name) == 1:
+                    finw = FinalWind(apt)
+                    finw.showFullScreen()
+    
                     reply.close()
-                    self.close()
+                    self.hide()
+
                 elif button_group.id(id_name) == 2:
                     reply.close()
                     event.ignore()

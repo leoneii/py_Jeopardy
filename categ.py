@@ -78,8 +78,8 @@ class Category(QWidget):
 
     def __init__(self,apt):
         #опять глобальная apt
-        global appt
-        appt=apt
+        # global appt
+        # appt=apt
         super().__init__()
         QMetaObject.connectSlotsByName(self)
 #        geometry = apc.primaryScreen().availableGeometry()
