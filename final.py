@@ -1,6 +1,6 @@
 import random
 import logging
-from PySide6.QtCore import QSize, QMetaObject, Qt, QVariantAnimation, QObject, QTimer, QPoint, QUrl
+from PySide6.QtCore import QSize, QMetaObject, Qt, QVariantAnimation, QObject, QTimer, QPoint, QUrl, QEvent
 from PySide6.QtGui import QPainter, QPen, QPixmap, QColor, QLinearGradient
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
@@ -223,6 +223,10 @@ class FinalWind(QWidget):
                 s.setGraphicsEffect(shadow)
                 self.k += 1
 
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Escape:
+            if event.key() == Qt.Key_Escape:
+                self.close()
 
 
 # app = QApplication(sys.argv)
