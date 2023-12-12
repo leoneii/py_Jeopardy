@@ -13,6 +13,7 @@ from PySide6.QtWidgets import QApplication, QInputDialog, QMainWindow, QMessageB
 
 from mainwindow import Ui_MainWindow
 from newDialog import *
+import simpleaudio as simple_audio
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -53,6 +54,11 @@ class MainWindow(QMainWindow):
         self.ui.testButton.clicked.connect(self.testB)
         self.ui.pushButton_addTeamLogo.clicked.connect(self.addTeamLogo)
         self.ui.pushButton_delTeamLogo.clicked.connect(self.delTeamLogo)
+        self.ui.pushButton_addFinLogo.clicked.connect(self.addFinLogo)
+        self.ui.pushButton_delFinLogo.clicked.connect(self.delFinLogo)
+        self.ui.selectFinSound.clicked.connect(self.selectFinSound)
+        self.ui.delFinSound.clicked.connect(self.delFinSound)
+        self.ui.playFinSound.clicked.connect(self.playFinSound)
         self.ui.testButton.setVisible(False)
         self.ui.spinBox_costQuest.setVisible(False)
         self.textQpix = ""
@@ -65,6 +71,87 @@ class MainWindow(QMainWindow):
     def testB(self):
         self.updateTheme()
 
+    def finLogoUpd(self):
+        self.ui.label_finLogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        pixf=QPixmap("../img/logo/back.png").scaled(self.ui.label_finLogo.frameSize(),Qt.KeepAspectRatio)
+        self.ui.label_finLogo.setPixmap(pixf)
+        
+    def addFinLogo(self):
+        ofileName, filetype = QFileDialog.getOpenFileName(
+            self,
+            "Выберите изображение", 
+            "", 
+            "Images (*.jpeg *.jpg *.png)"
+        )
+
+        if len(ofileName)>0:
+            try:
+                shutil.copy2(ofileName,"../img/logo/back.png")
+            except:
+                print("апшипка logo")    
+        self.finLogoUpd()
+    
+    def delFinLogo(self):
+        dialog = QMessageBox()
+        dialog.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel);
+        dialog.setWindowTitle("Внимание!")
+        dialog.setDefaultButton(QMessageBox.Cancel)
+        dialog.setButtonText(QMessageBox.Save, "Сбросить фон")
+        dialog.setButtonText(QMessageBox.Cancel, "Не изменять")
+        dialog.setInformativeText("Вы действительно хотите вернуть фон по умолчанию?")
+        dialog.setIcon(QMessageBox.Icon.Critical)
+        ok = dialog.exec()
+        if ok == QMessageBox.Save:
+            try:
+                shutil.copy2("../img/logo/defback.png","../img/logo/back.png")
+                self.finLogoUpd()
+            except:
+                print("апшипка logo")    
+
+    def selectFinSound(self):
+        ofileName, filetype = QFileDialog.getOpenFileName(
+            self,
+            "Выберите звук", 
+            "", 
+            "Sounds (*.wav)"
+        )
+
+        if len(ofileName)>0:
+            try:
+                shutil.copy2(ofileName,"../sound/finalsound.wav")
+            except:
+                print("апшипка звук")   
+    isp=0
+    def playFinSound(self):
+        self.finalSound = simple_audio.WaveObject.from_wave_file("../sound/finalsound.wav")
+        if self.isp==0:
+            self.coda = self.finalSound.play()
+            self.ui.playFinSound.setText("Стоп")
+            self.isp=1
+        else:
+            if self.coda.is_playing(): 
+                self.coda.stop()
+                self.ui.playFinSound.setText("Прослушать")
+                self.isp=0
+            else:    
+                self.coda=self.finalSound.play()
+    
+    def delFinSound(self):
+        dialog = QMessageBox()
+        dialog.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel);
+        dialog.setWindowTitle("Внимание!")
+        dialog.setDefaultButton(QMessageBox.Cancel)
+        dialog.setButtonText(QMessageBox.Save, "Удалить звук финала")
+        dialog.setButtonText(QMessageBox.Cancel, "Не изменять")
+        dialog.setInformativeText("Вы действительно хотите удалить звук финала?")
+        dialog.setIcon(QMessageBox.Icon.Critical)
+        ok = dialog.exec()
+        if ok == QMessageBox.Save:
+            try:
+                shutil.copy2("../sound/mute.wav","../sound/finalsound.wav")
+            except:
+                print("апшипка mute")    
+        
     def addTeamLogo(self):
         rown = int(self.ui.listView_teams.currentIndex().row())
         if (rown==-1):
@@ -633,7 +720,7 @@ class MainWindow(QMainWindow):
         modelt.setQuery("SELECT Name FROM Teams")
         self.ui.listView_teams.setModel(modelt)
         self.changeTeamListRow()
-
+        self.finLogoUpd()
 
     def changeTeamListRow(self):
         selectionModel = self.ui.listView_teams.selectionModel()

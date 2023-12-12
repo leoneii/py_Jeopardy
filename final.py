@@ -46,7 +46,7 @@ class FinalWind(QWidget):
     
         (self.wdt, self.hgt) = app.screens()[0].size().toTuple()
         stsh="background-color: black"
-        stshf = 'border-image: url("img/back.png");'
+        stshf = 'border-image: url("img/logo/back.png");'
         self.setStyleSheet(stsh)
         fonl=QLabel(self)
         fonl.setGeometry(0,0,self.wdt,self.hgt)
