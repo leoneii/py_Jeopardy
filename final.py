@@ -10,8 +10,8 @@ import simpleaudio as simple_audio
 
 class FinalWind(QWidget):
     global spr,vx,vy
-    global s,n,tick
-
+    global s,n,tick,tend
+    tend=0
     n = 15
     spr = []
     vx =[]
@@ -98,7 +98,12 @@ class FinalWind(QWidget):
             self, blurRadius=0, offset=0, color=QColor(255, 255, 80, 255)
         )
         # tlab.setGraphicsEffect(shadow)
-        tlab.setStyleSheet("border: none; background-color: rgba(224, 255, 255, 0); color: rgba(200,160,60,255); font: bold 90px")
+
+        self.shadow1 = QGraphicsDropShadowEffect(
+            self, blurRadius=15, offset=0, color=QColor(25, 45, 60, 255)
+        )
+        tlab.setGraphicsEffect(self.shadow1)
+        tlab.setStyleSheet("border: none; background-color: rgba(224, 255, 255, 0); color: rgba(250,200,90,255); font: bold 90px")
 
 
         self.nameLab=QLabel(self)
@@ -222,11 +227,22 @@ class FinalWind(QWidget):
                 shadow = QGraphicsDropShadowEffect(self, blurRadius=20, offset=0, color=QColor(155*random.random(), 100*random.random()+155, 100*random.random()+155, 255))
                 s.setGraphicsEffect(shadow)
                 self.k += 1
+    def theEnd(self):
+        h=self.hgt
+        w=self.wdt
+        while h>5:
+            h-=5
+            self.setGeometry(0,int(self.hgt/2-h/2),self.wdt,h)
+        while w>5:
+            w-=10
+            self.setGeometry(self.wdt/2-w/2, self.hgt / 2, w, 3)
+        self.close()
 
     def keyPressEvent(self, event):
+
         if event.key() == Qt.Key_Escape:
-            if event.key() == Qt.Key_Escape:
-                self.close()
+             self.theEnd()
+            #self.close()
 
 
 # app = QApplication(sys.argv)
