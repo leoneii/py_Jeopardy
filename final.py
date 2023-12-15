@@ -6,7 +6,7 @@ from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget, QLabel, QGraphicsDropShadowEffect
 import simpleaudio as simple_audio
-
+import time
 
 class FinalWind(QWidget):
     global spr,vx,vy
@@ -227,14 +227,17 @@ class FinalWind(QWidget):
                 shadow = QGraphicsDropShadowEffect(self, blurRadius=20, offset=0, color=QColor(155*random.random(), 100*random.random()+155, 100*random.random()+155, 255))
                 s.setGraphicsEffect(shadow)
                 self.k += 1
+                
     def theEnd(self):
         h=self.hgt
         w=self.wdt
         while h>5:
+            time.sleep(0.0035)
             h-=5
             self.setGeometry(0,int(self.hgt/2-h/2),self.wdt,h)
         while w>5:
             w-=10
+            time.sleep(0.0035)
             self.setGeometry(self.wdt/2-w/2, self.hgt / 2, w, 3)
         self.close()
 
