@@ -8,12 +8,12 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap
 from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlQueryModel
 
-from PySide6.QtWidgets import QApplication, QInputDialog, QMainWindow, QMessageBox, QFileDialog, QDialog, QVBoxLayout, \
-    QLabel, QPushButton, QButtonGroup, QHBoxLayout
+from PySide6.QtWidgets import QApplication, QInputDialog, QMainWindow, QMessageBox, QFileDialog, QDialog
 
-from mainwindow import Ui_MainWindow
-from newDialog import *
+from backend.mainwindow import Ui_MainWindow
+from backend.newDialog import *
 import simpleaudio as simple_audio
+
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -505,7 +505,7 @@ class MainWindow(QMainWindow):
             if (self.ui.tableView_questTable.currentIndex().row()!=-1):
                 self.ChangeCost("Up") 
             else:
-             QMessageBox.warning(self,"Внимание!","Форма не готова для перемещения вопроса - вы не выбрали вопрос для перемещения")   
+                QMessageBox.warning(self,"Внимание!","Форма не готова для перемещения вопроса - вы не выбрали вопрос для перемещения")   
         else:
             QMessageBox.warning(self,"Внимание!","Форма не готова для перемещения вопроса - вы не выбрали тему для перемещения")
         
@@ -514,7 +514,7 @@ class MainWindow(QMainWindow):
             if (self.ui.tableView_questTable.currentIndex().row()!=-1):
                 self.ChangeCost("Down")
             else:
-             QMessageBox.warning(self,"Внимание!","Форма не готова для перемещения вопроса - вы не выбрали вопрос для перемещения")   
+                QMessageBox.warning(self,"Внимание!","Форма не готова для перемещения вопроса - вы не выбрали вопрос для перемещения")   
         else:
             QMessageBox.warning(self,"Внимание!","Форма не готова для перемещения вопроса - вы не выбрали тему для перемещения")
     
@@ -527,22 +527,22 @@ class MainWindow(QMainWindow):
         if (updown=="Up"):
             if (int(costq)>10):
                 if not query.exec("UPDATE ThemeAndQ SET Cost = '777' WHERE Cost = '"+costq+"' AND Catname ='"+self.ui.comboBox_Cat.currentText()+"' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
-                     logging.error("Failed to query database30")  
+                    logging.error("Failed to query database30")  
                 if not query.exec("UPDATE ThemeAndQ SET Cost = '"+str(int(costq))+"' WHERE Cost = '"+str(int(costq)-10)+"' AND Catname ='"+self.ui.comboBox_Cat.currentText()+"' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
-                     logging.error("Failed to query database31")  
+                    logging.error("Failed to query database31")  
                 if not query.exec("UPDATE ThemeAndQ SET Cost = '"+str(int(costq)-10)+"' WHERE Cost = '777' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
-                     logging.error("Failed to query database30")      
+                    logging.error("Failed to query database30")      
                        
             else:
                 QMessageBox.warning(self,"Внимание!","Невозможно понизить стоимость этого вопроса")        
         if (updown=="Down"):
             if (int(costq)<(maxcost*10)):
                 if not query.exec("UPDATE ThemeAndQ SET Cost = '777' WHERE Cost = '"+costq+"' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"' AND  Catname ='"+self.ui.comboBox_Cat.currentText()+"';"):
-                     logging.error("Failed to query database30")  
+                    logging.error("Failed to query database30")  
                 if not query.exec("UPDATE ThemeAndQ SET Cost = '"+str(int(costq))+"' WHERE Cost = '"+str(int(costq)+10)+"' AND Catname ='"+self.ui.comboBox_Cat.currentText()+"' AND  Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
-                     logging.error("Failed to query database31")  
+                    logging.error("Failed to query database31")  
                 if not query.exec("UPDATE ThemeAndQ SET Cost = '"+str(int(costq)+10)+"' WHERE Cost = '777' AND Theme = '"+str(model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(),0)).get(0))+"';"):
-                     logging.error("Failed to query database30")      
+                    logging.error("Failed to query database30")      
             else:
                 QMessageBox.warning(self,"Внимание!","Невозможно повысить стоимость этого вопроса")            
         self.updateQuest()
@@ -611,7 +611,7 @@ class MainWindow(QMainWindow):
             if (self.ui.tableView_questTable.currentIndex().row()!=-1):
                 self.EditMode(True) 
             else:
-             QMessageBox.warning(self,"Внимание!","Форма не готова для редактирования - вы не выбрали вопрос для редактирования")   
+                QMessageBox.warning(self,"Внимание!","Форма не готова для редактирования - вы не выбрали вопрос для редактирования")   
         else:
             QMessageBox.warning(self,"Внимание!","Форма не готова для редактирования - вы не выбрали тему для редактирования")
             
@@ -922,7 +922,7 @@ class newDialog(QDialog):
                 else:
                     catname = "Категория номер "+str(cat+1)
                 if not queryCat.exec("INSERT INTO category  VALUES ("+str(cat+1)+", '"+catname+"');"):
-                    logging.eror("Failed to query a") 
+                    logging.error("Failed to query a") 
                         
                 #цикл тем
                 for theme in range(int(self.ui.comboBox_themeCount.currentText())):
