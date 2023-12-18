@@ -1,4 +1,6 @@
+import sys
 import random
+from random import randint, choice
 import logging
 from PySide6.QtCore import QSize, QMetaObject, Qt, QVariantAnimation, QObject, QTimer, QPoint, QUrl, QEvent
 from PySide6.QtGui import QPainter, QPen, QPixmap, QColor, QLinearGradient
@@ -10,7 +12,9 @@ import time
 
 class FinalWind(QWidget):
     global spr,vx,vy
-    global s,n,tick,tend
+    global s,n,tick,tend,colors
+    global spix
+    #spix=QPixmap()
     tend=0
     n = 15
     spr = []
@@ -20,7 +24,8 @@ class FinalWind(QWidget):
     hgt = 0
     x=1
     y=1
-
+    colors = ["rgba(255, 0, 0, 10)", "rgba(255, 255, 0, 10)", "rgba(0, 255, 0, 10)", "rgba(0, 255, 255, 10)",
+              "rgba(255, 200, 255, 10)"]
 
     def __init__(self, app= QApplication, parent= None):
 
@@ -200,16 +205,14 @@ class FinalWind(QWidget):
                 self.y+=vy[self.k]
                 if self.x>self.wdt or self.x<0:
                     vx[self.k]*=-0.9
-                    if tmw>10:
-                        tmw *= 0.6
-                        tmh *= 0.6
-                if self.y>self.hgt or self.y<0:
-                    vy[self.k]*=-0.8
-                    vx[self.k]*=0.9
-                    if tmw > 10:
-                        tmw *= 0.6
-                        tmh *= 0.6
-                if tmw<=10 and self.y>self.hgt-tmh*2:
+
+                # if tmw<=10 and self.y>self.hgt-tmh*2:
+                if self.y > self.hgt - tmh * 2:
+                    tmcol = choice(colors)
+                    tmw=tmh=random.randint(20,50)
+                    s.setPixmap(QPixmap("./img/icon/sprite.png").scaled(QSize(tmw,tmw),Qt.KeepAspectRatio))
+                    s.setStyleSheet("background-color: "+tmcol+"; border-radius: "+str(tmw/2)+";")
+
                     if self.x<=self.wdt/2:
                         self.x=50+random.randint(-10,10)
                         self.dvy=-24*random.random()-5
@@ -224,20 +227,18 @@ class FinalWind(QWidget):
                         vx[self.k] = self.dvx
 
                 s.setGeometry(self.x,self.y,tmw,tmh)
-                shadow = QGraphicsDropShadowEffect(self, blurRadius=20, offset=0, color=QColor(155*random.random(), 100*random.random()+155, 100*random.random()+155, 255))
-                s.setGraphicsEffect(shadow)
                 self.k += 1
                 
     def theEnd(self):
         h=self.hgt
         w=self.wdt
         while h>5:
-            time.sleep(0.0035)
-            h-=5
+            time.sleep(0.0025)
+            h-=10
             self.setGeometry(0,int(self.hgt/2-h/2),self.wdt,h)
         while w>5:
-            w-=10
-            time.sleep(0.0035)
+            w-=20
+            time.sleep(0.0025)
             self.setGeometry(self.wdt/2-w/2, self.hgt / 2, w, 3)
         self.close()
 
