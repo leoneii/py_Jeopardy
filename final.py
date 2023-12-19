@@ -11,7 +11,7 @@ import simpleaudio as simple_audio
 import time
 
 class FinalWind(QWidget):
-    global spr,vx,vy
+    global spr,vx,vy,isspr
     global s,n,tick,tend,colors
     global spix
     #spix=QPixmap()
@@ -20,6 +20,7 @@ class FinalWind(QWidget):
     spr = []
     vx =[]
     vy=[]
+    isspr=[]
     wdt = 0
     hgt = 0
     x=1
@@ -151,6 +152,7 @@ class FinalWind(QWidget):
                 vx.append(tmp)
                 tmp = random.randint(-3, 3)
                 vy.append(tmp)
+                isspr.append(0)
         self.nb=16
         self.br=1
     def shadblink(self):
@@ -208,6 +210,7 @@ class FinalWind(QWidget):
 
                 # if tmw<=10 and self.y>self.hgt-tmh*2:
                 if self.y > self.hgt - tmh * 2:
+                    isspr[self.k]=1
                     tmcol = choice(colors)
                     tmw=tmh=random.randint(20,50)
                     s.setPixmap(QPixmap("./img/icon/sprite.png").scaled(QSize(tmw,tmw),Qt.KeepAspectRatio))
@@ -227,6 +230,20 @@ class FinalWind(QWidget):
                         vx[self.k] = self.dvx
 
                 s.setGeometry(self.x,self.y,tmw,tmh)
+
+
+                if vy[self.k]>6 and isspr[self.k]==1:
+                    for j in range(3):
+                        self.x = int(s.pos().x())
+                        self.y = int(s.pos().y())
+                        tmw = s.size().width()
+                        tmh = s.size().height()
+                        s.setGeometry(self.x-tmh*0.3, self.y-tmh*0.3, tmw*1.6, tmh*1.6)
+                        s.setPixmap(QPixmap("./img/icon/sprite.png").scaled(QSize(tmw, tmw), Qt.KeepAspectRatio))
+                    self.y=self.hgt+random.randint(10,100)
+                    self.x = int(s.pos().x())
+                    tmw = tmh = random.randint(20, 50)
+                    s.setGeometry(self.x, self.y, tmw, tmh)
                 self.k += 1
                 
     def theEnd(self):
@@ -245,7 +262,7 @@ class FinalWind(QWidget):
     def keyPressEvent(self, event):
 
         if event.key() == Qt.Key_Escape:
-             self.theEnd()
+            self.theEnd()
             #self.close()
 
 
