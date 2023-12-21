@@ -3,7 +3,6 @@ import random
 from random import randint, choice
 import logging
 
-import self as self
 from PySide6.QtCore import QSize, QMetaObject, Qt, QVariantAnimation, QObject, QTimer, QPoint, QUrl, QEvent
 from PySide6.QtGui import QPainter, QPen, QPixmap, QColor, QLinearGradient
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
