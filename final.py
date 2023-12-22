@@ -229,12 +229,13 @@ class FinalWind(QWidget):
                         print(s.size().width())
 
                 if vy[self.k] > random.randint(4,50) and isspr[self.k] == 1:
-                    spd[self.k]*=.2
-
+                    spd[self.k] *= .4
+                    s.move(s.pos().x()+spd[self.k]/2,s.pos().y()+spd[self.k]/2)
+                    # spd[self.k]*=.4
                     s.resize(spd[self.k],spd[self.k])
                     s.setPixmap(
                         QPixmap("./img/icon/sprite.png").scaled(QSize(spd[self.k], spd[self.k]), Qt.KeepAspectRatio))
-                    s.move(self.x+s.size().width()*.3, self.y+s.size().height()*.3)
+
 
                     if s.size().width()<5:
                         self.y = self.hgt + random.randint(10, 100)
