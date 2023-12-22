@@ -13,7 +13,7 @@ import time
 
 
 class FinalWind(QWidget):
-    global spr, vx, vy, isspr
+    global spr, vx, vy, isspr, spd
     global s, n, tick, tend, colors
     global spix
     # spix=QPixmap()
@@ -23,6 +23,7 @@ class FinalWind(QWidget):
     vx = []
     vy = []
     isspr = []
+    spd=[]
     wdt = 0
     hgt = 0
     x = 1
@@ -140,6 +141,7 @@ class FinalWind(QWidget):
                 tmp = random.randint(-3, 3)
                 vy.append(tmp)
                 isspr.append(0)
+                spd.append(0.0)
         self.nb = 16
         self.br = 1
 
@@ -197,9 +199,9 @@ class FinalWind(QWidget):
                 if self.y > self.hgt:
                     isspr[self.k] = 1
                     tmcol = choice(colors)
-                    tmw = tmh = random.randint(20, 50)
-                    s.setPixmap(QPixmap("./img/icon/sprite.png").scaled(QSize(tmw, tmw), Qt.KeepAspectRatio))
-                    s.setStyleSheet("background-color: " + tmcol + "; border-radius: " + str(tmw / 2) + ";")
+                    spd[self.k]= random.randint(15, 20)
+                    s.setPixmap(QPixmap("./img/icon/sprite.png").scaled(QSize(spd[self.k], spd[self.k]), Qt.KeepAspectRatio))
+                    s.setStyleSheet("background-color: " + tmcol + "; border-radius: " + str(spd[self.k] / 2) + ";")
 
                     if self.x <= self.wdt / 2:
                         self.x = 50 + random.randint(-10, 10)
@@ -214,18 +216,33 @@ class FinalWind(QWidget):
                         self.dvx = random.random() * 6 - 3
                         vx[self.k] = self.dvx
 
+
+
                 s.setGeometry(self.x, self.y, tmw, tmh)
 
-                if vy[self.k] > random.randint(4,50) and isspr[self.k] == 1:
-                    s.resize(s.size().width()*.6,s.size().height()*.6)
+                if vy[self.k]<0 and isspr[self.k] == 1:
+                    spd[self.k]*=1.03
+                    s.resize(spd[self.k],spd[self.k])
+                    s.setPixmap(
+                        QPixmap("./img/icon/sprite.png").scaled(QSize(spd[self.k], spd[self.k]), Qt.KeepAspectRatio))
+                    if self.k==0:
+                        print(s.size().width())
 
+                if vy[self.k] > random.randint(4,50) and isspr[self.k] == 1:
+                    spd[self.k]*=.2
+
+                    s.resize(spd[self.k],spd[self.k])
+                    s.setPixmap(
+                        QPixmap("./img/icon/sprite.png").scaled(QSize(spd[self.k], spd[self.k]), Qt.KeepAspectRatio))
                     s.move(self.x+s.size().width()*.3, self.y+s.size().height()*.3)
-                    s.setPixmap(QPixmap("./img/icon/sprite.png").scaled(QSize(s.size().width(), s.size().height()), Qt.KeepAspectRatio))
+
                     if s.size().width()<5:
                         self.y = self.hgt + random.randint(10, 100)
                         s.move(self.x,self.y)
-                    if s.size().width()<10:
-                        vy[self.k]=(vy[self.k]-self.g)*.5
+                    if s.size().width()<10 :
+                        vy[self.k]=(vy[self.k]*random.random())
+                        vx[self.k] = (vx[self.k] * random.random())
+                        s.resize(s.size().width() * .6, s.size().height() * .6)
                 self.k += 1
 
     def theEnd(self):
