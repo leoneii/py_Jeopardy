@@ -28,8 +28,8 @@ class FinalWind(QWidget):
     hgt = 0
     x = 1
     y = 1
-    colors = ["rgba(255, 0, 0, 40)", "rgba(255, 255, 0, 40)", "rgba(0, 255, 0, 40)", "rgba(0, 255, 255, 40)",
-              "rgba(255, 200, 255, 40)"]
+    colors = ["rgba(255, 0, 0, 25)", "rgba(255, 255, 0, 25)", "rgba(0, 255, 0, 25)", "rgba(0, 255, 255, 25)",
+              "rgba(255, 200, 255, 25)"]
 
     def __init__(self, app=QApplication, parent=None):
 
@@ -106,7 +106,6 @@ class FinalWind(QWidget):
             "border: none; background-color: rgba(224, 255, 255, 0); color: rgba(250,200,90,255); font: bold 90px")
         self.nameLab = QLabel(self)
         self.nameLab.setText(textName)
-        # nameLab.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.nameLab.setAlignment(
             Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter
         )
@@ -198,11 +197,9 @@ class FinalWind(QWidget):
 
                 if self.y > self.hgt:
                     isspr[self.k] = 1
-                    # tmcol = choice(colors)
                     spd[self.k] = random.randint(15, 20)
                     s.setPixmap(
                         QPixmap("./img/icon/sprite.png").scaled(QSize(spd[self.k], spd[self.k]), Qt.KeepAspectRatio))
-                    # s.setStyleSheet("background-color: " + tmcol + "; border-radius: " + str(spd[self.k] / 2) + ";")
 
                     if self.x <= self.wdt / 2:
                         self.x = 50 + random.randint(-10, 10)
@@ -227,8 +224,6 @@ class FinalWind(QWidget):
                     s.resize(spd[self.k], spd[self.k])
                     s.setPixmap(
                         QPixmap("./img/icon/sprite.png").scaled(QSize(spd[self.k], spd[self.k]), Qt.KeepAspectRatio))
-                    # tmcol = choice(colors)
-                    # s.setStyleSheet("background-color: " + tmcol + "; border-radius: " + str(spd[self.k] / 2) + ";")
 
                 if vy[self.k] > random.randint(4, 50) and isspr[self.k] == 1:
                     spd[self.k] *= .4
@@ -237,6 +232,8 @@ class FinalWind(QWidget):
                     s.resize(spd[self.k], spd[self.k])
                     s.setPixmap(
                         QPixmap("./img/icon/sprite.png").scaled(QSize(spd[self.k], spd[self.k]), Qt.KeepAspectRatio))
+                    tmcol = choice(colors)
+                    s.setStyleSheet("background-color: " + tmcol + "; border-radius: " + str(spd[self.k] / 2) + ";")
 
                     if s.size().width() < 5:
                         self.y = self.hgt + random.randint(10, 100)
@@ -245,8 +242,6 @@ class FinalWind(QWidget):
                         vy[self.k] = (vy[self.k] * random.random())
                         vx[self.k] = (vx[self.k] * random.random())
                         s.resize(s.size().width() * .6, s.size().height() * .6)
-
-
 
                 self.k += 1
 
