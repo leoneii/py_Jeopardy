@@ -122,7 +122,36 @@ class Wint(QWidget):
         sqlDB.setDatabaseName("./jep.sqlite")
         sqlDB.open()
         super(Wint, self).__init__(parent)
-        # super().__init__()
+        
+        # Проверяем - новая игра, или продолжение прерванной (таблицs SCORE и STEPS)
+        # SQL запрос на создание таблицы
+        tql=QSqlQuery()
+        score_query = """
+            CREATE TABLE IF NOT EXISTS score (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                result INT
+            );
+        """
+        try:
+            tql.exec(score_query)
+        except:
+            print("Таблица score уже существует.")
+
+        steps_query = """
+            CREATE TABLE IF NOT EXISTS steps (
+                cell_col INT NOT NULL,
+                cell_row INT NOT NULL
+            );
+        """
+        try:
+            tql.exec(steps_query)
+        except:
+            print("Таблица steps уже существует.")    
+
+
+        # закончили проверку и создание таблиц SCORE и STEPS
+
         font = QFont()
         font.setFamilies([u"Arial"])
         font.setBold(True)
