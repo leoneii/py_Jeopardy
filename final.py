@@ -59,15 +59,14 @@ class FinalWind(QWidget):
 
         query = QSqlQuery()
         if not query.exec(
-                """
-                    SELECT max(sum), count(Name) FROM Teams Where sum = (SELECT max(sum) FROM teams) ;
-                """
+            "SELECT sum ,  count(Name) FROM Teams Where sum = (SELECT max(sum) FROM teams) ;"
         ):
             logging.error("Failed to query database")
         query.first()
         maxsum = query.value(0)
+        print(maxsum)
         wincount = query.value(1)
-        if not query.exec("SELECT Name FROM Teams Where sum = " + str(maxsum) + ";"):
+        if not query.exec("SELECT Name FROM Teams Where sum = '" + str(maxsum) + "';"):
             logging.error("Failed to query database")
         query.first()
         self.fs = 120
@@ -213,11 +212,11 @@ class FinalWind(QWidget):
                         vy[self.k] = self.dvy
                         self.dvx = random.random() * 6 - 3
                         vx[self.k] = self.dvx
-
-                s.setGeometry(self.x, self.y, tmw, tmh)
                 if isspr[self.k] == 1:
                     tmcol = choice(colors)
                     s.setStyleSheet("background-color: " + tmcol + "; border-radius: " + str(spd[self.k] / 2) + ";")
+   
+                s.setGeometry(self.x, self.y, tmw, tmh)
 
                 if vy[self.k] < 0 and isspr[self.k] == 1:
                     spd[self.k] *= 1.03
