@@ -177,9 +177,6 @@ class Wint(QWidget):
         self.mainlogo.setStyleSheet(self.sth)
         self.mainlogo.show()
         hgt = hgt - mainlogoh
-
-
-
         # self.setStyleSheet("""
         #         background-color: #0000cc;
         #         color: #ddFFaa;
@@ -198,14 +195,12 @@ class Wint(QWidget):
         self.tmr.timeout.connect(scrupd)
         self.tmr.start(40)
         # конец насыщенности фона
-
         queryccat = QSqlQuery()
         if not queryccat.exec("SELECT COUNT(*) FROM category;"):
             logging.error("Failed to query database15")
         queryccat.first()
         ccat = queryccat.value(0)
-
-        # создаем экраны вопросов категорий
+       # создаем экраны вопросов категорий
         query = QSqlQuery()
         if not query.exec("SELECT catname FROM category;"):
             logging.error("Failed to query database1")
@@ -416,9 +411,6 @@ class Wint(QWidget):
             label_dialog.setText('Вы действительно хотите закончить игру?')
             button_yes = QPushButton(reply)
             button_yes.setText("Да")
-
-
-
 
             shst = "QPushButton { background-color: rgba(0,0,200,100); color: rgba(220,220,255,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 6px; font: Bold 22px} QPushButton::hover{background-color: #0077ff ;}"
             button_yes.setStyleSheet(shst)
