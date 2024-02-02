@@ -5,7 +5,7 @@ import logging
 
 from PySide6.QtCore import QSize, QMetaObject, Qt, QVariantAnimation, QObject, QTimer, QPoint, QUrl, QEvent
 from PySide6.QtGui import QPainter, QPen, QPixmap, QColor, QLinearGradient
-#from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
+from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget, QLabel, QGraphicsDropShadowEffect
 import simpleaudio as simple_audio
@@ -23,13 +23,13 @@ class FinalWind(QWidget):
     vx = []
     vy = []
     isspr = []
-    spd = []
+    spd=[]
     wdt = 0
     hgt = 0
     x = 1
     y = 1
-    colors = ["rgba(255, 0, 0, 25)", "rgba(255, 255, 0, 25)", "rgba(0, 255, 0, 25)", "rgba(0, 255, 255, 25)",
-              "rgba(255, 200, 255, 25)"]
+    colors = ["rgba(255, 0, 0, 10)", "rgba(255, 255, 0, 10)", "rgba(0, 255, 0, 10)", "rgba(0, 255, 255, 10)",
+              "rgba(255, 200, 255, 10)"]
 
     def __init__(self, app=QApplication, parent=None):
 
@@ -64,7 +64,6 @@ class FinalWind(QWidget):
             logging.error("Failed to query database")
         query.first()
         maxsum = query.value(0)
-        print(maxsum)
         wincount = query.value(1)
         if not query.exec("SELECT Name FROM Teams Where sum = '" + str(maxsum) + "';"):
             logging.error("Failed to query database")
@@ -105,6 +104,7 @@ class FinalWind(QWidget):
             "border: none; background-color: rgba(224, 255, 255, 0); color: rgba(250,200,90,255); font: bold 90px")
         self.nameLab = QLabel(self)
         self.nameLab.setText(textName)
+        # nameLab.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.nameLab.setAlignment(
             Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter
         )
@@ -157,7 +157,7 @@ class FinalWind(QWidget):
         self.tick += 1
         self.k = 0
         self.g = 0.7
-        if 25000 < self.tick < 25048:
+        if self.tick > 25000 and self.tick < 25048:
             for s in spr:
                 tmw = s.size().width()
                 tmh = s.size().height()
@@ -168,7 +168,7 @@ class FinalWind(QWidget):
                 dy = random.randint(-1, 1)
                 self.y += dy
                 s.setGeometry(self.x, self.y, tmw, tmh)
-        if 25048 <= self.tick <= 25052:
+        if self.tick >= 25048 and self.tick <= 25052:
             for s in spr:
                 tmw = s.size().width()
                 tmh = s.size().height()
@@ -196,9 +196,10 @@ class FinalWind(QWidget):
 
                 if self.y > self.hgt:
                     isspr[self.k] = 1
-                    spd[self.k] = random.randint(15, 20)
-                    s.setPixmap(
-                        QPixmap("./img/icon/sprite.png").scaled(QSize(spd[self.k], spd[self.k]), Qt.KeepAspectRatio))
+                    tmcol = choice(colors)
+                    spd[self.k]= random.randint(15, 20)
+                    s.setPixmap(QPixmap("./img/icon/sprite.png").scaled(QSize(spd[self.k], spd[self.k]), Qt.KeepAspectRatio))
+                    s.setStyleSheet("background-color: " + tmcol + "; border-radius: " + str(spd[self.k] / 2) + ";")
 
                     if self.x <= self.wdt / 2:
                         self.x = 50 + random.randint(-10, 10)
@@ -208,40 +209,39 @@ class FinalWind(QWidget):
                         vx[self.k] = self.dvx
                     else:
                         self.x = self.wdt - 50 + 20 * random.random() - 10
-                        self.dvy = -25 * random.random() - 15
+                        self.dvy = -25* random.random() - 15
                         vy[self.k] = self.dvy
                         self.dvx = random.random() * 6 - 3
                         vx[self.k] = self.dvx
-                if isspr[self.k] == 1:
-                    tmcol = choice(colors)
-                    s.setStyleSheet("background-color: " + tmcol + "; border-radius: " + str(spd[self.k] / 2) + ";")
-   
+
+
+
                 s.setGeometry(self.x, self.y, tmw, tmh)
 
-                if vy[self.k] < 0 and isspr[self.k] == 1:
-                    spd[self.k] *= 1.03
-                    s.resize(spd[self.k], spd[self.k])
+                if vy[self.k]<0 and isspr[self.k] == 1:
+                    spd[self.k]*=1.03
+                    s.resize(spd[self.k],spd[self.k])
                     s.setPixmap(
                         QPixmap("./img/icon/sprite.png").scaled(QSize(spd[self.k], spd[self.k]), Qt.KeepAspectRatio))
+                    # if self.k==0:
+                    #     print(s.size().width())
 
-                if vy[self.k] > random.randint(4, 50) and isspr[self.k] == 1:
+                if vy[self.k] > random.randint(4,50) and isspr[self.k] == 1:
                     spd[self.k] *= .4
-                    s.move(s.pos().x() + spd[self.k] / 2, s.pos().y() + spd[self.k] / 2)
+                    s.move(s.pos().x()+spd[self.k]/2,s.pos().y()+spd[self.k]/2)
                     # spd[self.k]*=.4
-                    s.resize(spd[self.k], spd[self.k])
+                    s.resize(spd[self.k],spd[self.k])
                     s.setPixmap(
                         QPixmap("./img/icon/sprite.png").scaled(QSize(spd[self.k], spd[self.k]), Qt.KeepAspectRatio))
-                    tmcol = choice(colors)
-                    s.setStyleSheet("background-color: " + tmcol + "; border-radius: " + str(spd[self.k] / 2) + ";")
 
-                    if s.size().width() < 5:
+
+                    if s.size().width()<5:
                         self.y = self.hgt + random.randint(10, 100)
-                        s.move(self.x, self.y)
-                    if s.size().width() < 10:
-                        vy[self.k] = (vy[self.k] * random.random())
+                        s.move(self.x,self.y)
+                    if s.size().width()<10 :
+                        vy[self.k]=(vy[self.k]*random.random())
                         vx[self.k] = (vx[self.k] * random.random())
                         s.resize(s.size().width() * .6, s.size().height() * .6)
-
                 self.k += 1
 
     def theEnd(self):
