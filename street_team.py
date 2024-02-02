@@ -383,7 +383,7 @@ class Wint(QWidget):
 
         quec = QSqlQuery()
         idt=int(sndr[3:])+1
-        if not quec.exec("UPDATE teams set sum="+str(tots[int(sndr[3:])]) + " WHERE Id="+str(idt)+";"):
+        if not quec.exec("UPDATE teams set sum="+str(tots[int(sndr[3:])]) + " WHERE Id="+str(idt-1)+";"):
             logging.error("Failed to query database7")
 
     def keyPressEvent(self, event):
