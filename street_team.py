@@ -129,14 +129,11 @@ class Wint(QWidget):
         score_query = """
             CREATE TABLE IF NOT EXISTS score (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL,
                 result INT
             );
         """
-        try:
-            tql.exec(score_query)
-        except:
-            print("Таблица score уже существует.")
+        if not tql.exec(score_query):
+            logging.error("Таблица score уже существует.")
 
         steps_query = """
             CREATE TABLE IF NOT EXISTS steps (
@@ -144,10 +141,16 @@ class Wint(QWidget):
                 cell_row INT NOT NULL
             );
         """
-        try:
-            tql.exec(steps_query)
-        except:
-            print("Таблица steps уже существует.")    
+        
+        if not  tql.exec(steps_query):
+            logging.error("Таблица steps уже существует.")    
+
+        tql.exec("select count(name) from Teams")
+        tql.first()
+        tcnt=tql.value(0)
+
+        for i in range(tcnt):
+            tql.exec("INSERT INTO score DEFAULT VALUES;")
 
 
         # закончили проверку и создание таблиц SCORE и STEPS
@@ -380,12 +383,16 @@ class Wint(QWidget):
         idt=int(sndr[3:])+1
         if not quec.exec("UPDATE teams set sum="+str(tots[int(sndr[3:])]) + " WHERE Id="+str(idt-1)+";"):
             logging.error("Failed to query database7")
+        else:
+            quec.exec("UPDATE score set result="+str(tots[int(sndr[3:])]) + " WHERE id="+str(idt)+";")
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
             # диалоговое окно выхода из программы
             def check_button(id_name):
                 if button_group.id(id_name) == 1:
+                    clrq=QSqlQuery()
+                    clrq.exec("delete from score")
                     finw = FinalWind(apt)
                     finw.showFullScreen()
     
