@@ -5,7 +5,7 @@ import logging
 
 from PySide6.QtCore import QSize, QMetaObject, Qt, QVariantAnimation, QObject, QTimer, QPoint, QUrl, QEvent
 from PySide6.QtGui import QPainter, QPen, QPixmap, QColor, QLinearGradient
-from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
+#from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget, QLabel, QGraphicsDropShadowEffect
 import simpleaudio as simple_audio
