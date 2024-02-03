@@ -142,6 +142,10 @@ class FinalWind(QWidget):
                 spd.append(0.0)
         self.nb = 16
         self.br = 1
+        # очищаем таблицу
+        quec = QSqlQuery()
+        if not quec.exec("UPDATE teams set sum=0;"):
+            logging.error("Ошибка очистки")
 
     def shadblink(self):
         self.nb += self.br

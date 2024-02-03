@@ -22,6 +22,7 @@ QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
 
 name = ["", "", "", "", "", "", "", ""]
 logo = ["", "", "", "", "", "", "", ""]
+tots = [0, 0, 0, 0, 0, 0]
 lcnnxt = 30
 query = QSqlQuery()
 if not query.exec(
@@ -33,9 +34,10 @@ if not query.exec(
 query.next()
 tkolt = int(query.value(0))  # количество команд
 
-quec = QSqlQuery()
-if not quec.exec("UPDATE teams set sum=0;"):
-    logging.error("Failed to query database7")
+query1 = QSqlQuery()
+if not query1.exec("UPDATE settings SET tmpDat = 10 ,tmpDat1 = 10 ;"): # цена вопроса в бд становится равна 10
+    logging.error("Failed to query database16")
+
 
 query = QSqlQuery()
 if not query.exec(
@@ -50,6 +52,7 @@ s = ""
 for i in range(tkolt):
     logo[i] = str(query.value(1))
     name[i] = str(query.value(2))
+    tots[i] = int(query.value(3))
     s += name[i] + " "
     query.next()
 # вычисляем кол-во букв в самом длинном слове в названиях команд
@@ -57,7 +60,6 @@ maxlenw = max(s.split(), key=len)
 lmaxlw = len(maxlenw)
 
 mascat = []
-tots = [0, 0, 0, 0, 0, 0]
 
 blc = 120
 shag = 2
@@ -126,14 +128,6 @@ class Wint(QWidget):
         # Проверяем - новая игра, или продолжение прерванной (таблицs SCORE и STEPS)
         # SQL запрос на создание таблицы
         tql=QSqlQuery()
-        score_query = """
-            CREATE TABLE IF NOT EXISTS score (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                result INT
-            );
-        """
-        if not tql.exec(score_query):
-            logging.error("Таблица score уже существует.")
 
         steps_query = """
             CREATE TABLE IF NOT EXISTS steps (
@@ -141,16 +135,9 @@ class Wint(QWidget):
                 cell_row INT NOT NULL
             );
         """
-        
         if not  tql.exec(steps_query):
-            logging.error("Таблица steps уже существует.")    
+            logging.error("Таблица  уже существует.")    
 
-        tql.exec("select count(name) from Teams")
-        tql.first()
-        tcnt=tql.value(0)
-
-        for i in range(tcnt):
-            tql.exec("INSERT INTO score DEFAULT VALUES;")
 
 
         # закончили проверку и создание таблиц SCORE и STEPS
@@ -380,8 +367,8 @@ class Wint(QWidget):
         obj.setText(str(tots[int(sndr[3:])]))
 
         quec = QSqlQuery()
-        idt=int(sndr[3:])+1
-        if not quec.exec("UPDATE teams set sum="+str(tots[int(sndr[3:])]) + " WHERE Id="+str(idt-1)+";"):
+        idt=int(sndr[3:])
+        if not quec.exec("UPDATE teams set sum="+str(tots[int(sndr[3:])]) + " WHERE Id="+str(idt)+";"):
             logging.error("Failed to query database7")
         else:
             quec.exec("UPDATE score set result="+str(tots[int(sndr[3:])]) + " WHERE id="+str(idt)+";")
