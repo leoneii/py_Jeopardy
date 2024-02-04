@@ -379,7 +379,7 @@ class Wint(QWidget):
             def check_button(id_name):
                 if button_group.id(id_name) == 1:
                     clrq=QSqlQuery()
-                    clrq.exec("delete from score")
+                    clrq.exec("delete from steps")
                     finw = FinalWind(apt)
                     finw.showFullScreen()
     

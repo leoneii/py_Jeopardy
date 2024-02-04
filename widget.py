@@ -252,6 +252,13 @@ class wnd(QWidget):
                             query.next()#первая строка БД
                             #QMessageBox.information(self, "Нажматие!!!))", str(obj.objectName()))
                             query.seek(int(obj.objectName())) #переходим к конкретной строке БД
+                            #print(obj.objectName())
+                            # записываем номер выбранного вопроса в таблицк steps
+                            qstep=QSqlQuery()
+                            txtsteps="INSERT INTO steps (cell_col,cell_row) values ('"+str(int(obj.objectName()))+"',1);"
+                            qstep.exec(txtsteps)
+
+
                             global newwind
 #                            newwind = winq(app, str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq,str(query.value(6)),str(query.value(7)))
                             newwind = winq(appt,str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)), ttq, str(query.value(6)), str(query.value(7)), str(query.value(9)), str(query.value(2)))
