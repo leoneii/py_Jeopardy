@@ -252,15 +252,13 @@ class wnd(QWidget):
                             query.next()#первая строка БД
                             #QMessageBox.information(self, "Нажматие!!!))", str(obj.objectName()))
                             query.seek(int(obj.objectName())) #переходим к конкретной строке БД
-                            #print(obj.objectName())
-                            # записываем номер выбранного вопроса в таблицк steps
+                            # записываем номер выбранного вопроса в таблице steps
                             qstep=QSqlQuery()
-                            txtsteps="INSERT INTO steps (cell_col,cell_row) values ('"+str(int(obj.objectName()))+"',1);"
+                            txtsteps="INSERT INTO steps (cell_num) values ('"+str(int(obj.objectName()))+"');"
                             qstep.exec(txtsteps)
 
 
                             global newwind
-#                            newwind = winq(app, str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)),ttq,str(query.value(6)),str(query.value(7)))
                             newwind = winq(appt,str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)), ttq, str(query.value(6)), str(query.value(7)), str(query.value(9)), str(query.value(2)))
                             newwind.showFullScreen()
                             cnv=query.value(2)
@@ -276,13 +274,10 @@ class wnd(QWidget):
                             ds=len(str(query.value(4)))
                             if ds<40:
                                 fw=int(32*kfont)
-                                # cssa = "QLabel { background-color: rgba(0,150,255,180); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: "+str(fw)+"px}"
                             elif 40<=ds<=70:
                                 fw = int(22 * kfont)
-                                # cssa = "QLabel { background-color: rgba(0,150,255,180); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: 22px}"
                             elif ds>70:
                                 fw = int(18 * kfont)
-                                # cssa = "QLabel { background-color: rgba(0,150,255,180); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: 18px}"
                             cssa = "QLabel { background-color: rgba(0,150,255,180); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: " + str(fw) + "px}"
                             obj1.setStyleSheet(cssa)
                             obj1.setWordWrap(True)# флаг "невидимости и неактивности"

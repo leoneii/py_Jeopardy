@@ -145,7 +145,9 @@ class FinalWind(QWidget):
         # очищаем таблицу
         quec = QSqlQuery()
         if not quec.exec("UPDATE teams set sum=0;"):
-            logging.error("Ошибка очистки")
+            logging.error("Ошибка очистки teams")
+        if not quec.exec("DELETE from steps;"):
+            logging.error("Ошибка очистки steps")
 
     def shadblink(self):
         self.nb += self.br

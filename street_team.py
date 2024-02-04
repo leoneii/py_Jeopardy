@@ -131,8 +131,7 @@ class Wint(QWidget):
 
         steps_query = """
             CREATE TABLE IF NOT EXISTS steps (
-                cell_col INT NOT NULL,
-                cell_row INT NOT NULL
+                cell_num INT
             );
         """
         if not  tql.exec(steps_query):
