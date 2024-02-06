@@ -135,8 +135,7 @@ class Wint(QWidget):
 
         steps_query = """
             CREATE TABLE IF NOT EXISTS steps (
-                cell_col INT NOT NULL,
-                cell_row INT NOT NULL
+                cell_num INT
             );
         """
         if not  tql.exec(steps_query):
@@ -383,7 +382,7 @@ class Wint(QWidget):
             def check_button(id_name):
                 if button_group.id(id_name) == 1:
                     clrq=QSqlQuery()
-                    clrq.exec("delete from score")
+                    clrq.exec("delete from steps")
                     finw = FinalWind(apt)
                     finw.showFullScreen()
     
