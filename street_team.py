@@ -52,7 +52,10 @@ s = ""
 for i in range(tkolt):
     logo[i] = str(query.value(1))
     name[i] = str(query.value(2))
-    tots[i] = int(query.value(3))
+    try:
+        tots[i]=int(query.value(3))
+    except ValueError:
+        tots[i] = 0
     s += name[i] + " "
     query.next()
 # вычисляем кол-во букв в самом длинном слове в названиях команд
@@ -75,6 +78,7 @@ cenv = 0
 class Wint(QWidget):
     global cnttxt, cntcode, ccat
 
+    
     # рисуем анимацию фона
     global cenv
 
