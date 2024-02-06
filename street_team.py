@@ -4,7 +4,7 @@ import sys
 # import PySide6
 from PySide6 import QtCore
 from PySide6.QtCore import Qt, QPoint, QTimer, QEvent
-from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient, QPixmap)
+from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient, QPixmap, QBrush)
 from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QDialog, \
     QVBoxLayout, QButtonGroup, QHBoxLayout, QGraphicsDropShadowEffect
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
@@ -82,29 +82,17 @@ class Wint(QWidget):
     # рисуем анимацию фона
     global cenv
     if os.path.exists("disanim"):
-        def paintEvent(self, event):
-            global smx
-            global gx
-            painter = QPainter(self)
-            #  painter.begin(self)
-            x = 0
-            y = 0
-            wd = self.size().width()
-            hd = self.size().height()
-            gx = smx
+        pass
+        # painter = QPainter()
+        # pen = QPen()
+        # brush = QBrush()
+        # pen.setColor(QColor("#376F9F"))
+        # painter.setPen(pen)
+        # brush.setColor(QColor("#FFD141"))
+        # painter.setBrush(brush)
+        # painter.drawRect(0,0,300,300)
 
-            # if gx > wd * 1.5 or gx < 150:
-            #     smx = -1
-            gradient = QLinearGradient(QPoint(x, y), QPoint(gx, y + 300 + wd * 300 / gx))
-            gradient.setColorAt(0.0, QColor(0, 0, 80, 180))
-            gradient.setColorAt(0.3, QColor(0, 120, 255, 225))
-            gradient.setColorAt(1.0, QColor(0, 80, 255, 180))
-            painter.setBrush(gradient)
-            pen = QPen()
-            pen.setWidth(1)
-            pen.setColor(QColor(0, 0, 50, 10))
-            painter.setPen(pen)
-            painter.drawRect(x, y, wd, hd)
+
     else:
         def paintEvent(self, event):
             global smx
@@ -189,18 +177,17 @@ class Wint(QWidget):
         self.mainlogo.setStyleSheet(self.sth)
         self.mainlogo.show()
         hgt = hgt - mainlogoh
-        # self.setStyleSheet("""
-        #         background-color: #0000cc;
-        #         color: #ddFFaa;
-        #         font-family: Arial;
-        #         """)
+
         # Насыщенность фона
         def scrupd():
-            global blc, shag
-            blc += shag
-            if blc >= 254 or blc <= 90:
-                shag *= -1
-            self.sth = "background-color: rgba(0,0," + str(blc) + ",75); color: #ddFFaa;"
+            if os.path.exists("disanim"):
+                self.sth = "background-color: rgba(0,40,200,200); color: #ddFFaa;"
+            else:
+                global blc, shag
+                blc += shag
+                if blc >= 254 or blc <= 90:
+                    shag *= -1
+                self.sth = "background-color: rgba(0,0," + str(blc) + ",75); color: #ddFFaa;"
             self.setStyleSheet(self.sth)
 
         self.tmr = QTimer()  # 4
