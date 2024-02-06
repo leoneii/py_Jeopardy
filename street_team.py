@@ -77,47 +77,63 @@ cenv = 0
 
 class Wint(QWidget):
     global cnttxt, cntcode, ccat
-
+    
     
     # рисуем анимацию фона
     global cenv
+    if os.path.exists("disanim"):
+        def paintEvent(self, event):
+            global smx
+            global gx
+            painter = QPainter(self)
+            #  painter.begin(self)
+            x = 0
+            y = 0
+            wd = self.size().width()
+            hd = self.size().height()
+            gx = smx
 
-    def paintEvent(self, event):
-        global smx
-        global gx
+            # if gx > wd * 1.5 or gx < 150:
+            #     smx = -1
+            gradient = QLinearGradient(QPoint(x, y), QPoint(gx, y + 300 + wd * 300 / gx))
+            gradient.setColorAt(0.0, QColor(0, 0, 80, 180))
+            gradient.setColorAt(0.3, QColor(0, 120, 255, 225))
+            gradient.setColorAt(1.0, QColor(0, 80, 255, 180))
+            painter.setBrush(gradient)
+            pen = QPen()
+            pen.setWidth(1)
+            pen.setColor(QColor(0, 0, 50, 10))
+            painter.setPen(pen)
+            painter.drawRect(x, y, wd, hd)
+    else:
+        def paintEvent(self, event):
+            global smx
+            global gx
 
-        painter = QPainter(self)
-        #  painter.begin(self)
-        x = 0
-        y = 0
-        wd = self.size().width()
-        hd = self.size().height()
-        gx += smx
+            painter = QPainter(self)
+            #  painter.begin(self)
+            x = 0
+            y = 0
+            wd = self.size().width()
+            hd = self.size().height()
+            gx += smx
 
-        if gx > wd * 1.5 or gx < 150:
-            smx *= -1
-        gradient = QLinearGradient(QPoint(x, y), QPoint(gx, y + 300 + wd * 300 / gx))
-        gradient.setColorAt(0.0, QColor(0, 0, 80, 180))
-        gradient.setColorAt(0.3, QColor(0, 120, 255, 225))
-        gradient.setColorAt(1.0, QColor(0, 80, 255, 80))
-        painter.setBrush(gradient)
+            if gx > wd * 1.5 or gx < 150:
+                smx *= -1
+            gradient = QLinearGradient(QPoint(x, y), QPoint(gx, y + 300 + wd * 300 / gx))
+            gradient.setColorAt(0.0, QColor(0, 0, 80, 180))
+            gradient.setColorAt(0.3, QColor(0, 120, 255, 225))
+            gradient.setColorAt(1.0, QColor(0, 80, 255, 80))
+            painter.setBrush(gradient)
+            pen = QPen()
+            pen.setWidth(1)
+            pen.setColor(QColor(0, 0, 50, 10))
+            painter.setPen(pen)
+            painter.drawRect(x, y, wd, hd)
+            # закончили с фоном
 
-        pen = QPen()
-        pen.setWidth(1)
-        pen.setColor(QColor(0, 0, 50, 10))
-        painter.setPen(pen)
-        painter.drawRect(x, y, wd, hd)
-        # закончили с фоном
-        query = QSqlQuery()
-        if not query.exec(
-                """
-                    SELECT * FROM settings;
-                """
-        ):
-            logging.error("Failed to query database14")
-        query.first()
-        cnttxt = query.value(8)
-        self.contin.setText(cnttxt)
+
+
 
     def __init__(self, tkol, parent=None):
 
@@ -129,6 +145,9 @@ class Wint(QWidget):
         sqlDB.open()
         super(Wint, self).__init__(parent)
         
+        
+        
+
         # Проверяем - новая игра, или продолжение прерванной (таблицs SCORE и STEPS)
         # SQL запрос на создание таблицы
         tql=QSqlQuery()
@@ -141,7 +160,7 @@ class Wint(QWidget):
         if not  tql.exec(steps_query):
             logging.error("Таблица  уже существует.")    
 
-
+        
 
         # закончили проверку и создание таблиц SCORE и STEPS
 
@@ -229,10 +248,12 @@ class Wint(QWidget):
                     mascat[int(querycatn.value(0)) - 1].showFullScreen()
 
         def chcat(self):
-            global cnttxt, cntname, lcnnxt
-
             vcat = Category(apt)
             vcat.showFullScreen()
+            updcnttxt(self)
+
+        def updcnttxt(self):
+            global cnttxt, cntname, lcnnxt
             query = QSqlQuery()
             if not query.exec("SELECT * FROM settings ;"):
                 logging.error("Failed to query database6")
@@ -240,6 +261,7 @@ class Wint(QWidget):
             cnttxt = query.value(8)
             lcnnxt = len(cnttxt)
             cntname = str(query.value(8))
+
 
         for i in range(tkol):
             if len(logo[i]) > 0:
@@ -322,6 +344,8 @@ class Wint(QWidget):
             int(hgt / 15)) + "px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
         self.catch.setStyleSheet(shst)
         self.catch.clicked.connect(chcat)
+        updcnttxt(self)
+        
         if ccat > 1:
             self.catch.show()
         else:
@@ -342,6 +366,8 @@ class Wint(QWidget):
             int(hgt / 15)) + "px; border-bottom-left-radius: 120px 50px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }")
         self.contin.clicked.connect(cntn)
         self.contin.show()
+
+
 
     def sumf(self):
         # считываем цену вопроса из tmpDat settings
