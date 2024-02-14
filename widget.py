@@ -9,7 +9,7 @@ from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import (QApplication, QLabel, QWidget, QFrame)
 
 from quest import winq
-global cenv
+global cenv, recover
 cenv=0
 #global apt
 
@@ -71,6 +71,17 @@ cssbut1 = "QLabel { background-color: rgba(250,0,250,80); color: rgba(255,255,25
 bgpalbut = QPalette()
 bgpalbut.setColor(QPalette.Button, Qt.blue )
 
+# прервана ли игра
+querybg = QSqlQuery()
+if not querybg.exec("SELECT COUNT(*) FROM steps;"): # цена вопроса в бд становится равна 10
+    logging.error("Failed to query steps")
+querybg.first()
+if querybg.value(0)>0:
+   recover = True
+else:
+   recover = False       
+
+print (str(querybg.value(0)))
 
 class wnd(QWidget):
 
@@ -227,11 +238,59 @@ class wnd(QWidget):
                 self.shag*= -1
             self.sth="background-color: rgba(0,0,255,"+str(self.blc)+"); color: #ddFFaa;"
             self.setStyleSheet(self.sth)
+
+            global recover
+            if recover == True:
+                recover = False
+                queryrec = QSqlQuery()
+                if not queryrec.exec("SELECT * FROM steps;"): # 
+                    logging.error("Failed to query rec")
+                query = QSqlQuery()   
+                quecat=QSqlQuery() 
+                while queryrec.next():                                             
+                    if not quecat.exec("SELECT * from settings ;"):
+                        logging.error("Failed to query database11")
+                    quecat.first()
+                    catname=quecat.value(8)
+                    obj1 = self.findChild(QLabel, str(queryrec.value(0)))
+                    if not query.exec("SELECT * from ThemeAndQ  WHERE catname = '"+catname+"' ORDER BY Theme, Cost ;"):
+                        logging.error("Failed to query database12")
+                    query.next()#первая строка БД
+                    #QMessageBox.information(self, "Нажматие!!!))", str(obj.objectName()))
+                    query.seek(int(obj1.objectName())) #переходим к конкретной строке БД
+                    ipd="pd"+obj1.objectName()
+                    obj1.setText(str(query.value(4)))
+                    ds=len(str(query.value(4)))
+                    if ds<40:
+                        fw=int(32*kfont)
+                    elif 40<=ds<=70:
+                        fw = int(22 * kfont)
+                    elif ds>70:
+                        fw = int(18 * kfont)
+                    cssa = "QLabel { background-color: rgba(0,150,255,180); border: none;color: rgba(255,255,190,255); text-align: bottom center; background-position: bottom center; font-size: " + str(fw) + "px}"
+                    obj1.setStyleSheet(cssa)
+                    obj1.setWordWrap(True)# флаг "невидимости и неактивности"
+
+                     # удаляем цену подсказки
+                    lbpd=obj1.findChild(QLabel,ipd)
+                    if lbpd != None:
+                        lbpd.setVisible(False)
+
+                    # удаляем пометку бонус
+                    ipod = "bon" + obj1.objectName()
+                    lpod=obj1.findChild(QLabel,ipod)
+                    if lpod != None:
+                        lpod.setVisible(False)
+
+
         self.blc = 80
         self.shag=1
         self.tmr = QTimer()  # 4
         self.tmr.timeout.connect(scrupd)
         self.tmr.start(40)
+
+                               
+
 
 
     def eventFilter(self, obj, event):
@@ -254,6 +313,7 @@ class wnd(QWidget):
                             query.next()#первая строка БД
                             #QMessageBox.information(self, "Нажматие!!!))", str(obj.objectName()))
                             query.seek(int(obj.objectName())) #переходим к конкретной строке БД
+                            ##print (int(obj.objectName()))
                             # записываем номер выбранного вопроса в таблице steps
                             qstep=QSqlQuery()
                             txtsteps="INSERT INTO steps (cell_num) values ('"+str(int(obj.objectName()))+"');"

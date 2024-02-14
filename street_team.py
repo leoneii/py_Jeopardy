@@ -35,7 +35,7 @@ query.next()
 tkolt = int(query.value(0))  # количество команд
 
 query1 = QSqlQuery()
-if not query1.exec("UPDATE settings SET tmpDat = 10 ,tmpDat1 = 10 ;"): # цена вопроса в бд становится равна 10
+if not query1.exec("UPDATE settings SET tmpDat = 5 ,tmpDat1 = 5 ;"): # цена вопроса в бд становится равна 10
     logging.error("Failed to query database16")
 
 
@@ -58,6 +58,9 @@ for i in range(tkolt):
         tots[i] = 0
     s += name[i] + " "
     query.next()
+
+
+
 # вычисляем кол-во букв в самом длинном слове в названиях команд
 maxlenw = max(s.split(), key=len)
 lmaxlw = len(maxlenw)
@@ -353,7 +356,6 @@ class Wint(QWidget):
             int(hgt / 15)) + "px; border-bottom-left-radius: 120px 50px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }")
         self.contin.clicked.connect(cntn)
         self.contin.show()
-
 
 
     def sumf(self):
