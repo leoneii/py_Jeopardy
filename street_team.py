@@ -86,15 +86,7 @@ class Wint(QWidget):
     global cenv
     if os.path.exists("disanim"):
         pass
-        # painter = QPainter()
-        # pen = QPen()
-        # brush = QBrush()
-        # pen.setColor(QColor("#376F9F"))
-        # painter.setPen(pen)
-        # brush.setColor(QColor("#FFD141"))
-        # painter.setBrush(brush)
-        # painter.drawRect(0,0,300,300)
-
+        
 
     else:
         def paintEvent(self, event):
@@ -184,7 +176,7 @@ class Wint(QWidget):
         # Насыщенность фона
         def scrupd():
             if os.path.exists("disanim"):
-                self.sth = "background-color: rgba(0,40,200,200); color: #ddFFaa;"
+                self.sth = "background-color: rgba(0,40,230,255); color: #ddFFaa;"
             else:
                 global blc, shag
                 blc += shag

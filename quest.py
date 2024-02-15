@@ -28,26 +28,29 @@ class winq(QWidget):
     def paintEvent(self,event):
         global smx
         global gx
-        painter = QPainter(self)
-#        painter.begin(self)
-        x = 0
-        y = 0
-        wd=self.size().width()
-        hd=self.size().height()
-        gx+= smx
-        if gx>wd*1.5 or gx<150:
-            smx*=-1
-        gradient = QLinearGradient(QPoint(x, y), QPoint(gx, y+300+wd*300/gx))
-        gradient.setColorAt(0.0, QColor(0, 0, 50, 100))
-        gradient.setColorAt(0.3, QColor(0, 100, 255, 180))
-        gradient.setColorAt(1.0, QColor(0, 0, 255, 30))
-        painter.setBrush(gradient)
+        if os.path.exists("disanim"):
+            pass
+        else:
+            painter = QPainter(self)
+    #        painter.begin(self)
+            x = 0
+            y = 0
+            wd=self.size().width()
+            hd=self.size().height()
+            gx+= smx
+            if gx>wd*1.5 or gx<150:
+                smx*=-1
+            gradient = QLinearGradient(QPoint(x, y), QPoint(gx, y+300+wd*300/gx))
+            gradient.setColorAt(0.0, QColor(0, 0, 50, 100))
+            gradient.setColorAt(0.3, QColor(0, 100, 255, 180))
+            gradient.setColorAt(1.0, QColor(0, 0, 255, 30))
+            painter.setBrush(gradient)
 
-        pen = QPen()
-        pen.setWidth(1)
-        pen.setColor(QColor(0, 0, 50, 10))
-        painter.setPen(pen)
-        painter.drawRect(x, y, wd, hd)
+            pen = QPen()
+            pen.setWidth(1)
+            pen.setColor(QColor(0, 0, 50, 10))
+            painter.setPen(pen)
+            painter.drawRect(x, y, wd, hd)
 
 
 # закончили с фоном
@@ -154,10 +157,13 @@ class winq(QWidget):
                            """)
 #экран плавно меняет фон
         def scrupd():
-            self.blc+=self.shag
-            if self.blc>=254 or self.blc<=60:
-                self.shag*= -1
-            self.sth="background-color: rgba(0,0,255,"+str(self.blc)+"); color: #ddFFaa;"
+            if os.path.exists("disanim"):
+                self.sth = "background-color: rgba(0,40,230,255); color: #ddFFaa;"
+            else:
+                self.blc+=self.shag
+                if self.blc>=254 or self.blc<=60:
+                    self.shag*= -1
+                self.sth="background-color: rgba(0,0,255,"+str(self.blc)+"); color: #ddFFaa;"
             self.setStyleSheet(self.sth)
         self.blc = 80
         self.shag=1

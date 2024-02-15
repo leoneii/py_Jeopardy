@@ -233,10 +233,13 @@ class wnd(QWidget):
                 query.next()
 
         def scrupd():
-            self.blc+=self.shag
-            if self.blc>=254 or self.blc<=60:
-                self.shag*= -1
-            self.sth="background-color: rgba(0,0,255,"+str(self.blc)+"); color: #ddFFaa;"
+            if os.path.exists("disanim"):
+                self.sth = "background-color: rgba(0,40,230,255); color: #ddFFaa;"
+            else:
+                self.blc+=self.shag
+                if self.blc>=254 or self.blc<=60:
+                    self.shag*= -1
+                self.sth="background-color: rgba(0,0,255,"+str(self.blc)+"); color: #ddFFaa;"
             self.setStyleSheet(self.sth)
 
             global recover
