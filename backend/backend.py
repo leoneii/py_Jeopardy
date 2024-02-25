@@ -10,8 +10,8 @@ from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlQueryModel
 
 from PySide6.QtWidgets import QApplication, QInputDialog, QMainWindow, QMessageBox, QFileDialog, QDialog
 
-from backend.mainwindow import Ui_MainWindow
-from backend.newDialog import *
+from mainwindow import Ui_MainWindow
+from newDialog import *
 import simpleaudio as simple_audio
 
 
@@ -67,6 +67,18 @@ class MainWindow(QMainWindow):
         self.EditMode(False)
         self.updateform()
         self.selector(0,0)
+
+        if os.path.exists("../disanim"):
+            self.ui.checkBox_disanim.setChecked(True)
+        else:
+            self.ui.checkBox_disanim.setChecked(False)
+        self.ui.checkBox_disanim.toggled.connect(self.togAnim)
+
+    def togAnim(self):
+        if self.ui.checkBox_disanim.isChecked():
+            os.open("../disanim", os.O_CREAT)
+        else:
+            os.remove("../disanim")
 
     def testB(self):
         self.updateTheme()
