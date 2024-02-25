@@ -81,7 +81,7 @@ if querybg.value(0)>0:
 else:
    recover = False       
 
-print (str(querybg.value(0)))
+# print (str(querybg.value(0)))
 
 class wnd(QWidget):
 
