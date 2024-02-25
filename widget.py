@@ -61,7 +61,7 @@ cnv=["10","20","30","40","50","60","70","80","90","100"]
 # шрифт
 font = QFont()
 font.setFamilies([u"Serif"])
-#font.setPointSize(22)
+
 font.setBold(True)
 alignmentc=Qt.AlignmentFlag.AlignCenter
 css = "QLabel { background-color: rgba(0,0,180,255); color: rgba(255,255,255,255); text-align: bottom center; background-position: bottom center;}"
