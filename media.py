@@ -48,16 +48,17 @@ class MoviePlayer(QWidget):
             painter.drawRect(x, y, wd, hd)
 
             def scrupd():
+
+                # Определяем окончание mp3 трека
                 self.p1 = self.player.position()
                 if self.p1 != self.p0:
                     self.kolend=0
                     self.p0 = self.p1
-                    print(self.p0)
                 else:
                     self.kolend+=1
-                    print("end",self.kolend)
                     if self.kolend==50:
                         self.close()
+                # и выходим из модуля
 
 
                 if os.path.exists("disanim"):
