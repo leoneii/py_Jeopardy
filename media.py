@@ -1,5 +1,6 @@
 import sys
 import os
+import time
 from PySide6 import QtWidgets
 from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QVBoxLayout
 from PySide6.QtCore import QSize
@@ -17,11 +18,27 @@ gx = 200
 wdl = 1
 
 
+
 class MoviePlayer(QWidget):
     kolend=0
     if os.path.exists("disanim"):
         pass
     else:
+        def theEnd(self):
+            (self.wdt, self.hgt) = apt.screens()[0].size().toTuple()
+            h = self.hgt
+            w = self.wdt
+
+            while h > 5:
+                time.sleep(0.0025)
+                h -= 25
+                self.setGeometry(0, int(self.hgt / 2 - h / 2), self.wdt, h)
+            while w > 5:
+                w -= 35
+                time.sleep(0.0025)
+                self.setGeometry(self.wdt / 2 - w / 2, self.hgt / 2, w, 3)
+            self.close()
+
         def paintEvent(self, event):
             global smx
             global gx
@@ -56,8 +73,8 @@ class MoviePlayer(QWidget):
                     self.p0 = self.p1
                 else:
                     self.kolend+=1
-                    if self.kolend==50:
-                        self.close()
+                    if self.kolend==20:
+                        self.theEnd()
                 # и выходим из модуля
 
 
@@ -77,7 +94,8 @@ class MoviePlayer(QWidget):
             self.tmr.timeout.connect(scrupd)
             self.tmr.start(40)
 
-    def __init__(self):
+
+    def __init__(self,fgif,fmp3):
         super().__init__()
         geometry = apt.primaryScreen().availableGeometry()
 
@@ -87,23 +105,18 @@ class MoviePlayer(QWidget):
         hgt = self.size().height()
 
         self.movie_screen = QLabel(self)
-        # self.movie_screen.setStyleSheet("background-color: rgb(0,50,100)")
-
-        self.movie = QMovie('./media/GK.gif')
+        self.movie = QMovie('./media/'+fgif)
         self.movie.setCacheMode(QMovie.CacheAll)
         self.movie.setSpeed(100)
         self.movie.setScaledSize(QSize(wdh, hgt))
         self.movie_screen.setMovie(self.movie)
-
         self.movie.start()
-
-
 
         self.player = QMediaPlayer()
         self.audioOutput = QAudioOutput()
         self.player.setAudioOutput(self.audioOutput)
         # player.positionChanged.connect(self.positionChanged)
-        self.player.setSource(QUrl.fromLocalFile('./media//short.mp3'))
+        self.player.setSource(QUrl.fromLocalFile('./media/'+fmp3))
         #self.audioOutput.setVolume(50)
 
 
@@ -124,7 +137,7 @@ if __name__ == "__main__":
     apt = QApplication([])
     (gwidth, gheight) = apt.screens()[0].size().toTuple()
     kfont = gwidth / 1920
-    mediapl = MoviePlayer()
+    mediapl = MoviePlayer('GK.gif','short.mp3')
     mediapl.showFullScreen()
     #mediapl.setStyleSheet("background-color: rgb(0,30,60)")
     sys.exit(apt.exec())     
