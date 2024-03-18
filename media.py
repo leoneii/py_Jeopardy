@@ -18,6 +18,7 @@ wdl = 1
 
 
 class MoviePlayer(QWidget):
+    kolend=0
     if os.path.exists("disanim"):
         pass
     else:
@@ -47,6 +48,18 @@ class MoviePlayer(QWidget):
             painter.drawRect(x, y, wd, hd)
 
             def scrupd():
+                self.p1 = self.player.position()
+                if self.p1 != self.p0:
+                    self.kolend=0
+                    self.p0 = self.p1
+                    print(self.p0)
+                else:
+                    self.kolend+=1
+                    print("end",self.kolend)
+                    if self.kolend==50:
+                        self.close()
+
+
                 if os.path.exists("disanim"):
                     self.sth = "background-color: rgba(0,40,200,200); color: #ddFFaa;"
                 else:
@@ -57,7 +70,9 @@ class MoviePlayer(QWidget):
                     self.sth = "background-color: rgba(0,0," + str(blc) + ",75); color: #ddFFaa;"
                 self.setStyleSheet(self.sth)
 
+
             self.tmr = QTimer()  # 4
+            self.p0 = self.player.position()
             self.tmr.timeout.connect(scrupd)
             self.tmr.start(40)
 
@@ -81,13 +96,21 @@ class MoviePlayer(QWidget):
 
         self.movie.start()
 
+
+
         self.player = QMediaPlayer()
         self.audioOutput = QAudioOutput()
         self.player.setAudioOutput(self.audioOutput)
         # player.positionChanged.connect(self.positionChanged)
-        self.player.setSource(QUrl.fromLocalFile('./media//Sade.mp3'))
+        self.player.setSource(QUrl.fromLocalFile('./media//short.mp3'))
         #self.audioOutput.setVolume(50)
+
+
+
+        #self.player.positionChanged.connect(position_changed)
+
         self.player.play()
+
 
 
 # app = QApplication([])
