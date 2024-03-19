@@ -117,11 +117,7 @@ class MoviePlayer(QWidget):
         self.player.setAudioOutput(self.audioOutput)
         # player.positionChanged.connect(self.positionChanged)
         self.player.setSource(QUrl.fromLocalFile('./media/'+fmp3))
-        #self.audioOutput.setVolume(50)
-
-
-
-        #self.player.positionChanged.connect(position_changed)
+#self.player.positionChanged.connect(position_changed)
 
         self.player.play()
 
