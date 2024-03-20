@@ -12,8 +12,8 @@ from PySide6.QtCore import (QTimer, QEventLoop, QRect, Qt, QEvent, QPoint)
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient)
 
 blc = 120
-shag = 2
-smx = 5
+shag = 1
+smx = 3
 gx = 200
 wdl = 1
 
@@ -32,7 +32,7 @@ class MoviePlayer(QWidget):
         self.movie_screen = QLabel(self)
         self.movie = QMovie('./media/'+fgif)
         self.movie.setCacheMode(QMovie.CacheAll)
-        self.movie.setSpeed(100)
+        self.movie.setSpeed(70)
         self.movie.setScaledSize(QSize(wdh, hgt))
         self.movie_screen.setMovie(self.movie)
         self.movie.start()
@@ -58,7 +58,7 @@ class MoviePlayer(QWidget):
 
         self.tmr = QTimer()  # 4
         self.tmr.timeout.connect(scrupd)
-        self.tmr.start(40)
+        self.tmr.start(120)
 
 
     def theEnd(self):
