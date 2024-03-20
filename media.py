@@ -25,8 +25,6 @@ class MoviePlayer(QWidget):
     def __init__(self,fgif,fmp3):
         super().__init__()
         geometry = apt.primaryScreen().availableGeometry()
-        
-
         self.setGeometry(geometry)
         wdh = self.size().width()
         hgt = self.size().height()
@@ -43,9 +41,7 @@ class MoviePlayer(QWidget):
         self.p0 = self.player.position()
         self.audioOutput = QAudioOutput()
         self.player.setAudioOutput(self.audioOutput)
-        # player.positionChanged.connect(self.positionChanged)
         self.player.setSource(QUrl.fromLocalFile('./media/'+fmp3))
-#self.player.positionChanged.connect(position_changed)
         self.player.play()
 
         def scrupd():
@@ -54,7 +50,6 @@ class MoviePlayer(QWidget):
             if p1 != self.p0:
                 self.kolend=0
                 self.p0 = p1
-                print(self.p0)
             else:
                 self.kolend+=1
                 if self.kolend==20:
@@ -70,7 +65,6 @@ class MoviePlayer(QWidget):
         (self.wdt, self.hgt) = apt.screens()[0].size().toTuple()
         h = self.hgt
         w = self.wdt
-
         while h > 5:
             time.sleep(0.0025)
             h -= 25
@@ -81,7 +75,6 @@ class MoviePlayer(QWidget):
             self.setGeometry(self.wdt / 2 - w / 2, self.hgt / 2, w, 3)
         self.close()
 
-
     def paintEvent(self, event):
         if os.path.exists("disanim"):
             self.sth = "background-color: rgba(0,40,200,200); color: #ddFFaa;"
@@ -89,22 +82,18 @@ class MoviePlayer(QWidget):
         else:
             global smx
             global gx
-
             global blc, shag
             blc += shag
             if blc >= 254 or blc <= 90:
                  shag *= -1
             self.sth = "background-color: rgba(0,0," + str(blc) + ",75); color: #ddFFaa;"
             self.setStyleSheet(self.sth)
-            
             painter = QPainter(self)
-            #  painter.begin(self)
             x = 0
             y = 0
             wd = self.size().width()
             hd = self.size().height()
             gx += smx
-
             if gx > wd * 1.5 or gx < 150:
                 smx *= -1
             gradient = QLinearGradient(QPoint(x, y), QPoint(gx, y + 300 + wd * 300 / gx))
@@ -118,33 +107,6 @@ class MoviePlayer(QWidget):
             painter.setPen(pen)
             painter.drawRect(x, y, wd, hd)
 
-
-
-
-
-
-
-                # if os.path.exists("disanim"):
-                #     self.sth = "background-color: rgba(0,40,200,200); color: #ddFFaa;"
-                # else:
-                #     global blc, shag
-                #     blc += shag
-                #     if blc >= 254 or blc <= 90:
-                #         shag *= -1
-                #     self.sth = "background-color: rgba(0,0," + str(blc) + ",75); color: #ddFFaa;"
-                # self.setStyleSheet(self.sth)
-
-
-
-
-
-
-
-# app = QApplication([])
-# player = MoviePlayer() 
-# player.show() 
-# app.exec()
-
 if __name__ == "__main__":
     global gwidth, gheight, kfont
     apt = QApplication([])
@@ -152,5 +114,4 @@ if __name__ == "__main__":
     kfont = gwidth / 1920
     mediapl = MoviePlayer('GK.gif','short.mp3')
     mediapl.showFullScreen()
-    #mediapl.setStyleSheet("background-color: rgb(0,30,60)")
     sys.exit(apt.exec())     
