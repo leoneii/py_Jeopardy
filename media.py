@@ -20,29 +20,83 @@ wdl = 1
 
 
 class MoviePlayer(QWidget):
+
     kolend=0
-    if os.path.exists("disanim"):
-        pass
-    else:
-        def theEnd(self):
-            (self.wdt, self.hgt) = apt.screens()[0].size().toTuple()
-            h = self.hgt
-            w = self.wdt
+    def __init__(self,fgif,fmp3):
+        super().__init__()
+        geometry = apt.primaryScreen().availableGeometry()
+        
 
-            while h > 5:
-                time.sleep(0.0025)
-                h -= 25
-                self.setGeometry(0, int(self.hgt / 2 - h / 2), self.wdt, h)
-            while w > 5:
-                w -= 35
-                time.sleep(0.0025)
-                self.setGeometry(self.wdt / 2 - w / 2, self.hgt / 2, w, 3)
-            self.close()
+        self.setGeometry(geometry)
+        wdh = self.size().width()
+        hgt = self.size().height()
 
-        def paintEvent(self, event):
+        self.movie_screen = QLabel(self)
+        self.movie = QMovie('./media/'+fgif)
+        self.movie.setCacheMode(QMovie.CacheAll)
+        self.movie.setSpeed(100)
+        self.movie.setScaledSize(QSize(wdh, hgt))
+        self.movie_screen.setMovie(self.movie)
+        self.movie.start()
+
+        self.player = QMediaPlayer()
+        self.p0 = self.player.position()
+        self.audioOutput = QAudioOutput()
+        self.player.setAudioOutput(self.audioOutput)
+        # player.positionChanged.connect(self.positionChanged)
+        self.player.setSource(QUrl.fromLocalFile('./media/'+fmp3))
+#self.player.positionChanged.connect(position_changed)
+        self.player.play()
+
+        def scrupd():
+        # Определяем окончание mp3 трека
+            p1 = self.player.position()
+            if p1 != self.p0:
+                self.kolend=0
+                self.p0 = p1
+                print(self.p0)
+            else:
+                self.kolend+=1
+                if self.kolend==20:
+                    self.theEnd()
+        # и выходим из модуля
+
+        self.tmr = QTimer()  # 4
+        self.tmr.timeout.connect(scrupd)
+        self.tmr.start(40)
+
+
+    def theEnd(self):
+        (self.wdt, self.hgt) = apt.screens()[0].size().toTuple()
+        h = self.hgt
+        w = self.wdt
+
+        while h > 5:
+            time.sleep(0.0025)
+            h -= 25
+            self.setGeometry(0, int(self.hgt / 2 - h / 2), self.wdt, h)
+        while w > 5:
+            w -= 35
+            time.sleep(0.0025)
+            self.setGeometry(self.wdt / 2 - w / 2, self.hgt / 2, w, 3)
+        self.close()
+
+
+    def paintEvent(self, event):
+        if os.path.exists("disanim"):
+            self.sth = "background-color: rgba(0,40,200,200); color: #ddFFaa;"
+            self.setStyleSheet(self.sth)
+        else:
             global smx
             global gx
 
+            global blc, shag
+            blc += shag
+            if blc >= 254 or blc <= 90:
+                 shag *= -1
+            self.sth = "background-color: rgba(0,0," + str(blc) + ",75); color: #ddFFaa;"
+            self.setStyleSheet(self.sth)
+            
             painter = QPainter(self)
             #  painter.begin(self)
             x = 0
@@ -64,64 +118,25 @@ class MoviePlayer(QWidget):
             painter.setPen(pen)
             painter.drawRect(x, y, wd, hd)
 
-            def scrupd():
-                # Определяем окончание mp3 трека
-                self.p1 = self.player.position()
-                if self.p1 != self.p0:
-                    self.kolend=0
-                    self.p0 = self.p1
-                else:
-                    self.kolend+=1
-                    if self.kolend==20:
-                        self.theEnd()
-                # и выходим из модуля
 
 
 
 
 
-                if os.path.exists("disanim"):
-                    self.sth = "background-color: rgba(0,40,200,200); color: #ddFFaa;"
-                else:
-                    global blc, shag
-                    blc += shag
-                    if blc >= 254 or blc <= 90:
-                        shag *= -1
-                    self.sth = "background-color: rgba(0,0," + str(blc) + ",75); color: #ddFFaa;"
-                self.setStyleSheet(self.sth)
+
+                # if os.path.exists("disanim"):
+                #     self.sth = "background-color: rgba(0,40,200,200); color: #ddFFaa;"
+                # else:
+                #     global blc, shag
+                #     blc += shag
+                #     if blc >= 254 or blc <= 90:
+                #         shag *= -1
+                #     self.sth = "background-color: rgba(0,0," + str(blc) + ",75); color: #ddFFaa;"
+                # self.setStyleSheet(self.sth)
 
 
-            self.tmr = QTimer()  # 4
-            self.p0 = self.player.position()
-            self.tmr.timeout.connect(scrupd)
-            self.tmr.start(40)
 
 
-    def __init__(self,fgif,fmp3):
-        super().__init__()
-        geometry = apt.primaryScreen().availableGeometry()
-
-
-        self.setGeometry(geometry)
-        wdh = self.size().width()
-        hgt = self.size().height()
-
-        self.movie_screen = QLabel(self)
-        self.movie = QMovie('./media/'+fgif)
-        self.movie.setCacheMode(QMovie.CacheAll)
-        self.movie.setSpeed(100)
-        self.movie.setScaledSize(QSize(wdh, hgt))
-        self.movie_screen.setMovie(self.movie)
-        self.movie.start()
-
-        self.player = QMediaPlayer()
-        self.audioOutput = QAudioOutput()
-        self.player.setAudioOutput(self.audioOutput)
-        # player.positionChanged.connect(self.positionChanged)
-        self.player.setSource(QUrl.fromLocalFile('./media/'+fmp3))
-#self.player.positionChanged.connect(position_changed)
-
-        self.player.play()
 
 
 
