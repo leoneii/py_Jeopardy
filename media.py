@@ -30,14 +30,7 @@ class MoviePlayer(QWidget):
         hgt = self.size().height()
 
 
-        #КНОПКА ПРОДОЛЖЕНИЯ
-        self.contin = QPushButton(self)
-        tmh = int(hgt / 15 - 10)
-        fw = int((wdh / 3) / 12)
-        self.contin.setGeometry(wdh * 3 / 4 - 60, hgt - hgt / 15 - 20, (wdh - 20) / 4, tmh)
-        self.contin.setText("Вопрос")
-        self.contin.setStyleSheet("QPushButton { background-color: rgba(0,0,180,50) ; font: bold " + str(fw) + "px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: " + str(tmh * 2) + "px " + str(tmh) + "px; border-bottom-left-radius: " + str(tmh * 2) + "px " + str(tmh) + "px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,180) }")
-        self.contin.clicked.connect(self.cntn)
+
 
 
         self.movie_screen = QLabel(self)
@@ -47,6 +40,15 @@ class MoviePlayer(QWidget):
         self.movie.setScaledSize(QSize(wdh, hgt))
         self.movie_screen.setMovie(self.movie)
         self.movie.start()
+
+        #КНОПКА ПРОДОЛЖЕНИЯ
+        self.contin = QPushButton(self)
+        tmh = int(hgt / 15 - 10)
+        fw = int((wdh / 3) / 12)
+        self.contin.setGeometry(wdh * 3 / 4 - 60, hgt - hgt / 15 - 20, (wdh - 20) / 4, tmh)
+        self.contin.setText("Вопрос")
+        self.contin.setStyleSheet("QPushButton { background-color: rgba(0,0,180,50) ; font: bold " + str(fw) + "px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: " + str(tmh * 2) + "px " + str(tmh) + "px; border-bottom-left-radius: " + str(tmh * 2) + "px " + str(tmh) + "px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,180) }")
+        self.contin.clicked.connect(self.theEnd)
 
         self.player = QMediaPlayer()
         self.p0 = self.player.position()
@@ -71,9 +73,7 @@ class MoviePlayer(QWidget):
         self.tmr.timeout.connect(scrupd)
         self.tmr.start(120)
 
-    def cntn(self):
-        self.player.stop()
-        self.theEnd()
+
     def theEnd(self):
         (self.wdt, self.hgt) = apt.screens()[0].size().toTuple()
         h = self.hgt
