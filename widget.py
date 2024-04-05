@@ -8,6 +8,8 @@ from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen,
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import (QApplication, QLabel, QWidget, QFrame)
 
+from media import MoviePlayer
+
 from quest import winq
 global cenv, recover
 cenv=0
@@ -316,16 +318,26 @@ class wnd(QWidget):
                             query.next()#первая строка БД
                             #QMessageBox.information(self, "Нажматие!!!))", str(obj.objectName()))
                             query.seek(int(obj.objectName())) #переходим к конкретной строке БД
-                            ##print (int(obj.objectName()))
+
+
+
                             # записываем номер выбранного вопроса в таблице steps
                             qstep=QSqlQuery()
                             txtsteps="INSERT INTO steps (cell_num) values ('"+str(int(obj.objectName()))+"');"
                             qstep.exec(txtsteps)
 
 
+
+                            #новое окно 
                             global newwind
                             newwind = winq(appt,str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)), ttq, str(query.value(6)), str(query.value(7)), str(query.value(9)), str(query.value(2)))
                             newwind.showFullScreen()
+#проверка и запуск мультимедиа
+                            
+                            if str(query.value(13))!="":
+                                  movePlay = MoviePlayer('GK.gif',str(query.value(13)),appt)
+                                  movePlay.showFullScreen()
+                                  
                             cnv=query.value(2)
                             query1=QSqlQuery()
                             if not query1.exec("UPDATE settings set tmpDat =" + str(cnv) + ", tmpDat1 =" + str(cnv) + ";"):

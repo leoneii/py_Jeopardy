@@ -22,8 +22,10 @@ wdl = 1
 class MoviePlayer(QWidget):
 
     kolend=0
-    def __init__(self,fgif,fmp3):
+    def __init__(self,fgif,fmp3,apt):
         super().__init__()
+        global appt 
+        appt=apt
         geometry = apt.primaryScreen().availableGeometry()
         self.setGeometry(geometry)
         wdh = self.size().width()
@@ -75,7 +77,7 @@ class MoviePlayer(QWidget):
 
 
     def theEnd(self):
-        (self.wdt, self.hgt) = apt.screens()[0].size().toTuple()
+        (self.wdt, self.hgt) = appt.screens()[0].size().toTuple()
         h = self.hgt
         w = self.wdt
         while h > 5:
@@ -86,6 +88,7 @@ class MoviePlayer(QWidget):
             w -= 35
             time.sleep(0.0025)
             self.setGeometry(self.wdt / 2 - w / 2, self.hgt / 2, w, 3)
+        self.player.stop()    
         self.close()
 
     def paintEvent(self, event):

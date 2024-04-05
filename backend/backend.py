@@ -9,10 +9,12 @@ from PySide6.QtGui import QPixmap
 from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlQueryModel
 
 from PySide6.QtWidgets import QApplication, QInputDialog, QMainWindow, QMessageBox, QFileDialog, QDialog
+from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
+from PySide6.QtCore import QUrl, QTime
+
 
 from mainwindow import Ui_MainWindow
 from newDialog import *
-import simpleaudio as simple_audio
 
 
 class MainWindow(QMainWindow):
@@ -59,6 +61,8 @@ class MainWindow(QMainWindow):
         self.ui.selectFinSound.clicked.connect(self.selectFinSound)
         self.ui.delFinSound.clicked.connect(self.delFinSound)
         self.ui.playFinSound.clicked.connect(self.playFinSound)
+        self.ui.pushButton_selMusic.clicked.connect(self.selMusic)
+        self.ui.commandLinkButton_Play.clicked.connect(self.playMusic)
         self.ui.testButton.setVisible(False)
         self.ui.spinBox_costQuest.setVisible(False)
         self.textQpix = ""
@@ -67,12 +71,55 @@ class MainWindow(QMainWindow):
         self.EditMode(False)
         self.updateform()
         self.selector(0,0)
+        self.player = QMediaPlayer()
 
         if os.path.exists("../disanim"):
             self.ui.checkBox_disanim.setChecked(True)
         else:
             self.ui.checkBox_disanim.setChecked(False)
         self.ui.checkBox_disanim.toggled.connect(self.togAnim)
+
+    def playMusic(self):
+
+        if self.player.isPlaying():
+           self.player.stop()
+           print(1)
+        else:
+            self.audioOutput = QAudioOutput()
+            self.player.setAudioOutput(self.audioOutput)
+            self.player.setSource(QUrl.fromLocalFile('../media/'+self.ui.lineEdit_MusicFile.text()))
+            self.player.play()  
+            print(2)  
+
+    def selMusic(self):
+        indexT=self.ui.tableView_themeTable.currentIndex()
+        indexQ=self.ui.tableView_questTable.currentIndex()   
+        ofileName, filetype = QFileDialog.getOpenFileName(
+            self,
+            "Выберите музыкальный файл", 
+            "", 
+            "Images (*.wav *.mp3 )"
+        )
+        fileName = os.path.basename(ofileName)
+
+        if len(ofileName)>0:
+            try:
+                self.ui.commandLinkButton_Play.setEnabled(True)
+                shutil.copy2(ofileName,"../media/"+fileName)
+            except:
+                print("апшипка")    
+            costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
+            model = self.ui.tableView_themeTable.model()
+            query = QSqlQuery ("UPDATE ThemeAndQ SET MMF = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
+                        model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
+                                0)) + "';")
+            query.exec()
+            self.ui.lineEdit_MusicFile.setText(fileName)
+            self.selector(indexT.row(),indexQ.row()) 
+            
+
+
+
 
     def togAnim(self):
         if self.ui.checkBox_disanim.isChecked():
@@ -588,6 +635,7 @@ class MainWindow(QMainWindow):
             self.ui.frame_Tpix.setEnabled(True)
             self.ui.textEdit_tooltipText.setEnabled(True)
             self.ui.spinBox_costTooltip.setEnabled(True)
+            self.ui.pushButton_selMusic.setEnabled(True)
             
             
         else:
@@ -614,6 +662,8 @@ class MainWindow(QMainWindow):
             self.ui.frame_Tpix.setEnabled(False)
             self.ui.textEdit_tooltipText.setEnabled(False)
             self.ui.spinBox_costTooltip.setEnabled(False)
+            self.ui.pushButton_selMusic.setEnabled(False)
+
 
     def CancelQ(self):    
         self.EditMode(False)
@@ -805,7 +855,14 @@ class MainWindow(QMainWindow):
             self.ui.checkBox_isBonus.setChecked(True)# бонус
         else:
             self.ui.checkBox_isBonus.setChecked(False)# бонус
-            
+
+        if str(query.value(13))!="":    #music
+            self.ui.commandLinkButton_Play.setEnabled(True)
+            self.ui.lineEdit_MusicFile.setText(str(query.value(13)))
+        else:
+            self.ui.commandLinkButton_Play.setEnabled(False)
+            self.ui.lineEdit_MusicFile.setText("")    
+
         
         if query.value(2)!=None:
             self.ui.label_questText.setText("Вопрос на  "+str(query.value(2)))

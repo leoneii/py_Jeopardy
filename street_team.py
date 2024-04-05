@@ -20,6 +20,8 @@ global apt
 
 QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
 
+
+
 name = ["", "", "", "", "", "", "", ""]
 logo = ["", "", "", "", "", "", "", ""]
 tots = [0, 0, 0, 0, 0, 0]
