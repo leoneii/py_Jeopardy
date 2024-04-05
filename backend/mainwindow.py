@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.2
+## Created by: Qt User Interface Compiler version 6.5.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -29,7 +29,7 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1488, 931)
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Expanding)
+        sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
@@ -50,7 +50,7 @@ class Ui_MainWindow(object):
         self.action_8.setObjectName(u"action_8")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.centralwidget.sizePolicy().hasHeightForWidth())
@@ -60,11 +60,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.splitter_2 = QSplitter(self.centralwidget)
         self.splitter_2.setObjectName(u"splitter_2")
-        self.splitter_2.setMaximumSize(QSize(21002, 1000))
+        self.splitter_2.setMaximumSize(QSize(21010, 1000))
         self.splitter_2.setOrientation(Qt.Horizontal)
         self.groupBox_6 = QGroupBox(self.splitter_2)
         self.groupBox_6.setObjectName(u"groupBox_6")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Preferred)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.groupBox_6.sizePolicy().hasHeightForWidth())
@@ -76,7 +76,7 @@ class Ui_MainWindow(object):
         self.groupBox_Cat = QGroupBox(self.groupBox_6)
         self.groupBox_Cat.setObjectName(u"groupBox_Cat")
         self.groupBox_Cat.setEnabled(True)
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.groupBox_Cat.sizePolicy().hasHeightForWidth())
@@ -90,7 +90,7 @@ class Ui_MainWindow(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.pushButton_addCat = QPushButton(self.groupBox_Cat)
         self.pushButton_addCat.setObjectName(u"pushButton_addCat")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Fixed)
+        sizePolicy4 = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
         sizePolicy4.setHorizontalStretch(0)
         sizePolicy4.setVerticalStretch(0)
         sizePolicy4.setHeightForWidth(self.pushButton_addCat.sizePolicy().hasHeightForWidth())
@@ -101,7 +101,7 @@ class Ui_MainWindow(object):
 
         self.pushButton_EditCat = QPushButton(self.groupBox_Cat)
         self.pushButton_EditCat.setObjectName(u"pushButton_EditCat")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy5 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         sizePolicy5.setHorizontalStretch(0)
         sizePolicy5.setVerticalStretch(0)
         sizePolicy5.setHeightForWidth(self.pushButton_EditCat.sizePolicy().hasHeightForWidth())
@@ -217,7 +217,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.pushButton_delQ)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout.addItem(self.verticalSpacer)
 
@@ -301,7 +301,7 @@ class Ui_MainWindow(object):
 
         self.toolButton_selQpix = QToolButton(self.frame_Qpix)
         self.toolButton_selQpix.setObjectName(u"toolButton_selQpix")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy6 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy6.setHorizontalStretch(0)
         sizePolicy6.setVerticalStretch(0)
         sizePolicy6.setHeightForWidth(self.toolButton_selQpix.sizePolicy().hasHeightForWidth())
@@ -350,10 +350,13 @@ class Ui_MainWindow(object):
         self.commandLinkButton_Play.setObjectName(u"commandLinkButton_Play")
         self.commandLinkButton_Play.setEnabled(False)
         self.commandLinkButton_Play.setMaximumSize(QSize(30, 16777215))
+        icon = QIcon()
+        icon.addFile(u"../img/icon/play.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.commandLinkButton_Play.setIcon(icon)
 
         self.horizontalLayout_3.addWidget(self.commandLinkButton_Play)
 
-        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer_5)
 
@@ -537,7 +540,7 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_14 = QHBoxLayout()
         self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
-        self.horizontalSpacer_9 = QSpacerItem(131, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_9 = QSpacerItem(131, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_14.addItem(self.horizontalSpacer_9)
 
@@ -584,14 +587,14 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4.addLayout(self.verticalLayout_2)
 
-        self.verticalSpacer_5 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.verticalSpacer_5 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout_4.addItem(self.verticalSpacer_5)
 
         self.splitter_2.addWidget(self.groupBox_4)
         self.toolBox = QToolBox(self.splitter_2)
         self.toolBox.setObjectName(u"toolBox")
-        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
+        sizePolicy7 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
         sizePolicy7.setHorizontalStretch(0)
         sizePolicy7.setVerticalStretch(0)
         sizePolicy7.setHeightForWidth(self.toolBox.sizePolicy().hasHeightForWidth())
@@ -603,7 +606,7 @@ class Ui_MainWindow(object):
         self.toolBox.setLineWidth(2)
         self.page = QWidget()
         self.page.setObjectName(u"page")
-        self.page.setGeometry(QRect(0, 0, 400, 773))
+        self.page.setGeometry(QRect(0, 0, 400, 788))
         self.verticalLayout_9 = QVBoxLayout(self.page)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
         self.groupBox_2 = QGroupBox(self.page)
@@ -663,7 +666,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_10.setObjectName(u"verticalLayout_10")
         self.label_teamLogo = QLabel(self.frame_3)
         self.label_teamLogo.setObjectName(u"label_teamLogo")
-        sizePolicy8 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.MinimumExpanding)
+        sizePolicy8 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.MinimumExpanding)
         sizePolicy8.setHorizontalStretch(0)
         sizePolicy8.setVerticalStretch(0)
         sizePolicy8.setHeightForWidth(self.label_teamLogo.sizePolicy().hasHeightForWidth())
@@ -706,14 +709,14 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_9.addLayout(self.horizontalLayout_16)
 
-        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout_9.addItem(self.verticalSpacer_3)
 
         self.toolBox.addItem(self.page, u"\u041a\u043e\u043c\u0430\u043d\u0434\u044b")
         self.page_3 = QWidget()
         self.page_3.setObjectName(u"page_3")
-        self.page_3.setGeometry(QRect(0, 0, 400, 773))
+        self.page_3.setGeometry(QRect(0, 0, 400, 788))
         self.gridLayout_5 = QGridLayout(self.page_3)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.groupBox_3 = QGroupBox(self.page_3)
@@ -731,7 +734,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_13.addWidget(self.spinBox_timer)
 
-        self.horizontalSpacer = QSpacerItem(339, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer = QSpacerItem(339, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.verticalLayout_13.addItem(self.horizontalSpacer)
 
@@ -748,7 +751,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_13.addWidget(self.spinBox_pad)
 
-        self.horizontalSpacer_2 = QSpacerItem(319, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_2 = QSpacerItem(319, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.verticalLayout_13.addItem(self.horizontalSpacer_2)
 
@@ -852,22 +855,22 @@ class Ui_MainWindow(object):
 
         self.gridLayout_5.addWidget(self.groupBox_7, 5, 0, 1, 3)
 
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.gridLayout_5.addItem(self.horizontalSpacer_4, 4, 0, 1, 3)
 
-        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.gridLayout_5.addItem(self.verticalSpacer_2, 6, 1, 1, 1)
 
-        self.horizontalSpacer_3 = QSpacerItem(77, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_3 = QSpacerItem(77, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.gridLayout_5.addItem(self.horizontalSpacer_3, 2, 0, 1, 3)
 
         self.toolBox.addItem(self.page_3, u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438")
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
-        self.page_2.setGeometry(QRect(0, 0, 400, 773))
+        self.page_2.setGeometry(QRect(0, 0, 400, 788))
         self.toolBox.addItem(self.page_2, u"\u042d\u043a\u0441\u043f\u043e\u0440\u0442")
         self.splitter_2.addWidget(self.toolBox)
 
@@ -876,7 +879,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1488, 30))
+        self.menubar.setGeometry(QRect(0, 0, 1488, 21))
         self.menu = QMenu(self.menubar)
         self.menu.setObjectName(u"menu")
         self.menu_2 = QMenu(self.menubar)
@@ -936,7 +939,7 @@ class Ui_MainWindow(object):
         self.textEdit_questText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Noto Sans'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sans Serif';\">\u0428\u0442\u043e \u0437\u0430 \u0441\u043e\u0431\u0430\u043a\u0430</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif';\"><br /></p></body></html>", None))
         self.label_questPix.setText("")
@@ -954,7 +957,7 @@ class Ui_MainWindow(object):
         self.textEdit_answerText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Noto Sans'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sans Serif';\">\u0421\u043e\u0431\u0430\u043a\u0430 \u043b\u0435\u0436\u0430\u043a\u0430</span></p></body></html>", None))
         self.label_answerPix.setText("")
         self.label_answPict.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435", None))

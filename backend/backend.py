@@ -83,13 +83,19 @@ class MainWindow(QMainWindow):
 
         if self.player.isPlaying():
            self.player.stop()
-           print(1)
+
+           icon = QIcon()
+           icon.addFile(u"../img/icon/play.png", QSize(), QIcon.Normal, QIcon.Off)
+           self.ui.commandLinkButton_Play.setIcon(icon)
         else:
             self.audioOutput = QAudioOutput()
             self.player.setAudioOutput(self.audioOutput)
             self.player.setSource(QUrl.fromLocalFile('../media/'+self.ui.lineEdit_MusicFile.text()))
-            self.player.play()  
-            print(2)  
+            self.player.play()
+
+            icon = QIcon()
+            icon.addFile(u"../img/icon/stop.png", QSize(), QIcon.Normal, QIcon.Off)
+            self.ui.commandLinkButton_Play.setIcon(icon)
 
     def selMusic(self):
         indexT=self.ui.tableView_themeTable.currentIndex()
@@ -98,7 +104,7 @@ class MainWindow(QMainWindow):
             self,
             "Выберите музыкальный файл", 
             "", 
-            "Images (*.wav *.mp3 )"
+            "Media (*.wav *.mp3 )"
         )
         fileName = os.path.basename(ofileName)
 
@@ -882,30 +888,10 @@ class MainWindow(QMainWindow):
 
 
     def catChange(self):
-        #       Высчитываем количество тем и вопросов
-        # query2 = QSqlQuery()
-        # if not query2.exec("SELECT COUNT(DISTINCT Theme) FROM ThemeAndQ WHERE Catkod = " + str(self.ui.comboBox_Cat.currentIndex()+1) + " ;"):
-        #     logging.error("Failed to query database")
-        # query2.first()
-        # self.ui.spinBox_themes.setValue(int(query2.value(0)))
 
-        # query3 = QSqlQuery()
-        # if not query3.exec("SELECT Theme, COUNT(*) value_count FROM ThemeAndQ WHERE Catkod = " + str(self.ui.comboBox_Cat.currentIndex()+1) + " GROUP BY Theme HAVING value_count > 1  ;"):
-        #     logging.error("Failed to query database")
-        # query3.first()
-        # self.ui.spinBox_questions.setValue(int(query3.value(1)))
-
-
-        # query = QSqlQuery()
-        # if not query.exec("SELECT * FROM ThemeAndQ;"):
-        #     logging.error("Failed to query database")  
-        # while(query.next()):
-        #     print("vchjd")
         self.updateTheme()
         self.ui.tableView_themeTable.selectRow(0)
-      #  self.updateform()
-      #  self.selector(0,0)
-        #self.updateform()
+
     
     def addCat(self):
         texcat = QInputDialog.getText(None,"PyG","Введите наименование категории"); 
