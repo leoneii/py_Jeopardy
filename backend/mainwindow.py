@@ -351,7 +351,7 @@ class Ui_MainWindow(object):
         self.commandLinkButton_Play.setEnabled(False)
         self.commandLinkButton_Play.setMaximumSize(QSize(30, 16777215))
         icon = QIcon()
-        icon.addFile(u"../img/icon/play.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u"../img/icon/mplay.png", QSize(), QIcon.Normal, QIcon.Off)
         self.commandLinkButton_Play.setIcon(icon)
 
         self.horizontalLayout_3.addWidget(self.commandLinkButton_Play)
@@ -859,13 +859,13 @@ class Ui_MainWindow(object):
 
         self.gridLayout_5.addItem(self.horizontalSpacer_4, 4, 0, 1, 3)
 
-        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout_5.addItem(self.verticalSpacer_2, 6, 1, 1, 1)
-
         self.horizontalSpacer_3 = QSpacerItem(77, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.gridLayout_5.addItem(self.horizontalSpacer_3, 2, 0, 1, 3)
+
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_5.addItem(self.verticalSpacer_2, 6, 1, 1, 1)
 
         self.toolBox.addItem(self.page_3, u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438")
         self.page_2 = QWidget()

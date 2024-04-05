@@ -83,18 +83,16 @@ class MainWindow(QMainWindow):
 
         if self.player.isPlaying():
            self.player.stop()
-
            icon = QIcon()
-           icon.addFile(u"../img/icon/play.png", QSize(), QIcon.Normal, QIcon.Off)
+           icon.addFile(u"../img/icon/mplay.png", QSize(), QIcon.Normal, QIcon.Off)
            self.ui.commandLinkButton_Play.setIcon(icon)
         else:
             self.audioOutput = QAudioOutput()
             self.player.setAudioOutput(self.audioOutput)
             self.player.setSource(QUrl.fromLocalFile('../media/'+self.ui.lineEdit_MusicFile.text()))
             self.player.play()
-
             icon = QIcon()
-            icon.addFile(u"../img/icon/stop.png", QSize(), QIcon.Normal, QIcon.Off)
+            icon.addFile(u"../img/icon/mstop.png", QSize(), QIcon.Normal, QIcon.Off)
             self.ui.commandLinkButton_Play.setIcon(icon)
 
     def selMusic(self):
