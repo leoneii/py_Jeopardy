@@ -68,6 +68,10 @@ class MainWindow(QMainWindow):
         self.textQpix = ""
         self.textApix = ""
         self.textTpix = ""
+                #временный костыль, или постоянный костыль
+        qAddField = QSqlQuery("ALTER TABLE ThemeAndQ ADD COLUMN MMF TEXT;")
+        qAddField.exec()
+
         self.EditMode(False)
         self.updateform()
         self.selector(0,0)
