@@ -356,6 +356,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_3.addWidget(self.commandLinkButton_Play)
 
+        self.pushButton_delMusic = QPushButton(self.groupBox_4)
+        self.pushButton_delMusic.setObjectName(u"pushButton_delMusic")
+        self.pushButton_delMusic.setMaximumSize(QSize(20, 16777215))
+
+        self.horizontalLayout_3.addWidget(self.pushButton_delMusic)
+
         self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer_5)
@@ -952,6 +958,7 @@ class Ui_MainWindow(object):
         self.commandLinkButton_Play.setToolTip(QCoreApplication.translate("MainWindow", u"\u0412\u043e\u0441\u043f\u0440\u043e\u0438\u0437\u0432\u0435\u0441\u0442\u0438 \u0444\u0430\u0439\u043b", None))
 #endif // QT_CONFIG(tooltip)
         self.commandLinkButton_Play.setText("")
+        self.pushButton_delMusic.setText(QCoreApplication.translate("MainWindow", u"X", None))
         self.checkBox_isBonus.setText(QCoreApplication.translate("MainWindow", u"\u0411\u043e\u043d\u0443\u0441\u043d\u044b\u0439 \u0432\u043e\u043f\u0440\u043e\u0441", None))
         self.label_answerText.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u0432\u0435\u0442", None))
         self.textEdit_answerText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"

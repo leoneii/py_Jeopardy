@@ -11,6 +11,8 @@ from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlQueryModel
 from PySide6.QtWidgets import QApplication, QInputDialog, QMainWindow, QMessageBox, QFileDialog, QDialog
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtCore import QUrl, QTime
+import simpleaudio as simple_audio
+from PySide6.QtWidgets import QSplashScreen
 
 
 from mainwindow import Ui_MainWindow
@@ -63,6 +65,7 @@ class MainWindow(QMainWindow):
         self.ui.playFinSound.clicked.connect(self.playFinSound)
         self.ui.pushButton_selMusic.clicked.connect(self.selMusic)
         self.ui.commandLinkButton_Play.clicked.connect(self.playMusic)
+        self.ui.pushButton_delMusic.clicked.connect(self.delQMusic)
         self.ui.testButton.setVisible(False)
         self.ui.spinBox_costQuest.setVisible(False)
         self.textQpix = ""
@@ -82,6 +85,30 @@ class MainWindow(QMainWindow):
         else:
             self.ui.checkBox_disanim.setChecked(False)
         self.ui.checkBox_disanim.toggled.connect(self.togAnim)
+
+
+    def delQMusic(self):
+        dialog = QMessageBox()
+        dialog.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel);
+        dialog.setWindowTitle("Внимание!")
+        dialog.setDefaultButton(QMessageBox.Cancel)
+        dialog.setButtonText(QMessageBox.Save, "Удалить музыкальную часть вопроса")
+        dialog.setButtonText(QMessageBox.Cancel, "Не изменять")
+        dialog.setInformativeText("Вы действительно хотите удалить музыкальную часть?")
+        dialog.setIcon(QMessageBox.Icon.Critical)
+        ok = dialog.exec()
+        if ok == QMessageBox.Save:
+            indexT = self.ui.tableView_themeTable.currentIndex()
+            indexQ = self.ui.tableView_questTable.currentIndex()
+            costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
+            model = self.ui.tableView_themeTable.model()
+            query = QSqlQuery(
+                "UPDATE ThemeAndQ SET MMF = NULL WHERE Cost = '" + costq + "' AND Theme = '" + str(
+                    model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
+                        0)) + "';")
+            query.exec()
+            self.ui.lineEdit_MusicFile.setText("")
+            self.selector(indexT.row(), indexQ.row())
 
     def playMusic(self):
 
@@ -644,6 +671,7 @@ class MainWindow(QMainWindow):
             self.ui.textEdit_tooltipText.setEnabled(True)
             self.ui.spinBox_costTooltip.setEnabled(True)
             self.ui.pushButton_selMusic.setEnabled(True)
+            self.ui.pushButton_delMusic.setEnabled(True)
             
             
         else:
@@ -671,6 +699,7 @@ class MainWindow(QMainWindow):
             self.ui.textEdit_tooltipText.setEnabled(False)
             self.ui.spinBox_costTooltip.setEnabled(False)
             self.ui.pushButton_selMusic.setEnabled(False)
+            self.ui.pushButton_delMusic.setEnabled(False)
 
 
     def CancelQ(self):    
@@ -1000,7 +1029,12 @@ class newDialog(QDialog):
         self.close()    
 
 if __name__ == "__main__":
+
     app = QApplication(sys.argv)
+    splash = QSplashScreen()
+    splash.setPixmap(QPixmap("../img/logo/psplash.png"))
+    splash.show()
     widget = MainWindow()
+    splash.finish(widget)
     widget.showMaximized()
     sys.exit(app.exec())

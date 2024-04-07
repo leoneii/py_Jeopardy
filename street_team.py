@@ -1,13 +1,17 @@
 import logging
 import os
 import sys
-# import PySide6
 from PySide6 import QtCore
 from PySide6.QtCore import Qt, QPoint, QTimer, QEvent
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient, QPixmap, QBrush)
 from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QDialog, \
     QVBoxLayout, QButtonGroup, QHBoxLayout, QGraphicsDropShadowEffect
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
+
+from PySide6.QtWidgets import QSplashScreen
+from PySide6.QtGui import QPixmap
+
+
 
 import widget
 from categ import Category
@@ -451,8 +455,18 @@ if __name__ == "__main__":
     apt = QApplication([])
     (gwidth, gheight) = apt.screens()[0].size().toTuple()
     kfont=gwidth/1920
+    # pyside6 splash screen
+    splash = QSplashScreen()
+    splash.setPixmap(QPixmap("./img/logo/psplash.png"))
+    splash.show()
+
     wnt = Wint(tkolt)
+
+    splash.finish(wnt)
     wnt.showFullScreen()
+
+
+
     sys.exit(apt.exec())
     sqlDB.close()
     sqlDB.removeDatabase('QSQLITE')
