@@ -327,10 +327,11 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.label_4 = QLabel(self.groupBox_4)
-        self.label_4.setObjectName(u"label_4")
+        self.label_musicFile = QLabel(self.groupBox_4)
+        self.label_musicFile.setObjectName(u"label_musicFile")
+        self.label_musicFile.setEnabled(False)
 
-        self.horizontalLayout_3.addWidget(self.label_4)
+        self.horizontalLayout_3.addWidget(self.label_musicFile)
 
         self.lineEdit_MusicFile = QLineEdit(self.groupBox_4)
         self.lineEdit_MusicFile.setObjectName(u"lineEdit_MusicFile")
@@ -546,17 +547,54 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_14 = QHBoxLayout()
         self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
+        self.label_tipMusicFile = QLabel(self.groupBox_4)
+        self.label_tipMusicFile.setObjectName(u"label_tipMusicFile")
+        self.label_tipMusicFile.setEnabled(False)
+
+        self.horizontalLayout_14.addWidget(self.label_tipMusicFile)
+
+        self.lineEdit_tipMusicFile = QLineEdit(self.groupBox_4)
+        self.lineEdit_tipMusicFile.setObjectName(u"lineEdit_tipMusicFile")
+        self.lineEdit_tipMusicFile.setEnabled(False)
+        self.lineEdit_tipMusicFile.setMinimumSize(QSize(200, 0))
+
+        self.horizontalLayout_14.addWidget(self.lineEdit_tipMusicFile)
+
+        self.pushButton_tipSelMusic = QPushButton(self.groupBox_4)
+        self.pushButton_tipSelMusic.setObjectName(u"pushButton_tipSelMusic")
+        self.pushButton_tipSelMusic.setEnabled(False)
+        self.pushButton_tipSelMusic.setMaximumSize(QSize(50, 16777215))
+
+        self.horizontalLayout_14.addWidget(self.pushButton_tipSelMusic)
+
+        self.commandLinkButton_tipPlay = QCommandLinkButton(self.groupBox_4)
+        self.commandLinkButton_tipPlay.setObjectName(u"commandLinkButton_tipPlay")
+        self.commandLinkButton_tipPlay.setEnabled(False)
+        self.commandLinkButton_tipPlay.setMaximumSize(QSize(30, 16777215))
+        self.commandLinkButton_tipPlay.setIcon(icon)
+
+        self.horizontalLayout_14.addWidget(self.commandLinkButton_tipPlay)
+
+        self.pushButton_tipDelMusic = QPushButton(self.groupBox_4)
+        self.pushButton_tipDelMusic.setObjectName(u"pushButton_tipDelMusic")
+        self.pushButton_tipDelMusic.setEnabled(False)
+        self.pushButton_tipDelMusic.setMaximumSize(QSize(20, 16777215))
+
+        self.horizontalLayout_14.addWidget(self.pushButton_tipDelMusic)
+
         self.horizontalSpacer_9 = QSpacerItem(131, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_14.addItem(self.horizontalSpacer_9)
 
         self.label_14 = QLabel(self.groupBox_4)
         self.label_14.setObjectName(u"label_14")
+        self.label_14.setEnabled(False)
 
         self.horizontalLayout_14.addWidget(self.label_14)
 
         self.spinBox_costTooltip = QSpinBox(self.groupBox_4)
         self.spinBox_costTooltip.setObjectName(u"spinBox_costTooltip")
+        self.spinBox_costTooltip.setEnabled(False)
         self.spinBox_costTooltip.setMinimumSize(QSize(110, 0))
         self.spinBox_costTooltip.setMaximum(100)
         self.spinBox_costTooltip.setSingleStep(5)
@@ -612,7 +650,7 @@ class Ui_MainWindow(object):
         self.toolBox.setLineWidth(2)
         self.page = QWidget()
         self.page.setObjectName(u"page")
-        self.page.setGeometry(QRect(0, 0, 400, 788))
+        self.page.setGeometry(QRect(0, 0, 394, 788))
         self.verticalLayout_9 = QVBoxLayout(self.page)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
         self.groupBox_2 = QGroupBox(self.page)
@@ -722,7 +760,7 @@ class Ui_MainWindow(object):
         self.toolBox.addItem(self.page, u"\u041a\u043e\u043c\u0430\u043d\u0434\u044b")
         self.page_3 = QWidget()
         self.page_3.setObjectName(u"page_3")
-        self.page_3.setGeometry(QRect(0, 0, 400, 788))
+        self.page_3.setGeometry(QRect(0, 0, 394, 788))
         self.gridLayout_5 = QGridLayout(self.page_3)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.groupBox_3 = QGroupBox(self.page_3)
@@ -876,7 +914,7 @@ class Ui_MainWindow(object):
         self.toolBox.addItem(self.page_3, u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438")
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
-        self.page_2.setGeometry(QRect(0, 0, 400, 788))
+        self.page_2.setGeometry(QRect(0, 0, 394, 788))
         self.toolBox.addItem(self.page_2, u"\u042d\u043a\u0441\u043f\u043e\u0440\u0442")
         self.splitter_2.addWidget(self.toolBox)
 
@@ -952,7 +990,7 @@ class Ui_MainWindow(object):
         self.label_quiestPict.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435", None))
         self.toolButton_selQpix.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c", None))
         self.toolButton_delQpix.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u041c\u0443\u0437\u044b\u043a\u0430\u043b\u044c\u043d\u044b\u0439 \u0444\u0430\u0439\u043b:", None))
+        self.label_musicFile.setText(QCoreApplication.translate("MainWindow", u"\u041c\u0443\u0437\u044b\u043a\u0430\u043b\u044c\u043d\u044b\u0439 \u0444\u0430\u0439\u043b:", None))
         self.pushButton_selMusic.setText(QCoreApplication.translate("MainWindow", u"...", None))
 #if QT_CONFIG(tooltip)
         self.commandLinkButton_Play.setToolTip(QCoreApplication.translate("MainWindow", u"\u0412\u043e\u0441\u043f\u0440\u043e\u0438\u0437\u0432\u0435\u0441\u0442\u0438 \u0444\u0430\u0439\u043b", None))
@@ -975,6 +1013,10 @@ class Ui_MainWindow(object):
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435", None))
         self.toolButton_selTpix.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c", None))
         self.toolButton_delTpix.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c", None))
+        self.label_tipMusicFile.setText(QCoreApplication.translate("MainWindow", u"\u041c\u0443\u0437\u044b\u043a\u0430\u043b\u044c\u043d\u044b\u0439 \u0444\u0430\u0439\u043b \u043f\u043e\u0434\u0441\u043a\u0430\u0437\u043a\u0438", None))
+        self.pushButton_tipSelMusic.setText(QCoreApplication.translate("MainWindow", u"...", None))
+        self.commandLinkButton_tipPlay.setText(QCoreApplication.translate("MainWindow", u"CommandLinkButton", None))
+        self.pushButton_tipDelMusic.setText(QCoreApplication.translate("MainWindow", u"X", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"\u0426\u0435\u043d\u0430 \u043f\u043e\u0434\u0441\u043a\u0430\u0437\u043a\u0438", None))
         self.groupBox.setTitle("")
         self.pushButton_Save.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))

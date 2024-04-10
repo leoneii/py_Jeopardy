@@ -66,6 +66,12 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_selMusic.clicked.connect(self.selMusic)
         self.ui.commandLinkButton_Play.clicked.connect(self.playMusic)
         self.ui.pushButton_delMusic.clicked.connect(self.delQMusic)
+
+        self.ui.pushButton_tipSelMusic.clicked.connect(self.tipSelMusic)
+        self.ui.commandLinkButton_tipPlay.clicked.connect(self.tipPlayMusic)
+        self.ui.pushButton_tipDelMusic.clicked.connect(self.tipDelMusic)
+
+
         self.ui.testButton.setVisible(False)
         self.ui.spinBox_costQuest.setVisible(False)
         self.textQpix = ""
@@ -73,6 +79,8 @@ class MainWindow(QMainWindow):
         self.textTpix = ""
                 #временный костыль, или постоянный костыль
         qAddField = QSqlQuery("ALTER TABLE ThemeAndQ ADD COLUMN MMF TEXT;")
+        qAddField.exec()
+        qAddField = QSqlQuery("ALTER TABLE ThemeAndQ ADD COLUMN TMMF TEXT;")
         qAddField.exec()
 
         self.EditMode(False)
@@ -85,6 +93,75 @@ class MainWindow(QMainWindow):
         else:
             self.ui.checkBox_disanim.setChecked(False)
         self.ui.checkBox_disanim.toggled.connect(self.togAnim)
+
+
+    def tipDelMusic(self):
+        dialog = QMessageBox()
+        dialog.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel);
+        dialog.setWindowTitle("Внимание!")
+        dialog.setDefaultButton(QMessageBox.Cancel)
+        dialog.setButtonText(QMessageBox.Save, "Удалить музыкальную подсказку")
+        dialog.setButtonText(QMessageBox.Cancel, "Не изменять")
+        dialog.setInformativeText("Вы действительно хотите удалить музыкальную подсказку?")
+        dialog.setIcon(QMessageBox.Icon.Critical)
+        ok = dialog.exec()
+        if ok == QMessageBox.Save:
+            indexT = self.ui.tableView_themeTable.currentIndex()
+            indexQ = self.ui.tableView_questTable.currentIndex()
+            costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
+            model = self.ui.tableView_themeTable.model()
+            query = QSqlQuery(
+                "UPDATE ThemeAndQ SET TMMF = NULL WHERE Cost = '" + costq + "' AND Theme = '" + str(
+                    model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
+                        0)) + "';")
+            query.exec()
+            self.ui.lineEdit_tipMusicFile.setText("")
+            self.selector(indexT.row(), indexQ.row())
+
+
+    def tipPlayMusic(self):
+
+        if self.player.isPlaying():
+            self.player.stop()
+            icon = QIcon()
+            icon.addFile(u"../img/icon/mplay.png", QSize(), QIcon.Normal, QIcon.Off)
+            self.ui.commandLinkButton_tipPlay.setIcon(icon)
+        else:
+            self.audioOutput = QAudioOutput()
+            self.player.setAudioOutput(self.audioOutput)
+            self.player.setSource(QUrl.fromLocalFile('../media/' + self.ui.lineEdit_tipMusicFile.text()))
+            self.player.play()
+            icon = QIcon()
+            icon.addFile(u"../img/icon/mstop.png", QSize(), QIcon.Normal, QIcon.Off)
+            self.ui.commandLinkButton_tipPlay.setIcon(icon)
+
+    def tipSelMusic(self):
+        indexT = self.ui.tableView_themeTable.currentIndex()
+        indexQ = self.ui.tableView_questTable.currentIndex()
+        ofileName, filetype = QFileDialog.getOpenFileName(
+            self,
+            "Выберите музыкальный файл",
+            "",
+            "Media (*.wav *.mp3 )"
+        )
+        fileName = os.path.basename(ofileName)
+
+        if len(ofileName) > 0:
+            try:
+                self.ui.commandLinkButton_tipPlay.setEnabled(True)
+                shutil.copy2(ofileName, "../media/" + fileName)
+            except:
+                print("апшипка tipSelMusic")
+            costq = str(self.ui.tableView_questTable.currentIndex().row() + 1) + "0"
+            model = self.ui.tableView_themeTable.model()
+            query = QSqlQuery(
+                "UPDATE ThemeAndQ SET TMMF = '" + fileName + "' WHERE Cost = '" + costq + "' AND Theme = '" + str(
+                    model.itemData(model.index(self.ui.tableView_themeTable.currentIndex().row(), 0)).get(
+                        0)) + "';")
+            query.exec()
+            self.ui.lineEdit_tipMusicFile.setText(fileName)
+            self.selector(indexT.row(), indexQ.row())
+
 
 
     def delQMusic(self):
@@ -672,6 +749,8 @@ class MainWindow(QMainWindow):
             self.ui.spinBox_costTooltip.setEnabled(True)
             self.ui.pushButton_selMusic.setEnabled(True)
             self.ui.pushButton_delMusic.setEnabled(True)
+            self.ui.pushButton_tipSelMusic.setEnabled(True)
+            self.ui.pushButton_tipDelMusic.setEnabled(True)
             
             
         else:
@@ -700,6 +779,8 @@ class MainWindow(QMainWindow):
             self.ui.spinBox_costTooltip.setEnabled(False)
             self.ui.pushButton_selMusic.setEnabled(False)
             self.ui.pushButton_delMusic.setEnabled(False)
+            self.ui.pushButton_tipSelMusic.setEnabled(False)
+            self.ui.pushButton_tipDelMusic.setEnabled(False)
 
 
     def CancelQ(self):    
@@ -898,7 +979,14 @@ class MainWindow(QMainWindow):
             self.ui.lineEdit_MusicFile.setText(str(query.value(13)))
         else:
             self.ui.commandLinkButton_Play.setEnabled(False)
-            self.ui.lineEdit_MusicFile.setText("")    
+            self.ui.lineEdit_MusicFile.setText("")
+
+        if str(query.value(14))!="":    #tip_music
+            self.ui.commandLinkButton_tipPlay.setEnabled(True)
+            self.ui.lineEdit_tipMusicFile.setText(str(query.value(14)))
+        else:
+            self.ui.commandLinkButton_tipPlay.setEnabled(False)
+            self.ui.lineEdit_tipMusicFile.setText("")
 
         
         if query.value(2)!=None:
