@@ -4,7 +4,7 @@ import os
 import sys
 import shutil
 
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QPixmap
 from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlQueryModel
 
@@ -20,6 +20,7 @@ from newDialog import *
 
 
 class MainWindow(QMainWindow):
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
@@ -87,6 +88,8 @@ class MainWindow(QMainWindow):
         self.updateform()
         self.selector(0,0)
         self.player = QMediaPlayer()
+        self.tmr = QTimer()  # 4
+        self.tmr.timeout.connect(self.medendfile)
 
         if os.path.exists("../disanim"):
             self.ui.checkBox_disanim.setChecked(True)
@@ -94,7 +97,14 @@ class MainWindow(QMainWindow):
             self.ui.checkBox_disanim.setChecked(False)
         self.ui.checkBox_disanim.toggled.connect(self.togAnim)
 
-
+    def medendfile(self):
+        if str(self.player.mediaStatus()) == "MediaStatus.EndOfMedia":
+            self.ui.playFinSound.setText("Прослушать")
+            icon = QIcon()
+            icon.addFile(u"../img/icon/mplay.png", QSize(), QIcon.Normal, QIcon.Off)
+            self.ui.commandLinkButton_tipPlay.setIcon(icon)
+            self.ui.commandLinkButton_Play.setIcon(icon)
+            self.tmr.stop()
     def tipDelMusic(self):
         dialog = QMessageBox()
         dialog.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel);
@@ -120,7 +130,7 @@ class MainWindow(QMainWindow):
 
 
     def tipPlayMusic(self):
-
+        self.tmr.start()
         if self.player.isPlaying():
             self.player.stop()
             icon = QIcon()
@@ -188,7 +198,7 @@ class MainWindow(QMainWindow):
             self.selector(indexT.row(), indexQ.row())
 
     def playMusic(self):
-
+        self.tmr.start(100)
         if self.player.isPlaying():
            self.player.stop()
            icon = QIcon()
@@ -293,19 +303,44 @@ class MainWindow(QMainWindow):
             except:
                 print("апшипка звук")   
     isp=0
+
+
     def playFinSound(self):
-        self.finalSound = simple_audio.WaveObject.from_wave_file("../sound/finalsound.wav")
-        if self.isp==0:
-            self.coda = self.finalSound.play()
+        # self.tmr = QTimer()  # 4
+        # self.tmr.timeout.connect(self.medendfile)
+        self.tmr.start(100)
+        if str(self.player.mediaStatus())=="MediaStatus.EndOfMedia":
+            self.player.stop()
+            self.audioOutput = QAudioOutput()
+            self.player.setAudioOutput(self.audioOutput)
+            self.player.setSource(QUrl.fromLocalFile("../sound/finalsound.wav"))
             self.ui.playFinSound.setText("Стоп")
-            self.isp=1
+            self.player.play()
+
+        if self.player.isPlaying():
+           self.player.stop()
+           self.ui.playFinSound.setText("Прослушать")
         else:
-            if self.coda.is_playing(): 
-                self.coda.stop()
-                self.ui.playFinSound.setText("Прослушать")
-                self.isp=0
-            else:    
-                self.coda=self.finalSound.play()
+            self.audioOutput = QAudioOutput()
+            self.player.setAudioOutput(self.audioOutput)
+            self.player.setSource(QUrl.fromLocalFile("../sound/finalsound.wav"))
+            self.ui.playFinSound.setText("Стоп")
+            self.player.play()
+
+
+
+        # self.finalSound = simple_audio.WaveObject.from_wave_file("../sound/finalsound.wav")
+        # if self.isp==0:
+        #     self.coda = self.finalSound.play()
+        #     self.ui.playFinSound.setText("Стоп")
+        #     self.isp=1
+        # else:
+        #     if self.coda.is_playing():
+        #         self.coda.stop()
+        #         self.ui.playFinSound.setText("Прослушать")
+        #         self.isp=0
+        #     else:
+        #         self.coda=self.finalSound.play()
     
     def delFinSound(self):
         dialog = QMessageBox()
