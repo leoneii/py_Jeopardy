@@ -326,16 +326,22 @@ class wnd(QWidget):
                             txtsteps="INSERT INTO steps (cell_num) values ('"+str(int(obj.objectName()))+"');"
                             qstep.exec(txtsteps)
 
+                            #музыкальная подсказка
+                            if str(query.value(14))!="":
+                                tmmf=str(query.value(14))
+                            else:
+                                tmmf="False"    
+
 
 
                             #новое окно 
                             global newwind
-                            newwind = winq(appt,str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)), ttq, str(query.value(6)), str(query.value(7)), str(query.value(9)), str(query.value(2)))
+                            newwind = winq(appt,str(query.value(3)),str(query.value(1)) , str(query.value(5)), str(query.value(4)), ttq, str(query.value(6)), str(query.value(7)), str(query.value(9)), str(query.value(2)), tmmf)
                             newwind.showFullScreen()
 #проверка и запуск мультимедиа
                             
                             if str(query.value(13))!="":
-                                  movePlay = MoviePlayer('GK.gif',str(query.value(13)),appt)
+                                  movePlay = MoviePlayer('GK.gif',str(query.value(13)),appt, "Вопрос")
                                   movePlay.showFullScreen()
                                   
                             cnv=query.value(2)

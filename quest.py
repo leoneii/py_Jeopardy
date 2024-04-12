@@ -10,6 +10,8 @@ from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import (QLabel, QWidget,
                                QFrame, QProgressBar, QPushButton)
 
+from media import MoviePlayer
+
 phyn=1 # 0-без фото, 1- с фото
 testtext=" "
 smx=3
@@ -54,7 +56,7 @@ class winq(QWidget):
 
 
 # закончили с фоном
-    def __init__(self,apt,ynph_1,txt,ynpha_l, txta_l,ttq_l,txtp_l,cpd_l,ynpht_1,cost_l):
+    def __init__(self,apt,ynph_1,txt,ynpha_l, txta_l,ttq_l,txtp_l,cpd_l,ynpht_1,cost_l,tmmf_1):
         #txtp текст подсказки
         #cpd цена подсказки
         global kfont,fkfont
@@ -70,7 +72,7 @@ class winq(QWidget):
         
         global txtp, cpd, cost
         global txta, wdt, hgt
-        global ynpha, ynph, ynpht
+        global ynpha, ynph, ynpht, tmmf, appt
         global ttq #время таймера
         ttq=ttq_l*10
         txta=txta_l
@@ -79,7 +81,9 @@ class winq(QWidget):
         ynph=ynph_1
         txtp=txtp_l
         cpd=cpd_l
+        tmmf = tmmf_1
         cost = cost_l
+        appt = apt
         super().__init__()
         geometry = apt.primaryScreen().availableGeometry()
         self.setGeometry(geometry)
@@ -201,6 +205,12 @@ class winq(QWidget):
             self.tl_button.setVisible(False)
 # Использование подсказки
     def tl_func(self):
+
+        #проверка и запуск мультимедиа
+                            
+        if tmmf!="False":
+            movePlay = MoviePlayer('GK.gif',tmmf,appt, "Далее")
+            movePlay.showFullScreen()
         #self.start_stop_func()
         self.ss_button.setText('')
         self.ss_button.setIconSize(QSize(90, 90))
@@ -254,6 +264,8 @@ class winq(QWidget):
         tfs = "background-color: rgba(0,0,80,0); color: rgba(225,255,255,255); border:0px solid black;font-size:" + str(fs) + "px"
         self.textv.setText(txtp)
         self.textv.setStyleSheet(tfs)
+
+
         
     def start_stop_func(self):
         self.ss_button.setIconSize(QSize(0,0))
