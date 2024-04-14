@@ -119,7 +119,7 @@ class winq(QWidget):
         regex = re.findall('\n', txt)
         nstr=len(regex)
         leghtext=leghtext+nstr*int(leghtext/8)
-        if leghtext>250:
+        if leghtext>=250:
             if len(ynph) > 0:
                 fs = int((40 - 10*(leghtext/1000))*kfont)
             else:
@@ -245,7 +245,7 @@ class winq(QWidget):
         self.tl_button.setVisible(False)
         leghtext = len(txtp)
         
-        if leghtext>250:
+        if leghtext>=250:
             if len(ynpht) > 0:
                 fs = int((40 - 10 * (leghtext / 1000)) * kfont)
             else:
@@ -317,7 +317,7 @@ class winq(QWidget):
 
         leghtext = len(txta)
         
-        if leghtext>250:
+        if leghtext>=250:
             if len(ynpha) > 0:
                 fs = int((40 - 10 * (leghtext / 1000)) * kfont)
             else:
