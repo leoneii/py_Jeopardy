@@ -128,9 +128,6 @@ class wnd(QWidget):
         (gwidth, gheight) = apt.screens()[0].size().toTuple()
         kfont = gwidth / 1920
         fkfont = (1.4 - 0.2 * (1 - kfont))/1.4
-
-
-
         super(wnd, self).__init__(parent)
 
 #       Высчитываем количество тем и вопросов
@@ -182,8 +179,6 @@ class wnd(QWidget):
             self.temb.setFrameShape(QFrame.Box)
             self.temb.setAutoFillBackground(True)
             self.temb.setStyleSheet(css)
-
-
             for j in range (kolv):
                 gij=gp+(wkn+otst)*j
                 vij=vp+(hkn+otst)*i
