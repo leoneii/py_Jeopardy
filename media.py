@@ -4,7 +4,7 @@ import time
 from PySide6 import QtWidgets
 from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QVBoxLayout
 from PySide6.QtCore import QSize
-from PySide6.QtGui import QMovie
+from PySide6.QtGui import QMovie, QIcon
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtCore import QUrl, QTime
 
@@ -43,14 +43,25 @@ class MoviePlayer(QWidget):
         self.movie_screen.setMovie(self.movie)
         self.movie.start()
 
-        #КНОПКА ПРОДОЛЖЕНИЯ
+        #КНОПКА ПРОДОЛЖЕНИЯ ИГРЫ
         self.contin = QPushButton(self)
-        tmh = int(hgt / 15 - 10)
+        tmh = int(hgt / 15 - 5)
         fw = int((wdh / 3) / 12)
-        self.contin.setGeometry(wdh * 3 / 4 - 60, hgt - hgt / 15 - 20, (wdh - 20) / 4, tmh)
+        self.contin.setGeometry(wdh * 3 / 4 - 60, hgt - hgt / 15 - 5, (wdh - 20) / 4, tmh)
         self.contin.setText(butText)
         self.contin.setStyleSheet("QPushButton { background-color: rgba(0,0,180,50) ; font: bold " + str(fw) + "px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: " + str(tmh * 2) + "px " + str(tmh) + "px; border-bottom-left-radius: " + str(tmh * 2) + "px " + str(tmh) + "px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,180) }")
         self.contin.clicked.connect(self.theEnd)
+
+        #Кнопка paus/play
+        self.pausplay=QPushButton(self)
+        self.pausplay.setGeometry(wdh / 2 - 120, hgt - hgt / 15 - 5, (wdh - 20) / 8, tmh)
+        #ticon=QIcon('./img/icon/pause.png')
+        #self.pausplay.setIcon(ticon)
+        self.pausplay.setText("||")
+        self.pausplay.setStyleSheet("QPushButton { background-color: rgba(0,0,180,50) ; font: bold " + str(
+            fw) + "px; border: 1px solid rgba(200,200,255,180);border-radius: " + str(tmh/2-3) + "px } QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,180) }")
+        self.pausplay.clicked.connect(self.paPl)
+
 
         self.player = QMediaPlayer()
         self.p0 = self.player.position()
@@ -66,7 +77,8 @@ class MoviePlayer(QWidget):
                 self.kolend=0
                 self.p0 = p1
             else:
-                self.kolend+=1
+                if self.pausplay.text()!=">":
+                    self.kolend+=1
                 if self.kolend==20:
                     self.theEnd()
         # и выходим из модуля
@@ -74,6 +86,16 @@ class MoviePlayer(QWidget):
         self.tmr = QTimer()  # 4
         self.tmr.timeout.connect(scrupd)
         self.tmr.start(120)
+
+
+    def paPl(self):
+        if self.pausplay.text()=="||":
+            self.pausplay.setText(">")
+            self.player.pause()
+
+        else:
+            self.pausplay.setText("||")
+            self.player.play()
 
 
     def theEnd(self):
