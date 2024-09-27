@@ -13,10 +13,10 @@ from PySide6.QtGui import QPixmap
 
 
 
-import widget
-from categ import Category
-from widget import wnd, cenv
-import simpleaudio as simple_audio
+#import widget
+#
+#from widget import wnd, cenv
+
 from final import FinalWind
 
 
@@ -24,64 +24,73 @@ global apt
 
 QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
 
+class aStart():
+    def __init__(self, parent=None):
+        global tkolt,lmaxlw,blc,logo,name,lcnnxt,tots,shag,mascat,smx,gx,cnttxt,ccat,cenv,wnd,cenv,Category,simple_audio
+        sqlDB = QSqlDatabase.addDatabase('QSQLITE')
+        sqlDB.setDatabaseName("./jep.sqlite")
+        sqlDB.open()
+    #доимпорт
+        from widget import wnd, cenv
+        from categ import Category
+        import simpleaudio as simple_audio
+        name = ["", "", "", "", "", "", "", ""]
+        logo = ["", "", "", "", "", "", "", ""]
+        tots = [0, 0, 0, 0, 0, 0]
+        lcnnxt = 30
 
 
-name = ["", "", "", "", "", "", "", ""]
-logo = ["", "", "", "", "", "", "", ""]
-tots = [0, 0, 0, 0, 0, 0]
-lcnnxt = 30
-query = QSqlQuery()
-if not query.exec(
-        """
-            SELECT COUNT(*) FROM Teams;
-        """
-):
-    logging.error("Failed to query database16")
-query.next()
-tkolt = int(query.value(0))  # количество команд
+        query = QSqlQuery()
+        if not query.exec(
+            """
+                SELECT COUNT(*) FROM Teams;
+            """
+        ):
+            logging.error("Failed to query database16")
+        query.next()
+        tkolt = int(query.value(0))  # количество команд
 
-query1 = QSqlQuery()
-if not query1.exec("UPDATE settings SET tmpDat = 5 ,tmpDat1 = 5 ;"): # цена вопроса в бд становится равна 10
-    logging.error("Failed to query database16")
+        query1 = QSqlQuery()
+        if not query1.exec("UPDATE settings SET tmpDat = 5 ,tmpDat1 = 5 ;"): # цена вопроса в бд становится равна 10
+            logging.error("Failed to query database16")
 
 
-query = QSqlQuery()
-if not query.exec(
-        """
-            SELECT * FROM Teams;
-        """
-):
-    logging.error("Failed to query database17")
-query.first()
+        query = QSqlQuery()
+        if not query.exec(
+            """
+                SELECT * FROM Teams;
+            """
+        ):
+            logging.error("Failed to query database17")
+        query.first()
 
-s = ""
-for i in range(tkolt):
-    logo[i] = str(query.value(1))
-    name[i] = str(query.value(2))
-    try:
-        tots[i]=int(query.value(3))
-    except ValueError:
-        tots[i] = 0
-    s += name[i] + " "
-    query.next()
+        s = ""
+        for i in range(tkolt):
+            logo[i] = str(query.value(1))
+            name[i] = str(query.value(2))
+            try:
+                tots[i]=int(query.value(3))
+            except ValueError:
+                tots[i] = 0
+            s += name[i] + " "
+            query.next()
 
 
 
 # вычисляем кол-во букв в самом длинном слове в названиях команд
-maxlenw = max(s.split(), key=len)
-lmaxlw = len(maxlenw)
+        maxlenw = max(s.split(), key=len)
+        lmaxlw = len(maxlenw)
 
-mascat = []
+        mascat = []
 
-blc = 120
-shag = 2
-smx = 5
-gx = 200
-cnttxt = ""
-global geometry
-ccat = 1
-
-cenv = 0
+        blc = 120
+        shag = 2
+        smx = 5
+        gx = 200
+        cnttxt = ""
+        global geometry
+        ccat = 1
+        cenv = 0
 
 
 class Wint(QWidget):
@@ -129,11 +138,10 @@ class Wint(QWidget):
         self.plusSound = simple_audio.WaveObject.from_wave_file("./sound/plus.wav")
         self.minusSound = simple_audio.WaveObject.from_wave_file("./sound/minus.wav")
         global lmaxlw, ccat
-        sqlDB = QSqlDatabase.addDatabase('QSQLITE')
-        sqlDB.setDatabaseName("./jep.sqlite")
-        sqlDB.open()
         super(Wint, self).__init__(parent)
-        
+        # sqlDB = QSqlDatabase.addDatabase('QSQLITE')
+        # sqlDB.setDatabaseName("./jep.sqlite")
+        # sqlDB.open()
         
         
 
@@ -372,11 +380,11 @@ class Wint(QWidget):
         sndr = self.sender().objectName()
         # QMessageBox.warning(self, "Нажматие!!!))", " " + str(self.sender().objectName()))
         if sndr[:3] == "pls":
-            self.plbutclick = self.plusSound.play()
+           # self.plbutclick = self.plusSound.play()
             tots[int(sndr[3:])] += cenp
 
         else:
-            self.minbutclick = self.minusSound.play()
+           # self.minbutclick = self.minusSound.play()
             tots[int(sndr[3:])] -= cenv
         # меняем значения на лейблах
         obj = self.findChild(QLabel, "rst" + sndr[3:])
@@ -459,7 +467,7 @@ if __name__ == "__main__":
     splash = QSplashScreen()
     splash.setPixmap(QPixmap("./img/logo/psplash.png"))
     splash.show()
-
+    a = aStart()
     wnt = Wint(tkolt)
 
     splash.finish(wnt)

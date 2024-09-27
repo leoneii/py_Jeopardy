@@ -5,12 +5,15 @@ from PySide6 import QtCore
 # import PySide6
 from PySide6.QtCore import (QTimer, QEventLoop, QRect, Qt, QEvent, QPoint)
 from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient)
-from PySide6.QtSql import QSqlDatabase, QSqlQuery
+from PySide6.QtSql import  QSqlQuery
 from PySide6.QtWidgets import (QApplication, QLabel, QWidget, QFrame)
 
 from media import MoviePlayer
 
 from quest import winq
+
+
+#class wStart():
 global cenv, recover
 cenv=0
 #global apt
@@ -18,9 +21,6 @@ cenv=0
 #база данных
 #global sqlDB
 QtCore.QLocale.setDefault(QtCore.QLocale("ru_RU"))
-sqlDB = QSqlDatabase.addDatabase('QSQLITE')
-sqlDB.setDatabaseName("./jep.sqlite")
-sqlDB.open()
 
 #переменные
 continue_run = True
