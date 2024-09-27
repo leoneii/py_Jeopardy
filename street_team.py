@@ -380,11 +380,11 @@ class Wint(QWidget):
         sndr = self.sender().objectName()
         # QMessageBox.warning(self, "Нажматие!!!))", " " + str(self.sender().objectName()))
         if sndr[:3] == "pls":
-           # self.plbutclick = self.plusSound.play()
+            self.plbutclick = self.plusSound.play()
             tots[int(sndr[3:])] += cenp
 
         else:
-           # self.minbutclick = self.minusSound.play()
+            self.minbutclick = self.minusSound.play()
             tots[int(sndr[3:])] -= cenv
         # меняем значения на лейблах
         obj = self.findChild(QLabel, "rst" + sndr[3:])
