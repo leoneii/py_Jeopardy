@@ -4,7 +4,7 @@ import time
 from PySide6 import QtWidgets
 from PySide6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QVBoxLayout
 from PySide6.QtCore import QSize
-from PySide6.QtGui import QMovie, QIcon
+from PySide6.QtGui import QMovie, QIcon, QPixmap
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtCore import QUrl, QTime
 
@@ -57,10 +57,15 @@ class MoviePlayer(QWidget):
         self.pausplay.setGeometry(wdh / 2 - 120, hgt - hgt / 15 - 5, (wdh - 20) / 8, tmh)
         #ticon=QIcon('./img/icon/pause.png')
         #self.pausplay.setIcon(ticon)
-        self.pausplay.setText("||")
-        self.pausplay.setStyleSheet("QPushButton { background-color: rgba(0,0,180,50) ; font: bold " + str(
-            fw) + "px; border: 1px solid rgba(200,200,255,180);border-radius: " + str(tmh/2-3) + "px } QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,180) }")
+        self.pausplay.setText(" ")
+        self.pausplay.setStyleSheet("QPushButton { background-color: rgba(0,0,180,50) ; fontsize: 0; border: 1px solid rgba(200,200,255,180);border-radius: " + str(tmh/2-3) + "px } QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,180) }")
         self.pausplay.clicked.connect(self.paPl)
+
+        pxmp=QPixmap('./img/icon/wpause.png')
+        bico=QIcon(pxmp)
+        self.pausplay.setIcon(bico)
+        self.pausplay.setIconSize(self.pausplay.size())
+
 
 
         self.player = QMediaPlayer()
@@ -77,7 +82,7 @@ class MoviePlayer(QWidget):
                 self.kolend=0
                 self.p0 = p1
             else:
-                if self.pausplay.text()!=">":
+                if self.pausplay.text()!=".":
                     self.kolend+=1
                 if self.kolend==20:
                     self.theEnd()
@@ -89,13 +94,23 @@ class MoviePlayer(QWidget):
 
 
     def paPl(self):
-        if self.pausplay.text()=="||":
-            self.pausplay.setText(">")
+        if self.pausplay.text()==" ":
+            self.pausplay.setText(".")
             self.player.pause()
 
+            pxmp=QPixmap('./img/icon/wplay.png')
+            bico=QIcon(pxmp)
+            self.pausplay.setIcon(bico)
+            self.pausplay.setIconSize(self.pausplay.size())
+
         else:
-            self.pausplay.setText("||")
+            self.pausplay.setText(" ")
             self.player.play()
+
+            pxmp=QPixmap('./img/icon/wpause.png')
+            bico=QIcon(pxmp)
+            self.pausplay.setIcon(bico)
+            self.pausplay.setIconSize(self.pausplay.size())
 
 
     def theEnd(self):
@@ -150,6 +165,6 @@ if __name__ == "__main__":
     apt = QApplication([])
     (gwidth, gheight) = apt.screens()[0].size().toTuple()
     kfont = gwidth / 1920
-    mediapl = MoviePlayer('GK.gif','short.mp3')
+    mediapl = MoviePlayer('GK.gif','short.mp3',apt)
     mediapl.showFullScreen()
     sys.exit(apt.exec())     

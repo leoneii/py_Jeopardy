@@ -473,8 +473,6 @@ if __name__ == "__main__":
     splash.finish(wnt)
     wnt.showFullScreen()
 
-
-
     sys.exit(apt.exec())
     sqlDB.close()
     sqlDB.removeDatabase('QSQLITE')
