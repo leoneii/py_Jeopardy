@@ -454,14 +454,23 @@ class MainWindow(QMainWindow):
         dName=str(dialog.getExistingDirectory(self,"Выбрать папку","./games/"))
            
         try:
-            shutil.rmtree("../img")    
+            if os.path.isdir(dName+"/img"):
+                shutil.rmtree("../img")
+            if os.path.isdir(dName + "/media"):
+                shutil.rmtree("../media")
+            if os.path.isdir(dName + "/sound"):
+                shutil.rmtree("../img")
         except:
-            print("апшипка games") 
+            print("нечего удалять")
         
         try:
             shutil.copytree(dName+"/img","../img",  symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=True)
+            shutil.copytree(dName + "/media", "../media", symlinks=False, ignore=None, ignore_dangling_symlinks=False,
+                            dirs_exist_ok=True)
+            shutil.copytree(dName + "/sound", "../sound", symlinks=False, ignore=None, ignore_dangling_symlinks=False,
+                            dirs_exist_ok=True)
         except:
-            print("апшипка games2")           
+            print("нет копии")
         shutil.copyfile(dName+"/jep.sqlite","../jep.sqlite")
         self.updateform()
         self.selector(0,0)
@@ -472,12 +481,24 @@ class MainWindow(QMainWindow):
         try:
             shutil.rmtree("../games/"+fName)
         except:
-           print("апшипка games") 
+            print("нет необходимости")
            
         try:
             shutil.copytree("../img", "../games/"+fName+"/img", symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=False)
         except:
-            print("апшипка games") 
+            print("img games")
+
+        try:
+            shutil.copytree("../media", "../games/" + fName + "/media", symlinks=False, ignore=None,
+                            ignore_dangling_symlinks=False, dirs_exist_ok=False)
+        except:
+            print("media games")
+
+        try:
+            shutil.copytree("../sound", "../games/" + fName + "/sound", symlinks=False, ignore=None,
+                            ignore_dangling_symlinks=False, dirs_exist_ok=False)
+        except:
+            print("sound games")
         shutil.copyfile("../jep.sqlite","../games/"+fName+"/jep.sqlite")
         self.selector(0,0)
 
@@ -1117,7 +1138,8 @@ class newDialog(QDialog):
             logging.error("Failed to query a") 
         #Команды
         for team in range(int(self.ui.comboBox_teamCount.currentText())):
-            if not query.exec("INSERT INTO Teams (ID,Name) VALUES ("+str(team+1)+", 'Команда номер "+str(team+1)+"');"):
+            # if not query.exec("INSERT INTO Teams (ID,Name) VALUES ("+str(team+1)+", 'Команда номер "+str(team+1)+"');"):
+            if not query.exec("INSERT INTO Teams (ID,Name) VALUES ("+str(team)+", 'Команда номер "+str(team+1)+"');"):
                 logging.error("Failed to query database2")
         #Настройки
         if not query.exec("INSERT INTO settings (NameGame,TimeSec,Pad) VALUES ('Игра', '30', '10');"):
