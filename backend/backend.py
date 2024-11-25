@@ -109,7 +109,11 @@ class MainWindow(QMainWindow):
         # print(arh.infolist())
         #ZipFile(file, mode='r', compression=ZIP_STORED, allowZip64=True, compresslevel=6, *, strict_timestamps=True, metadata_encoding=None)
         currdate= datetime.datetime.now().strftime('%Y-%m-%d_%H-%M')
-        shutil.make_archive( homedir+'/_strteam_arh/'+'arh'+currdate, 'zip', '../games/')
+        try:
+            shutil.make_archive( homedir+'/_strteam_arh/'+'arh'+currdate, 'zip', '../games/')
+        except:
+            print("Внимание!!! ошибка архивации")
+
 
     def medendfile(self):
         if str(self.player.mediaStatus()) == "MediaStatus.EndOfMedia":
