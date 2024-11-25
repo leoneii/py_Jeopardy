@@ -3,6 +3,8 @@ import logging
 import os
 import sys
 import shutil
+import datetime
+
 
 from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QPixmap
@@ -14,10 +16,8 @@ from PySide6.QtCore import QUrl, QTime
 import simpleaudio as simple_audio
 from PySide6.QtWidgets import QSplashScreen
 
-
 from mainwindow import Ui_MainWindow
 from newDialog import *
-
 
 class MainWindow(QMainWindow):
 
@@ -91,11 +91,25 @@ class MainWindow(QMainWindow):
         self.tmr = QTimer()  # 4
         self.tmr.timeout.connect(self.medendfile)
 
+        homed = os.path.expanduser("~")
+        global homedir 
+        homedir = homed
+
+        self.backup()
+
         if os.path.exists("../disanim"):
             self.ui.checkBox_disanim.setChecked(True)
         else:
             self.ui.checkBox_disanim.setChecked(False)
         self.ui.checkBox_disanim.toggled.connect(self.togAnim)
+
+    def backup(self):
+        # arh = ZipFile("popa.zip","w", compression=ZIP_DEFLATED, compresslevel=3)
+        # arh.("/home/leone/test/*.*")
+        # print(arh.infolist())
+        #ZipFile(file, mode='r', compression=ZIP_STORED, allowZip64=True, compresslevel=6, *, strict_timestamps=True, metadata_encoding=None)
+        currdate= datetime.datetime.now().strftime('%Y-%m-%d_%H-%M')
+        shutil.make_archive( homedir+'/_strteam_arh/'+'arh'+currdate, 'zip', '../games/')
 
     def medendfile(self):
         if str(self.player.mediaStatus()) == "MediaStatus.EndOfMedia":
