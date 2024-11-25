@@ -1142,18 +1142,26 @@ class newDialog(QDialog):
         self.ui.pushButton_Create.clicked.connect(self.create)
     
     def create(self):
-        #подготовка 
-        qertyPrep=QSqlQuery()
-        queryCat=QSqlQuery()
+        #берем готовую эталонную бд и заменяем ею текущую
+        try:
+            shutil.copy2("./etbase.sqlite","../jep.sqlite")
+            sqlDB = QSqlDatabase.addDatabase('QSQLITE')
+            sqlDB.setDatabaseName("../jep.sqlite")
+            sqlDB.open()
+        except:
+                    #если не удалось, а база уже есть какая-то откуда-то) 
+            print("Внимание!!! ошибка развертывания эталонной БД")
+            # if not query.exec("DELETE FROM ThemeAndQ;"):
+            #     logging.error("Failed to query a") 
+            # if not query.exec("DELETE FROM category;"):
+            #     logging.error("Failed to query a")        
+            # if not query.exec("DELETE FROM Teams;"):
+            #     logging.error("Failed to query a")                  
+            # if not query.exec("DELETE FROM settings;"):
+            #     logging.error("Failed to query a") 
+
         query=QSqlQuery()
-        if not query.exec("DELETE FROM ThemeAndQ;"):
-            logging.error("Failed to query a") 
-        if not query.exec("DELETE FROM category;"):
-            logging.error("Failed to query a")        
-        if not query.exec("DELETE FROM Teams;"):
-            logging.error("Failed to query a")                  
-        if not query.exec("DELETE FROM settings;"):
-            logging.error("Failed to query a") 
+        queryCat=QSqlQuery() 
         #Команды
         for team in range(int(self.ui.comboBox_teamCount.currentText())):
             # if not query.exec("INSERT INTO Teams (ID,Name) VALUES ("+str(team+1)+", 'Команда номер "+str(team+1)+"');"):
