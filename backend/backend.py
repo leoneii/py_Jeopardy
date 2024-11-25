@@ -1149,7 +1149,6 @@ class newDialog(QDialog):
             sqlDB.setDatabaseName("../jep.sqlite")
             sqlDB.open()
         except:
-                    #если не удалось, а база уже есть какая-то откуда-то) 
             print("Внимание!!! ошибка развертывания эталонной БД")
             # if not query.exec("DELETE FROM ThemeAndQ;"):
             #     logging.error("Failed to query a") 
