@@ -441,7 +441,7 @@ class MainWindow(QMainWindow):
              self.ui.tableView_questTable.selectRow(questRow) 
 
     def newGame(self):
-        msbox=QMessageBox()
+        msbox=QMessageBox(self)
         msbox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         msbox.setButtonText(QMessageBox.Ok, "Сохранить")
         msbox.setButtonText(QMessageBox.Cancel, "Отменить")
@@ -499,25 +499,34 @@ class MainWindow(QMainWindow):
         try:
             shutil.rmtree("../games/"+fName)
         except:
-            print("нет необходимости")
+            print("нет необходимости удалять")
            
         try:
-            shutil.copytree("../img", "../games/"+fName+"/img", symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=False)
+            shutil.copytree("../img", "../games/"+fName+"/img", symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=True)
         except:
             print("img games")
 
         try:
             shutil.copytree("../media", "../games/" + fName + "/media", symlinks=False, ignore=None,
-                            ignore_dangling_symlinks=False, dirs_exist_ok=False)
+                            ignore_dangling_symlinks=False, dirs_exist_ok=True)
         except:
             print("media games")
 
         try:
             shutil.copytree("../sound", "../games/" + fName + "/sound", symlinks=False, ignore=None,
-                            ignore_dangling_symlinks=False, dirs_exist_ok=False)
+                            ignore_dangling_symlinks=False, dirs_exist_ok=True)
         except:
             print("sound games")
-        shutil.copyfile("../jep.sqlite","../games/"+fName+"/jep.sqlite")
+
+        try:
+            os.remove("../games/"+fName+"/jep.sqlite")
+        except:
+            print("нет возможности удалить файл базы данных")
+
+        try:
+            shutil.copyfile("../jep.sqlite","../games/"+fName+"/jep.sqlite")
+        except:
+            print("нет возможности скопировать файл БД")
         self.selector(0,0)
 
 
@@ -1144,6 +1153,11 @@ class newDialog(QDialog):
     def create(self):
         #берем готовую эталонную бд и заменяем ею текущую
         try:
+            try:
+                os.remove("../jep.sqlite")
+            except:
+                print("Не удалось удалить файл")
+
             shutil.copy2("./etbase.sqlite","../jep.sqlite")
             sqlDB = QSqlDatabase.addDatabase('QSQLITE')
             sqlDB.setDatabaseName("../jep.sqlite")
