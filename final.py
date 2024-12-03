@@ -35,7 +35,7 @@ class FinalWind(QWidget):
 
         super().__init__()
 
-        self.finalSound = simple_audio.WaveObject.from_wave_file("./sound/finalsound.wav")
+        self.finalSound = simple_audio.WaveObject.from_wave_file("./resourses/sound/finalsound.wav")
         self.coda = self.finalSound.play()
 
         # начало чуда
@@ -51,7 +51,7 @@ class FinalWind(QWidget):
 
         (self.wdt, self.hgt) = app.screens()[0].size().toTuple()
         stsh = "background-color: black"
-        stshf = 'border-image: url("img/logo/back.png");'
+        stshf = 'border-image: url("resourses/logo/back.png");'
         self.setStyleSheet(stsh)
         fonl = QLabel(self)
         fonl.setGeometry(0, 0, self.wdt, self.hgt)
@@ -204,7 +204,7 @@ class FinalWind(QWidget):
                     isspr[self.k] = 1
                     tmcol = choice(colors)
                     spd[self.k]= random.randint(15, 20)
-                    s.setPixmap(QPixmap("./img/icon/sprite.png").scaled(QSize(spd[self.k], spd[self.k]), Qt.KeepAspectRatio))
+                    s.setPixmap(QPixmap("./resourses/icon/sprite.png").scaled(QSize(spd[self.k], spd[self.k]), Qt.KeepAspectRatio))
                     s.setStyleSheet("background-color: " + tmcol + "; border-radius: " + str(spd[self.k] / 2) + ";")
 
                     if self.x <= self.wdt / 2:
@@ -228,7 +228,7 @@ class FinalWind(QWidget):
                     spd[self.k]*=1.03
                     s.resize(spd[self.k],spd[self.k])
                     s.setPixmap(
-                        QPixmap("./img/icon/sprite.png").scaled(QSize(spd[self.k], spd[self.k]), Qt.KeepAspectRatio))
+                        QPixmap("./resourses/icon/sprite.png").scaled(QSize(spd[self.k], spd[self.k]), Qt.KeepAspectRatio))
                     # if self.k==0:
                     #     print(s.size().width())
 
@@ -238,7 +238,7 @@ class FinalWind(QWidget):
                     # spd[self.k]*=.4
                     s.resize(spd[self.k],spd[self.k])
                     s.setPixmap(
-                        QPixmap("./img/icon/sprite.png").scaled(QSize(spd[self.k], spd[self.k]), Qt.KeepAspectRatio))
+                        QPixmap("./resourses/icon/sprite.png").scaled(QSize(spd[self.k], spd[self.k]), Qt.KeepAspectRatio))
 
 
                     if s.size().width()<5:

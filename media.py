@@ -55,13 +55,13 @@ class MoviePlayer(QWidget):
         #Кнопка paus/play
         self.pausplay=QPushButton(self)
         self.pausplay.setGeometry(wdh / 2 - 120, hgt - hgt / 15 - 5, (wdh - 20) / 8, tmh)
-        #ticon=QIcon('./img/icon/pause.png')
+        #ticon=QIcon('./resourses/icon/pause.png')
         #self.pausplay.setIcon(ticon)
         self.pausplay.setText(" ")
         self.pausplay.setStyleSheet("QPushButton { background-color: rgba(0,0,180,50) ; fontsize: 0; border: 1px solid rgba(200,200,255,180);border-radius: " + str(tmh/2-3) + "px } QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,180) }")
         self.pausplay.clicked.connect(self.paPl)
 
-        pxmp=QPixmap('./img/icon/wpause.png')
+        pxmp=QPixmap('./resourses/icon/wpause.png')
         bico=QIcon(pxmp)
         self.pausplay.setIcon(bico)
         self.pausplay.setIconSize(self.pausplay.size())
@@ -98,7 +98,7 @@ class MoviePlayer(QWidget):
             self.pausplay.setText(".")
             self.player.pause()
 
-            pxmp=QPixmap('./img/icon/wplay.png')
+            pxmp=QPixmap('./resourses/icon/wplay.png')
             bico=QIcon(pxmp)
             self.pausplay.setIcon(bico)
             self.pausplay.setIconSize(self.pausplay.size())
@@ -107,7 +107,7 @@ class MoviePlayer(QWidget):
             self.pausplay.setText(" ")
             self.player.play()
 
-            pxmp=QPixmap('./img/icon/wpause.png')
+            pxmp=QPixmap('./resourses/icon/wpause.png')
             bico=QIcon(pxmp)
             self.pausplay.setIcon(bico)
             self.pausplay.setIconSize(self.pausplay.size())

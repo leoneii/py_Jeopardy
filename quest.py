@@ -64,9 +64,9 @@ class winq(QWidget):
         kfont = gwidth / 1920
         fkfont = (1.4 - 0.2 * (1 - kfont)) / 1.4
 
-        self.muteSound = simple_audio.WaveObject.from_wave_file( "./sound/untitled.wav" )
-        self.timerSound = simple_audio.WaveObject.from_wave_file( "./sound/timer-tick.wav" )
-        self.tickEndSound=simple_audio.WaveObject.from_wave_file( "./sound/tick_end.wav" )
+        self.muteSound = simple_audio.WaveObject.from_wave_file( "./resourses/sound/untitled.wav" )
+        self.timerSound = simple_audio.WaveObject.from_wave_file( "./resourses/sound/timer-tick.wav" )
+        self.tickEndSound=simple_audio.WaveObject.from_wave_file( "./resourses/sound/tick_end.wav" )
         self.tiker = self.muteSound.play()
         self.tiker.stop()
         
@@ -179,7 +179,7 @@ class winq(QWidget):
         self.step = 0
         self.timer = QTimer(self)                               # 4
         self.timer.timeout.connect(self.update_func)
-        icon = QIcon("./img/icon/timerw.png")
+        icon = QIcon("./resourses/icon/timerw.png")
         self.ss_button = QPushButton(icon,"", self)             # 5
         self.ss_button.clicked.connect(self.start_stop_func)
         self.nxt_button = QPushButton('Ответ', self)          # 6
