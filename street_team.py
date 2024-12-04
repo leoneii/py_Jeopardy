@@ -135,8 +135,8 @@ class Wint(QWidget):
 
     def __init__(self, tkol, parent=None):
 
-        self.plusSound = simple_audio.WaveObject.from_wave_file("./sound/plus.wav")
-        self.minusSound = simple_audio.WaveObject.from_wave_file("./sound/minus.wav")
+        self.plusSound = simple_audio.WaveObject.from_wave_file("./resourses/sound/plus.wav")
+        self.minusSound = simple_audio.WaveObject.from_wave_file("./resourses/sound/minus.wav")
         global lmaxlw, ccat
         super(Wint, self).__init__(parent)
         # sqlDB = QSqlDatabase.addDatabase('QSQLITE')
@@ -177,7 +177,7 @@ class Wint(QWidget):
         mainlogoh = hgt / 5
         self.mainlogo = QLabel(self)
         self.mainlogo.setGeometry(10, 5, wdt - 30, mainlogoh)
-        pixmap = QPixmap("./img/logo/logo.png")
+        pixmap = QPixmap("./resourses/logo/logo.png")
         pixmap = pixmap.scaled(wdt / 3, hgt / 5 - 15, Qt.KeepAspectRatio)
         self.mainlogo.setPixmap(pixmap)
         alignmentr = Qt.AlignmentFlag.AlignRight
@@ -465,7 +465,7 @@ if __name__ == "__main__":
     kfont=gwidth/1920
     # pyside6 splash screen
     splash = QSplashScreen()
-    splash.setPixmap(QPixmap("./img/logo/psplash.png"))
+    splash.setPixmap(QPixmap("./resourses/logo/psplash.png"))
     splash.show()
     a = aStart()
     wnt = Wint(tkolt)

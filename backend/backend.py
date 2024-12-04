@@ -119,7 +119,7 @@ class MainWindow(QMainWindow):
         if str(self.player.mediaStatus()) == "MediaStatus.EndOfMedia":
             self.ui.playFinSound.setText("Прослушать")
             icon = QIcon()
-            icon.addFile(u"../img/icon/mplay.png", QSize(), QIcon.Normal, QIcon.Off)
+            icon.addFile(u"../resourses/icon/mplay.png", QSize(), QIcon.Normal, QIcon.Off)
             self.ui.commandLinkButton_tipPlay.setIcon(icon)
             self.ui.commandLinkButton_Play.setIcon(icon)
             self.tmr.stop()
@@ -152,7 +152,7 @@ class MainWindow(QMainWindow):
         if self.player.isPlaying():
             self.player.stop()
             icon = QIcon()
-            icon.addFile(u"../img/icon/mplay.png", QSize(), QIcon.Normal, QIcon.Off)
+            icon.addFile(u"../resourses/icon/mplay.png", QSize(), QIcon.Normal, QIcon.Off)
             self.ui.commandLinkButton_tipPlay.setIcon(icon)
         else:
             self.audioOutput = QAudioOutput()
@@ -160,7 +160,7 @@ class MainWindow(QMainWindow):
             self.player.setSource(QUrl.fromLocalFile('../media/' + self.ui.lineEdit_tipMusicFile.text()))
             self.player.play()
             icon = QIcon()
-            icon.addFile(u"../img/icon/mstop.png", QSize(), QIcon.Normal, QIcon.Off)
+            icon.addFile(u"../resourses/icon/mstop.png", QSize(), QIcon.Normal, QIcon.Off)
             self.ui.commandLinkButton_tipPlay.setIcon(icon)
 
     def tipSelMusic(self):
@@ -220,7 +220,7 @@ class MainWindow(QMainWindow):
         if self.player.isPlaying():
            self.player.stop()
            icon = QIcon()
-           icon.addFile(u"../img/icon/mplay.png", QSize(), QIcon.Normal, QIcon.Off)
+           icon.addFile(u"../resourses/icon/mplay.png", QSize(), QIcon.Normal, QIcon.Off)
            self.ui.commandLinkButton_Play.setIcon(icon)
         else:
             self.audioOutput = QAudioOutput()
@@ -228,7 +228,7 @@ class MainWindow(QMainWindow):
             self.player.setSource(QUrl.fromLocalFile('../media/'+self.ui.lineEdit_MusicFile.text()))
             self.player.play()
             icon = QIcon()
-            icon.addFile(u"../img/icon/mstop.png", QSize(), QIcon.Normal, QIcon.Off)
+            icon.addFile(u"../resourses/icon/mstop.png", QSize(), QIcon.Normal, QIcon.Off)
             self.ui.commandLinkButton_Play.setIcon(icon)
 
     def selMusic(self):
@@ -272,7 +272,7 @@ class MainWindow(QMainWindow):
 
     def finLogoUpd(self):
         self.ui.label_finLogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        pixf=QPixmap("../img/logo/back.png").scaled(self.ui.label_finLogo.frameSize(),Qt.KeepAspectRatio)
+        pixf=QPixmap("../resourses/logo/back.png").scaled(self.ui.label_finLogo.frameSize(),Qt.KeepAspectRatio)
         self.ui.label_finLogo.setPixmap(pixf)
         
     def addFinLogo(self):
@@ -285,7 +285,7 @@ class MainWindow(QMainWindow):
 
         if len(ofileName)>0:
             try:
-                shutil.copy2(ofileName,"../img/logo/back.png")
+                shutil.copy2(ofileName,"../resourses/logo/back.png")
             except:
                 print("апшипка logo")    
         self.finLogoUpd()
@@ -302,48 +302,51 @@ class MainWindow(QMainWindow):
         ok = dialog.exec()
         if ok == QMessageBox.Save:
             try:
-                shutil.copy2("../img/logo/defback.png","../img/logo/back.png")
+                shutil.copy2("../resourses/logo/defback.png","../resourses/logo/back.png")
                 self.finLogoUpd()
             except:
                 print("апшипка logo")    
 
     def selectFinSound(self):
-        ofileName, filetype = QFileDialog.getOpenFileName(
-            self,
-            "Выберите звук", 
-            "", 
-            "Sounds (*.wav)"
-        )
+        pass
+    #     ofileName, filetype = QFileDialog.getOpenFileName(
+    #         self,
+    #         "Выберите звук", 
+    #         "", 
+    #         "Sounds (*.wav)"
+    #     )
 
-        if len(ofileName)>0:
-            try:
-                shutil.copy2(ofileName,"../sound/finalsound.wav")
-            except:
-                print("апшипка звук")   
-    isp=0
+    #     if len(ofileName)>0:
+    #         try:
+    #             shutil.copy2(ofileName,"../sound/finalsound.wav")
+    #         except:
+    #             print("апшипка звук")   
+    # isp=0
 
 
     def playFinSound(self):
         # self.tmr = QTimer()  # 4
         # self.tmr.timeout.connect(self.medendfile)
-        self.tmr.start(100)
-        if str(self.player.mediaStatus())=="MediaStatus.EndOfMedia":
-            self.player.stop()
-            self.audioOutput = QAudioOutput()
-            self.player.setAudioOutput(self.audioOutput)
-            self.player.setSource(QUrl.fromLocalFile("../sound/finalsound.wav"))
-            self.ui.playFinSound.setText("Стоп")
-            self.player.play()
+        pass
 
-        if self.player.isPlaying():
-           self.player.stop()
-           self.ui.playFinSound.setText("Прослушать")
-        else:
-            self.audioOutput = QAudioOutput()
-            self.player.setAudioOutput(self.audioOutput)
-            self.player.setSource(QUrl.fromLocalFile("../sound/finalsound.wav"))
-            self.ui.playFinSound.setText("Стоп")
-            self.player.play()
+        # self.tmr.start(100)
+        # if str(self.player.mediaStatus())=="MediaStatus.EndOfMedia":
+        #     self.player.stop()
+        #     self.audioOutput = QAudioOutput()
+        #     self.player.setAudioOutput(self.audioOutput)
+        #     self.player.setSource(QUrl.fromLocalFile("../sound/finalsound.wav"))
+        #     self.ui.playFinSound.setText("Стоп")
+        #     self.player.play()
+
+        # if self.player.isPlaying():
+        #    self.player.stop()
+        #    self.ui.playFinSound.setText("Прослушать")
+        # else:
+        #     self.audioOutput = QAudioOutput()
+        #     self.player.setAudioOutput(self.audioOutput)
+        #     self.player.setSource(QUrl.fromLocalFile("../sound/finalsound.wav"))
+        #     self.ui.playFinSound.setText("Стоп")
+        #     self.player.play()
 
 
 
@@ -361,27 +364,29 @@ class MainWindow(QMainWindow):
         #         self.coda=self.finalSound.play()
     
     def delFinSound(self):
-        dialog = QMessageBox()
-        dialog.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel);
-        dialog.setWindowTitle("Внимание!")
-        dialog.setDefaultButton(QMessageBox.Cancel)
-        dialog.setButtonText(QMessageBox.Save, "Удалить звук финала")
-        dialog.setButtonText(QMessageBox.Cancel, "Не изменять")
-        dialog.setInformativeText("Вы действительно хотите удалить звук финала?")
-        dialog.setIcon(QMessageBox.Icon.Critical)
-        ok = dialog.exec()
-        if ok == QMessageBox.Save:
-            try:
-                shutil.copy2("../sound/mute.wav","../sound/finalsound.wav")
-            except:
-                print("апшипка mute")    
+        pass
+        # dialog = QMessageBox()
+        # dialog.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel);
+        # dialog.setWindowTitle("Внимание!")
+        # dialog.setDefaultButton(QMessageBox.Cancel)
+        # dialog.setButtonText(QMessageBox.Save, "Удалить звук финала")
+        # dialog.setButtonText(QMessageBox.Cancel, "Не изменять")
+        # dialog.setInformativeText("Вы действительно хотите удалить звук финала?")
+        # dialog.setIcon(QMessageBox.Icon.Critical)
+        # ok = dialog.exec()
+        # if ok == QMessageBox.Save:
+        #     try:
+        #         shutil.copy2("../sound/mute.wav","../sound/finalsound.wav")
+        #     except:
+        #         print("апшипка mute")    
         
     def addTeamLogo(self):
         rown = int(self.ui.listView_teams.currentIndex().row())
+        print (rown)
         if (rown==-1):
            QMessageBox.warning(self,"Внимание!","Не выбрана команда для изменения логотипа")
            return()   
-        rown+=1
+        #rown+=1
         #dialog = QFileDialog()
         #dialog.setDirectory("../img/logo")
         #dialog.exec()
@@ -476,8 +481,8 @@ class MainWindow(QMainWindow):
                 shutil.rmtree("../img")
             if os.path.isdir(dName + "/media"):
                 shutil.rmtree("../media")
-            if os.path.isdir(dName + "/sound"):
-                shutil.rmtree("../img")
+            # if os.path.isdir(dName + "/sound"):
+            #     shutil.rmtree("../img")
         except:
             print("нечего удалять")
         
@@ -485,8 +490,8 @@ class MainWindow(QMainWindow):
             shutil.copytree(dName+"/img","../img",  symlinks=False, ignore=None, ignore_dangling_symlinks=False, dirs_exist_ok=True)
             shutil.copytree(dName + "/media", "../media", symlinks=False, ignore=None, ignore_dangling_symlinks=False,
                             dirs_exist_ok=True)
-            shutil.copytree(dName + "/sound", "../sound", symlinks=False, ignore=None, ignore_dangling_symlinks=False,
-                            dirs_exist_ok=True)
+            # shutil.copytree(dName + "/sound", "../sound", symlinks=False, ignore=None, ignore_dangling_symlinks=False,
+            #                 dirs_exist_ok=True)
         except:
             print("нет копии")
         shutil.copyfile(dName+"/jep.sqlite","../jep.sqlite")
@@ -495,7 +500,12 @@ class MainWindow(QMainWindow):
         
 
     def saveGame(self):
-        fName =str(QInputDialog.getText(None, " Сохраняем игру", "Введите название ")[0])
+        fName =str(QInputDialog.getText(self, " Сохраняем игру", "Введите название ")[0])
+        if len(fName)<=0:
+            msbox=QMessageBox().warning(self,"Осторожно!!!","Не указано название игры, попробуйте еще раз") 
+            msbox.show()
+            return()
+
         try:
             shutil.rmtree("../games/"+fName)
         except:
@@ -512,11 +522,11 @@ class MainWindow(QMainWindow):
         except:
             print("media games")
 
-        try:
-            shutil.copytree("../sound", "../games/" + fName + "/sound", symlinks=False, ignore=None,
-                            ignore_dangling_symlinks=False, dirs_exist_ok=True)
-        except:
-            print("sound games")
+        # try:
+        #     shutil.copytree("../sound", "../games/" + fName + "/sound", symlinks=False, ignore=None,
+        #                     ignore_dangling_symlinks=False, dirs_exist_ok=True)
+        # except:
+        #     print("sound games")
 
         try:
             os.remove("../games/"+fName+"/jep.sqlite")
@@ -993,7 +1003,7 @@ class MainWindow(QMainWindow):
         rown = int(self.ui.listView_teams.currentIndex().row())
         rown += 1
         query=QSqlQuery()
-        query.exec("SELECT Logo FROM Teams WHERE Id="+str(rown)+";")
+        query.exec("SELECT Logo FROM Teams WHERE Id="+str(rown-1)+";")
         query.first()
         fileName=str(query.value(0))
         pixmap = QPixmap("../img/logo/" + fileName).scaled(
@@ -1151,6 +1161,19 @@ class newDialog(QDialog):
         self.ui.pushButton_Create.clicked.connect(self.create)
     
     def create(self):
+        #
+        try:
+            shutil.rmtree("../img")
+            shutil.rmtree("../media")
+        except:
+            print("невозможно удалить старые каталоги")
+
+        try:
+            os.mkdir("../img")
+            os.mkdir("../img/logo")
+            os.mkdir("../media")
+        except:
+            print("невозможно удалить старые каталоги")        
         #берем готовую эталонную бд и заменяем ею текущую
         try:
             try:
