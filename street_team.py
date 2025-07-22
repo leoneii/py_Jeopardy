@@ -36,7 +36,7 @@ class aStart():
         import simpleaudio as simple_audio
         name = ["", "", "", "", "", "", "", ""]
         logo = ["", "", "", "", "", "", "", ""]
-        tots = [0, 0, 0, 0, 0, 0]
+        tots = [0, 0, 0, 0, 0, 0, 0]
         lcnnxt = 30
 
 
