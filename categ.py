@@ -6,6 +6,7 @@ from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from PySide6.QtWidgets import ( QWidget, QPushButton)
 
 from widget import wnd
+from street_team import  Wint
 
 
 catname=["","","","","","","","","",""]
@@ -16,8 +17,9 @@ if not query.exec(
         """
 ):
         logging.error("Failed to query database18")
-query.next()
-ckols=int(query.value(0))
+else:
+    query.next()
+    ckols=int(query.value(0))
 
 query = QSqlQuery()
 if not query.exec(
@@ -63,9 +65,12 @@ class Category(QWidget):
         if gx > wd * 1.5 or gx < 150:
             smx *= -1
         gradient = QLinearGradient(QPoint(x, y), QPoint(gx, y + 300 + wd * 300 / gx))
-        gradient.setColorAt(0.0, QColor(0, 0, 50, 100))
-        gradient.setColorAt(0.3, QColor(0, 100, 255, 180))
-        gradient.setColorAt(1.0, QColor(0, 0, 255, 30))
+        # gradient.setColorAt(0.0, QColor(0, 0, 50, 100))
+        # gradient.setColorAt(0.3, QColor(0, 100, 255, 180))
+        # gradient.setColorAt(1.0, QColor(0, 0, 255, 30))
+        gradient.setColorAt(0.0, QColor(0, 0, 50, 170))
+        gradient.setColorAt(0.3, QColor(0, 100, 255, 250))
+        gradient.setColorAt(1.0, QColor(0, 0, 255, 100))
         painter.setBrush(gradient)
 
         pen = QPen()
@@ -76,11 +81,11 @@ class Category(QWidget):
 
     # закончили с фоном
 
-    def __init__(self,apt):
+    def __init__(self,  apt, parent = None):
         #опять глобальная apt
         # global appt
         # appt=apt
-        super().__init__()
+        super(Category, self).__init__(parent)
         QMetaObject.connectSlotsByName(self)
 #        geometry = apc.primaryScreen().availableGeometry()
         geometry = apt.primaryScreen().availableGeometry()
@@ -107,7 +112,7 @@ class Category(QWidget):
             hdb=(hd-50)/ckols
         hpos=((hd-50)-(hdb+5)*ckols)/2
 
-        shst="QPushButton { background-color: rgba(0,0,200,100); color: rgba(220,220,255,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font: Bold 38px} QPushButton::hover{background-color: #0077ff ;}"
+        shst="QPushButton { background-color: rgba(0,0,200,200); color: rgba(220,220,255,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font: Bold 38px} QPushButton::hover{background-color: #0077ff ;}"
 
         for i in range(ckols):
             self.cbut=QPushButton(self)
@@ -132,9 +137,16 @@ class Category(QWidget):
             logging.error("Failed to query database21")
         query.exec("select * from settings")
         query.first()
+        self.parent().updbutCHtext()
+        #self.parent().contin.setText(tnm)
         self.hide()
+
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
             self.hide()
 
+
+def getCatname(apt, parent): # Функция запуска этого класса, можно вызвать откуда угодно
+    CatForm = Category(apt,parent)
+    CatForm.showFullScreen()

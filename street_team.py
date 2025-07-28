@@ -31,6 +31,7 @@ class aStart():
         sqlDB.setDatabaseName("./jep.sqlite")
         sqlDB.open()
     #доимпорт
+
         from widget import wnd, cenv
         from categ import Category
         import simpleaudio as simple_audio
@@ -95,8 +96,7 @@ class aStart():
 
 class Wint(QWidget):
     global cnttxt, cntcode, ccat
-    
-    
+
     # рисуем анимацию фона
     global cenv
     if os.path.exists("disanim"):
@@ -129,6 +129,7 @@ class Wint(QWidget):
             painter.setPen(pen)
             painter.drawRect(x, y, wd, hd)
             # закончили с фоном
+
 
 
 
@@ -243,20 +244,10 @@ class Wint(QWidget):
                 if (querycatn.value(1) == cntname):
                     mascat[int(querycatn.value(0)) - 1].showFullScreen()
 
-        def chcat(self):
-            vcat = Category(apt)
-            vcat.showFullScreen()
-            updcnttxt(self)
 
-        def updcnttxt(self):
-            global cnttxt, cntname, lcnnxt
-            query = QSqlQuery()
-            if not query.exec("SELECT * FROM settings ;"):
-                logging.error("Failed to query database6")
-            query.first()
-            cnttxt = query.value(8)
-            lcnnxt = len(cnttxt)
-            cntname = str(query.value(8))
+        #запускаем функцию из класса categ
+        def chcat():
+            getCatname(apt,self)
 
 
         for i in range(tkol):
@@ -340,18 +331,7 @@ class Wint(QWidget):
             int(hgt / 15)) + "px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }"
         self.catch.setStyleSheet(shst)
         self.catch.clicked.connect(chcat)
-        updcnttxt(self)
-        
-        if ccat > 1:
-            self.catch.show()
-        else:
-            self.catch.setVisible(False)
-            query=QSqlQuery()
-            query.exec("SELECT Catname FROM ThemeAndQ")
-            query.first()
-            cattxt=str(query.value(0))
-            query1 = QSqlQuery()
-            query1.exec("UPDATE settings SET curCatName= '"+cattxt+"' ;")
+
 
         self.contin = QPushButton(self)
         self.contin.setGeometry((wdt - 25) / 2+10, mainlogoh + hgt - hgt / 15 - 10, (wdt - 25) / 2, hgt / 15+5)
@@ -361,8 +341,29 @@ class Wint(QWidget):
             fs) + "px; border: 1px solid rgba(200,200,255,180);border-top-right-radius: 160px " + str(
             int(hgt / 15)) + "px; border-bottom-left-radius: 120px 50px} QPushButton::hover{background-color: #0077ff ;} QPushButton::pressed {background-color: rgba(224, 255, 255, 195); color: rgba(0,0,255,255) }")
         self.contin.clicked.connect(cntn)
+        if ccat > 1:
+            self.catch.show()
+        else:
+            self.catch.setVisible(False)
+            query1 = QSqlQuery()
+            if not query1.exec(
+                    "UPDATE settings SET curCatName = 'К вопросам' ;"):
+                logging.error("Failed to query database16")
         self.contin.show()
+        self.updbutCHtext() #заполняем текст кнопки
 
+
+    #Новая, правильная функция заполнения текста кнопки НЕ В INIT
+    def updbutCHtext(self):
+        global cnttxt, cntname, lcnnxt
+        query = QSqlQuery()
+        if not query.exec("SELECT * FROM settings ;"):
+            logging.error("Failed to query database6")
+        query.first()
+        cntname = str(query.value(8))
+        cnttxt = cntname
+        #lcnnxt = len(cntname)
+        self.contin.setText(cntname)
 
     def sumf(self):
         # считываем цену вопроса из tmpDat settings
@@ -468,6 +469,7 @@ if __name__ == "__main__":
     splash.setPixmap(QPixmap("./resourses/logo/psplash.png"))
     splash.show()
     a = aStart()
+    from categ import getCatname
     wnt = Wint(tkolt)
 
     splash.finish(wnt)
