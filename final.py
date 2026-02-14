@@ -183,7 +183,9 @@ class FinalWind(QWidget):
                 s.setGeometry(self.x + tmw * .1, self.y, tmw * .8, tmh * .8)
         if self.tick == 25125:
             self.tmrsh.start(40)
-            self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, self.hgt * .1 + 100, 2 * self.wdt / 3,
+            # self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, self.hgt * .1 + 100, 2 * self.wdt / 3,
+            #                          self.hgt * .9 - 100)
+            self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, self.hgt * .03 + 10, 2 * self.wdt / 3,
                                      self.hgt * .9 - 100)
             self.nameLab.setVisible(True)
 
