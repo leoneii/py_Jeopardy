@@ -1,0 +1,152 @@
+import logging
+
+from PySide6.QtCore import (QTimer, Qt, QPoint, QMetaObject)
+from PySide6.QtGui import (QColor, QMouseEvent, QFont, QPalette, QPainter, QPen, QLinearGradient)
+from PySide6.QtSql import QSqlDatabase, QSqlQuery
+from PySide6.QtWidgets import ( QWidget, QPushButton)
+
+from widget import wnd
+from street_team import  Wint
+
+
+catname=["","","","","","","","","",""]
+query = QSqlQuery()
+if not query.exec(
+        """
+            SELECT COUNT(*) FROM Category;
+        """
+):
+        logging.error("Failed to query database18")
+else:
+    query.next()
+    ckols=int(query.value(0))
+
+query = QSqlQuery()
+if not query.exec(
+        """
+            SELECT * FROM Category;
+        """
+):
+        logging.error("Failed to query database19")
+query.first()
+for i in range(ckols):
+
+    catname[i]=str(query.value(1))
+    if len(catname[i])>19:
+        txt=catname[i]
+        n=txt[19:].find(" ")
+        if n>0:
+            txt=txt[0:19+n]+"\n"+txt[19+n+1:]
+            catname[i]=txt
+
+    query.next()
+
+blc=80
+shag=1
+smx=5
+gx=200
+
+global tnm
+
+#конец блока переменных
+class Category(QWidget):
+    # рисуем анимацию фона
+
+    def paintEvent(self, event):
+        global smx
+        global gx
+        painter = QPainter(self)
+      #  painter.begin(self)
+        x = 0
+        y = 0
+        wd = self.size().width()
+        hd = self.size().height()
+        gx += smx
+        if gx > wd * 1.5 or gx < 150:
+            smx *= -1
+        gradient = QLinearGradient(QPoint(x, y), QPoint(gx, y + 300 + wd * 300 / gx))
+        # gradient.setColorAt(0.0, QColor(0, 0, 50, 100))
+        # gradient.setColorAt(0.3, QColor(0, 100, 255, 180))
+        # gradient.setColorAt(1.0, QColor(0, 0, 255, 30))
+        gradient.setColorAt(0.0, QColor(0, 0, 50, 170))
+        gradient.setColorAt(0.3, QColor(0, 100, 255, 250))
+        gradient.setColorAt(1.0, QColor(0, 0, 255, 100))
+        painter.setBrush(gradient)
+
+        pen = QPen()
+        pen.setWidth(1)
+        pen.setColor(QColor(0, 0, 50, 10))
+        painter.setPen(pen)
+        painter.drawRect(x, y, wd, hd)
+
+    # закончили с фоном
+
+    def __init__(self,  apt, parent = None):
+        #опять глобальная apt
+        # global appt
+        # appt=apt
+        super(Category, self).__init__(parent)
+        QMetaObject.connectSlotsByName(self)
+#        geometry = apc.primaryScreen().availableGeometry()
+        geometry = apt.primaryScreen().availableGeometry()
+        self.setGeometry(geometry)
+
+#Анимация фона        
+        def scrupd():
+            global blc, shag
+            blc+=shag
+            if blc>=254 or blc<=50:
+                shag*= -1
+            self.sth="background-color: rgba(0,0,"+str(blc)+",255); color: #ddFFaa;"
+            self.setStyleSheet(self.sth)
+
+        self.tmr = QTimer()  # 4
+        self.tmr.timeout.connect(scrupd)
+        self.tmr.start(40)        
+#конец анимации фона
+        wd = self.size().width()-20
+        hd = self.size().height()-20
+        wdb=wd/4
+        hdb=(hd-50)/6
+        if ckols>6:
+            hdb=(hd-50)/ckols
+        hpos=((hd-50)-(hdb+5)*ckols)/2
+
+        shst="QPushButton { background-color: rgba(0,0,200,200); color: rgba(220,220,255,255); text-align:center center; background-position: bottom center; border: 2px solid rgb(160, 180, 250); border-radius: 12px; font: Bold 38px} QPushButton::hover{background-color: #0077ff ;}"
+
+        for i in range(ckols):
+            self.cbut=QPushButton(self)
+            self.cbut.setText(catname[i])
+            self.cbut.setGeometry(wdb,hpos+(hdb+5)*i+35,wdb*2,hdb)
+            self.cbut.setObjectName(catname[i])
+            self.cbut.setStyleSheet(shst)
+            self.cbut.clicked.connect(self.catchois)
+            self.cbut.show()
+    def catchois(self):
+        global tnm
+        snd = self.sender()
+        catn=snd.objectName()
+        query = QSqlQuery()
+        if not query.exec("SELECT * FROM Category WHERE catname='"+ catn +"';"):
+            logging.error("Failed to query database20")
+        query.first()
+        tnm=str(query.value(1))
+        #tnn=str(query.value(0))
+        query = QSqlQuery()
+        if not query.exec("UPDATE settings set curCatName ='"+tnm+"';"):
+            logging.error("Failed to query database21")
+        query.exec("select * from settings")
+        query.first()
+        self.parent().updbutCHtext()
+        #self.parent().contin.setText(tnm)
+        self.hide()
+
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Escape:
+            self.hide()
+
+
+def getCatname(apt, parent): # Функция запуска этого класса, можно вызвать откуда угодно
+    CatForm = Category(apt,parent)
+    CatForm.showFullScreen()
