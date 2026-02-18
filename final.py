@@ -86,7 +86,8 @@ class FinalWind(QWidget):
 
         tlab = QLabel(self)
         tlab.setText(textPob)
-        tlab.setGeometry(self.wdt / 2 - 275, self.hgt * .1, 560, 100)
+        #geometry текста "побдила"
+        tlab.setGeometry(self.wdt / 2 - 275, self.hgt * .05, 560, 100)
         tlab.setAlignment(
             Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter
         )
@@ -110,7 +111,7 @@ class FinalWind(QWidget):
         )
         self.nameLab.setWordWrap(True)
         # self.nameLab.setGeometry(self.wdt / 2 -self.wdt / 3 , self.hgt *.1+100, 2*self.wdt / 3, self.hgt*.9-100)
-        self.nameLab.setGeometry(0, 0, 3, 3)
+        # self.nameLab.setGeometry(0, 0, 3, 3)
         # self.nameLab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba(0,0,0,255); font: bold "+str(self.fs)+"px")
         self.nameLab.setGraphicsEffect(self.shadow)
         self.nameLab.setVisible(False)
@@ -185,8 +186,11 @@ class FinalWind(QWidget):
             self.tmrsh.start(40)
             # self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, self.hgt * .1 + 100, 2 * self.wdt / 3,
             #                          self.hgt * .9 - 100)
-            self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, self.hgt * .03 + 10, 2 * self.wdt / 3,
+            self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, (self.hgt * .01) - 30, 2 * self.wdt / 3,
                                      self.hgt * .9 - 100)
+
+            #self.nameLab.setGeometry(100,100,300,300)
+            print((self.hgt * .01) + 10)
             self.nameLab.setVisible(True)
 
         self.k = 0
