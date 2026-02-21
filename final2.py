@@ -72,7 +72,7 @@ class FinalWind(QWidget):
         textName = ""
         if wincount == 1:
             textPob = "Побеждает"
-            textName = '"' + query.value(0) + '"' + "\n"
+            textName = query.value(0)
         else:
             textPob = "Побеждают"
             k = 0
@@ -84,11 +84,11 @@ class FinalWind(QWidget):
                 textName = textName + '"' + ktext + '"\n'
                 query.next()
 
-        tlab = QLabel(self)
-        tlab.setText(textPob)
+        self.tlab = QLabel(self)
+        self.tlab.setText(textPob)
         #geometry текста "побдила"
-        tlab.setGeometry(self.wdt / 2 - 275, self.hgt * .05, 560, 100)
-        tlab.setAlignment(
+        self.tlab.setGeometry(self.wdt / 2 - 275, self.hgt * .05, 560, 100)
+        self.tlab.setAlignment(
             Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter
         )
         # tlab.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -98,10 +98,9 @@ class FinalWind(QWidget):
         # tlab.setGraphicsEffect(shadow)
 
         self.shadow1 = QGraphicsDropShadowEffect(
-            self, blurRadius=15, offset=0, color=QColor(25, 45, 60, 255)
-        )
-        tlab.setGraphicsEffect(self.shadow1)
-        tlab.setStyleSheet(
+            self, blurRadius=15, offset=0, color=QColor(25, 45, 60, 255)       )
+        self.tlab.setGraphicsEffect(self.shadow1)
+        self.tlab.setStyleSheet(
             "border: none; background-color: rgba(224, 255, 255, 0); color: rgba(250,200,90,255); font: bold 90px")
         self.nameLab = QLabel(self)
         self.nameLab.setText(textName)
@@ -184,14 +183,16 @@ class FinalWind(QWidget):
                 s.setGeometry(self.x + tmw * .1, self.y, tmw * .8, tmh * .8)
         if self.tick == 25125:
             self.tmrsh.start(40)
-            # self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, self.hgt * .1 + 100, 2 * self.wdt / 3,
-            #                          self.hgt * .9 - 100)
-            self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, (self.hgt * .01) - 30, 2 * self.wdt / 3,
-                                     self.hgt * .9 - 100)
+            self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, (self.hgt * .001) , 2 * self.wdt / 3, self.hgt * .9 - 100)
+            #self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, (self.hgt * .01) - 30, 2 * self.wdt / 3,
+            #                         self.hgt * .9 - 100)
 
             #self.nameLab.setGeometry(100,100,300,300)
-            print((self.hgt * .01) + 10)
+            
             self.nameLab.setVisible(True)
+            self.tlab.setVisible(False)
+            
+            
 
         self.k = 0
         if self.tick > 25052:
@@ -275,18 +276,18 @@ class FinalWind(QWidget):
             self.theEnd()
             # self.close()
 
-if __name__ == "__main__":
-    global gwidth,gheight,kfont
-    apt = QApplication([])
-    (gwidth, gheight) = apt.screens()[0].size().toTuple()
-    kfont=gwidth/1920
-    # pyside6 splash screen
+# if __name__ == "__main__":
+#     global gwidth,gheight,kfont
+#     apt = QApplication([])
+#     (gwidth, gheight) = apt.screens()[0].size().toTuple()
+#     kfont=gwidth/1920
+#     # pyside6 splash screen
 
-   # from categ import getCatname
-    wnt = FinalWind(apt)
-    wnt.showFullScreen()
+#    # from categ import getCatname
+#     wnt = FinalWind(apt)
+#     wnt.showFullScreen()
 
-    sys.exit(apt.exec())
-    sqlDB.close()
-    sqlDB.removeDatabase('QSQLITE')
-    sqlDB.removeDatabase('jep.sqlite')
+#     sys.exit(apt.exec())
+#     sqlDB.close()
+#     sqlDB.removeDatabase('QSQLITE')
+#     sqlDB.removeDatabase('jep.sqlite')
