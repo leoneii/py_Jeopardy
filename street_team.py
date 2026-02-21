@@ -17,7 +17,7 @@ from PySide6.QtGui import QPixmap
 #
 #from widget import wnd, cenv
 
-from final import FinalWind
+from final2 import FinalWind
 
 
 global apt
