@@ -72,11 +72,11 @@ class FinalWind(QWidget):
         textName = ""
         if wincount == 1:
             textPob = "Побеждает"
-            textName = query.value(0)
+            textName = '"'+query.value(0)+'"'
         else:
             textPob = "Побеждают"
             k = 0
-            # textName+="\n"
+            textName+='"'
             while k < wincount:
                 k += 1
                 self.fs -= 7
@@ -87,7 +87,7 @@ class FinalWind(QWidget):
         self.tlab = QLabel(self)
         self.tlab.setText(textPob)
         #geometry текста "побдила"
-        self.tlab.setGeometry(self.wdt / 2 - 275, self.hgt * .05, 560, 100)
+        self.tlab.setGeometry(self.wdt / 2 - 275, self.hgt * .15, 560, 100)
         self.tlab.setAlignment(
             Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter
         )
@@ -104,12 +104,14 @@ class FinalWind(QWidget):
             "border: none; background-color: rgba(224, 255, 255, 0); color: rgba(250,200,90,255); font: bold 90px")
         self.nameLab = QLabel(self)
         self.nameLab.setText(textName)
-        # nameLab.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        # self.nameLab.setAlignment(
+        #      Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter
+        # )
         self.nameLab.setAlignment(
-            Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter
+             Qt.AlignmentFlag.AlignHCenter
         )
         self.nameLab.setWordWrap(True)
-        # self.nameLab.setGeometry(self.wdt / 2 -self.wdt / 3 , self.hgt *.1+100, 2*self.wdt / 3, self.hgt*.9-100)
+        self.nameLab.setGeometry(self.wdt / 2 -self.wdt / 3 , self.hgt *.1+100, 2*self.wdt / 3, self.hgt*.9-100)
         # self.nameLab.setGeometry(0, 0, 3, 3)
         # self.nameLab.setStyleSheet("background-color: rgba(224, 255, 255, 0); color: rgba(0,0,0,255); font: bold "+str(self.fs)+"px")
         self.nameLab.setGraphicsEffect(self.shadow)
@@ -181,17 +183,67 @@ class FinalWind(QWidget):
                 self.x = int(s.pos().x())
                 self.y = int(s.pos().y())
                 s.setGeometry(self.x + tmw * .1, self.y, tmw * .8, tmh * .8)
-        if self.tick == 25125:
+    
+    
+        if self.tick >= 25120 and self.tick <= 25129:
+                   #Искры перед сменой текста
+                   
+                    
+                    for s in spr:
+                       
+                        tmw = s.size().width()
+                        tmh = s.size().height()
+                        self.x = int(s.pos().x())
+                        self.y = int(s.pos().y())
+                        dx = random.randint(-25, 25)
+                        self.x += dx
+                        dy = random.randint(-1, 1)
+                        self.y += dy
+                        
+                        self.x = self.wdt/2 + random.randint(-380, 380)
+                        self.y=200+random.randint(-80,80)
+                        s.setGeometry(self.x, self.y, tmw, tmh)
+                            
+    
+       
+        if self.tick == 25130:
             self.tmrsh.start(40)
-            self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, (self.hgt * .001) , 2 * self.wdt / 3, self.hgt * .9 - 100)
-            #self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, (self.hgt * .01) - 30, 2 * self.wdt / 3,
-            #                         self.hgt * .9 - 100)
-
-            #self.nameLab.setGeometry(100,100,300,300)
-            
+            self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, self.hgt * .1 , 2 * self.wdt / 3, self.hgt * .9 - 100) 
             self.nameLab.setVisible(True)
             self.tlab.setVisible(False)
             
+            #Искры от смены текста
+            for s in spr:
+                tmw = s.size().width()
+                tmh = s.size().height()
+                self.x = int(s.pos().x())
+                self.y = int(s.pos().y())
+                dx = random.randint(-25, 25)
+                self.x += dx
+                dy = random.randint(-1, 1)
+                self.y += dy
+                
+                self.x = self.wdt/2 + random.randint(-350, 350)
+                self.y=200+random.randint(-100,100)
+                s.setGeometry(self.x, self.y, tmw, tmh)
+                
+        if self.tick >= 25131 and self.tick <= 25136:
+            #Искры после смены текста
+            for s in spr:
+                tmw = s.size().width()
+                tmh = s.size().height()
+                self.x = int(s.pos().x())
+                self.y = int(s.pos().y())
+                dx = random.randint(-25, 25)
+                self.x += dx
+                dy = random.randint(-1, 1)
+                self.y += dy
+                
+                self.x = self.wdt/2 + random.randint(-500, 500)
+                self.y=200+random.randint(-100,100)
+                s.setGeometry(self.x, self.y, tmw, tmh)
+                    
+        
             
 
         self.k = 0
