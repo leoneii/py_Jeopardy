@@ -269,13 +269,15 @@ class FinalWind(QWidget):
 
                     if self.x <= self.wdt / 2:
                         # коэффициенты попраки на расширение экрана
-                        kx=1920/self.wdt
-                        ky=1080/self.hgt
+                        kx=self.wdt/1920
+                        ky=self.hgt/1080
+                        #kx=1
+                        #ky=1
 
                         self.x = 50 + random.randint(-10, 10)
                         if self.tick<25085:
-                            self.dvy = -0.033*ky*self.hgt+random.randint(-2, 2)                           
-                            self.dvx = 0.007*kx*self.wdt+random.randint(-3, 3)
+                            self.dvy = -35*ky+random.randint(-2, 2)                           
+                            self.dvx = 12*kx+random.randint(-3, 3)
                         elif self.tick>=251085 and self.tick<25140:
                             self.dvy=0
                             
@@ -286,12 +288,12 @@ class FinalWind(QWidget):
                         vx[self.k] = self.dvx
                     else:
                         # коэффициенты попраки на расширение экрана
-                        kx=1920/self.wdt
-                        ky=1080/self.hgt
+                        kx=self.wdt/1920
+                        ky=self.hgt/1080
                         self.x = self.wdt - 50 + 20 * random.random() - 10
                         if self.tick<25085:
-                            self.dvy = -0.033*ky*self.hgt+random.randint(-2, 2)
-                            self.dvx = -0.007*kx*self.wdt+random.randint(-3, 3)
+                            self.dvy = -35*ky+random.randint(-2, 2)
+                            self.dvx = -12*kx+random.randint(-3, 3)
                         elif self.tick>=25085 and self.tick<25140:
                             self.dvy=0
                         else:
