@@ -184,8 +184,9 @@ class FinalWind(QWidget):
                 self.y = int(s.pos().y())
                 s.setGeometry(self.x + tmw * .1, self.y, tmw * .8, tmh * .8)
     
-    
-        if self.tick >= 25120 and self.tick <= 25129:
+        
+                
+        if self.tick >= 25130 and self.tick <= 25139:
                    #Искры перед сменой текста
                    
                     
@@ -206,13 +207,13 @@ class FinalWind(QWidget):
                             
     
        
-        if self.tick == 25130:
+        if self.tick == 25140:
             self.tmrsh.start(40)
             self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, self.hgt * .1 , 2 * self.wdt / 3, self.hgt * .9 - 100) 
             self.nameLab.setVisible(True)
             self.tlab.setVisible(False)
             
-            #Искры от смены текста
+            #Искры при смене текста
             for s in spr:
                 tmw = s.size().width()
                 tmh = s.size().height()
@@ -227,7 +228,7 @@ class FinalWind(QWidget):
                 self.y=200+random.randint(-100,100)
                 s.setGeometry(self.x, self.y, tmw, tmh)
                 
-        if self.tick >= 25131 and self.tick <= 25136:
+        if self.tick >= 25141 and self.tick <= 25146:
             #Искры после смены текста
             for s in spr:
                 tmw = s.size().width()
@@ -267,16 +268,38 @@ class FinalWind(QWidget):
                     s.setStyleSheet("background-color: " + tmcol + "; border-radius: " + str(spd[self.k] / 2) + ";")
 
                     if self.x <= self.wdt / 2:
+                        # коэффициенты попраки на расширение экрана
+                        kx=1920/self.wdt
+                        ky=1080/self.hgt
+
                         self.x = 50 + random.randint(-10, 10)
-                        self.dvy = -25 * random.random() - 15
-                        vy[self.k] = self.dvy
-                        self.dvx = random.random() * 6 - 2
+                        if self.tick<25085:
+                            self.dvy = -0.033*ky*self.hgt+random.randint(-2, 2)                           
+                            self.dvx = 0.007*kx*self.wdt+random.randint(-3, 3)
+                        elif self.tick>=251085 and self.tick<25140:
+                            self.dvy=0
+                            
+                        else:
+                            self.dvy = -26 *ky* random.random() - 15
+                            self.dvx = kx*random.random() * 6 - 2
+                        vy[self.k] = self.dvy                       
                         vx[self.k] = self.dvx
                     else:
+                        # коэффициенты попраки на расширение экрана
+                        kx=1920/self.wdt
+                        ky=1080/self.hgt
                         self.x = self.wdt - 50 + 20 * random.random() - 10
-                        self.dvy = -25* random.random() - 15
+                        if self.tick<25085:
+                            self.dvy = -0.033*ky*self.hgt+random.randint(-2, 2)
+                            self.dvx = -0.007*kx*self.wdt+random.randint(-3, 3)
+                        elif self.tick>=25085 and self.tick<25140:
+                            self.dvy=0
+                        else:
+                            self.dvy = -26 * ky*random.random() - 15
+                            self.dvx = kx*random.random() * 6 - 2
                         vy[self.k] = self.dvy
-                        self.dvx = random.random() * 6 - 3
+                        
+                        #self.dvx = random.random() * 6 - 3
                         vx[self.k] = self.dvx
 
 
