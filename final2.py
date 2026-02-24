@@ -104,12 +104,7 @@ class FinalWind(QWidget):
             "border: none; background-color: rgba(224, 255, 255, 0); color: rgba(250,200,90,255); font: bold 90px")
         self.nameLab = QLabel(self)
         self.nameLab.setText(textName)
-        # self.nameLab.setAlignment(
-        #      Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter
-        # )
-        self.nameLab.setAlignment(
-             Qt.AlignmentFlag.AlignHCenter
-        )
+        self.nameLab.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
         self.nameLab.setWordWrap(True)
         self.nameLab.setGeometry(self.wdt / 2 -self.wdt / 3 , self.hgt *.1+100, 2*self.wdt / 3, self.hgt*.9-100)
         # self.nameLab.setGeometry(0, 0, 3, 3)
@@ -209,7 +204,7 @@ class FinalWind(QWidget):
        
         if self.tick == 25140:
             self.tmrsh.start(40)
-            self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, self.hgt * .1 , 2 * self.wdt / 3, self.hgt * .9 - 100) 
+            self.nameLab.setGeometry(self.wdt / 2 - self.wdt / 3, self.hgt * .11 , 2 * self.wdt / 3, self.hgt * .9 - 100) 
             self.nameLab.setVisible(True)
             self.tlab.setVisible(False)
             
